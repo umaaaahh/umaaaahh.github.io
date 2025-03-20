@@ -1,0 +1,75 @@
+body {
+  background-color: rgb(62, 108, 82);
+  font-size: 1.1rem;
+}
+h1 {
+  color: red;
+  font-size: 3rem;
+  text-transform: uppercase;
+  font-family: "Tektur", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+h2 {
+  color: green;
+  font-weight: bold;
+}
+h3 {
+  color: red;
+  font-family: "Lato", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+li {
+  color: black;
+}
+
+p {
+  color: black;
+  font-size: 1rem;
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.blue-color {
+  color: blue;
+}
+#outcome {
+  color: yellowgreen;
+  border: 4px dashed brown;
+}
+section {
+  text-align: center;
+  border: 1px solid red;
+}
+
+/* 
+    curly braces { } - grouping
+    square brackets [ ] - javascript 
+    round brackets ( ) - javascript
+    parantheses < > - html
+    semicolon ; - to end a line
+    colon : -property of declaration
+    hyphen - - connect to words
+    syntax - rules of language 
+    dot . - in css = class
+    hash # - in css = ID
+/* 
+
+/* 
+    in css you do mostly element based styling or class based styling, in rare occasions you may do ID but mostly ID link to JS
+*/
+
+/* 
+    Cascade - css will read the rules written further down as priority over the previous e.g. if i write 2 * h1 {} rules, then the second one written which is lower on the document will take presidence.  
+    Specificty - acts as a ranking system and takes precedence eg a class (*) will take presidence over an element
+
+    Specificity Rank
+    * universal selector = 0
+    element = 1
+    class, psuedo class or attribute = 10
+    ID = 100
+    Style attribute = 1000
+*/
