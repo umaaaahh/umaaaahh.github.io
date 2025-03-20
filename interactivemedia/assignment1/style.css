@@ -1,10 +1,28 @@
 body {
-  background-color: rgb(62, 108, 82);
   font-size: 1.1rem;
+  /* sourced from https://stackoverflow.com/questions/21590343/how-to-display-a-gif-fullscreen-for-a-webpage-background*/
+  /* Instead of keeping this full screen I want to have it for just the title */
+  background-image: url('https://ucarecdn.com/c11586fa-d365-45ea-bc5a-68f0022923df/');
+    background-size: cover;
+    padding:0;
+    margin:0;
+    display: flex;
+}
+
+.titlebox{
+
+  background-color: rgba(0, 0, 0, 0.459);
+  /* BOX MODEL */
+  /* Source: https://www.youtube.com/watch?v=nSst4-WbEZk */
+  width: 1000px;
+  height: 600px;
+  padding: 32px; 
+  margin: 20px;
 }
 h1 {
-  color: red;
-  font-size: 3rem;
+  color: white;
+  font-size: 7rem;
+  font-weight: bold;
   text-transform: uppercase;
   font-family: "Tektur", sans-serif;
   font-optical-sizing: auto;
@@ -13,21 +31,27 @@ h1 {
   font-variation-settings: "wdth" 100;
 }
 h2 {
-  color: green;
-  font-weight: bold;
+  color: grey;
+  font-size: 2rem;
+  text-transform: uppercase;
+  font-family: "Tektur", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
 }
 h3 {
-  color: red;
+  color: whitesmoke(109, 102, 218);
   font-family: "Lato", sans-serif;
-  font-weight: 700;
+  font-weight: 800;
   font-style: normal;
 }
 li {
-  color: black;
+  color: whitesmoke;
 }
 
 p {
-  color: black;
+  color: whitesmoke;
   font-size: 1rem;
   font-family: "Lato", sans-serif;
   font-weight: 400;
@@ -44,6 +68,7 @@ section {
   text-align: center;
   border: 1px solid red;
 }
+/* not pushing why? */
 
 /* 
     curly braces { } - grouping
