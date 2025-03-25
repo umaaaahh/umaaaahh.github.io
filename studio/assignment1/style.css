@@ -9,7 +9,6 @@ LIST OF SHIT TO FIX
 
 CONTENT ISSUES
 - NOVEL FEATURES SECTIONS REWRITE NEEDED
-- 
 
 THINGS I COULD ADD
 - TREE VIEW ON DOT POINT SECTIONS
@@ -51,7 +50,6 @@ THINGS I COULD ADD
    VARIABLES & ROOT
 ------------------ */
 :root {
-  /* Color */
   --surface: #c0c0c0;
   --button-highlight: #ffffff;
   --button-face: #dfdfdf;
@@ -65,7 +63,6 @@ THINGS I COULD ADD
   --clr-dark: #000000;
   --clr-light: #e0e0e0;
 
-  /* Borders */
   --border-raised-outer: inset -1px -1px var(--window-frame),
     inset 1px 1px var(--button-highlight);
   --border-raised-inner: inset -2px -2px var(--button-shadow),
@@ -78,6 +75,11 @@ THINGS I COULD ADD
     inset 1px 1px var(--button-face);
   --border-window-inner: inset -2px -2px var(--button-shadow),
     inset 2px 2px var(--button-highlight);
+
+  --border-field: inset -1px -1px var(--button-highlight),
+    inset 1px 1px var(--button-shadow),
+    inset -2px -2px var(--button-face),
+    inset 2px 2px var(--window-frame);
 }
 
 /* ------------------
@@ -145,12 +147,19 @@ body {
 }
 
 .title-text h2 {
-  font-size: 2rem;
+  font-size: rem;
   margin: 0;
 }
 
 .title-text p {
   margin-top: 10px;
+}
+
+.gif-bar .studio p {
+  font-size: 16px !important;
+  line-height: 1.2 !important;
+  margin: 2px 0 !important;
+  font-weight: bold;
 }
 
 /* ------------------
@@ -161,21 +170,32 @@ body {
   background: var(--surface);
   padding: 3px 10px;
   width: 800px;
-  max-width: 90vw; /* Responsive cap */
+  max-width: 90vw;
 }
-
-/* GIF SETTINGS */
 
 .gif-bar {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
-  gap: 10px;
-  padding: 5px 10px;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 10px 30px;
+  text-align: center;
 }
 
 .gif-bar img {
-  height: px;
+  height: auto;
+  image-rendering: pixelated;
+}
+
+.gif-bar .studio {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "Pixelated MS Sans Serif", Arial;
+  font-size: 13px;
+  line-height: 1.2;
+  padding-bottom: 10px;
 }
 
 .flipped {
@@ -183,11 +203,7 @@ body {
 }
 
 .title-bar {
-  background: linear-gradient(
-    90deg,
-    var(--dialog-blue),
-    var(--dialog-blue-light)
-  );
+  background: linear-gradient(90deg, var(--dialog-blue), var(--dialog-blue-light));
   padding: 3px;
   display: flex;
   justify-content: space-between;
@@ -200,6 +216,8 @@ body {
   letter-spacing: 0;
   margin-right: 24px;
 }
+
+
 
 .status-bar {
   margin: 0 1px;
@@ -216,57 +234,36 @@ body {
 
 .window-body {
   margin: 10px 0;
-  /* margin-bottom: 100px; */
   zoom: 1.25;
   line-height: 1.5;
-  background: var(--button-highlight); /* white background */
+  background: var(--button-highlight);
   box-shadow: var(--border-field);
   position: relative;
-  padding: 5px;
-  max-height: 450px;
-  overflow-y: auto;
-  background: var(--button-highlight);
   padding: 8px;
-  box-shadow: var(--border-field);
+  max-height: none; /* or increase to 600px */
+  overflow-y: visible;
 }
 
 /* ------------------
    TYPOGRAPHY
 ------------------ */
-h1,
-h2,
-h3,
-h4 {
+h1, h2, h3, h4 {
   font-family: "Pixelated MS Sans Serif", Arial;
   margin: 5px 0;
 }
 
-h1 {
-  font-size: 3rem;
-}
+h1 { font-size: 3rem; }
+h2 { font-size: 2.2rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.3rem; }
 
-h2 {
-  font-size: 2.2rem;
-}
-
-h3 {
-  font-size: 1.6rem;
-}
-
-h4 {
-  font-size: 1.3rem;
-}
-
-p,
-li {
-  /* font-size: 1rem; 16px */
+p, li {
   font-family: "PixelMix", monospace;
   font-size: 11px;
   line-height: 1.5;
 }
 
-p strong,
-li strong {
+p strong, li strong {
   font-family: "Pixelated MS Sans Serif", Arial;
   font-weight: bold;
   font-size: 12px;
@@ -302,12 +299,8 @@ u {
 }
 
 /* ------------------
-   TREE VIEW
------------------- */
-/* ------------------
    TREE VIEW STYLING
 ------------------ */
-
 ul.tree-view {
   display: block;
   background: var(--button-highlight);
@@ -321,7 +314,6 @@ ul.tree-view li {
   margin-top: 3px;
 }
 
-/* Nested UL inside the tree for branches */
 ul.tree-view ul {
   margin-left: 16px;
   padding-left: 16px;
@@ -332,7 +324,6 @@ ul.tree-view ul > li {
   position: relative;
 }
 
-/* Horizontal dotted line connector */
 ul.tree-view ul > li::before {
   content: "";
   display: block;
@@ -343,7 +334,6 @@ ul.tree-view ul > li::before {
   border-bottom: 1px dotted #808080;
 }
 
-/* Hides the end of the dotted line on last child */
 ul.tree-view ul > li:last-child::after {
   content: "";
   display: block;
@@ -355,7 +345,6 @@ ul.tree-view ul > li:last-child::after {
   background: var(--button-highlight);
 }
 
-/* Collapsible Details Tree Toggle Icons */
 ul.tree-view details {
   margin-top: 0;
 }
@@ -364,7 +353,6 @@ ul.tree-view details[open] summary {
   margin-bottom: 0;
 }
 
-/* +/- icon box */
 ul.tree-view details > summary:before {
   text-align: center;
   display: block;
@@ -379,18 +367,52 @@ ul.tree-view details > summary:before {
   background-color: #fff;
 }
 
-/* Changes + to - when opened */
 ul.tree-view details[open] > summary:before {
   content: "-";
 }
 
-/* Hide default browser triangle */
 ul.tree-view details > summary::marker,
 ul.tree-view details > summary::-webkit-details-marker {
   content: "";
 }
 
-/* Focus ring for accessibility */
 ul.tree-view summary:focus {
   outline: 1px dotted #000000;
+}
+
+/* ------------------
+   ITEM4 SPLIT LAYOUT
+------------------ */
+.split-layout {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.tree-column {
+  flex: 1 1 55%;
+  min-width: 300px;
+}
+
+.image-column {
+  flex: 1 1 50%;
+  max-width: 350px; /* You can adjust this */
+  box-sizing: border-box;
+}
+
+.image-column img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 1px solid black;
+}
+
+.tree-column .tree-view {
+  width: 100%;
+  box-sizing: border-box;
+  display: block;
+  max-width: 100%;
+  flex-grow: 1;
 }
