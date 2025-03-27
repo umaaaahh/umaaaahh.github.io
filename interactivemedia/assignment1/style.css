@@ -4,10 +4,20 @@ body {
   /* Instead of keeping this full screen I want to have it for just the title */
   margin: 50px;
 }
+
+.box{
+  background-color: rgba(0, 0, 0, 0.459);
+  /* BOX MODEL */
+  /* Source: https://www.youtube.com/watch?v=nSst4-WbEZk */
+  width: 1000px;
+  height: 600px;
+  padding: 32px; 
+  margin: 20px;
+}
+
 /* YOUTUBE TUT ON HOW TO INSERT A LINK TO A SPECIFIC PART OF THE PAGE: https://www.youtube.com/watch?v=xHFzQ8QRjGU */
 .titlebox{
-
-  background-color: rgba(0, 0, 0, 0.459);
+  /* background-color: rgba(0, 0, 0, 0.459); */
   /* BOX MODEL */
   /* Source: https://www.youtube.com/watch?v=nSst4-WbEZk */
   background-image: url('https://ucarecdn.com/c11586fa-d365-45ea-bc5a-68f0022923df/');
@@ -20,15 +30,7 @@ body {
   margin: 20px;
 
 }
-.box{
-  background-color: rgba(0, 0, 0, 0.459);
-  /* BOX MODEL */
-  /* Source: https://www.youtube.com/watch?v=nSst4-WbEZk */
-  width: 1000px;
-  height: 600px;
-  padding: 32px; 
-  margin: 20px;
-}
+
 h1 {
   color: white;
   font-size: 7rem;
@@ -40,8 +42,9 @@ h1 {
   font-style: normal;
   font-variation-settings: "wdth" 100;
 }
+
 h2 {
-  color: grey;
+  color: white;
   font-size: 2rem;
   text-transform: uppercase;
   font-family: "Tektur", sans-serif;
