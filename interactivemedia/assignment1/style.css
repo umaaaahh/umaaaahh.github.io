@@ -30,6 +30,11 @@ body {
   margin: 20px;
 
 }
+.logo{
+  width: 10%;       
+  height: auto;     
+}
+}
 
 h1 {
   color: white;
