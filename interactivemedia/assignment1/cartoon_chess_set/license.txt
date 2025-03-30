@@ -1,0 +1,11 @@
+Model Information:
+* title:	Cartoon Chess Set
+* source:	https://sketchfab.com/3d-models/cartoon-chess-set-daae6882d0354d6389491e24f887b649
+* author:	CYX1122 (https://sketchfab.com/CYX1122)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Cartoon Chess Set" (https://sketchfab.com/3d-models/cartoon-chess-set-daae6882d0354d6389491e24f887b649) by CYX1122 (https://sketchfab.com/CYX1122) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
