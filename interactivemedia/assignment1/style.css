@@ -185,6 +185,13 @@ body {
     padding-left: 10px;
 }
 
+.action-image img {
+  width: 100px;         /* or try 80px, depending on your layout */
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
 
 /* END PAGE 3 */
 
@@ -207,6 +214,7 @@ font-size:1000%;color:rgb(253, 46, 18);
   width: 90%;
   max-width: 1000px;
   box-sizing: border-box;
+
 }
 
 /* Header Label */
@@ -239,6 +247,9 @@ font-size:1000%;color:rgb(253, 46, 18);
   height: auto;
 }
 
+.wiggle{
+
+}
 /* 
     curly braces { } - grouping
     square brackets [ ] - javascript 
