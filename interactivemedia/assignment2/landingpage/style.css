@@ -1,0 +1,214 @@
+/* -----------------------------------------------------
+ RESET + GLOBAL STYLES
+------------------------------------------------------ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Press Start 2P', monospace;
+    background: url('backgroundimg.png') center/cover no-repeat;
+    background-color: #1a1a1a; /* fallback */
+    color: white;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  /* -----------------------------------------------------
+   LANDING PAGE STYLING
+  ------------------------------------------------------ */
+  
+  .landing-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    height: 100vh;
+    gap: 40px;
+    padding: 0 5vw;
+    overflow: hidden;
+  }
+  
+  .text-area {
+    max-width: 600px;
+    z-index: 2;
+  }
+  
+  h1 {
+    font-family: "Jersey 15", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 2.8rem;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 0px #000;
+  }
+  
+  p {
+    font-size: 0.9rem;
+    color: #f2f2f2;
+    text-shadow: 1px 1px 0px #000;
+    margin-bottom: 30px;
+  }
+  
+  /* Optional */
+  /* .start-btn {
+    padding: 16px 32px;
+    font-size: 1rem;
+    font-family: 'Arial', sans-serif;
+    background-color: black;
+    color: white;
+    border: 2px solid white;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .start-btn:hover {
+    background-color: white;
+    color: black;
+  } */
+  
+  /* -----------------------------------------------------
+   CURSOR-FOLLOW TEXT
+  ------------------------------------------------------ */
+  
+  .cursor-float {
+    position: absolute;
+    pointer-events: none;
+    color: white;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.9rem;
+    background: black;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 2px solid white;
+    white-space: nowrap;
+    z-index: 99;
+    transform: translate(-50%, -50%);
+    transition: transform 0.05s ease;
+  }
+  
+  /* -----------------------------------------------------
+   LANDING BAG IMAGE + ZOOM ANIMATION
+  ------------------------------------------------------ */
+  
+  .bag-img {
+    width: 400px; /* or max-width: 30vw; depending on layout */
+    transform: scale(1); /* explicitly set starting scale */
+    transition: transform 1s ease, opacity 1s ease;
+    position: relative;
+    z-index: 5;
+    cursor: pointer;
+    margin-left: -40px;
+  }
+  
+  .bag-img.zoomed {
+    transform: scale(2.5) translateY(-20%);
+  }
+  
+  /* Fade out landing text */
+  .landing-page .text-area {
+    transition: opacity 0.5s ease;
+  }
+  .landing-page.text-out .text-area {
+    opacity: 0;
+  }
+  
+  /* -----------------------------------------------------
+   PAGE 1 – BAG MAP VIEW
+  ------------------------------------------------------ */
+  
+  #bag-map {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .bag-map-wrapper {
+    position: relative;
+    max-width: 600px;
+  }
+  
+  .bag-map-img {
+    width: 100%;
+    display: block;
+  }
+  
+  /* Glowing interactive dots */
+  .dot {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #0cf;
+    box-shadow: 0 0 12px #0cf;
+    cursor: pointer;
+    z-index: 2;
+    transition: transform 0.2s;
+  }
+  
+  /* Dot tooltip on hover */
+  .dot:hover::after {
+    content: attr(data-title);
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #111;
+    color: white;
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+  }
+  
+  /* -----------------------------------------------------
+   TYPOGRAPHY FALLBACKS (Optional)
+  ------------------------------------------------------ */
+  
+  .jersey-15-regular {
+    font-family: "Jersey 15", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+#bag-map {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    pointer-events: none; /* lets you still interact with dots */
+    z-index: 10;
+  }
+  
+  .bag-map-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    pointer-events: none;
+  }
+  
+  .dot {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #0cf;
+    box-shadow: 0 0 12px #0cf;
+    cursor: pointer;
+    z-index: 11;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: auto; /* re-enable interaction for dots */
+  }
