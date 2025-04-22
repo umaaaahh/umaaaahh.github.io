@@ -5,20 +5,64 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Bag is the Map</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Jersey+15&display=swap" rel="stylesheet">
-  <div id="cursor-follow-text" class="cursor-float">
-    [click the bag to begin]
-  </div>
 </head>
 <body>
-  <div class="landing-page">
+  <!-- Floating Text -->
+  <div id="cursor-follow-text" class="cursor-float">[click the bag to begin]</div>
+
+  <!-- Landing Page -->
+  <section id="landing-page">
     <div class="text-area">
       <h1>THE BAG IS THE MAP</h1>
       <p>CLICK A PART. LEARN THE CRAFT.</p>
     </div>
-    <img src="Brown Bag.png" alt="Crochet Bag" class="bag-img" />
-  </div>
+    <img src="Brown Bag.png" alt="Brown Bag" id="clickable-bag" class="landing-bag" />
+  </section>
+
+  <!-- Bag Map Page -->
+  <section id="bag-map" class="hidden">
+    <div class="bag-map-wrapper">
+      <img src="green bag.png" alt="Green Bag" class="map-bag" />
+      <div class="dot" style="top: 62%; left: 30%;" data-title="Make the Body"></div>
+      <div class="dot" style="top: 20%; left: 50%;" data-title="Make the Handle"></div>
+    </div>
+  </section>
+
+    <!-- Custom Video Player Panel -->
+    <div id="video-player" class="video-panel hidden">
+        <div class="video-header">
+        <h2 id="video-title">Tutorial Title</h2>
+        <button id="close-video">✖</button>
+        </div>
+        <video id="tutorial-video" controls>
+        <source src="tutorial-placeholder.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <!-- Materials Panel  -->
+    <div id="materials-panel" class="materials hidden">
+        <div class="materials-header">
+          <h3>🧶 Materials Needed</h3>
+          <button id="toggle-materials">✖</button>
+        </div>
+        <ul>
+          <li>🧵 Yarn (3mm - cotton)</li>
+          <li>🪡 Crochet Hook (3.5mm)</li>
+          <li>✂️ Scissors</li>
+          <li>📏 Stitch Marker (optional)</li>
+          <li>🧷 Clasp or Button for closure</li>
+        </ul>
+      </div>
+      
+      <!-- Toggle Button that always stays visible -->
+      <button id="materials-toggle-tab">🧺 Materials</button>
+      
+      
+      
+      <script src="script.js" defer></script>
 </body>
 </html>
