@@ -1,6 +1,4 @@
-/* -----------------------------------------------------
- RESET + GLOBAL STYLES
------------------------------------------------------- */
+/* RESET + GLOBAL */
 * {
     margin: 0;
     padding: 0;
@@ -9,73 +7,14 @@
   
   body {
     font-family: 'Press Start 2P', monospace;
-    background: url('backgroundimg.png') center/cover no-repeat;
-    background-color: #1a1a1a; /* fallback */
+    background: url('Backgroundimg.jpg') center/cover no-repeat;
+    background-color: #1a1a1a;
     color: white;
     height: 100vh;
     overflow: hidden;
   }
   
-  /* -----------------------------------------------------
-   LANDING PAGE STYLING
-  ------------------------------------------------------ */
-  
-  .landing-page {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    height: 100vh;
-    gap: 40px;
-    padding: 0 5vw;
-    overflow: hidden;
-  }
-  
-  .text-area {
-    max-width: 600px;
-    z-index: 2;
-  }
-  
-  h1 {
-    font-family: "Jersey 15", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    font-size: 2.8rem;
-    line-height: 1.1;
-    margin-bottom: 1rem;
-    letter-spacing: 1px;
-    text-shadow: 2px 2px 0px #000;
-  }
-  
-  p {
-    font-size: 0.9rem;
-    color: #f2f2f2;
-    text-shadow: 1px 1px 0px #000;
-    margin-bottom: 30px;
-  }
-  
-  /* Optional */
-  /* .start-btn {
-    padding: 16px 32px;
-    font-size: 1rem;
-    font-family: 'Arial', sans-serif;
-    background-color: black;
-    color: white;
-    border: 2px solid white;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: background 0.3s;
-  }
-  
-  .start-btn:hover {
-    background-color: white;
-    color: black;
-  } */
-  
-  /* -----------------------------------------------------
-   CURSOR-FOLLOW TEXT
-  ------------------------------------------------------ */
-  
+  /* CURSOR FLOAT TEXT */
   .cursor-float {
     position: absolute;
     pointer-events: none;
@@ -92,57 +31,92 @@
     transition: transform 0.05s ease;
   }
   
-  /* -----------------------------------------------------
-   LANDING BAG IMAGE + ZOOM ANIMATION
-  ------------------------------------------------------ */
-  
-  .bag-img {
-    width: 400px; /* or max-width: 30vw; depending on layout */
-    transform: scale(1); /* explicitly set starting scale */
-    transition: transform 1s ease, opacity 1s ease;
-    position: relative;
-    z-index: 5;
-    cursor: pointer;
-    margin-left: -40px;
-  }
-  
-  .bag-img.zoomed {
-    transform: scale(2.5) translateY(-20%);
-  }
-  
-  /* Fade out landing text */
-  .landing-page .text-area {
-    transition: opacity 0.5s ease;
-  }
-  .landing-page.text-out .text-area {
-    opacity: 0;
-  }
-  
-  /* -----------------------------------------------------
-   PAGE 1 – BAG MAP VIEW
-  ------------------------------------------------------ */
-  
-  #bag-map {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
+  /* LANDING PAGE */
+  #landing-page {
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 40px;
+    height: 100vh;
+    padding: 0 5vw;
+    position: relative;
+    transition: opacity 0.7s ease;
+  }
+  
+  #landing-page.fade-out {
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  .text-area {
+    max-width: 600px;
+  }
+  
+  h1 {
+    font-family: "Jersey 15", sans-serif;
+    font-weight: 400;
+    font-size: 2.8rem;
+    text-shadow: 2px 2px 0px #000;
+    margin-bottom: 1rem;
+  }
+  
+  p {
+    font-size: 0.9rem;
+    color: #f2f2f2;
+    text-shadow: 1px 1px 0px #000;
+  }
+  
+  .landing-bag {
+    width: 400px;
+    cursor: pointer;
+    transition: transform 1s ease;
+  }
+  
+  /* BAG MAP PAGE */
+
+  
+  #bag-map {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+  }
+  
+  #bag-map.active {
+    display: flex;
   }
   
   .bag-map-wrapper {
     position: relative;
-    max-width: 600px;
+    max-width: 500px;
+    width: 100%;
   }
   
-  .bag-map-img {
+  .map-bag {
     width: 100%;
     display: block;
+    transform-style: preserve-3d;
+    transform-origin: center;
+    transition: transform 0.1s ease;
   }
-  
-  /* Glowing interactive dots */
+
+  /* DOTS */
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      box-shadow: 0 0 12px #0cf;
+    }
+    50% {
+      transform: scale(1.2);
+      box-shadow: 0 0 20px #0cf;
+    }
+    100% {
+      transform: scale(1);
+      box-shadow: 0 0 12px #0cf;
+    }
+  }
+
   .dot {
     position: absolute;
     width: 24px;
@@ -151,64 +125,137 @@
     background: #0cf;
     box-shadow: 0 0 12px #0cf;
     cursor: pointer;
-    z-index: 2;
-    transition: transform 0.2s;
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: auto;
+    animation: pulse 1.5s infinite ease-in-out;
   }
-  
-  /* Dot tooltip on hover */
+
+  .dot:hover {
+    animation-play-state: paused;
+  }
+
   .dot:hover::after {
     content: attr(data-title);
     position: absolute;
     top: -40px;
     left: 50%;
     transform: translateX(-50%);
-    background: #111;
+    background: #000;
     color: white;
+    padding: 6px 10px;
     font-size: 0.75rem;
-    padding: 4px 10px;
     border-radius: 6px;
     white-space: nowrap;
   }
+
+  /* Video Player */
+
+  .video-panel {
+    position: fixed;
+    top: 10vh;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #111;
+    color: white;
+    border: 2px solid white;
+    border-radius: 16px;
+    padding: 20px;
+    z-index: 100;
+    width: 80%;
+    max-width: 700px;
+    box-shadow: 0 0 20px #0cf;
+    display: none;
+    flex-direction: column;
+  }
   
-  /* -----------------------------------------------------
-   TYPOGRAPHY FALLBACKS (Optional)
-  ------------------------------------------------------ */
+  .video-panel.active {
+    display: flex;
+  }
   
-  .jersey-15-regular {
+  .video-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .video-header h2 {
     font-family: "Jersey 15", sans-serif;
-    font-weight: 400;
-    font-style: normal;
+    font-size: 1.4rem;
   }
   
-#bag-map {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    pointer-events: none; /* lets you still interact with dots */
-    z-index: 10;
-  }
-  
-  .bag-map-wrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    pointer-events: none;
-  }
-  
-  .dot {
-    position: absolute;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background: #0cf;
-    box-shadow: 0 0 12px #0cf;
+  #close-video {
+    background: none;
+    color: white;
+    border: none;
+    font-size: 1.2rem;
     cursor: pointer;
-    z-index: 11;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    pointer-events: auto; /* re-enable interaction for dots */
   }
+  
+  video {
+    width: 100%;
+    border-radius: 8px;
+  }  
+
+  /* MATERIALS PANEL STYLES */
+#materials-toggle-tab {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 90;
+  background: #0cf;
+  color: black;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.8rem;
+  padding: 10px 20px;
+  border: 2px solid white;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.materials {
+  position: fixed;
+  bottom: -300px; /* hidden by default */
+  left: 0;
+  width: 100%;
+  background: #111;
+  color: white;
+  padding: 20px;
+  border-top: 2px solid white;
+  box-shadow: 0 -5px 10px rgba(0, 255, 255, 0.3);
+  transition: bottom 0.4s ease;
+  z-index: 95;
+}
+
+.materials.active {
+  bottom: 0;
+}
+
+.materials-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+#toggle-materials {
+  background: none;
+  color: white;
+  font-size: 1.2rem;
+  border: none;
+  cursor: pointer;
+}
+
+.materials ul {
+  list-style: none;
+  padding: 0;
+}
+
+.materials li {
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  font-family: 'Press Start 2P', monospace;
+}
