@@ -17,7 +17,7 @@ body {
 /* CURSOR FLOAT TEXT */
 .cursor-float {
   position: absolute;
-  pointer-events: none;
+  pointer-events: none; /* important! don't block clicks */
   color: white;
   font-family: 'Press Start 2P', monospace;
   font-size: 0.9rem;
@@ -27,7 +27,7 @@ body {
   border: 2px solid white;
   white-space: nowrap;
   z-index: 99;
-  transform: translate(-50%, -50%);
+  /* transform: translate(-50%, -50%); */
   transition: transform 0.05s ease;
 }
 
@@ -201,65 +201,47 @@ video {
 
 /* MATERIALS PANEL STYLES */
 
-#materials-toggle-tab {
-position: fixed;
-bottom: 20px;
-left: 50%;
-transform: translateX(-50%);
-z-index: 90;
-background: #0cf;
-color: black;
-font-family: 'Press Start 2P', monospace;
-font-size: 0.8rem;
-padding: 10px 20px;
-border: 2px solid white;
-border-radius: 20px;
-cursor: pointer;
+/* Overlay base */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7); /* semi-transparent black */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
 }
 
-.materials {
-position: fixed;
-bottom: -300px; /* hidden by default */
-left: 0;
-width: 100%;
-background: #111;
-color: white;
-padding: 20px;
-border-top: 2px solid white;
-box-shadow: 0 -5px 10px rgba(0, 255, 255, 0.3);
-transition: bottom 0.4s ease;
-z-index: 95;
+/* Hidden by default */
+.hidden {
+  display: none;
 }
 
-.materials.active {
-bottom: 0;
+/* Content box */
+.overlay-content {
+  background: white;
+  color: black;
+  padding: 30px;
+  border-radius: 16px;
+  width: 80%;
+  max-width: 500px;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+  font-family: 'Jersey 15', sans-serif;
 }
 
-.materials-header {
-display: flex;
-justify-content: space-between;
-align-items: center;
-margin-bottom: 10px;
+/* Close button */
+.close-btn {
+  background: black;
+  color: white;
+  border: none;
+  font-size: 1.5rem;
+  float: right;
+  cursor: pointer;
 }
 
-#toggle-materials {
-background: none;
-color: white;
-font-size: 1.2rem;
-border: none;
-cursor: pointer;
-}
-
-.materials ul {
-list-style: none;
-padding: 0;
-}
-
-.materials li {
-margin-bottom: 8px;
-font-size: 0.9rem;
-font-family: 'Press Start 2P', monospace;
-}
 
 /* Shared cloud styling */
 .cloud {
@@ -278,32 +260,45 @@ font-family: 'Press Start 2P', monospace;
 }
 
 
+/* 🌥️ Slow floating animation */
+@keyframes floatCloud {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(130vw);
+    opacity: 1;
+  }
+}
 
-/* Different horizontal offsets + delays to stagger */
+/* ☁️ Base cloud style */
+.cloud {
+  animation: floatCloud linear infinite;
+  animation-duration: 60s;
+  animation-timing-function: linear;
+}
+
+/* 🌈 Individual cloud timing & spacing */
 .cloud-materials {
-left: -200px;
-animation-delay: 0s;
+  left: -350px;
+  animation-delay: 0s;
+  animation-duration: 60s;
 }
 
 .cloud-shop {
-left: -250px;
-animation-delay: 15s;
+  left: -400px;
+  animation-delay: 12s;
+  animation-duration: 65s;
 }
 
 .cloud-home {
-left: -300px;
-animation-delay: 30s;
+  left: -460px;
+  animation-delay: 25s;
+  animation-duration: 70s;
 }
 
-/* Floating cloud animation */
-@keyframes floatCloud {
-0% {
-  transform: translateX(0);
-  opacity: 1;
+/* ✋ Pause cloud on hover */
+.cloud:hover {
+  animation-play-state: paused;
 }
-100% {
-  transform: translateX(130vw); /* scroll all the way across */
-  opacity: 1;
-}
-}
-

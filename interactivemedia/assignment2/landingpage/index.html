@@ -14,11 +14,10 @@
   <!-- Floating Cloud Buttons with Images -->
   <img src="cloud-materials.png" alt="Materials" class="cloud cloud-materials" />
   <img src="cloud-shop.png" alt="Shop" class="cloud cloud-shop" />
-  <img src="cloud-home.png" alt="Home" class="cloud cloud-home" />
-
-  <!-- Floating Text -->
-  <div id="cursor-follow-text" class="cursor-float">[click the bag to begin]</div>
-
+  <a href="../landingpage/index.html">
+    <img src="cloud-home.png" class="cloud cloud-home" alt="Back to Home">
+  </a>
+  
   <!-- Landing Page -->
   <section id="landing-page">
     <div class="text-area">
@@ -50,25 +49,27 @@
     </div>
 
     <!-- Materials Panel  -->
-    <div id="materials-panel" class="materials hidden">
-        <div class="materials-header">
-          <h3>🧶 Materials Needed</h3>
-          <button id="toggle-materials">✖</button>
-        </div>
+    <div id="materials-overlay" class="overlay hidden">
+      <div class="overlay-content">
+        <button id="close-materials" class="close-btn">✖</button>
+        <h2>🧶 Materials Needed</h2>
         <ul>
-          <li>🧵 Yarn (3mm - cotton)</li>
-          <li>🪡 Crochet Hook (3.5mm)</li>
-          <li>✂️ Scissors</li>
-          <li>📏 Stitch Marker (optional)</li>
-          <li>🧷 Clasp or Button for closure</li>
+          <li>Yarn (3mm - cotton)</li>
+          <li>Crochet Hook (3.5mm)</li>
+          <li>Scissors</li>
+          <li>Stitch Marker (optional)</li>
+          <li>Clasp or Button for closure</li>
         </ul>
       </div>
+    </div>
+    
+   <!-- Floating Text -->
+   <div id="cursor-follow-text" class="cursor-float">
+    [click the bag to begin]
+  </div>
+  
       
-      <!-- Toggle Button that always stays visible -->
-      <button id="materials-toggle-tab">🧺 Materials</button>
       
-      
-      
-      <script src="script.js" defer></script>
+  <script src="script.js" defer></script>
 </body>
 </html>
