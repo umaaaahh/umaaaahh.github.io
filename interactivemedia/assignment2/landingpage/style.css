@@ -200,6 +200,7 @@ video {
 }  
 
 /* MATERIALS PANEL STYLES */
+
 #materials-toggle-tab {
 position: fixed;
 bottom: 20px;
@@ -259,3 +260,50 @@ margin-bottom: 8px;
 font-size: 0.9rem;
 font-family: 'Press Start 2P', monospace;
 }
+
+/* Shared cloud styling */
+.cloud {
+  position: absolute;
+  top: 5vh;
+  width: 25vw;
+  width: 286px;
+  height: auto;
+  z-index: 25;
+  animation: floatCloud 45s linear infinite;
+  cursor: pointer;
+  pointer-events: auto;
+  user-select: none;
+  transition: transform 0.3s ease;
+  display: block;
+}
+
+
+
+/* Different horizontal offsets + delays to stagger */
+.cloud-materials {
+left: -200px;
+animation-delay: 0s;
+}
+
+.cloud-shop {
+left: -250px;
+animation-delay: 15s;
+}
+
+.cloud-home {
+left: -300px;
+animation-delay: 30s;
+}
+
+/* Floating cloud animation */
+@keyframes floatCloud {
+0% {
+  transform: translateX(0);
+  opacity: 1;
+}
+100% {
+  transform: translateX(130vw); /* scroll all the way across */
+  opacity: 1;
+}
+}
+
