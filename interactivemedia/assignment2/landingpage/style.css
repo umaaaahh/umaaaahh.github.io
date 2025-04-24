@@ -1,261 +1,261 @@
 /* RESET + GLOBAL */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: 'Press Start 2P', monospace;
-    background: url('Backgroundimg.jpg') center/cover no-repeat;
-    background-color: #1a1a1a;
-    color: white;
-    height: 100vh;
-    overflow: hidden;
-  }
-  
-  /* CURSOR FLOAT TEXT */
-  .cursor-float {
-    position: absolute;
-    pointer-events: none;
-    color: white;
-    font-family: 'Press Start 2P', monospace;
-    font-size: 0.9rem;
-    background: black;
-    padding: 6px 14px;
-    border-radius: 20px;
-    border: 2px solid white;
-    white-space: nowrap;
-    z-index: 99;
-    transform: translate(-50%, -50%);
-    transition: transform 0.05s ease;
-  }
-  
-  /* LANDING PAGE */
-  #landing-page {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 40px;
-    height: 100vh;
-    padding: 0 5vw;
-    position: relative;
-    transition: opacity 0.7s ease;
-  }
-  
-  #landing-page.fade-out {
-    opacity: 0;
-    pointer-events: none;
-  }
-  
-  .text-area {
-    max-width: 600px;
-  }
-  
-  h1 {
-    font-family: "Jersey 15", sans-serif;
-    font-weight: 400;
-    font-size: 2.8rem;
-    text-shadow: 2px 2px 0px #000;
-    margin-bottom: 1rem;
-  }
-  
-  p {
-    font-size: 0.9rem;
-    color: #f2f2f2;
-    text-shadow: 1px 1px 0px #000;
-  }
-  
-  .landing-bag {
-    width: 400px;
-    cursor: pointer;
-    transition: transform 1s ease;
-  }
-  
-  /* BAG MAP PAGE */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  
-  #bag-map {
-    display: none;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    position: relative;
-  }
-  
-  #bag-map.active {
-    display: flex;
-  }
-  
-  .bag-map-wrapper {
-    position: relative;
-    max-width: 500px;
-    width: 100%;
-  }
-  
-  .map-bag {
-    width: 100%;
-    display: block;
-    transform-style: preserve-3d;
-    transform-origin: center;
-    transition: transform 0.1s ease;
-  }
+body {
+  font-family: 'Press Start 2P', monospace;
+  background: url('background.png') center/cover no-repeat;
+  background-color: #1a1a1a;
+  color: white;
+  height: 100vh;
+  overflow: hidden;
+}
 
-  /* DOTS */
-  @keyframes pulse {
-    0% {
-      transform: scale(1);
-      box-shadow: 0 0 12px #0cf;
-    }
-    50% {
-      transform: scale(1.2);
-      box-shadow: 0 0 20px #0cf;
-    }
-    100% {
-      transform: scale(1);
-      box-shadow: 0 0 12px #0cf;
-    }
-  }
+/* CURSOR FLOAT TEXT */
+.cursor-float {
+  position: absolute;
+  pointer-events: none;
+  color: white;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.9rem;
+  background: black;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 2px solid white;
+  white-space: nowrap;
+  z-index: 99;
+  transform: translate(-50%, -50%);
+  transition: transform 0.05s ease;
+}
 
-  .dot {
-    position: absolute;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background: #0cf;
+/* LANDING PAGE */
+#landing-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  height: 100vh;
+  padding: 0 5vw;
+  position: relative;
+  transition: opacity 0.7s ease;
+}
+
+#landing-page.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.text-area {
+  max-width: 600px;
+}
+
+h1 {
+  font-family: "Jersey 15", sans-serif;
+  font-weight: 400;
+  font-size: 2.8rem;
+  text-shadow: 2px 2px 0px #000;
+  margin-bottom: 1rem;
+}
+
+p {
+  font-size: 0.9rem;
+  color: #f2f2f2;
+  text-shadow: 1px 1px 0px #000;
+}
+
+.landing-bag {
+  width: 400px;
+  cursor: pointer;
+  transition: transform 1s ease;
+}
+
+/* BAG MAP PAGE */
+
+
+#bag-map {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  position: relative;
+}
+
+#bag-map.active {
+  display: flex;
+}
+
+.bag-map-wrapper {
+  position: relative;
+  max-width: 500px;
+  width: 100%;
+}
+
+.map-bag {
+  width: 100%;
+  display: block;
+  transform-style: preserve-3d;
+  transform-origin: center;
+  transition: transform 0.1s ease;
+}
+
+/* DOTS */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
     box-shadow: 0 0 12px #0cf;
-    cursor: pointer;
-    z-index: 10;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    pointer-events: auto;
-    animation: pulse 1.5s infinite ease-in-out;
   }
-
-  .dot:hover {
-    animation-play-state: paused;
-  }
-
-  .dot:hover::after {
-    content: attr(data-title);
-    position: absolute;
-    top: -40px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #000;
-    color: white;
-    padding: 6px 10px;
-    font-size: 0.75rem;
-    border-radius: 6px;
-    white-space: nowrap;
-  }
-
-  /* Video Player */
-
-  .video-panel {
-    position: fixed;
-    top: 10vh;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #111;
-    color: white;
-    border: 2px solid white;
-    border-radius: 16px;
-    padding: 20px;
-    z-index: 100;
-    width: 80%;
-    max-width: 700px;
+  50% {
+    transform: scale(1.2);
     box-shadow: 0 0 20px #0cf;
-    display: none;
-    flex-direction: column;
   }
-  
-  .video-panel.active {
-    display: flex;
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 12px #0cf;
   }
-  
-  .video-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  
-  .video-header h2 {
-    font-family: "Jersey 15", sans-serif;
-    font-size: 1.4rem;
-  }
-  
-  #close-video {
-    background: none;
-    color: white;
-    border: none;
-    font-size: 1.2rem;
-    cursor: pointer;
-  }
-  
-  video {
-    width: 100%;
-    border-radius: 8px;
-  }  
+}
 
-  /* MATERIALS PANEL STYLES */
-#materials-toggle-tab {
-  position: fixed;
-  bottom: 20px;
+.dot {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #0cf;
+  box-shadow: 0 0 12px #0cf;
+  cursor: pointer;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: auto;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+.dot:hover {
+  animation-play-state: paused;
+}
+
+.dot:hover::after {
+  content: attr(data-title);
+  position: absolute;
+  top: -40px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 90;
-  background: #0cf;
-  color: black;
-  font-family: 'Press Start 2P', monospace;
-  font-size: 0.8rem;
-  padding: 10px 20px;
-  border: 2px solid white;
-  border-radius: 20px;
-  cursor: pointer;
+  background: #000;
+  color: white;
+  padding: 6px 10px;
+  font-size: 0.75rem;
+  border-radius: 6px;
+  white-space: nowrap;
 }
 
-.materials {
+/* Video Player */
+
+.video-panel {
   position: fixed;
-  bottom: -300px; /* hidden by default */
-  left: 0;
-  width: 100%;
+  top: 10vh;
+  left: 50%;
+  transform: translateX(-50%);
   background: #111;
   color: white;
+  border: 2px solid white;
+  border-radius: 16px;
   padding: 20px;
-  border-top: 2px solid white;
-  box-shadow: 0 -5px 10px rgba(0, 255, 255, 0.3);
-  transition: bottom 0.4s ease;
-  z-index: 95;
+  z-index: 100;
+  width: 80%;
+  max-width: 700px;
+  box-shadow: 0 0 20px #0cf;
+  display: none;
+  flex-direction: column;
 }
 
-.materials.active {
-  bottom: 0;
+.video-panel.active {
+  display: flex;
 }
 
-.materials-header {
+.video-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
 }
 
-#toggle-materials {
+.video-header h2 {
+  font-family: "Jersey 15", sans-serif;
+  font-size: 1.4rem;
+}
+
+#close-video {
   background: none;
   color: white;
-  font-size: 1.2rem;
   border: none;
+  font-size: 1.2rem;
   cursor: pointer;
 }
 
+video {
+  width: 100%;
+  border-radius: 8px;
+}  
+
+/* MATERIALS PANEL STYLES */
+#materials-toggle-tab {
+position: fixed;
+bottom: 20px;
+left: 50%;
+transform: translateX(-50%);
+z-index: 90;
+background: #0cf;
+color: black;
+font-family: 'Press Start 2P', monospace;
+font-size: 0.8rem;
+padding: 10px 20px;
+border: 2px solid white;
+border-radius: 20px;
+cursor: pointer;
+}
+
+.materials {
+position: fixed;
+bottom: -300px; /* hidden by default */
+left: 0;
+width: 100%;
+background: #111;
+color: white;
+padding: 20px;
+border-top: 2px solid white;
+box-shadow: 0 -5px 10px rgba(0, 255, 255, 0.3);
+transition: bottom 0.4s ease;
+z-index: 95;
+}
+
+.materials.active {
+bottom: 0;
+}
+
+.materials-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 10px;
+}
+
+#toggle-materials {
+background: none;
+color: white;
+font-size: 1.2rem;
+border: none;
+cursor: pointer;
+}
+
 .materials ul {
-  list-style: none;
-  padding: 0;
+list-style: none;
+padding: 0;
 }
 
 .materials li {
-  margin-bottom: 8px;
-  font-size: 0.9rem;
-  font-family: 'Press Start 2P', monospace;
+margin-bottom: 8px;
+font-size: 0.9rem;
+font-family: 'Press Start 2P', monospace;
 }

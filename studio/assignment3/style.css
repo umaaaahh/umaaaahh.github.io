@@ -1,0 +1,109 @@
+/* Reset basics */
+body {
+    margin: 0;
+    font-family: 'Courier New', monospace;
+    background-color: #d4d0c8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  /* Fake window */
+  .window {
+    width: 600px;
+    border: 2px solid #000;
+    background: #fff;
+    box-shadow: 4px 4px 0 #888;
+  }
+  
+  /* Top bar */
+  .header-bar {
+    background-color: #000080;
+    color: white;
+    padding: 6px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+  }
+  
+  .window-buttons button {
+    background: #ccc;
+    border: 1px solid #000;
+    font-weight: bold;
+    padding: 2px 6px;
+    cursor: pointer;
+  }
+  
+  /* Typing area */
+  #typing-area {
+    min-height: 300px;
+    padding: 10px;
+    border-top: 2px inset #aaa;
+    border-bottom: 2px inset #aaa;
+    font-size: 16px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    outline: none;
+  }
+  
+  /* Chaos Meter */
+  #chaos-meter {
+    padding: 8px;
+    font-weight: bold;
+    text-align: right;
+    background: #eee;
+    border-top: 2px inset #ccc;
+  }
+  
+  /* Individual letters */
+  .letter {
+    display: inline-block;
+    transition: all 0.2s ease;
+  }
+  
+  /* Shared cloud styling */
+  .cloud {
+    position: absolute;
+    top: 4vh;
+    width: 60px !important;
+    max-width: 80px;
+    height: auto !important;
+    z-index: 25;
+    animation: floatCloud 45s linear infinite;
+    cursor: pointer;
+    pointer-events: auto;
+    user-select: none;
+    transition: transform 0.3s ease;
+  }
+  
+
+/* Different horizontal offsets + delays to stagger */
+.cloud-materials {
+  left: -200px;
+  animation-delay: 0s;
+}
+
+.cloud-shop {
+  left: -250px;
+  animation-delay: 15s;
+}
+
+.cloud-home {
+  left: -300px;
+  animation-delay: 30s;
+}
+
+/* Floating cloud animation */
+@keyframes floatCloud {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(130vw); /* scroll all the way across */
+    opacity: 1;
+  }
+}
