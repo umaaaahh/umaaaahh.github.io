@@ -1,25 +1,22 @@
 // 🧶 FLOATING PROMPT THAT FOLLOWS CURSOR
 const floatText = document.getElementById("cursor-follow-text");
-const bag = document.getElementById("clickable-bag");
-
-function hidePrompt() {
-  if (floatText) {
-    floatText.style.display = "none";
-  }
-}
 
 document.addEventListener("mousemove", (e) => {
-  if (floatText && floatText.style.display !== "none") {
+  if (floatText) {
     floatText.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
   }
 });
 
-// Hide after 15 seconds
+let promptHidden = false;
+function hidePrompt() {
+  if (!promptHidden && floatText) {
+    floatText.style.display = "none";
+    promptHidden = true;
+  }
+}
+
+// Hide prompt after 15 seconds or on bag click
 setTimeout(hidePrompt, 15000);
-
-// Hide on bag click
-bag?.addEventListener("click", hidePrompt);
-
 
 // 👜 BAG INTERACTION (Click = transition to map)
 const bag = document.getElementById("clickable-bag");
@@ -44,7 +41,7 @@ bag?.addEventListener("click", () => {
 });
 
 // Subdot logic
-// Body subdot
+// Body 
 const groupedDot = document.getElementById('dot-body-group');
 const subDots = document.querySelectorAll('.body-sub-dot');
 const allMainDots = document.querySelectorAll('.dot:not(.body-sub-dot)');

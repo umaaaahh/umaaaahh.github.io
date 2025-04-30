@@ -29,7 +29,6 @@ body {
   z-index: 99;
   /* transform: translate(-50%, -50%); */
   transition: transform 0.05s ease;
-  display: block;
 }
 
 /* LANDING PAGE */
@@ -82,7 +81,7 @@ p {
     box-shadow: none;
   }
   50% {
-    transform: scale(1.2);
+    transform: scale(1.25);
     box-shadow: none;
   }
 }
