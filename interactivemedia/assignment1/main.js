@@ -6,7 +6,8 @@ import { OrbitControls } from "https://cdn.skypack.dev/three@0.129.0/examples/js
 import { GLTFLoader } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/GLTFLoader.js";
 
 //Create a Three.JS Scene
-const scene = new THREE.Scene();
+// const scene = new THREE.Scene();
+const canvas = document.querySelector ('#bg')
 //create a new camera with positions and angles
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
@@ -28,7 +29,7 @@ const loader = new GLTFLoader();
 
 //Load the file
 loader.load(
-  `.models/${objToRender}/scene.gltf`,
+  'interactivemedia/assignment1/cartoon_chess_set/scene.gltf',
   function (gltf) {
     //If the file is loaded, add it to the scene
     object = gltf.scene;
@@ -72,7 +73,7 @@ if (objToRender === "dino") {
 function animate() {
   requestAnimationFrame(animate);
   //Here we could add some code to update the scene, adding some automatic movement
-
+}
 
 //Add a listener to the window, so we can resize the window and the camera
 window.addEventListener("resize", function () {

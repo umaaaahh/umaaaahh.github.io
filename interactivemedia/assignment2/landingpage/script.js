@@ -55,7 +55,7 @@ document.addEventListener("mouseleave", () => {
   }
 });
 
-// 🎬 VIDEO POPUP HANDLING
+// 🎬 VIDEO PLAYER HANDLING
 const videoPanel = document.getElementById("video-player");
 const closeVideoBtn = document.getElementById("close-video");
 const tutorialVideo = document.getElementById("tutorial-video");
@@ -63,9 +63,14 @@ const videoTitle = document.getElementById("video-title");
 
 document.querySelectorAll(".dot").forEach(dot => {
   dot.addEventListener("click", () => {
-    videoPanel.classList.add("active");
-    tutorialVideo.src = "tutorial-placeholder.mp4"; // Replace with dynamic src later
-    videoTitle.textContent = dot.dataset.title || "Crochet Tutorial";
+    const videoSrc = dot.dataset.src;
+    const title = dot.dataset.title || "Crochet Tutorial";
+
+    if (videoSrc) {
+      tutorialVideo.src = videoSrc;
+      videoTitle.textContent = title;
+      videoPanel.classList.add("active");
+    }
   });
 });
 
