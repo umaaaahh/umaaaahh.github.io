@@ -13,7 +13,9 @@
 
   <!-- Floating Cloud Buttons with Images -->
   <img src="cloud-materials-2.png" alt="Materials" class="cloud cloud-materials" />
-  <img src="cloud-shop-3.png" alt="Shop" class="cloud cloud-shop" />
+  <a href="https://www.etsy.com/shop/crochetdaniela/?etsrc=sdt" target="_blank">
+    <img src="cloud-shop-3.png" alt="Shop" class="cloud cloud-shop" />
+  </a>  
   <a href="../landingpage/index.html">
     <img src="cloud-home-1.png" class="cloud cloud-home" alt="Back to Home">
   </a>
@@ -31,15 +33,91 @@
   <section id="bag-map" class="hidden">
     <div class="bag-map-wrapper">
       <img src="green bag.png" alt="Green Bag" class="map-bag" />
-      <div class="dot" style="top: 62%; left: 30%;" data-title="Make the Body"></div>
-      <div class="dot" style="top: 20%; left: 50%;" data-title="Make the Handle"></div>
-      <div class="dot" 
-      style="top: 85%; left: 10%;" 
-      data-title="[START HERE]🧺 Materials"
-      data-src="https://archive.org/download/crochet-handbag-tutorial-materials/crochet-handbag-tutorial-materials.mp4">
- </div>
+
+      <!-- Video: [Start Here] Materials -->
+       <div class="dot" 
+          style="top: 18%; left: 28%;" 
+          data-title="[START HERE] Materials"
+          data-src=" https://ia601502.us.archive.org/11/items/crochet-handbag-tutorial-materials/CROCHET%20HANDBAG%20TUTORIAL%20-%20materials.mp4">
+        </div>
+
+      <!-- Dot Group: Body -->
+      <div class="dot dot-grouped"
+        id="dot-body-group"
+        style="top: 55%; left: 45%;"
+        data-title="1.Body">
+      </div>
+
+      <!-- Dot Group: Handle -->
+      <div class="dot dot-grouped"
+        id="dot-handle-group"
+        style="top: 50%; left: 90%;"
+        data-title="2.Handle">
+      </div>
+
+      <!-- Body Dot: Sub-dots(hidden initially) -->
+
+        <!-- Video: Step 1: Starting the bag --> 
+        <div class="sub-dot body-sub-dot hidden" 
+          style="top: 90%; left: 75%;"
+          data-title="Step 1: Start the Bag Body"
+          data-src="https://archive.org/download/your-video-name/your-video-name.mp4">
+        </div>
+
+        <!-- Video: Step 2: Body of the bag --> 
+          <div class="sub-dot body-sub-dot hidden" 
+          style="top: 50%; left: 75%;"
+          data-title="Step 2: Making the Bag Body"
+          data-src="https://archive.org/download/your-video-name/your-video-name.mp4">
+        </div>
+
+        <!-- Video: Step 3: Body of the bag --> 
+          <div class="sub-dot body-sub-dot hidden" 
+          style="top: 65%; left: 46%;"
+          data-title="Step 3: Finishing the Bag Body"
+          data-src="https://ia801502.us.archive.org/18/items/crochet-handbag-tutorial-finishing-the-body/CROCHET%20HANDBAG%20TUTORIAl-%20Finishing%20the%20body.mp4">
+       </div>
+
+        <!-- Video: Step 4: Clasp [Bonus] --> 
+          <div class="sub-dot body-sub-dot hidden" 
+          style="top: 45%; left: 54%;"
+          data-title="Step 4: Clasp [Bonus]"
+          data-src="https://ia601300.us.archive.org/32/items/crochet-handbag-tutorial-bonus-clasp/CROCHET%20HANDBAG%20TUTORIAL%20-%20Bonus%20Clasp.mp4">
+        </div>
+
+
+      <!--  handle Dot: Sub-dots (hidden initially) -->
+
+        <!-- Video: Step 5: Begin the Handle --> 
+        <div class="sub-dot handle-sub-dot hidden"
+          style="top: 45%; left: 54%;"
+          data-title="Step 5: Begin the Handle"
+          data-src="https://ia601300.us.archive.org/32/items/crochet-handbag-tutorial-bonus-clasp/CROCHET%20HANDBAG%20TUTORIAL%20-%20Bonus%20Clasp.mp4">
+        </div>
+
+        <!-- Video: Step 6: The Handle --> 
+        <div class="sub-dot handle-sub-dot hidden"
+          style="top: 25%; left: 55%;"
+          data-title="Step 6: The Handle"
+          data-src="video-handle-secure.mp4">
+        </div>
+
+        <!-- Video: Step 7: Finishing the Handle --> 
+        <div class="sub-dot handle-sub-dot hidden"
+          style="top: 75%; left: 55%;"
+          data-title="Step 7: Finishing the Handle"
+          data-src="video-handle-secure.mp4">
+        </div>
+
+        <!-- Video: Step 8: The Bow [FINAL] --> 
+        <div class="sub-dot handle-sub-dot hidden"
+         style="top: 75%; left: 35%;"
+         data-title="Step 8: The Bow [FINAL]"
+         data-src="video-handle-secure.mp4">
+       </div>
     </div>
   </section>
+  
 
   <!-- Custom Video Player Panel -->
     <div id="video-player" class="video-panel hidden">

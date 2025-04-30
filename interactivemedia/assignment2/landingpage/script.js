@@ -40,6 +40,87 @@ bag?.addEventListener("click", () => {
   }, 700);
 });
 
+// Subdot logic
+// Body subdot
+const groupedDot = document.getElementById('dot-body-group');
+const subDots = document.querySelectorAll('.body-sub-dot');
+const allMainDots = document.querySelectorAll('.dot:not(.body-sub-dot)');
+
+// Toggle sub-dot group
+groupedDot.addEventListener('click', () => {
+  const isActive = groupedDot.classList.contains('active');
+
+  if (isActive) {
+    // CLOSE: Hide sub-dots, show other dots
+    subDots.forEach(dot => dot.classList.add('hidden'));
+    allMainDots.forEach(dot => dot.style.opacity = 1);
+    groupedDot.classList.remove('active');
+  } else {
+    // OPEN: Hide all other main dots
+    allMainDots.forEach(dot => {
+      if (dot !== groupedDot) dot.style.opacity = 0;
+    });
+
+    // Show sub-dots
+    subDots.forEach(dot => dot.classList.remove('hidden'));
+    groupedDot.classList.add('active');
+  }
+});
+
+
+// body sub-dot video opening
+subDots.forEach(dot => {
+  dot.addEventListener('click', () => {
+    const videoPanel = document.getElementById("video-player");
+    const tutorialVideo = document.getElementById("tutorial-video");
+    const videoTitle = document.getElementById("video-title");
+
+    tutorialVideo.src = dot.dataset.src;
+    videoTitle.textContent = dot.dataset.title || "Crochet Tutorial";
+    videoPanel.classList.add("active");
+  });
+});
+
+// HANDLE grouped dot toggle
+const handleGroupDot = document.getElementById('dot-handle-group');
+const handleSubDots = document.querySelectorAll('.handle-sub-dot');
+
+// Toggle Handle Sub-Dots
+handleGroupDot.addEventListener('click', () => {
+  const isActive = handleGroupDot.classList.contains('active');
+
+  if (isActive) {
+    // CLOSE: Hide sub-dots, show other dots
+    handleSubDots.forEach(dot => dot.classList.add('hidden'));
+    allMainDots.forEach(dot => dot.style.opacity = 1);
+    handleGroupDot.classList.remove('active');
+  } else {
+    // OPEN: Hide all other main dots
+    allMainDots.forEach(dot => {
+      if (dot !== handleGroupDot) dot.style.opacity = 0;
+    });
+
+    // Show sub-dots
+    handleSubDots.forEach(dot => dot.classList.remove('hidden'));
+    handleGroupDot.classList.add('active');
+  }
+});
+
+// Play video on handle sub-dot click
+handleSubDots.forEach(dot => {
+  dot.addEventListener('click', () => {
+    const videoPanel = document.getElementById("video-player");
+    const tutorialVideo = document.getElementById("tutorial-video");
+    const videoTitle = document.getElementById("video-title");
+
+    tutorialVideo.src = dot.dataset.src;
+    videoTitle.textContent = dot.dataset.title || "Crochet Tutorial";
+    videoPanel.classList.add("active");
+  });
+});
+
+
+
 // 🌀 MAP TILT ON MOUSEMOVE
 document.addEventListener("mousemove", (e) => {
   if (!mapBag || !bagMap.classList.contains("active")) return;

@@ -55,22 +55,45 @@ body {
 h1 {
   font-family: "Jersey 15", sans-serif;
   font-weight: 400;
-  font-size: 2.8rem;
+  font-size: 7rem;
   text-shadow: 2px 2px 0px #000;
   margin-bottom: 1rem;
 }
 
 p {
-  font-size: 0.9rem;
+  font-size: 2rem;
   color: #f2f2f2;
   text-shadow: 1px 1px 0px #000;
 }
 
 .landing-bag {
-  width: 400px;
+  width: 500px;
   cursor: pointer;
   transition: transform 1s ease;
 }
+
+/* Keyframes for pulse */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Apply pulse to the landing page bag */
+#clickable-bag {
+  animation: pulse 2s infinite ease-in-out;
+}
+
+#clickable-bag:hover {
+  animation-play-state: paused;
+}
+
 
 /* BAG MAP PAGE */
 
@@ -301,4 +324,59 @@ video {
 /* ✋ Pause cloud on hover */
 .cloud:hover {
   animation-play-state: paused;
+}
+
+/* Sub-dots */
+.sub-dot {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #ff6ec7;
+  box-shadow: 0 0 10px #ff6ec7;
+  cursor: pointer;
+  z-index: 15;
+  animation: pulse 1.5s infinite ease-in-out;
+  opacity: 1;
+}
+
+.sub-dot:hover::after {
+  content: attr(data-title);
+  position: absolute;
+  top: -35px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #000;
+  color: white;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  border-radius: 6px;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.sub-dot.hidden {
+  display: none;
+}
+
+/* Turn original dot into a close button */
+.dot-grouped.active {
+  background: black;
+  box-shadow: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.dot-grouped.active::after {
+  content: "✖";
+  color: white;
+}
+
+/* Suppress hover tooltip for active (close) state */
+.dot-grouped.active:hover::after {
+  content: none !important;
 }
