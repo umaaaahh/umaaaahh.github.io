@@ -29,6 +29,7 @@ body {
   z-index: 99;
   /* transform: translate(-50%, -50%); */
   transition: transform 0.05s ease;
+  display: block;
 }
 
 /* LANDING PAGE */
@@ -72,22 +73,25 @@ p {
   transition: transform 1s ease;
 }
 
-/* Keyframes for pulse */
-@keyframes pulse {
-  0% {
+
+
+/* Apply pulse to the landing page bag */
+@keyframes pulse-no-glow {
+  0%, 100% {
     transform: scale(1);
+    box-shadow: none;
   }
   50% {
-    transform: scale(1.05);
-  }
-  100% {
-    transform: scale(1);
+    transform: scale(1.2);
+    box-shadow: none;
   }
 }
 
-/* Apply pulse to the landing page bag */
 #clickable-bag {
-  animation: pulse 2s infinite ease-in-out;
+  animation: pulse-no-glow 5s ease-in-out infinite;
+  box-shadow: none;
+  outline: none;
+  border: none;
 }
 
 #clickable-bag:hover {

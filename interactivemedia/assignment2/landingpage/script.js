@@ -1,22 +1,25 @@
 // 🧶 FLOATING PROMPT THAT FOLLOWS CURSOR
 const floatText = document.getElementById("cursor-follow-text");
+const bag = document.getElementById("clickable-bag");
+
+function hidePrompt() {
+  if (floatText) {
+    floatText.style.display = "none";
+  }
+}
 
 document.addEventListener("mousemove", (e) => {
-  if (floatText) {
+  if (floatText && floatText.style.display !== "none") {
     floatText.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
   }
 });
 
-let promptHidden = false;
-function hidePrompt() {
-  if (!promptHidden && floatText) {
-    floatText.style.display = "none";
-    promptHidden = true;
-  }
-}
-
-// Hide prompt after 15 seconds or on bag click
+// Hide after 15 seconds
 setTimeout(hidePrompt, 15000);
+
+// Hide on bag click
+bag?.addEventListener("click", hidePrompt);
+
 
 // 👜 BAG INTERACTION (Click = transition to map)
 const bag = document.getElementById("clickable-bag");
