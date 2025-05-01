@@ -55,6 +55,9 @@ groupedDot.addEventListener('click', () => {
     subDots.forEach(dot => dot.classList.add('hidden'));
     allMainDots.forEach(dot => dot.style.opacity = 1);
     groupedDot.classList.remove('active');
+    
+    advanceStep(); // Progress the nav guide
+    
   } else {
     // OPEN: Hide all other main dots
     allMainDots.forEach(dot => {
@@ -64,6 +67,9 @@ groupedDot.addEventListener('click', () => {
     // Show sub-dots
     subDots.forEach(dot => dot.classList.remove('hidden'));
     groupedDot.classList.add('active');
+
+    
+    
   }
 });
 
@@ -78,6 +84,8 @@ subDots.forEach(dot => {
     tutorialVideo.src = dot.dataset.src;
     videoTitle.textContent = dot.dataset.title || "Crochet Tutorial";
     videoPanel.classList.add("active");
+
+    advanceStep(); // Progress the nav guide
   });
 });
 
@@ -103,6 +111,9 @@ handleGroupDot.addEventListener('click', () => {
     // Show sub-dots
     handleSubDots.forEach(dot => dot.classList.remove('hidden'));
     handleGroupDot.classList.add('active');
+
+    advanceStep(); // Progress the nav guide
+
   }
 });
 
@@ -116,6 +127,8 @@ handleSubDots.forEach(dot => {
     tutorialVideo.src = dot.dataset.src;
     videoTitle.textContent = dot.dataset.title || "Crochet Tutorial";
     videoPanel.classList.add("active");
+
+    advanceStep(); // Progress the nav guide
   });
 });
 
@@ -151,6 +164,7 @@ document.querySelectorAll(".dot").forEach(dot => {
       tutorialVideo.src = videoSrc;
       videoTitle.textContent = title;
       videoPanel.classList.add("active");
+      advanceStep(); // This is do the dot nav guide
     }
   });
 });
@@ -173,3 +187,39 @@ materialsCloud?.addEventListener('click', () => {
 closeMaterials?.addEventListener('click', () => {
   materialsOverlay.classList.add('hidden');
 });
+
+// NAV GUIDE
+
+// 1. Define your ordered steps
+const steps = [
+  "1",     // Materials
+  "2",     // Body group
+  "2.1", "2.2", "2.3", "2.4",  // Body sub-dots
+  "3",     // Handle group
+  "3.1", "3.2", "3.3", "3.4"   // Handle sub-dots
+];
+
+let currentStepIndex = 0;
+
+// 2. Highlight only the current step
+function highlightDot(step) {
+  document.querySelectorAll('.dot, .sub-dot').forEach(dot => {
+    dot.classList.remove('highlight');
+  });
+
+  const target = document.querySelector(`[data-step="${step}"]`);
+  if (target) {
+    target.classList.add('highlight');
+  }
+}
+
+// 3. Move to next step (call after clicking a dot)
+function advanceStep() {
+  currentStepIndex++;
+  if (currentStepIndex < steps.length) {
+    highlightDot(steps[currentStepIndex]);
+  }
+}
+
+// 4. Start with the first highlighted dot
+highlightDot(steps[currentStepIndex]);
