@@ -477,7 +477,7 @@ video {
 
 /* Content box */
 .overlay-content {
-  background: white;
+  background: rgba(255, 255, 255, 0.849);
   color: black;
   padding: 30px;
   border-radius: 16px;
