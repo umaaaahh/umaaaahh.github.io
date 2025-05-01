@@ -406,6 +406,54 @@ video {
   border-radius: 8px;
 }  
 
+.custom-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.progress-bar {
+  position: relative;
+  flex-grow: 1;
+  height: 10px;
+  background: #444;
+  border: 2px solid #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.progress-filled {
+  background: #0cf;
+  height: 100%;
+  width: 0%;
+  border-radius: 5px;
+}
+
+.timestamp {
+  font-family: monospace;
+  font-size: 0.75rem;
+  color: white;
+}
+
+.audio-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+}
+
+#custom-volume {
+  width: 100px;
+  transition: opacity 0.3s ease;
+}
+
+#custom-volume.hidden {
+  opacity: 0;
+  pointer-events: none;
+  width: 0;
+}
+
 /* MATERIALS PANEL STYLES */
 
 /* Overlay base */
