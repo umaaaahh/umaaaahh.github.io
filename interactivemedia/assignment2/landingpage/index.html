@@ -8,7 +8,6 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Jersey+15&display=swap" rel="stylesheet">
-  <!-- <link rel="stylesheet" href="https://unpkg.com/98.css" /> -->
 </head>
 <body>
 
@@ -141,48 +140,42 @@
         <h2 id="video-title">Tutorial Title</h2>
         <button id="close-video">✖</button>
         </div>
+
         <video id="tutorial-video" controls>
         Your browser does not support the video tag.
-        </video>
+        </video> 
+        
+        <!-- Tutorial Navigation Bar -->
+    <!-- <div id="video-nav" class="video-nav">
+      <button data-step="2.1">1.1 Start the Bag Body</button>
+      <button data-step="2.2">1.2 Making the Bag Body</button>
+      <button data-step="2.3">1.3 Finishing the Bag Body</button>
+      <button data-step="2.4">1.4 Clasp [Bonus]</button>
+      <button data-step="3.1">2.1 Begin the Handle</button>
+      <button data-step="3.2">2.2 The Handle</button>
+      <button data-step="3.3">2.3 Finishing the Handle</button>
+      <button data-step="3.4">2.4 The Bow [FINAL]</button>
+    </div> -->
     </div>
 
-    <!-- Navigation Panel -->
-    <div id="nav-panel" class="window hidden">
-      <div class="title-bar">
-        <div class="title-bar-text">Tutorial Navigation</div>
-        <div class="title-bar-controls">
-          <button aria-label="Close" onclick="closeNavPanel()"></button>
-        </div>
+    <!-- 🎯 New Video Navigation Panel -->
+    <div id="video-nav-panel" class="video-nav-panel hidden">
+      <div class="video-header">
+        <h3 class="nav-title">Steps</h3>
+        <button id="close-nav-panel" class="close-btn">✖</button>
       </div>
-      <div class="window-body">
-        <ul class="tree-view">
-          <li><a href="#" data-step="1">1. Materials</a></li>
-          <li>
-            <details open>
-              <summary><a href="#" data-step="2">2. Body</a></summary>
-              <ul>
-                <li><a href="#" data-step="2.1">2.1 Start the Bag Body</a></li>
-                <li><a href="#" data-step="2.2">2.2 Making the Bag Body</a></li>
-                <li><a href="#" data-step="2.3">2.3 Finishing the Bag Body</a></li>
-                <li><a href="#" data-step="2.4">2.4 Clasp (Bonus)</a></li>
-              </ul>
-            </details>
-          </li>
-          <li>
-            <details>
-              <summary><a href="#" data-step="3">3. Handle</a></summary>
-              <ul>
-                <li><a href="#" data-step="3.1">3.1 Begin the Handle</a></li>
-                <li><a href="#" data-step="3.2">3.2 The Handle</a></li>
-                <li><a href="#" data-step="3.3">3.3 Finishing the Handle</a></li>
-                <li><a href="#" data-step="3.4">3.4 The Bow (Final)</a></li>
-              </ul>
-            </details>
-          </li>
-        </ul>
+      <div class="video-nav-buttons">
+        <button data-step="1"> Materials</button>
+        <button data-step="2.1">1.1 Start</button>
+        <button data-step="2.2">1.2 Body</button>
+        <button data-step="2.3">1.3 Finish</button>
+        <button data-step="2.4">1.4 Clasp</button>
+        <button data-step="3.1">2.1 Strap Start</button>
+        <button data-step="3.2">2.2 Strap</button>
+        <button data-step="3.3">2.3 End Strap</button>
+        <button data-step="3.4">2.4 Bow</button>
       </div>
-    </div>
-
+      
     <!-- Materials Panel  -->
     <div id="materials-overlay" class="overlay hidden">
       <div class="overlay-content">

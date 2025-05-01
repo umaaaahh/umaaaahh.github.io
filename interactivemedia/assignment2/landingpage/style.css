@@ -240,38 +240,100 @@ p {
 
 /* TREE VIEW NAV */
 
-/* 98.css has a tree view I want to use */
-@import url('https://unpkg.com/98.css');
-
-/* Positioning and visibility */
-#nav-panel {
-  position: fixed;
-  top: 100px;
-  right: 20px;
-  width: 250px;
-  z-index: 1000;
+/* .video-nav {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-/* Hide by default */
-.hidden {
-  display: none;
+.video-nav button {
+  background: #000;
+  color: #fff;
+  border: 2px solid white;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.75rem;
+  padding: 6px 10px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.2s ease;
 }
 
-/* Highlight current step */
-.tree-view a.active {
-  font-weight: bold;
-  background-color: #c0c0c0;
-  padding: 2px 4px;
-  border-radius: 2px;
+.video-nav button:hover {
+  background: #222;
 }
 
-#nav-panel {
+.video-nav button.active {
+  background: #0cf;
+  color: #000;
+} */
+
+
+
+.video-nav-panel {
   position: fixed;
   top: 12vh;
   right: 5vw;
-  width: 260px;
-  z-index: 101;
+  background: #111;
+  color: white;
+  border: 2px solid white;
+  border-radius: 12px;
+  padding: 16px;
+  z-index: 110;
+  width: 220px;
+  box-shadow: 0 0 12px rgba(0,255,255,0.4);
 }
+
+.video-nav-panel.hidden {
+  display: none;
+}
+
+.nav-title {
+  font-family: "Jersey 15", sans-serif;
+  font-size: 1rem;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.video-nav-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.video-nav-buttons button {
+  background: #222;
+  border: 2px solid #0cf;
+  color: white;
+  font-family: "Press Start 2P", monospace;
+  font-size: 0.6rem;
+  padding: 6px;
+  cursor: pointer;
+}
+
+.video-nav-buttons button:hover {
+  background: #0cf;
+  color: black;
+}
+
+.video-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-btn {
+  background: none;
+  color: white;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+
+
+
 
 
 /* Turn original dot into a close button */
