@@ -61,6 +61,7 @@ h1 {
 }
 
 p {
+  font-family: monospace;
   font-size: 2rem;
   color: #f2f2f2;
   text-shadow: 1px 1px 0px #000;
@@ -213,7 +214,9 @@ p {
   display: none;
 }
 
-/* user nav guide */
+/* USER NAV OPTIONS AND GUIDES */
+
+/* DOT HIGHLIGHTER */
 .dot.highlight::before,
 .sub-dot.highlight::before {
   content: "";
@@ -234,6 +237,42 @@ p {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+/* TREE VIEW NAV */
+
+/* 98.css has a tree view I want to use */
+@import url('https://unpkg.com/98.css');
+
+/* Positioning and visibility */
+#nav-panel {
+  position: fixed;
+  top: 100px;
+  right: 20px;
+  width: 250px;
+  z-index: 1000;
+}
+
+/* Hide by default */
+.hidden {
+  display: none;
+}
+
+/* Highlight current step */
+.tree-view a.active {
+  font-weight: bold;
+  background-color: #c0c0c0;
+  padding: 2px 4px;
+  border-radius: 2px;
+}
+
+#nav-panel {
+  position: fixed;
+  top: 12vh;
+  right: 5vw;
+  width: 260px;
+  z-index: 101;
+}
+
 
 /* Turn original dot into a close button */
 .dot-grouped.active {

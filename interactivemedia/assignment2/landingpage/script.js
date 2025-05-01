@@ -55,8 +55,7 @@ groupedDot.addEventListener('click', () => {
     subDots.forEach(dot => dot.classList.add('hidden'));
     allMainDots.forEach(dot => dot.style.opacity = 1);
     groupedDot.classList.remove('active');
-    
-    advanceStep(); // Progress the nav guide
+   
     
   } else {
     // OPEN: Hide all other main dots
@@ -68,7 +67,7 @@ groupedDot.addEventListener('click', () => {
     subDots.forEach(dot => dot.classList.remove('hidden'));
     groupedDot.classList.add('active');
 
-    
+    advanceStep(); // Progress the nav guide
     
   }
 });
@@ -164,6 +163,7 @@ document.querySelectorAll(".dot").forEach(dot => {
       tutorialVideo.src = videoSrc;
       videoTitle.textContent = title;
       videoPanel.classList.add("active");
+      navPanel.classList.remove("hidden");// This is for the tree view nav panel
       advanceStep(); // This is do the dot nav guide
     }
   });
@@ -173,6 +173,7 @@ closeVideoBtn?.addEventListener("click", () => {
   videoPanel.classList.remove("active");
   tutorialVideo.pause();
   tutorialVideo.currentTime = 0;
+  navPanel.classList.add("hidden"); // This is for the tree view nav panel
 });
 
 // 🧺 MATERIALS OVERLAY TOGGLE (Cloud-Triggered)
@@ -223,3 +224,43 @@ function advanceStep() {
 
 // 4. Start with the first highlighted dot
 highlightDot(steps[currentStepIndex]);
+
+// TREE VIEW
+
+// Show the navigation panel when a video is opened
+function openNavPanel(currentStep) {
+  document.getElementById('nav-panel').classList.remove('hidden');
+  highlightCurrentStep(currentStep);
+}
+
+// Hide the navigation panel
+function closeNavPanel() {
+  document.getElementById('nav-panel').classList.add('hidden');
+}
+
+// Highlight the current step in the navigation
+function highlightCurrentStep(step) {
+  document.querySelectorAll('#nav-panel a').forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('data-step') === step) {
+      link.classList.add('active');
+    }
+  });
+}
+
+// Add click event listeners to navigation links
+document.querySelectorAll('#nav-panel a').forEach(link => {
+  link.addEventListener('click', event => {
+    event.preventDefault();
+    const step = link.getAttribute('data-step');
+    // Logic to load the corresponding video
+    loadVideo(step);
+    highlightCurrentStep(step);
+  });
+});
+
+// Example function to load video based on step
+function loadVideo(step) {
+  // Implement your video loading logic here
+  console.log(`Loading video for step: ${step}`);
+}
