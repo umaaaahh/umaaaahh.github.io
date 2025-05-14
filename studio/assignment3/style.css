@@ -1,67 +1,152 @@
-/* Reset basics */
+/* === Base === */
 body {
-    margin: 0;
-    font-family: 'Courier New', monospace;
-    background-color: #d4d0c8;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
   
-  /* Fake window */
-  .window {
-    width: 600px;
-    border: 2px solid #000;
-    background: #fff;
-    box-shadow: 4px 4px 0 #888;
-  }
+  background: linear-gradient(to bottom right, #ffe0f0, #c0ddff);
+  font-family: 'DM Mono', monospace; /* Or 'Space Mono', or even a custom Squ1d font */
+  color: #222;
   
-  /* Top bar */
-  .header-bar {
-    background-color: #000080;
-    color: white;
-    padding: 6px 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-weight: bold;
-  }
-  
-  .window-buttons button {
-    background: #ccc;
-    border: 1px solid #000;
-    font-weight: bold;
-    padding: 2px 6px;
-    cursor: pointer;
-  }
-  
-  /* Typing area */
-  #typing-area {
-    min-height: 300px;
-    padding: 10px;
-    border-top: 2px inset #aaa;
-    border-bottom: 2px inset #aaa;
-    font-size: 16px;
-    line-height: 1.5;
-    white-space: pre-wrap;
-    overflow-wrap: break-word;
-    outline: none;
-  }
-  
-  /* Chaos Meter */
-  #chaos-meter {
-    padding: 8px;
-    font-weight: bold;
-    text-align: right;
-    background: #eee;
-    border-top: 2px inset #ccc;
-  }
-  
-  /* Individual letters */
-  .letter {
-    display: inline-block;
-    transition: all 0.2s ease;
-  }
-  
-  
+}
+
+/* === Window container === */
+.window {
+  width: 700px;
+  background: #ffffffd9;
+  border: 2px solid #caaadd;
+  border-radius: 12px;
+  box-shadow: 8px 8px 0 #6665a1;
+  overflow: hidden;
+}
+
+/* === Header bar === */
+.header-bar {
+  background: linear-gradient(to right, #a37ba8, #db9bd2);
+  color: white;
+  padding: 10px 14px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  font-family: 'Courier New', monospace;
+}
+
+
+.window-buttons button {
+  background: #c0c0c0;
+  border: 2px outset white;
+  font-weight: bold;
+  padding: 0px 6px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+/* === Prompt === */
+#prompt-container {
+  background-color: #fdf6ff;
+  color: #6a446f;
+  padding: 10px 14px;
+  font-style: italic;
+  border-bottom: 1px solid #d5c0e0;
+  font-size: 14px;
+}
+
+
+/* === Typing area === */
+#typing-area {
+  padding: 14px;
+  min-height: 300px;
+  font-size: 18px;
+  line-height: 1.7;
+  background-color: #fff;
+  color: #333;
+  border: none;
+  outline: none;
+  transition: background 0.5s;
+}
+
+/* #typing-area {
+  flex: 1;
+  padding: 12px;
+  min-height: 300px;
+  font-size: 16px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  border-top: 2px inset #aaa;
+  border-bottom: 2px inset #aaa;
+  outline: none;
+  background-color: white;
+} */
+
+/* === Chaos meter === */
+#chaos-meter {
+  background: #eae4f4;
+  padding: 10px 14px;
+  text-align: right;
+  font-weight: bold;
+  font-size: 14px;
+  border-top: 1px solid #caaadd;
+  color: #8b5a9e;
+}
+
+
+/* === Animated letters === */
+.letter {
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+/* === ERROR POP UP BOXES === */
+.chaos-popup {
+  position: absolute;
+  width: 280px;
+  background: #f0f0f0;
+  border: 2px solid black;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  z-index: 1000;
+  box-shadow: 4px 4px #000;
+  animation: shakePopup 0.3s ease-in-out;
+  overflow: hidden;
+}
+
+.popup-header {
+  background: #000080;
+  color: white;
+  padding: 4px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.popup-title {
+  font-weight: bold;
+}
+
+.popup-close {
+  background: #c0c0c0;
+  border: 1px solid #888;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0 6px;
+  line-height: 1;
+}
+
+.popup-body {
+  padding: 10px;
+  color: black;
+}
+
+/* shake effect */
+@keyframes shakePopup {
+  0% { transform: translate(0px, 0px); }
+  25% { transform: translate(1px, -1px); }
+  50% { transform: translate(-1px, 1px); }
+  75% { transform: translate(1px, 1px); }
+  100% { transform: translate(0px, 0px); }
+}

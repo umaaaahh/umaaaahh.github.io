@@ -1,50 +1,154 @@
 const typingArea = document.getElementById("typing-area");
 const chaosMeter = document.getElementById("chaos-meter");
+const staticVideo = document.getElementById("static-overlay");
+
 let chaos = 0;
+let typingTimeout;
 
-typingArea.addEventListener("keydown", (e) => {
-  if (e.key.length > 1) return; // Ignore control keys like Shift, Backspace
-  e.preventDefault();
+// When user types, delay visual chaos
+typingArea.addEventListener("input", () => {
+  updateChaos(); // still track and trigger popups
 
-  const span = document.createElement("span");
-  span.classList.add("letter");
-  span.textContent = e.key;
-
-  // Random styles to simulate "chaos"
-  span.style.fontSize = `${10 + Math.random() * 20}px`;
-  span.style.transform = `rotate(${(Math.random() - 0.5) * 20}deg)`;
-  span.style.fontFamily = pickRandomFont();
-
-  typingArea.appendChild(span);
-  updateChaos();
+  clearTimeout(typingTimeout);
+  typingTimeout = setTimeout(() => {
+    applyChaosToText();
+  }, 2000); // wait for 2 second of no typing before glitching
 });
 
+function applyChaosToText() {
+  const text = typingArea.innerText;
+  typingArea.innerHTML = ''; // Clear and rebuild
+
+  // FOr each charater of the text, transform the text randomly
+  for (let char of text) {
+    const span = document.createElement("span");
+    span.textContent = char;
+    span.classList.add("letter");
+
+    if (Math.random() < 0.3) {
+      span.style.transform = `rotate(${(Math.random() - 0.5) * 20}deg)`;
+      span.style.fontSize = `${12 + Math.random() * 16}px`;
+      span.style.fontFamily = pickRandomFont();
+    }
+
+    typingArea.appendChild(span);
+  }
+
+  placeCaretAtEnd(typingArea);
+}
+
+// Select random font from a list of pre-defined fonts
 function pickRandomFont() {
   const fonts = ["Courier New", "Comic Sans MS", "Impact", "Georgia", "Arial"];
   return fonts[Math.floor(Math.random() * fonts.length)];
 }
 
+// Everytime a new character is written, update chaos meter
+// Then display Static video, emotional popups.
 function updateChaos() {
   chaos++;
   chaosMeter.textContent = `CHAOS: ${chaos}`;
 
-  if (chaos % 20 === 0) {
-    showPopup("Are you sure this is good writing?");
+  if (Math.random() < 0.2) {
+    showStatic(500);
+  }
+
+  // Display emotional popup 10% of the time 
+  if (Math.random() < 0.1) {
+    // Get emtional message
+    const message = getEmotionalMsg();
+    // Display popup
+    showPopup(message);
+  }
+
+  // Display popup when chaos meter reach 50
+  if (chaos === 50) {
+    showPopup("You're getting close to something.");
+    showStatic(1000);
+  }
+
+  // Display popup when chaos meter reach 100
+  if (chaos === 100) {
+    showPopup("The page is beginning to unravel...");
+    document.body.style.backgroundColor = "#1a1a1a";
   }
 }
 
-function showPopup(message) {
+// Return a random string from pre-defined list of quotes
+function getEmotionalMsg() {
+  const messages = [
+    "Ohh 30 seconds of work? Time for 3 hours of doomscrolling justified as self-care?",
+    "That’s number one... and your brain is already done.",
+    "Wow. Revolutionary. Want a trophy for typing that?",
+    "Was that a focus or just a guilt spiral in disguise?",
+    "You googled productivity tools for 2 hours yesterday.",
+    "‘Priorities’—but make them aesthetic, right?",
+    "You didn’t actually do the last thing you said you'd focus on.",
+    "That one again? You type it every journal entry.",
+    "You call this clarity?",
+    "Be honest... that was for the person you want to be, not the one you are.",
+    "Deep down, you know what you're avoiding.",
+    "Mmm yes, focus—brought to you by anxiety and TikTok.",
+    "If you finish this sentence, maybe you’ll finally have your life together. Maybe.",
+    "Love that one. Let’s forget it in 10 minutes.",
+    "Add it to the pile of unstarted ‘goals.’",
+  ];
+  return messages[Math.floor(Math.random() * messages.length)];
+}
+
+// Not working
+function showStatic(duration = 800) {
+  staticVideo.style.opacity = 1;
+  staticVideo.play();
+
+  setTimeout(() => {
+    staticVideo.style.opacity = 0;
+    staticVideo.pause();
+    staticVideo.currentTime = 0;
+  }, duration);
+}
+
+// pop up boxes
+function showPopup(message = "Keep going...") {
+
+  // Style of popup
   const popup = document.createElement("div");
-  popup.textContent = message;
-  popup.style.position = "absolute";
+  popup.classList.add("chaos-popup");
+  popup.innerHTML = `
+    <div class="popup-header">
+      <span class="popup-title">⚠️⚠️⚠️ ERROR ⚠️⚠️⚠️</span>
+      <button class="popup-close">X</button>
+    </div>
+    <div class="popup-body">${message}</div>
+  `;
+
+  // Select a random position on the screen to display pop up
   popup.style.top = `${50 + Math.random() * 300}px`;
   popup.style.left = `${50 + Math.random() * 400}px`;
-  popup.style.padding = "10px";
-  popup.style.background = "#fff";
-  popup.style.border = "2px solid black";
-  popup.style.zIndex = 999;
-  popup.style.boxShadow = "4px 4px #888";
+
+  // Display popup
   document.body.appendChild(popup);
 
+  // Auto-remove after a few seconds
   setTimeout(() => popup.remove(), 3000);
 }
+
+// This function is to keep from losing typing cursor
+function placeCaretAtEnd(el) {
+  // Tells the browser to focus on the element, to combat 
+  // typing cursor being lost after chaos is applied
+  // Without this, the user might lose the typing cursor after chaos is applied.
+  el.focus();
+  const range = document.createRange();
+  range.selectNodeContents(el);
+  range.collapse(false);
+
+  const sel = window.getSelection();
+  sel.removeAllRanges();
+  sel.addRange(range);
+  // When text gets replaced by different fonts is making sure
+  // the cursor stays at the position the user is up to, instead
+  // of resetting to the start of the page which it was doing originally
+  // OG Source: https://stackoverflow.com/questions/1125292/how-to-move-the-cursor-to-the-end-of-a-contenteditable-entity
+}
+ 
