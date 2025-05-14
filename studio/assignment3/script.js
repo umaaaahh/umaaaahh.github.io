@@ -15,6 +15,9 @@ typingArea.addEventListener("input", () => {
   }, 2000); // wait for 2 second of no typing before glitching
 });
 
+// This function isn't working super well
+// Possible fixes: Mirror text from a hidden textarea,
+// overlayed with a visble glitch area
 function applyChaosToText() {
   const text = typingArea.innerText;
   typingArea.innerHTML = ''; // Clear and rebuild
@@ -47,8 +50,24 @@ function pickRandomFont() {
 // Then display Static video, emotional popups.
 function updateChaos() {
   chaos++;
-  chaosMeter.textContent = `CHAOS: ${chaos}`;
-
+  const chaosBar = document.getElementById("chaos-bar");
+  const chaosLabel = document.getElementById("chaos-label");
+  
+  chaosLabel.textContent = `CHAOS: ${chaos}`;
+  
+  // Cap chaos visually at 100%
+  const percent = Math.min(chaos, 100);
+  chaosBar.style.width = `${percent}%`;
+  
+  // Dynamically change bar color from green → yellow → orange → red
+  if (percent < 33) {
+    chaosBar.style.backgroundColor = "green";
+  } else if (percent < 66) {
+    chaosBar.style.backgroundColor = "orange";
+  } else {
+    chaosBar.style.backgroundColor = "red";
+  }
+  
   if (Math.random() < 0.2) {
     showStatic(500);
   }
@@ -137,7 +156,7 @@ function showPopup(message = "Keep going...") {
 function placeCaretAtEnd(el) {
   // Tells the browser to focus on the element, to combat 
   // typing cursor being lost after chaos is applied
-  // Without this, the user might lose the typing cursor after chaos is applied.
+// Without this, the user might lose the typing cursor after chaos is applied.
   el.focus();
   const range = document.createRange();
   range.selectNodeContents(el);
@@ -149,6 +168,6 @@ function placeCaretAtEnd(el) {
   // When text gets replaced by different fonts is making sure
   // the cursor stays at the position the user is up to, instead
   // of resetting to the start of the page which it was doing originally
-  // OG Source: https://stackoverflow.com/questions/1125292/how-to-move-the-cursor-to-the-end-of-a-contenteditable-entity
+  // OG Source: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/contenteditable
 }
  

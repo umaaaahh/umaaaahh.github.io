@@ -4,14 +4,13 @@ body {
   align-items: center;
   justify-content: center;
   height: 100vh;
-  
+
   background: linear-gradient(to bottom right, #ffe0f0, #c0ddff);
-  font-family: 'DM Mono', monospace; /* Or 'Space Mono', or even a custom Squ1d font */
+  font-family: 'DM Mono', monospace; 
   color: #222;
-  
 }
 
-/* === Window container === */
+/* === Window Container === */
 .window {
   width: 700px;
   background: #ffffffd9;
@@ -21,7 +20,7 @@ body {
   overflow: hidden;
 }
 
-/* === Header bar === */
+/* === Header Bar === */
 .header-bar {
   background: linear-gradient(to right, #a37ba8, #db9bd2);
   color: white;
@@ -34,17 +33,16 @@ body {
   font-family: 'Courier New', monospace;
 }
 
-
 .window-buttons button {
   background: #c0c0c0;
   border: 2px outset white;
   font-weight: bold;
-  padding: 0px 6px;
+  padding: 0 6px;
   font-size: 12px;
   cursor: pointer;
 }
 
-/* === Prompt === */
+/* === Prompt Box === */
 #prompt-container {
   background-color: #fdf6ff;
   color: #6a446f;
@@ -54,21 +52,26 @@ body {
   font-size: 14px;
 }
 
-
-/* === Typing area === */
+/* === Typing Area === */
 #typing-area {
-  padding: 14px;
+  padding: 20px;
   min-height: 300px;
-  font-size: 18px;
-  line-height: 1.7;
+  font-size: 20px;
+  line-height: 1.8;
   background-color: #fff;
-  color: #333;
+  color: #222;
   border: none;
   outline: none;
-  transition: background 0.5s;
+  transition: 0.5s;
 }
 
-/* #typing-area {
+#typing-area p {
+  margin: 0 0 12px 0;
+}
+
+
+/* Old version (keep for reference if needed)
+#typing-area {
   flex: 1;
   padding: 12px;
   min-height: 300px;
@@ -80,27 +83,45 @@ body {
   border-bottom: 2px inset #aaa;
   outline: none;
   background-color: white;
-} */
+}
+*/
 
-/* === Chaos meter === */
+/* === Chaos Meter === */
 #chaos-meter {
-  background: #eae4f4;
-  padding: 10px 14px;
-  text-align: right;
-  font-weight: bold;
-  font-size: 14px;
-  border-top: 1px solid #caaadd;
-  color: #8b5a9e;
+  position: relative;
+  width: 100%;
+  height: 30px;
+  background: #eee;
+  border: 1px solid #caaadd;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-top: 10px;
+  font-family: 'Courier New', monospace;
 }
 
+#chaos-bar {
+  height: 100%;
+  width: 0%;
+  background: green;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
 
-/* === Animated letters === */
+#chaos-label {
+  position: absolute;
+  top: 0;
+  left: 10px;
+  line-height: 30px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* === Animated Letters === */
 .letter {
   display: inline-block;
   transition: all 0.3s ease;
 }
 
-/* === ERROR POP UP BOXES === */
+/* === Error Popup Boxes === */
 .chaos-popup {
   position: absolute;
   width: 280px;
@@ -142,11 +163,11 @@ body {
   color: black;
 }
 
-/* shake effect */
+/* === Popup Shake Effect === */
 @keyframes shakePopup {
-  0% { transform: translate(0px, 0px); }
-  25% { transform: translate(1px, -1px); }
-  50% { transform: translate(-1px, 1px); }
-  75% { transform: translate(1px, 1px); }
+  0%   { transform: translate(0px, 0px); }
+  25%  { transform: translate(1px, -1px); }
+  50%  { transform: translate(-1px, 1px); }
+  75%  { transform: translate(1px, 1px); }
   100% { transform: translate(0px, 0px); }
 }
