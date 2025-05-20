@@ -49,6 +49,10 @@ function applyChaosToText() {
       span.style.fontSize = `${12 + Math.random() * 16}px`;
       span.style.fontFamily = pickRandomFont();
     }
+    // Text Shakes
+    if (chaos >= 75) {
+      span.classList.add("shake-text"); 
+    }
 
     typingArea.appendChild(span);
   }
@@ -85,6 +89,8 @@ function updateChaos() {
 
       
     }
+
+    
     
 
 
@@ -112,14 +118,15 @@ function updateChaos() {
   if (Math.random() < 0.2) {
   }
 
-  // Display emotional popup 10% of the time 
-  if (Math.random() < (chaos/1000 + 0.1)) {
-    // Get emtional message
-    const message = getEmotionalMsg();
-    // Display popup
-    showPopup(message);
+  // Display emotional popup starting at 10% chaos with 20% chance popup 
+  if (chaos >= 10) {
+    // Start at 10% and scale up more aggressively
+    const chance = (chaos - 10) / 450; // 0 at 10, ~0.2 at 100
+    if (Math.random() < chance) {
+      showPopup(getEmotionalMsg());
+      showPopup(getEmotionalMsg()); // double popup
+    }
   }
-
 
   // Display popup when chaos meter reach 50
   if (chaos === 50) {
@@ -316,7 +323,7 @@ function showPopup(message = "Keep going...") {
   document.body.appendChild(popup);
 
   // Auto-remove after a few seconds
-  setTimeout(() => popup.remove(), 3000);
+  setTimeout(() => popup.remove(), 5000);
 }
 
 // This function is to keep from losing typing cursor
