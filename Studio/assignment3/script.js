@@ -13,25 +13,32 @@ typingArea.addEventListener("input", () => {
   clearTimeout(typingTimeout);
   typingTimeout = setTimeout(() => {
     applyChaosToText();
-  },100); // wait for 2 second of no typing before glitching
+  },100); 
+  // wait for 2 second of no typing before glitching
 
-  // Play typing sound (cloned to avoid overlap delay)
-  if (typeSound) {
-    const clone = typeSound.cloneNode();
-    console.log(420);
-    clone.play();
-  }
+    // Play typing sound (cloned to avoid overlap delay)
+    if (typeSound) {
+      const clone = typeSound.cloneNode();
+      console.log(420);
+      clone.play();
+    }
 });
 
 // This function isn't working super well
 // Possible fixes: Mirror text from a hidden textarea,
 // overlayed with a visble glitch area
 function applyChaosToText() {
+  const paragraphs = typingArea.querySelectorAll("p");
   const text = typingArea.innerText;
   typingArea.innerHTML = ''; // Clear and rebuild
 
-  // FOr each charater of the text, transform the text randomly
+  // For each charater of the text, transform the text randomly
   for (let char of text) {
+    if(char == '\n'){
+      linebreak = document.createElement("br");
+      typingArea.appendChild(linebreak);
+      continue;
+    }
     const span = document.createElement("span");
     span.textContent = char;
     span.classList.add("letter");
