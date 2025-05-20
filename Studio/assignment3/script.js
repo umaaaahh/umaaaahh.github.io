@@ -2,6 +2,7 @@ const typingArea = document.getElementById("typing-area");
 const chaosMeter = document.getElementById("chaos-meter");
 const staticVideo = document.getElementById("static-overlay");
 const typeSound = document.getElementById("type-sound");
+const meltdownSound = document.getElementById("meltdown-sound");
 
 let chaos = 0;
 let typingTimeout;
@@ -19,7 +20,7 @@ typingArea.addEventListener("input", () => {
     // Play typing sound (cloned to avoid overlap delay)
     if (typeSound) {
       const clone = typeSound.cloneNode();
-      console.log(420);
+      clone.volume = 0.1;
       clone.play();
     }
 });
@@ -64,17 +65,38 @@ function pickRandomFont() {
 // Everytime a new character is written, update chaos meter
 // Then display Static video, emotional popups.
 function updateChaos() {
-// ✅ If chaos has already reached 100, don't update anything else
+// If chaos has already reached 100, don't update anything else
     if (chaos >= 100) return;
 // Otherwise increase chaos #
     chaos++;
+
+  // meltdown sound effects
+
+    // Start playing at 50 chaos
+    if (chaos === 75 && meltdownSound) {
+      meltdownSound.volume = 0.1;
+      meltdownSound.play();
+    }
+    
+    // Gradually increase volume from 50 to 100
+    if (chaos > 75 && chaos <= 100 && meltdownSound) {
+      const volume = Math.min(0.2, (chaos - 50) / 120);
+      meltdownSound.volume = volume;
+
+      
+    }
+    
+
+
+
+
+
 // Update Chaos Bar and Label
   const chaosBar = document.getElementById("chaos-bar");
   const chaosLabel = document.getElementById("chaos-label");
   chaosLabel.textContent = `CHAOS: ${chaos}`;
   
   // Cap visual chaos bar at 100%
-  
   const percent = Math.min(chaos, 100);
   chaosBar.style.width = `${percent}%`;
   
@@ -88,7 +110,6 @@ function updateChaos() {
   }
   
   if (Math.random() < 0.2) {
-    // showStatic(500);
   }
 
   // Display emotional popup 10% of the time 
@@ -106,31 +127,116 @@ function updateChaos() {
   }
 
   // Display popup when chaos meter reach 100
-  if (chaos === 100) {
-    showPopup("The page is beginning to unravel...");
+  // if (chaos === 100) {
+  //   showPopup("The page is beginning to unravel...");
    
-    typingArea.setAttribute("contenteditable", "false");
-    // document.body.style.backgroundColor = "#1a1a1a";
-    // Stop background video, switch to final takeover
-    // const finalVideo = document.getElementById("final-video");
-    // finalVideo.style.display = "block";
-    // finalVideo.play();
-    // Show static overlay video full screen
+  //   typingArea.setAttribute("contenteditable", "false");
 
-    // showStatic(opacity = .3);
-    staticVideo.style.opacity = .3;
+  //   staticVideo.style.opacity = .3;
+  //   staticVideo.style.zIndex = 9999;
+  //   staticVideo.loop = true; // Just in case it's not set in HTML
+  //   staticVideo.play();
+  //   console.log("420");
+  
+  //   // Lock typing
+  //   typingArea.setAttribute("contenteditable", "false");
+  
+  //   // Optional fade background
+  //   document.body.style.backgroundColor = "#000";
+
+  // }
+
+  if (chaos === 100) {
+    // Lock typing and audio
+    typingArea.setAttribute("contenteditable", "false");
+    meltdownSound.volume = 0.2;
+  
+    // Play full-screen glitch video
+    staticVideo.style.opacity = 1;
+    staticVideo.style.transition = "opacity 1s ease";
     staticVideo.style.zIndex = 9999;
-    staticVideo.loop = true; // Just in case it's not set in HTML
+    staticVideo.loop = true;
     staticVideo.play();
-    console.log("420");
-  
-    // Lock typing
-    typingArea.setAttribute("contenteditable", "false");
-  
-    // Optional fade background
-    document.body.style.backgroundColor = "#000";
+    
 
+      // Fade meltdown sound slowly
+      let volume = meltdownSound.volume;
+      const fadeOut = setInterval(() => {
+        volume -= 0.02;
+        meltdownSound.volume = Math.max(0, volume);
+        if (volume <= 0) {
+          clearInterval(fadeOut);
+          meltdownSound.pause();
+          meltdownSound.currentTime = 0;
+        }
+      }, 100);
+    
+// ⚡ Flash effect before blackout
+const flash = document.createElement("div");
+flash.style.position = "fixed";
+flash.style.top = 0;
+flash.style.left = 0;
+flash.style.width = "100vw";
+flash.style.height = "100vh";
+flash.style.backgroundColor = "#fff";
+flash.style.zIndex = 9998;
+flash.style.opacity = 1;
+flash.style.transition = "opacity 0.3s ease";
+document.body.appendChild(flash);
+
+setTimeout(() => {
+  flash.style.opacity = 0;
+}, 100);
+
+setTimeout(() => {
+  flash.remove();
+}, 500);
+
+    // Darken background
+    document.body.style.backgroundColor = "#000";
+  
+    // Create final message overlay
+    // const finalOverlay = document.createElement("div");
+    // finalOverlay.id = "final-message";
+    // finalOverlay.innerHTML = `
+    //   <h1 class="final-line">It broke.<br>But maybe it needed to.</h1>
+    //   <button class="restart-button">Refresh?</button>
+    // `;
+    // document.body.appendChild(finalOverlay);
+
+    // Create final error popup
+const popup = document.createElement("div");
+popup.classList.add("chaos-popup");
+popup.style.zIndex = 10000;
+popup.style.position = "fixed";
+popup.style.top = "50%";
+popup.style.left = "50%";
+popup.style.transform = "translate(-50%, -50%)";
+popup.style.width = "400px";
+popup.style.maxWidth = "90vw";
+popup.innerHTML = `
+  <div class="popup-header">
+    <span class="popup-title">FATAL ERROR</span>
+    <button class="popup-close">X</button>
+  </div>
+  <div class="popup-body">
+    <p>It broke. But maybe it needed to.</p>
+    <button class="restart-button">Refresh</button>
+  </div>
+`;
+document.body.appendChild(popup);
+
+// Add refresh button logic
+popup.querySelector(".restart-button").addEventListener("click", () => {
+  location.reload();
+});
+
+  
+    // Add click-to-refresh
+    const restartBtn = finalOverlay.querySelector(".restart-button");
+    restartBtn.addEventListener("click", () => location.reload());
   }
+  
 }
 
 // Return a random string from pre-defined list of quotes
@@ -170,8 +276,41 @@ function showPopup(message = "Keep going...") {
   `;
 
   // Select a random position on the screen to display pop up
-  popup.style.top = `${50 + Math.random() * 300}px`;
-  popup.style.left = `${50 + Math.random() * 400}px`;
+  // popup.style.top = `${50 + Math.random() * 300}px`;
+  // popup.style.left = `${50 + Math.random() * 400}px`;
+
+  // Begin chaotic movement
+  // const moveInterval = setInterval(() => {
+  //   const x = 50 + Math.random() * (window.innerWidth - 300);
+  //   const y = 50 + Math.random() * (window.innerHeight - 200);
+  //   popup.style.left = `${x}px`;
+  //   popup.style.top = `${y}px`;
+  // }, 500 + Math.random() * 500); // change position every 0.5–1s
+
+  // Randomize starting direction and speed
+  let vx = (Math.random() - 0.5) * 10; // X velocity
+  let vy = (Math.random() - 0.5) * 10; // Y velocity
+
+  let posX = Math.random() * (window.innerWidth - popup.offsetWidth);
+  let posY = Math.random() * (window.innerHeight - popup.offsetHeight);
+  popup.style.left = `${posX}px`;
+  popup.style.top = `${posY}px`;
+
+  function animatePopup() {
+    posX += vx;
+    posY += vy;
+
+    // Bounce off edges
+    if (posX <= 0 || posX >= window.innerWidth - popup.offsetWidth) vx *= -1;
+    if (posY <= 0 || posY >= window.innerHeight - popup.offsetHeight) vy *= -1;
+
+    popup.style.left = `${posX}px`;
+    popup.style.top = `${posY}px`;
+
+    popup._animationFrame = requestAnimationFrame(animatePopup);
+  }
+  animatePopup();
+
 
   // Display popup
   document.body.appendChild(popup);
