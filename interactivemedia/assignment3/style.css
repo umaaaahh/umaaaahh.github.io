@@ -1,0 +1,138 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background-color: black;
+    color: white;
+    font-family: 'Georgia', serif;
+  }
+  
+  .scene {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  .layer {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    pointer-events: none;
+  }
+/* Transition effect */
+#transition-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: black;
+  opacity: 1;
+  pointer-events: none;
+  z-index: 4;
+  transition: opacity 1.5s ease-out;
+}
+
+#transition-mask.fade-out {
+  opacity: 0;
+}
+
+  /* Landing Section */
+.landing {
+  height: 100vh;
+  width: 100vw;
+  background: black;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: Georgia, serif;
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  opacity: 1;
+  transition: opacity 1s ease-out;
+  z-index: 5;
+ pointer-events: auto;
+}
+
+.landing p {
+  font-size: clamp(1rem, 2vw, 2rem);
+  margin-top: 1rem;
+}
+
+.landing.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+
+/* Scene 1 Assets */
+.scene-content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+  
+  .moon {
+    width: 20%;  /* Resize as needed */
+    height: auto;
+    top: 10%;
+    left: 70%;
+    position: absolute;
+    z-index: 2;
+  }
+
+  .girl {
+    position: absolute;
+    width: 15%;    /* Adjust this % to make her smaller/larger */
+    height: auto;
+    bottom: 1%;   /* Position her on the "ground" */
+    left: 85%;     /* Shift her horizontally */
+    z-index: 3;
+    opacity: 0;
+    transform: translateX(100px); /* Start off-frame to the right */
+    transition: transform 1s ease-out, opacity 1s ease-out;
+  }
+
+  .girl.visible {
+  opacity: 1;
+  transform: translateX(0); /* Moves into place */
+}
+
+/* Depth effect */
+
+ .background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* fills the space without leaving gaps */
+  z-index: 1;
+}
+  
+  .midground {
+    z-index: 2;
+    transform: translateY(10px);
+  }
+  
+  .foreground {
+    z-index: 3;
+    transform: translateY(20px);
+  }
+  
+  .poem-text {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    z-index: 4;
+    color: rgb(109, 109, 109);
+    text-align: left;
+    font-size: clamp(1.5rem, 2vw, 1.5rem);
+    max-width: 30ch; /* Keep line length readable */
+    line-height: 1.5;
+    text-shadow: 2px 2px 4px black;
+  }
+  
