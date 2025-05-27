@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Overthinker's Typing Pad – Design Reflection</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>The Overthinker's Typing Pad</h1>
+    <p class="subtitle">Design Reflection by Uma Bridges</p>
+  </header>
+
+   <section>
+      <h2>Judgments of Purpose</h2>
+      <p>
+        The goal of <em>The Overthinker's Typing Pad</em> was to visualize the mental friction of trying to write when your thoughts are spiraling. I didn’t want to make a productive tool — I wanted to build something that actively resists the user the more they try to engage. The purpose was to create a digital notepad where writing feels emotionally charged and visually unstable, simulating the overwhelm and self-disruption that often come with trying to concentrate. Although I made adjustments from my original concept — such as removing features like text turning into GIFs or letters spiraling off the page — the core experience remained intact. The emotional arc of spiraling into chaos still came through clearly.
+      </p>
+    </section>
+
+    <section>
+      <h2>Judgments of Worth</h2>
+      <p>
+        At its heart, this project was about emotional honesty and play. While it uses humor and absurdity, I wanted it to feel uncomfortably relatable. I value creative tools that break norms and reflect human messiness, especially around focus and self-discipline. Instead of offering solutions, this tool leans into discomfort. I also found value in making the tool fun to interact with, even as it became increasingly dysfunctional. Emotional resonance and user engagement were far more important to me than polish or productivity.
+      </p>
+    </section>
+
+    <section>
+      <h2>Judgments of Framing</h2>
+      <p>
+        The webpage was intentionally styled like a familiar note-taking app (inspired by Windows Notepad or Google Keep) to ground the user in a known interaction model — type something into a box. That limitation helped frame the experience in a way that guided user expectation: you’re just here to write. Behind that simplicity, though, I created one of my most complex JavaScript projects to date. Because the goal was to create friction — not a smooth UI — I felt free to experiment and abstract simple functions in creative ways. This constraint made the experience feel purposeful and allowed me to explore functionality in a more emotionally expressive way.
+      </p>
+      <p>
+        Some of the features I originally planned — like transforming letters into GIFs or making the text spiral off the page — were cut as I better understood the mechanics and limitations of the process. Early in development, I hadn’t fully thought through how complex these effects would be to implement. Sometimes the decision to remove them came from time constraints, other times it was based on feedback from my lecturer, who warned me that certain ideas (like spiraling text) would be extremely difficult to pull off with JavaScript. In other cases, like the GIF transformation idea, I simply couldn’t find any existing examples or documentation to build from. Ultimately, the project deadline and my current skill level helped shape what features I could realistically include — and I learned that knowing what not to build is as important as knowing what to build.
+      </p>
+      <p>
+        One of my key concerns was whether users would stay long enough to experience the full meltdown. I worried they’d type too briefly or leave early, missing the core escalation. To help guide them, I added a prompt and a chaos meter — but feedback from my lecturer reminded me that you can’t force an ending. That helped me shift focus from control to invitation. I stopped obsessing over making everyone finish it and instead made sure the escalation was rewarding for those who stayed.
+      </p>
+    </section>
+
+    <section>
+      <h2>Judgments of Appearance</h2>
+      <p>
+        The visual design was originally going to be styled with the 98.css library, but I was advised not to use external libraries. This forced me to rethink and instead interpret the Windows 98 aesthetic manually. I ended up creating a pastel, more playful spin on the retro UI — a softer, "modern girly" version of the visual language. While I occasionally wish I leaned harder into the 98 look, I don’t think the outcome suffered from the shift.
+      </p>
+      <p>
+        Two visual mechanics I'm especially proud of are the bouncing error popups and the randomized styling applied to typed text. The error boxes were originally static and positioned randomly, but often blocked the screen or annoyed users. I modified them to bounce across the screen like old DVD screensavers — still chaotic, but less frustrating. The chaotic span-based letter styling (random fonts, sizes, and rotation) gives the whole pad a crafted, unstable feel I love, and one I plan to reuse in future designs.
+      </p>
+    </section>
+
+    <section>
+      <h2>Judgments of Quality</h2>
+      <p>
+        The technical implementation of the tool is messy but ambitious. I coded everything with plain HTML, CSS, and vanilla JS. I chose not to use libraries like Tone.js or Konva because I didn’t feel confident learning them in time, but in hindsight I could have pushed myself further — especially in audio design. I did a lot of sound logic manually, and while it worked, the final soundscape feels a bit rough. I could have layered the sounds more intentionally using audio software or written cleaner logic for volume scaling. That said, I’m proud of how much I accomplished through raw scripting and experimentation, even if the code isn’t the most elegant under the hood.
+      </p>
+    </section>
+
+    <section>
+      <h2>Judgments of Composition</h2>
+      <p>
+        The experience follows a structured emotional arc: calm → escalating tension → breakdown. While the logic is random under the hood, the pacing is deliberate. The chaos bar allowed me to attach different triggers to different levels of user engagement, which helped stagger the effects and keep the chaos from becoming overwhelming too early. I had initially wanted the experience to be longer, but feedback during my presentation made me realize its brevity is part of its impact. A short spiral into dysfunction suits the theme — too much time would have softened the punch.
+      </p>
+    </section>
+
+    <section>
+      <h2>Judgments of Navigation</h2>
+      <p>
+        Navigation was intentionally minimal. I considered adding a landing screen or multiple writing stages, but ultimately kept everything within one screen. This kept the interface clean and limited the user to one form of engagement: writing. I did add a “Return” button at the end of the meltdown to give users a clear reset path — not because it was needed for function, but because it felt like a clean way to close the loop. Throughout the experience, navigation is restricted by the design itself, encouraging users to follow the linear emotional arc.
+      </p>
+    </section>
+
+    <section>
+      <h2>Final Reflection</h2>
+      <p>
+        I felt insecure about this project during development. I kept worrying it was too simple or not flashy enough. But that simplicity gave me room to explore deeper design choices — especially in the JavaScript. It also allowed me to think about pacing, atmosphere, tone, and emotional design in a way I often overlook when I’m trying to “do a lot.” Ultimately, I realized this might be one of my most effective and intentional projects, not in spite of its simplicity
+</body>
+</html>
