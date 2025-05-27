@@ -1,43 +1,48 @@
-<!DOCTYPE html><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Annabel Lee</title>
+  <title>Annabel Lee – Scroll Poem</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <main class="vertical-scroll-container">
-    <!-- LANDING PAGE -->
-    <section id="landing" class="landing">
-      <div class="landing-overlay"></div>
-      <h1>Annabel Lee</h1>
-      <p>A poem by Edgar Allan Poe</p>
+  <!-- Fixed Background Stage -->
+  <div class="stage">
+    <img src="assets/scene1.png" alt="Background scene" class="background" />
+    <img src="assets/girl.png" alt="Annabel Lee" class="character girl" />
+    <img src="assets/boy.png" alt="Narrator" class="character boy" />
+    <img src="assets/lovers.png" alt="The Lovers" class="character lovers" />
+    <img src="assets/girl2.png" alt="Girl reaching out" class="character girl2" />
+  </div>
+
+  <!-- Poem Container -->
+  <main class="poem-scroll">
+    <section class="poem-section" data-stanza="1">
+      <div class="poem-frame">
+        <p>It was many and many a year ago,<br>In a kingdom by the sea,</p>
+      </div>
     </section>
 
-    <!-- HORIZONTAL SCENE TRACK -->
-    <div class="horizontal-scroll">
-      <!-- SCENE 1 -->
-      <section class="scene">
-        <div class="stage">
-          <div class="fixed-background scene1-bg"></div>
-          <img src="assets/moon.png" class="moon" />
-          <img src="assets/girl.png" class="girl" style="opacity: 0;" />
-          <div class="poem-text" id="poem-text"></div>
-        </div>
+    <section class="poem-section" data-stanza="2">
+      <div class="poem-frame">
+        <p>That a maiden there lived whom you may know<br>By the name of Annabel Lee;</p>
+      </div>
+    </section>
 
-        <div class="vertical-scroll">
-          <section class="trigger" data-stanza="title"></section>
-          <section class="trigger" data-stanza="1"></section>
-          <section class="trigger" data-stanza="2"></section>
-          <section class="trigger" data-stanza="3"></section>
-        </div>
-      </section>
-
-      <!-- SCENE 2... -->
+    <section class="poem-section" data-stanza="3">
+      <div class="poem-frame">
+        <p>And this maiden she lived with no other thought<br>Than to love and be loved by me.</p>
+      </div>
+    </section>
+  
+    <section class="poem-section" data-stanza="4">
+    <div class="poem-frame">
+      <p>And we loved with a love that was more than love—<br>I and my Annabel Lee—</p>
     </div>
-  </main>
+  </section>
 
+</main>
 
   <script src="script.js"></script>
 </body>
