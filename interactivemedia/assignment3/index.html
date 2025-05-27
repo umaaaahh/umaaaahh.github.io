@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html><!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -7,29 +7,38 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div id="transition-mask"></div>
-  
-  <!-- Landing Page -->
-  <section class="landing" id="landing">
-    <h1>Annabel Lee</h1>
-    <p>a poem by Edgar Allan Poe</p>
-  </section>
+  <main class="vertical-scroll-container">
+    <!-- LANDING PAGE -->
+    <section id="landing" class="landing">
+      <div class="landing-overlay"></div>
+      <h1>Annabel Lee</h1>
+      <p>A poem by Edgar Allan Poe</p>
+    </section>
 
-  <!-- Scene 1 -->
-  <section class="scene" id="scene1">
-    <div class="scene-content">
-      <img src="assets/scene1-background.png" class="background" />
-      <img src="assets/scene1-moon.png" class="moon" />
-      <img src="assets/scene1-girl.png" class="layer girl hidden" />
+    <!-- HORIZONTAL SCENE TRACK -->
+    <div class="horizontal-scroll">
+      <!-- SCENE 1 -->
+      <section class="scene">
+        <div class="stage">
+          <div class="fixed-background scene1-bg"></div>
+          <img src="assets/moon.png" class="moon" />
+          <img src="assets/girl.png" class="girl" style="opacity: 0;" />
+          <div class="poem-text" id="poem-text"></div>
+        </div>
+
+        <div class="vertical-scroll">
+          <section class="trigger" data-stanza="title"></section>
+          <section class="trigger" data-stanza="1"></section>
+          <section class="trigger" data-stanza="2"></section>
+          <section class="trigger" data-stanza="3"></section>
+        </div>
+      </section>
+
+      <!-- SCENE 2... -->
     </div>
-    <div class="poem-text">
-      <p>It was many and many a year ago,<br>In a kingdom by the sea...</p>
-    </div>
-  </section>
+  </main>
 
 
-    <script src="script.js"></script>
-
+  <script src="script.js"></script>
 </body>
 </html>
-
