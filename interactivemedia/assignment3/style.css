@@ -14,6 +14,14 @@ body, html {
 }
 
 /* ===== Fixed Stage ===== */
+/* .stage-wrapper {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: black; /* acts as a soft frame edge */
+  /* overflow: hidden;  hides anything that leaks */
+
+
 .stage {
   position: fixed;
   top: 0;
@@ -124,19 +132,19 @@ body, html {
 }
 
 /* Walking animation for girl */
-.girl.walk-in {
-  animation: walkIn 2s ease-out forwards;
-}
-
-@keyframes walkIn {
+@keyframes walkInSafe {
   from {
-    transform: translateX(100%) scale(1);
+    left: 100%;
     opacity: 0;
   }
   to {
-    transform: translateX(0) scale(1);
+    left: 65%; 
     opacity: 1;
   }
+}
+
+.girl.walk-in {
+  animation: walkInSafe 2s ease-out forwards;
 }
 
 /* ===== Scroll Area ===== */
@@ -176,4 +184,9 @@ body, html {
 .poem-frame p {
   margin: 0 auto;
   max-width: 40ch;
+}
+
+html, body {
+  max-width: 100vw;
+  overflow-x: hidden;
 }
