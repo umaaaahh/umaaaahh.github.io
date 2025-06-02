@@ -5,23 +5,16 @@
   padding: 0;
 }
 
-body, html {
+html, body {
   width: 100%;
   height: 100%;
   font-family: 'Georgia', serif;
-  overflow-x: hidden;
   background-color: #fdf7e6; /* parchment tone */
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
-/* ===== Fixed Stage ===== */
-/* .stage-wrapper {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  background: black; /* acts as a soft frame edge */
-  /* overflow: hidden;  hides anything that leaks */
-
-
+/* ===== Fixed Stage & Background Layers ===== */
 .stage {
   position: fixed;
   top: 0;
@@ -30,64 +23,74 @@ body, html {
   height: 100vh;
   z-index: 1;
   pointer-events: none;
+  overflow: hidden;
 }
 
-.background {
+.bg {
   position: fixed;
   top: 0;
+  left: 0;
+  width: 100vw;       /* Fill the viewport width */
+  height: 100vh;      /* Fill the viewport height */
+  object-fit: cover;
+  z-index: 0;
+  pointer-events: none;
+  transform: scale(0.9); /* Slightly smaller for visual padding */
+  transform-origin: center;
+}
+
+.stars {
+  position: fixed;
+  top: calc(0px + 30px); /* slightly lower than the top of the screen */
   left: 0;
   width: 100vw;
   height: 100vh;
   object-fit: cover;
-  z-index: -1;
+  z-index: 1;
+  pointer-events: none;
+  animation: twinkle 2s ease-in-out infinite;
 }
 
-/* Landing Page Styling */
-.landing {
-  height: 100vh;
-  width: 100vw;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: black;
-  color: white;
-  font-family: Georgia, serif;
-  z-index: 10;
-  scroll-snap-align: start;
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.9; }
+  50% { opacity: 0.6; }
 }
 
-.landing h1 {
-  font-size: clamp(2rem, 6vw, 4rem);
-  margin-bottom: 1rem;
-}
 
-.landing p {
-  font-size: clamp(1rem, 3vw, 2rem);
-  opacity: 0.7;
-}
 
-/* Scroll Prompt */
-.scroll-prompt {
+.bg.sea {
   position: absolute;
-  bottom: 5%;
-  width: 100%;
-  text-align: center;
-  font-size: 1.2rem;
-  color: white;
-  opacity: 0.6;
-  animation: floatArrow 2s ease-in-out infinite;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
 }
 
-@keyframes floatArrow {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(5px); }
+.bg.sea img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation: bobWaves 6s ease-in-out infinite;
+}
+
+@keyframes bobWaves {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-10px); }
   100% { transform: translateY(0); }
 }
 
-/* Characters */
 
+
+/* ===== Background Layer Order ===== */
+.bg.stars { z-index: 0; }   /* Farthest back */
+.bg.sea   { z-index: 1; }   /* Behind hill */
+.bg.hills { z-index: 2; }   /* In front of sea */
+
+/* Characters */
 .character {
   position: absolute;
   bottom: 5%;
@@ -98,10 +101,9 @@ body, html {
   filter: drop-shadow(0 0 10px white);
 }
 
-
 .girl {
   left: 65%;
-  width:20%;
+  width: 20%;
   bottom: -5%;
 }
 
@@ -110,7 +112,6 @@ body, html {
   width: 30%;
   bottom: -15%;
 }
-
 
 .boy {
   left: 10%;
@@ -126,12 +127,10 @@ body, html {
   position: absolute;
 }
 
-
 .character.visible {
   opacity: 1;
 }
 
-/* Walking animation for girl */
 @keyframes walkInSafe {
   from {
     left: 100%;
@@ -186,7 +185,90 @@ body, html {
   max-width: 40ch;
 }
 
-html, body {
-  max-width: 100vw;
-  overflow-x: hidden;
+/* ===== Landing Page ===== */
+.landing {
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: black;
+  color: white;
+  font-family: Georgia, serif;
+  z-index: 10;
+  scroll-snap-align: start;
+}
+
+.landing h1 {
+  font-size: clamp(2rem, 6vw, 4rem);
+  margin-bottom: 1rem;
+}
+
+.landing p {
+  font-size: clamp(1rem, 3vw, 2rem);
+  opacity: 0.7;
+}
+
+.scroll-prompt {
+  position: absolute;
+  bottom: 5%;
+  width: 100%;
+  text-align: center;
+  font-size: 1.2rem;
+  color: white;
+  opacity: 0.6;
+  animation: floatArrow 2s ease-in-out infinite;
+}
+
+@keyframes floatArrow {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(5px); }
+  100% { transform: translateY(0); }
+}
+
+/* ===== Static Frame Overlay ===== */
+.screen-frame {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.frame {
+  position: absolute;
+  background-color: black;
+  z-index: 9999;
+}
+
+.frame.top {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+}
+
+.frame.bottom {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+}
+
+.frame.left {
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 100%;
+}
+
+.frame.right {
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 100%;
 }
