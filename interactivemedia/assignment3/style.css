@@ -1,4 +1,4 @@
-/* ===== Global Reset ===== */
+ /* ===== Global Reset ===== */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -11,7 +11,7 @@ body {
   font-family: 'Georgia', serif;
   background-color: #fdf7e6;
   overflow: hidden;
-  scroll-behavior: smooth;
+  scroll-behavior: smooth; /* Enable smoother scrolling */
 }
 
 /* ===== Fixed Stage & Background Layers ===== */
@@ -26,6 +26,7 @@ body {
   overflow: hidden;
 }
 
+/* Parallax Background Layers */
 .bg {
   position: fixed;
   top: 0;
@@ -34,7 +35,7 @@ body {
   height: 100vh;
   object-fit: cover;
   pointer-events: none;
-  will-change: transform;
+  will-change: transform; /* Optimized for performance */
 }
 
 .bg.stars { 
@@ -60,40 +61,6 @@ body {
   100% { transform: translateY(0); }
 }
 
-/* ===== Foreground Heaven Overlay ===== */
-.foreground {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 20;
-}
-
-.heaven-overlay {
-  position: fixed;
-  width: 100vw;
-  max-height: 50vh;
-  opacity: 0;
-  pointer-events: none;
-  z-index: 1;
-  transition: opacity 2s ease;
-}
-
-.heaven-top {
-  top: 0;
-}
-
-.heaven-bottom {
-  bottom: 0;
-  transform: rotate(180deg);
-}
-
-.foreground.show-heaven .heaven-overlay {
-  opacity: 1;
-}
-
 /* ===== Poem Scroll & Sections ===== */
 .poem-scroll {
   position: relative;
@@ -110,8 +77,14 @@ body {
   align-items: center;
   scroll-snap-align: start;
   position: relative;
-  transition: opacity 1s ease-in-out;
+  transition: opacity 1s ease-in-out; /* Smooth fade effect */
 }
+
+/* Background Fade Effect (Applied via JS)
+.poem-section.background-fade {
+  background-color: white;
+  transition: background-color 1s ease-in-out;
+} */
 
 /* ===== Landing Page ===== */
 .landing {
@@ -153,7 +126,7 @@ body {
   100% { transform: translateY(0); }
 }
 
-/* ===== Characters ===== */
+/* ===== Character Animations ===== */
 .character {
   position: absolute;
   bottom: 5%;
@@ -168,66 +141,125 @@ body {
   opacity: 1;
 }
 
-.girl  { right: 65%; width: 20%; bottom: -5%; }
+.girl { right: 65%; width: 20%; bottom: -5%; }
 .girl2 { left: 55%; width: 30%; bottom: -15%; }
-.boy   { left: 10%; width: 35%; bottom: -1%; }
+.boy { left: 10%; width: 35%; bottom: -1%; }
 .lovers { left: 50%; transform: translateX(-50%); bottom: -5%; width: 35%; }
 
-/* ===== Character Animations ===== */
+/* ===== Heaven Clouds (Smooth Fade In) ===== */
+.heaven-clouds {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  opacity: 0;
+  transition: opacity 2s ease-in-out;
+}
+
+.heaven-cloud {
+  width: 20%;
+  opacity: 0;
+  transition: opacity 2s ease-in-out;
+}
+
+.poem-section[data-stanza="5"].visible .heaven-cloud {
+  opacity: 1; /* Fade clouds in */
+}
+
+/* Walk in stanza 2*/
+
+/* Initial position */
 .girl {
-  right: -20%;
+  position: absolute;
+  right: -20%; /* Start off-screen from the right */
   bottom: 5%;
   width: 15%;
   opacity: 0;
-  transition: opacity 1s ease-in-out;
+  transition: opacity 1s ease-in-out; /* This transition for opacity is fine */
 }
 
+/* When animation is triggered */
 .girl.walk-in {
-  animation: walkIn 2s ease-out forwards;
+  animation: walkIn 2s ease-out forwards; /* Walk-in animation is applied */
 }
 
+/* Walking animation from right to left */
 @keyframes walkIn {
   from {
-    right: -20%;
+    right: -20%; /* Start off-screen from the right */
     opacity: 0;
   }
   to {
-    right: 30%;
+    right: 30%; /* Stop at final position */
     opacity: 1;
   }
 }
 
+
+/* Walkin stanza 3 */
 @keyframes walkBoyIn {
-  from {
-    left: -50%;
-    opacity: 0;
-  }
-  to {
-    left: 10%;
-    opacity: 1;
-  }
+    from {
+        left: -50%; /* Start off-screen */
+        opacity: 0;
+    }
+    to {
+        left: 10%; /* Target final position */
+        opacity: 1;
+    }
 }
 
+/* Apply animation when visible */
 .boy.walk-in {
-  animation: walkBoyIn 2s ease-out forwards;
+    animation: walkBoyIn 2s ease-out forwards;
 }
 
-/* ===== Lover Zoom Effect ===== */
-.lovers {
-  transform: scale(0.8);
-  opacity: 0;
-  transition: transform 2s ease-out, opacity 2s ease-in-out;
-}
 
-.lovers.visible {
-  transform: scale(1.2);
-  opacity: 1;
-}
-
-/* ===== Background Fade ===== */
+/* WHITE BACKGROUND STANZA 4 */
+/* Hide background sea + hills when this class is on stage */
 .stage.hide-background .sea,
 .stage.hide-background .hills {
   opacity: 0;
   transition: opacity 2s ease-in-out;
   pointer-events: none;
 }
+
+.lovers {
+  transform: scale(0.8); /* Start smaller */
+  opacity: 0;
+  transition: transform 2s ease-out, opacity 2s ease-in-out;
+}
+
+.lovers.visible {
+  transform: scale(1.2); /* Zoom effect */
+  opacity: 1;
+}
+
+.heaven-overlay {
+  position: fixed;
+  width: 100vw;
+  max-height: 50vh;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 4; /* Above characters & white BG */
+  transition: opacity 2s ease;
+}
+
+.heaven-top {
+  top: 0;
+}
+
+.heaven-bottom {
+  bottom: 0;
+  transform: rotate(180deg); /* mirrored appearance */
+}
+
+.stage.show-heaven .heaven-overlay {
+  opacity: 1;
+}
+
+

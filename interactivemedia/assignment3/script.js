@@ -1,76 +1,80 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Elements for visibility
-    const characters = {
-        girl: document.querySelector(".girl"),
-        girl2: document.querySelector(".girl2"),
-        boy: document.querySelector(".boy"),
-        lovers: document.querySelector(".lovers"),
-    };
-    
-    const stage = document.querySelector(".stage");
-    const sections = document.querySelectorAll(".poem-section");
+  // Character elements
+  const characters = {
+    girl: document.querySelector(".girl"),
+    girl2: document.querySelector(".girl2"),
+    boy: document.querySelector(".boy"),
+    lovers: document.querySelector(".lovers"),
+  };
 
-    // Helper function to toggle visibility
-    function toggleVisibility(element, isVisible) {
-        if (element) {
-            element.classList.toggle("visible", isVisible);
-        }
+  const stage = document.querySelector(".stage");
+  const sections = document.querySelectorAll(".poem-section");
+
+  // Helper to safely toggle visibility
+  function toggleVisibility(element, isVisible) {
+    if (element) {
+      element.classList.toggle("visible", isVisible);
     }
+  }
 
-    // Initialize IntersectionObserver
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            const stanzaIndex = parseInt(entry.target.dataset.stanza); // Define first
+  // Reset walk-in animation after it finishes so it can replay
+  function setupAnimationReset(element, className) {
+    if (element) {
+      element.addEventListener("animationend", () => {
+        element.classList.remove(className);
+      });
+    }
+  }
 
-            // Girl walks in at stanza 2
-            if (stanzaIndex === 2) {
-                toggleVisibility(characters.girl, entry.isIntersecting);
-                characters.girl.classList.toggle("walk-in", entry.isIntersecting);
-            }
+  setupAnimationReset(characters.girl, "walk-in");
+  setupAnimationReset(characters.boy, "walk-in");
 
-            // Boy and second girl appear in stanza 3
-            if (stanzaIndex === 3) {
-                toggleVisibility(characters.boy, entry.isIntersecting);
-                characters.boy.classList.toggle("walk-in", entry.isIntersecting);
+  // Intersection Observer to track scroll position
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      const stanzaIndex = parseInt(entry.target.dataset.stanza);
+      const visible = entry.isIntersecting;
 
-                toggleVisibility(characters.girl2, entry.isIntersecting);
-            }
+      console.log("Stanza:", stanzaIndex, "Visible:", visible); // Debug
 
-            // Lovers zoom-in & fade effect at stanza 4
-            if (stanzaIndex === 4) {
-                if (entry.isIntersecting) {
-                    characters.lovers.classList.add("zoom-in", "visible");
-                    stage.classList.add("fade-background");
-                } else {
-                    characters.lovers.classList.remove("zoom-in", "visible");
-                    stage.classList.remove("fade-background");
-                }
-            }
+      switch (stanzaIndex) {
+        case 2:
+          if (visible) {
+            characters.girl.classList.add("visible", "walk-in");
+          } else {
+            characters.girl.classList.remove("visible");
+          }
+          break;
 
-            // Standard visibility logic for stanzas 4 and 5
-            if ([4, 5].includes(stanzaIndex)) {
-                toggleVisibility(characters.lovers, entry.isIntersecting);
-            }
+        case 3:
+          toggleVisibility(characters.boy, visible);
+          toggleVisibility(characters.girl2, visible);
 
-            // Background hides in stanzas 4, 5, 6
-            if ([4, 5, 6].includes(stanzaIndex)) {
-                stage.classList.toggle("hide-background", entry.isIntersecting);
-            }
+          if (visible) {
+            characters.boy.classList.add("walk-in");
+          }
+          break;
 
-            // Restore background if scrolling back to stanza 3
-            if (stanzaIndex < 4 && entry.isIntersecting) {
-                stage.classList.remove("hide-background");
-            }
-        });
-    }, { threshold: 0.6 });
+        case 4:
+          toggleVisibility(characters.lovers, visible);
+          stage.classList.toggle("hide-background", visible);
+          break;
 
-    // Observe each section
-    sections.forEach(section => observer.observe(section));
+        case 5:
+        case 6:
+          stage.classList.toggle("hide-background", visible);
+          break;
 
-    // // Parallax Effect for Background
-    // window.addEventListener("scroll", () => {
-    //     const scrollY = window.scrollY;
-    //     document.querySelector(".bg.sea img").style.transform = translateY(${scrollY * 0.02}px);
-    //     document.querySelector(".bg.stars").style.transform = translateY(${scrollY * 0.01}px);
-    // });
+        default:
+          // Restore background if back to earlier stanzas
+          if (stanzaIndex < 4 && visible) {
+            stage.classList.remove("hide-background");
+          }
+          break;
+      }
+    });
+  }, { threshold: 0.6 });
+
+  // Observe each poem section
+  sections.forEach(section => observer.observe(section));
 });
