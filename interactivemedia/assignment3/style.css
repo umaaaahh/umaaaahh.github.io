@@ -66,7 +66,8 @@ body {
   position: relative;
   z-index: 10;
   scroll-snap-type: y mandatory;
-  overflow-y: scroll;
+  scroll-snap-stop: always; 
+  overflow-y: auto;
   height: 100vh;
 }
 
@@ -242,36 +243,54 @@ body {
 /* ===== Heaven Clouds (Stanza 5) ===== */
 .heaven-clouds {
   position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   z-index: 4;
-  /* opacity: 0; */
-  /* transition: opacity 2s ease-in-out, transform 2s ease-in-out; */
+  pointer-events: none;
+  overflow: hidden;
 }
 
-.heaven-top, .heaven-bottom {
+/* Cloud image styling */
+.heaven-top,
+.heaven-bottom {
   position: absolute;
   width: 100%;
   height: auto;
   opacity: 0;
   object-fit: cover;
+  filter: drop-shadow(0 0 15px rgb(0, 0, 0));
+  transition: opacity 1s ease-out;
 }
 
+/* Starting positions */
 .heaven-top {
   top: 0;
-  /* transform: translateY(-50px); Start off-screen (above) */
+  transform: translateY(-50px);
 }
 
 .heaven-bottom {
   bottom: 0;
- rotate: 180deg;
-  /* transform: translateY(50px); Start off-screen (below) */
-  
+  transform: translateY(50px) rotate(180deg);
 }
 
-/* Trigger animation when stanza 5 is visible */
- .heaven-clouds.visible .heaven-top,
- .heaven-clouds.visible .heaven-bottom {
-  opacity: 1;
-  transition:opacity 2s ease-in
+/* Animation when stanza 5 is visible */
+.heaven-clouds.visible .heaven-top {
+  animation: floatInTop 5s ease-out forwards;
+}
+
+.heaven-clouds.visible .heaven-bottom {
+  animation: floatInBottom 5s ease-out forwards;
+}
+
+/* Keyframes */
+@keyframes floatInTop {
+  from { transform: translateY(-50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes floatInBottom {
+  from { transform: translateY(50px) rotate(180deg); opacity: 0; }
+  to { transform: translateY(0) rotate(180deg); opacity: 1; }
 }

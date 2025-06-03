@@ -55,6 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
           if (visible) {
             characters.boy.classList.add("walk-in");
+            stage.classList.remove("hide-background"); // Restore background
           } else {
           characters.boy.classList.remove("walk-in");
           // characters.girl.classList.remove("visible");
@@ -69,11 +70,15 @@ document.addEventListener("DOMContentLoaded", () => {
           break;
 
         case 5:
-          toggleVisibility(characters.lovers, visible);
-          if (visible){
-            heavenClouds.classList.add("visible");
-          }
-          break;
+            toggleVisibility(characters.lovers, visible);
+
+            if (visible) {
+              heavenClouds.classList.add("visible");
+            } else {
+              heavenClouds.classList.remove("visible"); // Reset if scrolling back up
+            }
+            break;
+
 
           case 6:
           stage.classList.toggle("visible");
