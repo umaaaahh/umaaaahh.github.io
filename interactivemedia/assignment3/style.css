@@ -1,17 +1,17 @@
-/* ===== Global Base ===== */
+/* ===== Global Reset ===== */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-html, body {
+body {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   font-family: 'Georgia', serif;
-  background-color: #fdf7e6; /* parchment tone */
-  max-width: 100vw;
-  overflow-x: hidden;
+  background-color: #fdf7e6;
+  overflow: hidden;
+  scroll-behavior: smooth;
 }
 
 /* ===== Fixed Stage & Background Layers ===== */
@@ -30,44 +30,16 @@ html, body {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;       /* Fill the viewport width */
-  height: 100vh;      /* Fill the viewport height */
+  width: 100vw;
+  height: 100vh;
   object-fit: cover;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.bg.stars { 
   z-index: 0;
-  pointer-events: none;
-  transform: scale(0.9); /* Slightly smaller for visual padding */
-  transform-origin: center;
-}
-
-.stars {
-  position: fixed;
-  top: calc(0px + 30px); /* slightly lower than the top of the screen */
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  object-fit: cover;
-  z-index: 1;
-  pointer-events: none;
   animation: twinkle 2s ease-in-out infinite;
-}
-
-
-@keyframes twinkle {
-  0%, 100% { opacity: 0.9; }
-  50% { opacity: 0.6; }
-}
-
-
-
-.bg.sea {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 1;
-  pointer-events: none;
-  overflow: hidden;
 }
 
 .bg.sea img {
@@ -77,76 +49,52 @@ html, body {
   animation: bobWaves 6s ease-in-out infinite;
 }
 
+@keyframes twinkle {
+  0%, 100% { opacity: 0.9; }
+  50% { opacity: 0.6; }
+}
+
 @keyframes bobWaves {
   0%   { transform: translateY(0); }
   50%  { transform: translateY(-10px); }
   100% { transform: translateY(0); }
 }
 
+/* ===== Foreground Heaven Overlay ===== */
+.foreground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 20;
+}
 
-
-/* ===== Background Layer Order ===== */
-.bg.stars { z-index: 0; }   /* Farthest back */
-.bg.sea   { z-index: 1; }   /* Behind hill */
-.bg.hills { z-index: 2; }   /* In front of sea */
-
-/* Characters */
-.character {
-  position: absolute;
-  bottom: 5%;
-  width: 20%;
+.heaven-overlay {
+  position: fixed;
+  width: 100vw;
+  max-height: 50vh;
   opacity: 0;
-  transition: opacity 1s ease-in-out;
-  z-index: 3;
-  filter: drop-shadow(0 0 10px white);
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 2s ease;
 }
 
-.girl {
-  left: 65%;
-  width: 20%;
-  bottom: -5%;
+.heaven-top {
+  top: 0;
 }
 
-.girl2 {
-  left: 55%;
-  width: 30%;
-  bottom: -15%;
+.heaven-bottom {
+  bottom: 0;
+  transform: rotate(180deg);
 }
 
-.boy {
-  left: 10%;
-  width: 35%;
-  bottom: -1%;
-}
-
-.lovers {
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: -5%;
-  width: 35%;
-  position: absolute;
-}
-
-.character.visible {
+.foreground.show-heaven .heaven-overlay {
   opacity: 1;
 }
 
-@keyframes walkInSafe {
-  from {
-    left: 100%;
-    opacity: 0;
-  }
-  to {
-    left: 65%; 
-    opacity: 1;
-  }
-}
-
-.girl.walk-in {
-  animation: walkInSafe 2s ease-out forwards;
-}
-
-/* ===== Scroll Area ===== */
+/* ===== Poem Scroll & Sections ===== */
 .poem-scroll {
   position: relative;
   z-index: 10;
@@ -162,34 +110,12 @@ html, body {
   align-items: center;
   scroll-snap-align: start;
   position: relative;
-}
-
-.poem-frame {
-  background: url('assets/frame.png') no-repeat center center;
-  background-size: contain;
-  width: 60vw;
-  height: auto;
-  padding: 2rem;
-  text-align: center;
-  font-size: clamp(1.5rem, 2vw, 2rem);
-  line-height: 1.6;
-  color: #000;
-  z-index: 5;
-  position: relative;
-  top: -20%;
-  margin: 0 auto;
-}
-
-.poem-frame p {
-  margin: 0 auto;
-  max-width: 40ch;
+  transition: opacity 1s ease-in-out;
 }
 
 /* ===== Landing Page ===== */
 .landing {
   height: 100vh;
-  width: 100vw;
-  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -214,7 +140,6 @@ html, body {
 .scroll-prompt {
   position: absolute;
   bottom: 5%;
-  width: 100%;
   text-align: center;
   font-size: 1.2rem;
   color: white;
@@ -228,47 +153,81 @@ html, body {
   100% { transform: translateY(0); }
 }
 
-/* ===== Static Frame Overlay ===== */
-.screen-frame {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 9999;
-}
-
-.frame {
+/* ===== Characters ===== */
+.character {
   position: absolute;
-  background-color: black;
-  z-index: 9999;
+  bottom: 5%;
+  width: 20%;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  z-index: 3;
+  filter: drop-shadow(0 0 10px white);
 }
 
-.frame.top {
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 40px;
+.character.visible {
+  opacity: 1;
 }
 
-.frame.bottom {
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 40px;
+.girl  { right: 65%; width: 20%; bottom: -5%; }
+.girl2 { left: 55%; width: 30%; bottom: -15%; }
+.boy   { left: 10%; width: 35%; bottom: -1%; }
+.lovers { left: 50%; transform: translateX(-50%); bottom: -5%; width: 35%; }
+
+/* ===== Character Animations ===== */
+.girl {
+  right: -20%;
+  bottom: 5%;
+  width: 15%;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
 }
 
-.frame.left {
-  top: 0;
-  left: 0;
-  width: 40px;
-  height: 100%;
+.girl.walk-in {
+  animation: walkIn 2s ease-out forwards;
 }
 
-.frame.right {
-  top: 0;
-  right: 0;
-  width: 40px;
-  height: 100%;
+@keyframes walkIn {
+  from {
+    right: -20%;
+    opacity: 0;
+  }
+  to {
+    right: 30%;
+    opacity: 1;
+  }
+}
+
+@keyframes walkBoyIn {
+  from {
+    left: -50%;
+    opacity: 0;
+  }
+  to {
+    left: 10%;
+    opacity: 1;
+  }
+}
+
+.boy.walk-in {
+  animation: walkBoyIn 2s ease-out forwards;
+}
+
+/* ===== Lover Zoom Effect ===== */
+.lovers {
+  transform: scale(0.8);
+  opacity: 0;
+  transition: transform 2s ease-out, opacity 2s ease-in-out;
+}
+
+.lovers.visible {
+  transform: scale(1.2);
+  opacity: 1;
+}
+
+/* ===== Background Fade ===== */
+.stage.hide-background .sea,
+.stage.hide-background .hills {
+  opacity: 0;
+  transition: opacity 2s ease-in-out;
+  pointer-events: none;
 }

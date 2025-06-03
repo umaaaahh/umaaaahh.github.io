@@ -1,152 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Annabel Lee – Scroll Poem</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
-<div class="screen-frame">
-  <div class="frame top"></div>
-  <div class="frame right"></div>
-  <div class="frame bottom"></div>
-  <div class="frame left"></div>
-</div>
-
 <body>
 
-<!-- This Website is inspired by the Poem Annabel Lee by Edgar Allan Poe. I chose this, 
- as I knew I wanted to try my hand at doing a story based website interaction. 
- I was inspired by works like The Boat (https://www.sbs.com.au/theboat/), 
- Mouse Parrallax goes to Wonderland (https://www.wow-showroom.com/mouse-parallax),
- and webtoons (https://www.webtoons.com/en/). Originally I had considered making
- an original story, then decided against it as I didn't believe I would have enough 
- time. I also originally really wanted to play with parrallax scroll, 
- but after a lot of researched realised how difficult that would be without
- the use of external libraries, though possible, it is a lot harder
- for big visual stories like this. As I had already began building this website
- with the intention of scroll being my action, I decided my best course
- of action was to keep it as was, just completely stripped back , which is a shame,
- but ultimately the best decision.-->
+  <!-- Screen Frame Overlay -->
+  <!-- <div class="screen-frame">
+    <div class="frame top"></div>
+    <div class="frame right"></div>
+    <div class="frame bottom"></div>
+    <div class="frame left"></div>
+  </div> -->
 
-  <!-- I layered the background and character elements to this stage div.
-   I went through multiple itterations as to how this could be done, especailly
-   while experimenting with parrallax scroll. After realising how little time
-   I had left on this assignment, my approach was to really strip it back,
-   This div contains the fixed background, and the animated characters of the 
-   foreground that remain hidden until the correct stanza triggers them  -->
+  <!-- Fixed Background Layers -->
+  <section class="stage">
+    <img src="assets/bg-stars.png" class="bg stars" alt="stars">
+    <figure class="bg sea">
+      <img src="assets/bg-sea.png" alt="Sea">
+    </figure>
+    <img src="assets/bg-hill.png" class="bg hills" alt="hills">
+  </section>
 
-    <!-- Fixed Background Stage -->
-    <div class="stage">
-      <img src="assets/bg-stars.png" class="bg stars" alt="stars" />
-      
-      <div class="bg sea">
-        <img src="assets/bg-sea.png" alt="Sea" />
-      </div>   
-      <img src="assets/bg-hill.png" class="bg hills" alt="hills" />
-      
-      <!-- Characters -->
-      <img src="assets/girl.png" class="character girl" alt="Annabel Lee" />
-      <img src="assets/boy.png" class="character boy" alt="Narrator" />
-      <img src="assets/lovers.png" class="character lovers" alt="The Lovers" />
-      <img src="assets/girl2.png" class="character girl2" alt="Girl reaching out" />
-    </div>
+  <!-- Character Elements -->
+  <section class="characters">
+    <img src="assets/girl.png" class="character girl" alt="Annabel Lee">
+    <img src="assets/boy.png" class="character boy" alt="Narrator">
+    <img src="assets/lovers.png" class="character lovers" alt="The Lovers">
+    <img src="assets/girl2.png" class="character girl2" alt="Girl reaching out">
+  </section>
 
-   <!-- I made all of these assets on Illustrator, I was going for a shadow puppet
-   type asethtic which I felt would be easiest for me to do and fit the tone 
-   of Poe's work which is known to have a gothic theme. -->
+  <!-- Poem Scroll Container -->
+  <main class="poem-scroll">
+    
+    <!-- Landing Page -->
+    <section class="landing">
+      <h1>Annabel Lee</h1>
+      <p>a poem by Edgar Allan Poe</p>
+      <div class="scroll-prompt">↓ scroll</div>
+    </section>
 
-   
-   <!-- Poem Scroll Container -->
+    <!-- Poem Sections -->
+    <section class="poem-section" data-stanza="1">
+      <blockquote class="poem-frame">
+        <p>It was many and many a year ago,<br>In a kingdom by the sea.</p>
+      </blockquote>
+    </section>
 
-    <main class="poem-scroll">
-      
-      <!-- I layered this landing page into the scroll container after multiple
-       attempts prior(where it was layered to the body) left me with layered
-       scroll containers, which is recipe for buggy behaviour on a 
-       web page -->
+    <section class="poem-section" data-stanza="2">
+      <blockquote class="poem-frame">
+        <p>That a maiden there lived whom you may know<br>By the name of Annabel Lee.</p>
+      </blockquote>
+    </section>
 
-      <!-- Landing Page -->
-      <section class="landing poem-section">
-        <h1>Annabel Lee</h1>
-        <p>a poem by Edgar Allan Poe</p>
-        <div class="scroll-prompt">↓ scroll</div>
-      </section>
+    <section class="poem-section" data-stanza="3">
+      <blockquote class="poem-frame">
+        <p>And this maiden she lived with no other thought<br>Than to love and be loved by me.</p>
+      </blockquote>
+    </section>
 
-    <!-- My major scroll movement, is actually the text, with each scroll the
-     user generates a new stanza of the poem, the stanza also dictates the characters
-     in the foreground-->
-
-      <!-- Poem Sections -->
-
-      <!-- Here I wanted to introduce the scene -->
-      <section class="poem-section" data-stanza="1">
-        <div class="poem-frame">
-          <p>It was many and many a year ago,<br>In a kingdom by the sea,</p>
-        </div>
-      </section>
-
-      <!-- Here I wanted to introduce the Annabel Lee, I debated having her 
-       walk completely off the frame so I would not have to be held accountable
-       for the difference is sizing or placement on the next stanza. -->
-      <section class="poem-section" data-stanza="2">
-        <div class="poem-frame">
-          <p>That a maiden there lived whom you may know<br>By the name of Annabel Lee;</p>
-        </div>
-      </section>
-
-      <!-- In this Stanza we introduce the boy -->
-      <section class="poem-section" data-stanza="3">
-        <div class="poem-frame">
-          <p>And this maiden she lived with no other thought<br>Than to love and be loved by me.</p>
-        </div>
-      </section>
-      
-      <!-- This stanza although not the final in the poem, I intended
-       as the final. Though If i have time I may create 2 more just to 
-       make the experience feel more rounded -->
-      <section class="poem-section" data-stanza="4">
+     <section class="poem-section" data-stanza="4">
         <div class="poem-frame">
           <p>And we loved with a love that was more than love—<br>I and my Annabel Lee—</p>
         </div>
       </section>
-    
-    </main>
+
+    <section class="poem-section" data-stanza="5">
+      <blockquote class="poem-frame">
+        <p>With a love that the wingèd seraphs of Heaven<br>Coveted her and me.</p>
+      </blockquote>
+      <figure class="heaven-clouds">
+        <img src="assets/heavens.png" alt="Cloud 1" class="heaven-cloud top-left">
+        <img src="assets/heavens.png" alt="Cloud 2" class="heaven-cloud top-right">
+      </figure>
+    </section>
+
+    <section class="poem-section" data-stanza="6">
+      <blockquote class="poem-frame">
+        <p>A wind blew out of a cloud, chilling<br>My beautiful Annabel Lee.</p>
+      </blockquote>
+    </section>
+
+  </main>
 
   <script src="script.js"></script>
 </body>
 </html>
-
-<!-- Open Issues with this page: It does not scale well, it does not scale
- vertically and really works best on a full screen. I think adding an error message
- prompt like ie sceen done on other websites would of been a good way around if I was 
- not intending to making this website more scaleable. There is a scroll issue
- on the bottom, which I've struggled to find and stamp out the route cause of
- I believe it is to do with the character animation being sometimes set off the page -->
-
- <!-- Things I would of liked to add: I would of liked to add audio,
-  I considered a simple background track, but I knew I really wanted
-  sound effects. I knew I could of linked them to different stanzas 
-  but I knew to get timing write requires better tracking than I 
-  had time to do. I also would of liked to add 2 more stanzas as 6 was always
-  my intention. I knew I could of added 2, but the next two stanzas 
-  where about angels in heaven and then an icy death, so I knew I had to 
-  get the majority of this assignment finished before I could attempt to 
-  tackle 2 stanzas that were going to be labour intensive in terms of asset
-  creation. Luckily the stanza I chose to end on is kind of a nice finish-->
-
-  <!-- Major Constrains: Time, I had mixed up this assignments deadline, with
-   another assignment I had due next month so I was really contraint for time, no use
-   of libraries was tough because I wanted to used Parrlax Scroll, but for 
-   media heavy work like this three.js is recommended.
-   I'm also kind of relieved though, because in my past use of Libraries 
-   I find they take me a bit longer to wrap my head around and if I had to smash 
-   out this assignment as quickly as I did, mixed with a library i barely understood
-   I probably wouldn't of been able to turn an assignment in. -->
-
-   <!-- Final Comment: I think this website is cute, but something I do find frustrating
-    is that bag map I handed in for the media Player assignment (assignment 2) 
-    actually would of been a much stronger contender for this assignment, 
-    especailly with all the parrallax hover effects I used, but my logic for this assignment
-    was very much that I wanted to challenge myself to use an interaction
-    action I've not used before and I am still proud of this work. -->
