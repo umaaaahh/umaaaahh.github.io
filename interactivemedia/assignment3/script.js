@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     girl2: document.querySelector(".girl2"),
     boy: document.querySelector(".boy"),
     lovers: document.querySelector(".lovers"),
+    angel: document.querySelector (".angel")
   };
 
   const stage = document.querySelector(".stage");
@@ -80,9 +81,18 @@ document.addEventListener("DOMContentLoaded", () => {
             break;
 
 
-          case 6:
-          stage.classList.toggle("visible");
-                break;
+          case 6: {
+            toggleVisibility(characters.angel, visible); 
+              if (visible) {
+                characters.angel.classList.add("visible");
+                stage.classList.remove("hide-background");
+              } else {
+                characters.angel.classList.remove("visible");
+              }
+
+          
+            break;
+          }
 
         default:
           // If any stanza before 4 is intersecting, ensure background is visible
