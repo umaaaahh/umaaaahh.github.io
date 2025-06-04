@@ -90,7 +90,7 @@ body {
 
 .poem-frame {
   position: absolute;
-  top: 20%;
+  top: 18%;
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
@@ -172,6 +172,7 @@ text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.9);
 .boy { left: 10%; width: 35%; bottom: -1%; }
 .lovers { left: 50%; transform: translateX(-50%); bottom: -5%; width: 35%; }
 
+
 /* Walk in stanza 2*/
 
 /* Initial position */
@@ -198,7 +199,7 @@ text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.9);
 @keyframes walkIn {
   from {
     right: -20%;
-    opacity: 0;
+    opacity: 1;
 
   }
   to {
@@ -212,7 +213,7 @@ text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.9);
 @keyframes walkBoyIn {
     from {
         left: -50%; /* Start off-screen */
-        opacity: 0;
+        opacity: 1;
     }
     to {
         left: 10%; /* Target final position */
@@ -231,23 +232,30 @@ text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.9);
 .stage.hide-background .sea,
 .stage.hide-background .hills {
   opacity: 0;
-  transition: opacity 4s ease-in-out;
+  filter: blur(5px); /* Adds blur before fading out */
+  transition: opacity 3s ease-in-out, filter 1.5s ease-in-out;
 }
 
 .lovers {
   position: absolute;
   left: 50%;
-  bottom: -5%;
+  bottom: -10%;
   transform: translateX(-50%) scale(0.8); /* Center horizontally, shrink */
   opacity: 0;
   width: 35%;
-  transition: transform 5s ease-out, opacity 2s ease-in-out;
+  transition: transform 5s ease-out, opacity 1s ease-in-out;
   z-index: 3;
 }
 
 .lovers.visible {
-  transform: translateX(-50%) scale(1.2); /* Zoom in, stay centered */
+  transform: translateX(-50%) scale(1); /* Zoom in, stay centered */
   opacity: 1;
+}
+
+/* Stanza 5: Shrink slightly */
+.lovers.shrink {
+  transform: translateX(-50%) scale(0.80); /* Reduces their size */
+  transition: transform 2s ease-out;
 }
 
 
@@ -277,12 +285,12 @@ text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.9);
 
 /* Starting positions */
 .heaven-top {
-  top: 0;
+  top: -10%;
   transform: translateY(-50px);
 }
 
 .heaven-bottom {
-  bottom: 0;
+  bottom: -10%;
   transform: translateY(50px) rotate(180deg);
 }
 
@@ -297,12 +305,12 @@ text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.9);
 
 /* Keyframes */
 @keyframes floatInTop {
-  from { transform: translateY(-50px); opacity: 0; }
+  from { transform: translateY(-80px); opacity: .5; }
   to { transform: translateY(0); opacity: 1; }
 }
 
 @keyframes floatInBottom {
-  from { transform: translateY(50px) rotate(180deg); opacity: 0; }
+  from { transform: translateY(80px) rotate(180deg); opacity: .5; }
   to { transform: translateY(0) rotate(180deg); opacity: 1; }
 }
 
@@ -315,7 +323,7 @@ text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.9);
   /* display: none; */
   z-index: 4;
   /* transition: opacity 2s ease-in-out, transform 2s ease-in-out; */
-  filter: drop-shadow(0 0 10px white);
+  filter: drop-shadow(0 0 10px rgb(2, 2, 2));
 }
 
 /* Visible state */
@@ -335,3 +343,66 @@ text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.9);
   }
 }
 
+
+/* Annebel flipped */
+
+.character.girl3 {
+  transform: scaleX(-1); /* Flipped */
+  position: absolute;
+  bottom: -5%;
+  left: 20%; /* Adjust to position her on screen */
+  opacity: 0;
+  transition: opacity 1s ease-in-out, transform 0.5s ease;
+}
+
+.character.girl3.visible {
+  opacity: 1;
+}
+
+.angel2 {
+  position: absolute;
+  left: 80%; /* Moves toward the right */
+  transform: translateX(-50%) scale(1.6); /* Keeps it centered relative to its position */
+  width: clamp(50%, 80vw, 75%);
+  opacity: 0;
+  z-index: 0;
+
+  /* filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.7)); */
+  transition: opacity 2s ease-in-out;
+  pointer-events: none;
+    /* filter: drop-shadow(0 0 5px rgb(2, 2, 2)); */
+
+}
+
+.angel2.visible {
+  opacity: .50;
+}
+
+.gust {
+  position: absolute;
+  bottom: 15%;
+  left: 25%;
+  width: 15%;
+  opacity: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.gust.visible {
+  animation: blowGust 1.5s ease-out forwards;
+}
+
+@keyframes blowGust {
+  0% {
+    opacity: 0;
+    transform: translateX(0) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(20px) scale(1.1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(40px) scale(1);
+  }
+}
