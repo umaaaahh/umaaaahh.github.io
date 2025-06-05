@@ -11,7 +11,17 @@ body {
   font-family: 'Georgia', serif;
   background-color: #fdf7e6;
   overflow: hidden;
-  scroll-behavior: smooth; 
+}
+
+/* ===== ANIMATION TIMING CONSTANTS ===== */
+/* All animations now use consistent timing for smooth transitions */
+:root {
+  --fast-transition: 0.8s;
+  --medium-transition: 1.5s;
+  --slow-transition: 2.5s;
+  --character-walk: 2s;
+  --fade-duration: 1s;
+  --standard-easing: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* ===== Fixed Stage & Background Layers ===== */
@@ -26,7 +36,7 @@ body {
   overflow: hidden;
 }
 
-/*Background Layers */
+/* Background Layers */
 .bg {
   position: fixed;
   top: 0;
@@ -35,17 +45,19 @@ body {
   height: 100vh;
   object-fit: cover;
   pointer-events: none;
-  will-change: transform; 
+  will-change: transform;
+  transition: opacity var(--medium-transition) var(--standard-easing), 
+              filter var(--medium-transition) var(--standard-easing);
 }
 
-.bg.hills{
-      filter: drop-shadow(0 0 10px rgb(0, 0, 0));
+.bg.hills {
+  filter: drop-shadow(0 0 10px rgb(0, 0, 0));
 }
 
 .bg.stars { 
   z-index: 0;
   animation: twinkle 2s ease-in-out infinite;
-    filter: drop-shadow(0 0 10px rgb(0, 0, 0));
+  filter: drop-shadow(0 0 10px rgb(0, 0, 0));
 }
 
 .bg.sea img {
@@ -53,21 +65,16 @@ body {
   height: 100%;
   object-fit: cover;
   animation: bobWaves 6s ease-in-out infinite;
-  
 }
-
-/* White Background (Stanza 4) */
 
 /* Hide background sea + hills when this class is on stage */
 .stage.hide-background .sea,
 .stage.hide-background .hills {
   opacity: 0;
-  filter: blur(5px); 
-  transition: opacity 3s ease-in-out, filter 1.5s ease-in-out;
+  filter: blur(5px);
 }
 
 /* Heaven Clouds Foreground (Stanza 5) */
-
 .heaven-clouds {
   position: absolute;
   top: 0;
@@ -78,6 +85,7 @@ body {
   pointer-events: none;
   overflow: hidden;
 }
+
 .heaven-top,
 .heaven-bottom {
   position: absolute;
@@ -86,48 +94,118 @@ body {
   opacity: 0;
   object-fit: cover;
   filter: drop-shadow(0 0 15px rgb(0, 0, 0));
-  transition: opacity 1s ease-out;
+  transition: opacity var(--medium-transition) var(--standard-easing);
 }
 
-/* Starting positions */
 .heaven-top {
   top: -10%;
   transform: translateY(-50px);
 }
+
 .heaven-bottom {
   bottom: -10%;
   transform: translateY(50px) rotate(180deg);
 }
 
-/*Animation */
+/* Heaven Cloud Animations */
+.heaven-clouds.visible .heaven-top {
+  animation: floatInTop var(--slow-transition) var(--standard-easing) forwards;
+}
 
+.heaven-clouds.visible .heaven-bottom {
+  animation: floatInBottom var(--slow-transition) var(--standard-easing) forwards;
+}
+
+/* ===== KEYFRAME ANIMATIONS ===== */
 /* Stars */
 @keyframes twinkle {
   0%, 100% { opacity: 0.9; }
   50% { opacity: 0.6; }
 }
+
 /* Waves */
 @keyframes bobWaves {
   0%   { transform: translateY(0); }
   50%  { transform: translateY(-10px); }
   100% { transform: translateY(0); }
 }
-/* Heaven Cloud Top (stanza 5) */
+
+/* Heaven Clouds */
 @keyframes floatInTop {
-  from { transform: translateY(-80px); opacity: .5; }
-  to { transform: translateY(0); opacity: 1; }
+  from { 
+    transform: translateY(-80px); 
+    opacity: 0; 
+  }
+  to { 
+    transform: translateY(0); 
+    opacity: 1; 
+  }
 }
-/* Heaven Cloud Bottom (stanza 5) */
-.heaven-clouds.visible .heaven-top {
-  animation: floatInTop 3s ease-out forwards;
-}
-/* Unsure why but if i group top and bottom it breaks code so wrote seperately */
-.heaven-clouds.visible .heaven-bottom {
-  animation: floatInBottom 3s ease-out forwards;
-}
+
 @keyframes floatInBottom {
-  from { transform: translateY(80px) rotate(180deg); opacity: .5; }
-  to { transform: translateY(0) rotate(180deg); opacity: 1; }
+  from { 
+    transform: translateY(80px) rotate(180deg); 
+    opacity: 0; 
+  }
+  to { 
+    transform: translateY(0) rotate(180deg); 
+    opacity: 1; 
+  }
+}
+
+/* Character Walk Animations */
+@keyframes walkIn {
+  from {
+    right: -20%;
+    opacity: 0;
+  }
+  to {
+    right: 15%; 
+    opacity: 1;
+  }
+}
+
+@keyframes walkBoyIn {
+  from {
+    left: -50%; 
+    opacity: 0;
+  }
+  to {
+    left: 10%; 
+    opacity: 1;
+  }
+}
+
+@keyframes angelFlyIn {
+  0% {
+    transform: translate(-100px, -100px) scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes gustFlyToGirl {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(1) rotate(-45deg);
+  }
+  20% {
+    opacity: 1;
+    transform: translate(-10vw, 5vh) scale(1.05) rotate(-45deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-30vw, 55vh) scale(5) rotate(0deg);
+  }
+}
+
+@keyframes floatArrow {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(5px); }
+  100% { transform: translateY(0); }
 }
 
 /* ===== Poem Scroll & Sections ===== */
@@ -147,7 +225,7 @@ body {
   align-items: center;
   scroll-snap-align: start;
   position: relative;
-  transition: opacity 1s ease-in-out;
+  transition: opacity var(--fade-duration) var(--standard-easing);
 }
 
 .poem-frame {
@@ -168,7 +246,6 @@ body {
   color: black;
 }
 
-
 /* ===== Landing Page ===== */
 .landing {
   height: 100vh;
@@ -182,10 +259,12 @@ body {
   z-index: 10;
   scroll-snap-align: start;
 }
+
 .landing h1 {
   font-size: clamp(2rem, 6vw, 4rem);
   margin-bottom: 1rem;
 }
+
 .landing p {
   font-size: clamp(1rem, 3vw, 2rem);
   opacity: 0.7;
@@ -200,13 +279,8 @@ body {
   opacity: 0.6;
   animation: floatArrow 2s ease-in-out infinite;
 }
-@keyframes floatArrow {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(5px); }
-  100% { transform: translateY(0); }
-}
 
-/* ===== Character Animations ===== */
+/* ===== CHARACTER ANIMATIONS - SYNCHRONIZED ===== */
 .character {
   position: absolute;
   bottom: 5%;
@@ -214,71 +288,71 @@ body {
   opacity: 0;
   z-index: 3;
   filter: drop-shadow(0 0 10px white);
+  transition: opacity var(--fade-duration) var(--standard-easing);
 }
+
 .character.visible {
   opacity: 1;
 }
-.girl { right: 65%; width: 20%; bottom: -5%; }
-.girl2 { left: 55%; width: 30%; bottom: -5%; }
-.boy { left: 10%; width: 35%; bottom: -1%; }
-.lovers { left: 50%; transform: translateX(-50%); bottom: -5%; width: 35%; }
 
-/* STANZA 2 - GIRL - CONTROLS */
-.girl.walk-in {
-  animation: walkIn 2s ease-in forwards;
-}
-@keyframes walkIn {
-  from {
-    right: -20%;
-    opacity: 1;
-
-  }
-  to {
-    right: 15%; 
-    opacity: 1;
-  }
+/* Character Base Positions */
+.girl {
+  right: 65%; 
+  width: 20%;
+  bottom: -5%;
 }
 
-/* STANZA 3 - BOY - CONTROLS */
-.boy.walk-in {
-    animation: walkBoyIn 2s ease-out forwards;
-}
-@keyframes walkBoyIn {
-    from {
-        left: -50%; 
-        opacity: 1;
-    }
-    to {
-        left: 10%; 
-        opacity: 1;
-    }
+.girl2 {
+  left: 55%; 
+  width: 30%; 
+  bottom: -5%;
 }
 
-/* STANZA 4 - LOVERS - CONTROLS */
-.lovers {
-  position: absolute;
-  left: 50%;
-  bottom: -10%;
-  transform: translateX(-50%) scale(0.8); /* Center horizontally, shrink */
-  opacity: 0;
+.boy { 
+  left: 10%; 
+  width: 35%; 
+  bottom: -1%;
+}
+
+.lovers { 
+  left: 50%; 
+  transform: translateX(-50%); 
+  bottom: -10%; 
   width: 35%;
-  transition: transform 5s ease-out, opacity 1s ease-in-out;
-  z-index: 3;
 }
+
+/* STANZA 2 - GIRL WALK IN */
+.girl.walk-in {
+  animation: walkIn var(--character-walk) var(--standard-easing) forwards;
+}
+
+.girl.fade-out {
+  opacity: 0;
+  transition: opacity var(--fade-duration) var(--standard-easing);
+}
+
+/* STANZA 3 - BOY WALK IN */
+.boy.walk-in {
+  animation: walkBoyIn var(--character-walk) var(--standard-easing) forwards;
+}
+
+/* STANZA 4 - LOVERS */
+.lovers {
+  transform: translateX(-50%) scale(0.8);
+  transition: transform var(--slow-transition) var(--standard-easing), 
+  opacity var(--fade-duration) var(--standard-easing);
+}
+
 .lovers.visible {
-  transform: translateX(-50%) scale(1); /* Zoom in, stay centered */
+  transform: translateX(-50%) scale(1);
   opacity: 1;
 }
 
-/* Stanza 5: Shrink slightly */
 .lovers.shrink {
-  transform: translateX(-50%) scale(0.80); /* Reduces their size */
-  transition: transform 2s ease-out;
+  transform: translateX(-50%) scale(0.80);
 }
 
-/* Stanza 6 - Heaven Angel clouds can be found in stage section of css */
-
-/* STANZA 6 - ANGEL - CONTROLS */
+/* STANZA 6 - ANGEL */
 .angel {
   position: absolute;
   top: 20%;
@@ -287,30 +361,24 @@ body {
   opacity: 0;
   z-index: 4;
   filter: drop-shadow(0 0 10px rgb(2, 2, 2));
-}
-.angel.visible {
-  display: block;
-  animation: angelFlyIn 2s ease-out forwards;
-}
-@keyframes angelFlyIn {
-  0% {
-    transform: translate(-100px, -100px) scale(0.8);
-    opacity: 0;
-  }
-  100% {
-    transform: translate(0, 0) scale(1);
-    opacity: 1;
-  }
+  transition: opacity var(--fade-duration) var(--standard-easing);
 }
 
-/* STANZA 7 - GIRL3 & ANGEL - CONTROLS */
+.angel.visible {
+  animation: angelFlyIn var(--character-walk) var(--standard-easing) forwards;
+}
+
+/* STANZA 7 - GIRL3 & ANGEL2 */
 .character.girl3 {
-  transform: scaleX(-1); /* Flipped */
+  transform: scaleX(-1);
   position: absolute;
   bottom: -5%;
   left: 20%; 
+  width: 20%; 
   opacity: 0;
-  transition: opacity 1s ease-in-out, transform 0.5s ease;
+  z-index: 3;  
+  filter: drop-shadow(0 0 10px white); 
+  transition: opacity var(--fade-duration) var(--standard-easing);
 }
 
 .character.girl3.visible {
@@ -324,59 +392,93 @@ body {
   width: clamp(50%, 80vw, 75%);
   opacity: 0;
   z-index: 0;
-  transition: opacity 2s ease-in-out;
+  transition: opacity var(--medium-transition) var(--standard-easing);
   pointer-events: none;
 }
 
 .angel2.visible {
-  opacity: .50;
+  opacity: 0.50;
 }
 
-/* Transitions*/
-.transition {
-  opacity: 0;
-  transition: opacity 0.6s ease-in-out;
-  pointer-events: none;
-}
-
-.girl.fade-out {
-  opacity: 0;
-  transition: opacity 0.6s ease-in-out, transform 2s ease-in-out;
-}
-
-.girl2.visible {
-  opacity: 1;
-  transition: opacity 0.6s ease-in-out, transform 0.8s ease-in-out;
-}
-
-
-
-/* === GUST OF WIND (Stanza 7) === */
+/* GUST OF WIND */
 .gust {
   position: absolute;
   top: 25%;
-  left: 50%; /* Start near the angel */
+  left: 50%;
   width: 15%;
   opacity: 0;
   z-index: 8;
   pointer-events: none;
+  transition: opacity var(--fade-duration) var(--standard-easing);
 }
 
 .gust.visible {
-  animation: gustFlyToGirl 5s ease-out forwards;
+  animation: gustFlyToGirl var(--slow-transition) var(--standard-easing) forwards;
 }
 
-@keyframes gustFlyToGirl {
-  0% {
-    opacity: 0;
-    transform: translate(0, 0) scale(1) rotate(-45deg);
+/* Base transition class for all elements */
+.transition {
+  opacity: 0;
+  transition: opacity var(--fade-duration) var(--standard-easing);
+  pointer-events: none;
+}
+
+/* Add these keyframe animations to your CSS */
+
+@keyframes freezing {
+  0% { 
+    transform: scaleX(-1) translateX(0) translateY(0) rotate(0deg); 
   }
-  20% {
+  10% { 
+    transform: scaleX(-1) translateX(-2px) translateY(-1px) rotate(-0.8deg); 
+  }
+  20% { 
+    transform: scaleX(-1) translateX(3px) translateY(1px) rotate(1.2deg); 
+  }
+  30% { 
+    transform: scaleX(-1) translateX(-1px) translateY(-2px) rotate(-0.5deg); 
+  }
+  40% { 
+    transform: scaleX(-1) translateX(2px) translateY(0px) rotate(0.9deg); 
+  }
+  50% { 
+    transform: scaleX(-1) translateX(-3px) translateY(1px) rotate(-1.1deg); 
+  }
+  60% { 
+    transform: scaleX(-1) translateX(1px) translateY(-1px) rotate(0.7deg); 
+  }
+  70% { 
+    transform: scaleX(-1) translateX(-2px) translateY(2px) rotate(-0.9deg); 
+  }
+  80% { 
+    transform: scaleX(-1) translateX(2px) translateY(-1px) rotate(1.0deg); 
+  }
+  90% { 
+    transform: scaleX(-1) translateX(-1px) translateY(0px) rotate(-0.6deg); 
+  }
+  100% { 
+    transform: scaleX(-1) translateX(0) translateY(0) rotate(0deg); 
+  }
+}
+
+@keyframes collapse {
+  0% {
     opacity: 1;
-    transform: translate(-10vw, 5vh) scale(1.05) rotate(-45deg);
+    transform: scaleX(-1) scale(1) rotate(0deg);
+    transform-origin: bottom center;
   }
   100% {
     opacity: 0;
-    transform: translate(-30vw, 55vh) scale(5) rotate(0deg);
+    transform: scaleX(-1) scale(1) rotate(90deg);
+    transform-origin: bottom center;
   }
+}
+
+/* Update the girl3 classes */
+.character.girl3.freezing {
+  animation: freezing 0.15s ease-in-out infinite;
+}
+
+.character.girl3.dying {
+  animation: collapse var(--medium-transition) ease-out forwards;
 }
