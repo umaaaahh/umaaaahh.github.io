@@ -6,102 +6,130 @@
   <title>Annabel Lee – Scroll Poem</title>
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
-
 </head>
 <body>
 
-  <!-- Screen Frame Overlay -->
-  <!-- <div class="screen-frame">
-    <div class="frame top"></div>
-    <div class="frame right"></div>
-    <div class="frame bottom"></div>
-    <div class="frame left"></div>
-  </div> -->
+ <!-- =====================================
+       FIXED BACKGROUND STAGE
+ ===================================== -->
 
-  <!-- Fixed Background Layers -->
   <section class="stage">
-    <img src="assets/angel.png" class ="angel2" alt="angel2">
-    <img src="assets/bg-stars.png" class="bg stars" alt="stars">
+    <img src="assets/angel.png" class="angel2" alt="Background Angel">
+    <img src="assets/bg-stars.png" class="bg stars" alt="Starry Sky">
     <figure class="bg sea">
-      <img src="assets/bg-sea.png" alt="Sea">
+      <img src="assets/bg-sea.png" alt="Ocean Background">
     </figure>
-    <img src="assets/bg-hill.png" class="bg hills" alt="hills">
-
+    <img src="assets/bg-hill.png" class="bg hills" alt="Hills Background">
   </section>
 
-  <!-- Character Elements -->
+  <!-- =====================================
+       ANIMATED CHARACTER ELEMENTS
+  ===================================== -->
+
   <section class="characters">
     <img src="assets/gust-of-wind.png" class="gust transition" alt="Wind Gust">
     <img src="assets/girl.png" class="character girl" alt="Annabel Lee">
-    <img src="assets/girl.png" class="character girl3 transition" alt="Annabel Lee flipped">
+    <img src="assets/girl.png" class="character girl3 transition" alt="Annabel Lee Final Scene">
     <img src="assets/boy.png" class="character boy transition" alt="Narrator">
-    <img src="assets/lovers.png" class="character lovers" alt="The Lovers">
-    <img src="assets/girl2.png" class="character girl2 transition" alt="Girl reaching out">
-    <img src="assets/angel.png" class ="angel transition" alt="angel">
+    <img src="assets/lovers.png" class="character lovers" alt="The Lovers Together">
+    <img src="assets/girl2.png" class="character girl2 transition" alt="Annabel Lee Reaching">
+    <img src="assets/angel.png" class="angel transition" alt="Seraph Angel">
   </section>
 
-       <!-- Heaven clouds inside stanza 5 -->
-        <div class="heaven-clouds">
-          <img src="assets/heavens.png" alt="Cloud Top" class="heaven-top">
-          <img src="assets/heavens.png" alt="Cloud Bottom" class="heaven-bottom">
-        </div>
-  <!-- Poem Scroll Container -->
+  <!-- =====================================
+       HEAVEN CLOUDS OVERLAY
+  ===================================== -->
+
+  <div class="heaven-clouds">
+    <img src="assets/heavens.png" alt="Heaven Clouds Top" class="heaven-top">
+    <img src="assets/heavens.png" alt="Heaven Clouds Bottom" class="heaven-bottom">
+  </div>
+
+  <!-- =====================================
+       MAIN POEM SCROLL CONTAINER
+  ===================================== -->
+
   <main class="poem-scroll">
     
-    <!-- Landing Page -->
+    <!-- Opening Landing Page -->
     <section class="landing">
       <h1>Annabel Lee</h1>
       <p>a poem by Edgar Allan Poe</p>
       <div class="scroll-prompt">↓ scroll</div>
     </section>
 
-    <!-- Poem Sections -->
+   <!-- =====================================
+         POEM STANZAS
+   ===================================== -->
+    
+    <!-- Stanza 1: Introduction to the kingdom -->
     <section class="poem-section" data-stanza="1">
       <blockquote class="poem-frame">
         <p>It was many and many a year ago,<br>In a kingdom by the sea.</p>
       </blockquote>
     </section>
 
+    <!-- Stanza 2: Annabel Lee enters -->
     <section class="poem-section" data-stanza="2">
       <blockquote class="poem-frame">
         <p>That a maiden there lived whom you may know<br>By the name of Annabel Lee.</p>
       </blockquote>
     </section>
 
+    <!-- Stanza 3: Love begins, narrator appears -->
     <section class="poem-section" data-stanza="3">
       <blockquote class="poem-frame">
         <p>And this maiden she lived with no other thought<br>Than to love and be loved by me.</p>
       </blockquote>
     </section>
 
-     <section class="poem-section" data-stanza="4">
-        <div class="poem-frame">
-          <p>And we loved with a love that was more than love—<br>I and my Annabel Lee—</p>
-        </div>
-      </section>
+    <!-- Stanza 4: Lovers unite -->
+    <section class="poem-section" data-stanza="4">
+      <div class="poem-frame">
+        <p>And we loved with a love that was more than love—<br>I and my Annabel Lee—</p>
+      </div>
+    </section>
 
+    <!-- Stanza 5: Heaven's jealousy -->
     <section class="poem-section" data-stanza="5">
       <blockquote class="poem-frame">
         <p>With a love that the wingèd seraphs of Heaven<br>Coveted her and me.</p>
       </blockquote>
     </section>
 
+    <!-- Stanza 6: The reason revealed -->
     <section class="poem-section" data-stanza="6">
       <blockquote class="poem-frame">
         <p>And this was the reason that, long ago,<br> In this kingdom by the sea,</p>
       </blockquote>
     </section>
 
+    <!-- Stanza 7: Tragic ending -->
     <section class="poem-section" data-stanza="7">
       <blockquote class="poem-frame">
         <p>A wind blew out of a cloud, chilling<br>My beautiful Annabel Lee.</p>
       </blockquote>
     </section>
 
-    <!-- Comments -->
+    <!-- =====================================
+         CLOSING SECTION
+    ===================================== -->
+
+    <section class="final-landing">
+      <h1>The End</h1>
+      <p>But not really</p>
+      <div class="restart-prompt">
+        <button class="restart-button" onclick="restartPoem()">Begin Again</button>
+        <button class="poem-button" onclick="readFullPoem()">Read Full Poem</button>
+      </div>
+    </section>
 
   </main>
 
+  <!-- =====================================
+       JAVASCRIPT
+  ===================================== -->
+      
   <script src="script.js"></script>
 </body>
 </html>

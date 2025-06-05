@@ -1,4 +1,7 @@
-/* ===== Global Reset ===== */
+/* =====================================
+   GLOBAL RESET & BASE STYLES
+   ===================================== */
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -13,8 +16,10 @@ body {
   overflow: hidden;
 }
 
-/* ===== ANIMATION TIMING CONSTANTS ===== */
-/* All animations now use consistent timing for smooth transitions */
+/* =====================================
+   CSS CUSTOM PROPERTIES
+   ===================================== */
+
 :root {
   --fast-transition: 0.8s;
   --medium-transition: 1.5s;
@@ -24,7 +29,10 @@ body {
   --standard-easing: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ===== Fixed Stage & Background Layers ===== */
+/* =====================================
+   STAGE & BACKGROUND LAYOUT
+   ===================================== */
+
 .stage {
   position: fixed;
   top: 0;
@@ -36,7 +44,6 @@ body {
   overflow: hidden;
 }
 
-/* Background Layers */
 .bg {
   position: fixed;
   top: 0;
@@ -46,8 +53,9 @@ body {
   object-fit: cover;
   pointer-events: none;
   will-change: transform;
-  transition: opacity var(--medium-transition) var(--standard-easing), 
-              filter var(--medium-transition) var(--standard-easing);
+  transition:
+   opacity var(--medium-transition) var(--standard-easing), 
+   filter var(--medium-transition) var(--standard-easing);
 }
 
 .bg.hills {
@@ -67,14 +75,17 @@ body {
   animation: bobWaves 6s ease-in-out infinite;
 }
 
-/* Hide background sea + hills when this class is on stage */
+/* Background visibility control */
 .stage.hide-background .sea,
 .stage.hide-background .hills {
   opacity: 0;
   filter: blur(5px);
 }
 
-/* Heaven Clouds Foreground (Stanza 5) */
+/* =====================================
+   HEAVEN CLOUDS SYSTEM
+   ===================================== */
+
 .heaven-clouds {
   position: absolute;
   top: 0;
@@ -107,7 +118,6 @@ body {
   transform: translateY(50px) rotate(180deg);
 }
 
-/* Heaven Cloud Animations */
 .heaven-clouds.visible .heaven-top {
   animation: floatInTop var(--slow-transition) var(--standard-easing) forwards;
 }
@@ -116,99 +126,10 @@ body {
   animation: floatInBottom var(--slow-transition) var(--standard-easing) forwards;
 }
 
-/* ===== KEYFRAME ANIMATIONS ===== */
-/* Stars */
-@keyframes twinkle {
-  0%, 100% { opacity: 0.9; }
-  50% { opacity: 0.6; }
-}
+/* =====================================
+   POEM SCROLL CONTAINER
+   ===================================== */
 
-/* Waves */
-@keyframes bobWaves {
-  0%   { transform: translateY(0); }
-  50%  { transform: translateY(-10px); }
-  100% { transform: translateY(0); }
-}
-
-/* Heaven Clouds */
-@keyframes floatInTop {
-  from { 
-    transform: translateY(-80px); 
-    opacity: .5; 
-  }
-  to { 
-    transform: translateY(0); 
-    opacity: 1; 
-  }
-}
-
-@keyframes floatInBottom {
-  from { 
-    transform: translateY(80px) rotate(180deg); 
-    opacity: 0.5; 
-  }
-  to { 
-    transform: translateY(0) rotate(180deg); 
-    opacity: 1; 
-  }
-}
-
-/* Character Walk Animations */
-@keyframes walkIn {
-  from {
-    right: -20%;
-    opacity: 1;
-  }
-  to {
-    right: 15%; 
-    opacity: 1;
-  }
-}
-
-@keyframes walkBoyIn {
-  from {
-    left: -50%; 
-    opacity: 1;
-  }
-  to {
-    left: 10%; 
-    opacity: 1;
-  }
-}
-
-@keyframes angelFlyIn {
-  0% {
-    transform: translate(-100px, -100px) scale(0.8);
-    opacity: 0;
-  }
-  100% {
-    transform: translate(0, 0) scale(1);
-    opacity: 1;
-  }
-}
-
-@keyframes gustFlyToGirl {
-  0% {
-    opacity: 0;
-    transform: translate(0, 0) scale(1) rotate(-45deg);
-  }
-  20% {
-    opacity: 1;
-    transform: translate(-10vw, 5vh) scale(1.05) rotate(-45deg);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(-30vw, 55vh) scale(5) rotate(0deg);
-  }
-}
-
-@keyframes floatArrow {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(5px); }
-  100% { transform: translateY(0); }
-}
-
-/* ===== Poem Scroll & Sections ===== */
 .poem-scroll {
   position: relative;
   z-index: 10;
@@ -246,7 +167,10 @@ body {
   color: black;
 }
 
-/* ===== Landing Page ===== */
+/* =====================================
+   LANDING PAGES
+   ===================================== */
+
 .landing {
   height: 100vh;
   display: flex;
@@ -280,7 +204,71 @@ body {
   animation: floatArrow 2s ease-in-out infinite;
 }
 
-/* ===== CHARACTER ANIMATIONS - SYNCHRONIZED ===== */
+.final-landing {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: black;
+  color: white;
+  font-family: Georgia, serif;
+  z-index: 10;
+  scroll-snap-align: start;
+  position: relative;
+}
+
+.final-landing h1 {
+  font-size: clamp(2rem, 6vw, 4rem);
+  margin-bottom: 1rem;
+}
+
+.final-landing p {
+  font-size: clamp(1rem, 3vw, 2rem);
+  opacity: 0.7;
+}
+
+/* =====================================
+   INTERACTIVE BUTTONS
+   ===================================== */
+
+.restart-prompt {
+  position: absolute;
+  bottom: 5%;
+  text-align: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.restart-button,
+.poem-button {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  font-family: Georgia, serif;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  opacity: 0.8;
+}
+
+.restart-button:hover,
+.poem-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+/* =====================================
+   CHARACTER BASE STYLES
+   ===================================== */
+
 .character {
   position: absolute;
   bottom: 5%;
@@ -295,7 +283,16 @@ body {
   opacity: 1;
 }
 
-/* Character Base Positions */
+.transition {
+  opacity: 0;
+  transition: opacity var(--fade-duration) var(--standard-easing);
+  pointer-events: none;
+}
+
+/* =====================================
+   CHARACTER POSITIONING
+   ===================================== */
+
 .girl {
   right: 15%; 
   width: 20%;
@@ -321,7 +318,56 @@ body {
   width: 35%;
 }
 
-/* STANZA 2 - GIRL WALK IN */
+.angel {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  width: 25%;
+  opacity: 0;
+  z-index: 4;
+  filter: drop-shadow(0 0 10px rgb(2, 2, 2));
+  transition: opacity var(--fade-duration) var(--standard-easing);
+}
+
+.character.girl3 {
+  transform: scaleX(-1);
+  position: absolute;
+  bottom: -5%;
+  left: 20%; 
+  width: 20%; 
+  opacity: 0;
+  z-index: 3;  
+  filter: drop-shadow(0 0 10px white); 
+  transition: opacity var(--fade-duration) var(--standard-easing);
+}
+
+.angel2 {
+  position: absolute;
+  left: 80%; 
+  transform: translateX(-50%) scale(1.6); 
+  width: clamp(50%, 80vw, 75%);
+  opacity: 0;
+  z-index: 0;
+  transition: opacity var(--medium-transition) var(--standard-easing);
+  pointer-events: none;
+}
+
+.gust {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  width: 15%;
+  opacity: 0;
+  z-index: 8;
+  pointer-events: none;
+  transition: opacity var(--fade-duration) var(--standard-easing);
+}
+
+/* =====================================
+   CHARACTER ANIMATION STATES
+   ===================================== */
+
+/* Girl entrance animation */
 .girl.walk-in {
   animation: walkIn var(--character-walk) var(--standard-easing) forwards;
 }
@@ -331,17 +377,17 @@ body {
   transition: opacity var(--fade-duration) var(--standard-easing);
 }
 
-
-/* STANZA 3 - BOY WALK IN */
+/* Girl2 fade in */
 .girl2.fade-in {
   animation: fadeInGirl2 2s ease-out forwards;
 }
 
+/* Boy entrance animation */
 .boy.walk-in {
   animation: walkBoyIn var(--character-walk) var(--standard-easing) forwards;
 }
 
-/* STANZA 4 - LOVERS */
+/* Lovers animations */
 .lovers {
   transform: translateX(-50%) scale(0.8);
   transition: transform var(--slow-transition) var(--standard-easing), 
@@ -357,79 +403,138 @@ body {
   transform: translateX(-50%) scale(0.80);
 }
 
-/* STANZA 6 - ANGEL */
-.angel {
-  position: absolute;
-  top: 20%;
-  left: 50%;
-  width: 25%;
-  opacity: 0;
-  z-index: 4;
-  filter: drop-shadow(0 0 10px rgb(2, 2, 2));
-  transition: opacity var(--fade-duration) var(--standard-easing);
-}
-
+/* Angel animations */
 .angel.visible {
   animation: angelFlyIn var(--character-walk) var(--standard-easing) forwards;
-}
-
-/* STANZA 7 - GIRL3 & ANGEL2 */
-.character.girl3 {
-  transform: scaleX(-1);
-  position: absolute;
-  bottom: -5%;
-  left: 20%; 
-  width: 20%; 
-  opacity: 0;
-  z-index: 3;  
-  filter: drop-shadow(0 0 10px white); 
-  transition: opacity var(--fade-duration) var(--standard-easing);
-}
-
-.character.girl3.visible {
-  opacity: 1;
-}
-
-.angel2 {
-  position: absolute;
-  left: 80%; 
-  transform: translateX(-50%) scale(1.6); 
-  width: clamp(50%, 80vw, 75%);
-  opacity: 0;
-  z-index: 0;
-  transition: opacity var(--medium-transition) var(--standard-easing);
-  pointer-events: none;
 }
 
 .angel2.visible {
   opacity: 0.50;
 }
 
-/* GUST OF WIND */
-.gust {
-  position: absolute;
-  top: 25%;
-  left: 50%;
-  width: 15%;
-  opacity: 0;
-  z-index: 8;
-  pointer-events: none;
-  transition: opacity var(--fade-duration) var(--standard-easing);
+/* Girl3 final scene animations */
+.character.girl3.visible {
+  opacity: 1;
 }
 
+.character.girl3.freezing {
+  animation: freezing 0.15s ease-in-out infinite;
+}
+
+.character.girl3.dying {
+  animation: collapse var(--medium-transition) ease-out forwards;
+}
+
+/* Gust animation */
 .gust.visible {
   animation: gustFlyToGirl var(--slow-transition) var(--standard-easing) forwards;
 }
 
-/* Base transition class for all elements */
-.transition {
-  opacity: 0;
-  transition: opacity var(--fade-duration) var(--standard-easing);
-  pointer-events: none;
+/* =====================================
+   KEYFRAME ANIMATIONS
+   ===================================== */
+
+/* Background animations */
+
+/* Twinkle (Background) */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.9; }
+  50% { opacity: 0.6; }
 }
 
-/* Add these keyframe animations to your CSS */
+/* Waves (Background) */
+@keyframes bobWaves {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
 
+/* Scroll Pronmpt (Landing Page) */
+@keyframes floatArrow {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(5px); }
+  100% { transform: translateY(0); }
+}
+
+/* Heaven cloud top (Stanza 5) */
+@keyframes floatInTop {
+  from { 
+    transform: translateY(-80px); 
+    opacity: .5; 
+  }
+  to { 
+    transform: translateY(0); 
+    opacity: 1; 
+  }
+}
+
+/* Heaven cloud bottom (Stanza 5) */
+@keyframes floatInBottom {
+  from { 
+    transform: translateY(80px) rotate(180deg); 
+    opacity: 0.5; 
+  }
+  to { 
+    transform: translateY(0) rotate(180deg); 
+    opacity: 1; 
+  }
+}
+
+/* Character movement animations */
+
+/* Girl (Stanza 2) */
+@keyframes walkIn {
+  from {
+    right: -20%;
+    opacity: 1;
+  }
+  to {
+    right: 15%; 
+    opacity: 1;
+  }
+}
+
+/* Boy (Stanza 3) */
+@keyframes walkBoyIn {
+  from {
+    left: -50%; 
+    opacity: 1;
+  }
+  to {
+    left: 10%; 
+    opacity: 1;
+  }
+}
+
+/* Angel (Stanza 6) */
+@keyframes angelFlyIn {
+  0% {
+    transform: translate(-100px, -100px) scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+}
+
+/* Gust of wind (Stanza 7) */
+@keyframes gustFlyToGirl {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(1) rotate(-45deg);
+  }
+  20% {
+    opacity: 1;
+    transform: translate(-10vw, 5vh) scale(1.05) rotate(-45deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-30vw, 55vh) scale(5) rotate(0deg);
+  }
+}
+
+/* Final scene animations */
 @keyframes freezing {
   0% { 
     transform: scaleX(-1) translateX(0) translateY(0) rotate(0deg); 
@@ -477,13 +582,4 @@ body {
     transform: scaleX(-1) scale(1) rotate(90deg);
     transform-origin: bottom center;
   }
-}
-
-/* Update the girl3 classes */
-.character.girl3.freezing {
-  animation: freezing 0.15s ease-in-out infinite;
-}
-
-.character.girl3.dying {
-  animation: collapse var(--medium-transition) ease-out forwards;
 }
