@@ -583,3 +583,28 @@ body {
     transform-origin: bottom center;
   }
 }
+
+
+/* =====================================
+   COMMENTS
+===================================== */
+/* The key frames where kinda fun on this assignment, i tried some stuff out, I think they look cool, 
+especailly that last stanza where she dies, I was wanting to communicate death but in a fun way that 
+wasn't too morbid */
+
+/* Tricky parts of css, was controlling scroll, because I had built a long scroll div inside the 
+body the code was spitting out 2 different scroll bars which where actually my first bug, as one scrolled
+the poem and the other did nothing but cause issues, I also had to get rid of persistant scroll bar
+that appear on the horizontonal, which again did nothing but showcase i needed to learn what the hide
+overflow function was and how to use it */
+
+/* Issue regarding animation that you would of or will see in JS, css was my first point of call
+I didn't need to massively overhaul my css but did comb through and restructure, grouping by classes
+that made sense and deleteing unecessary code out trying to figure out what was controlling what, when 
+things weren't working out how I wanted. I got a bit crazy and start changing html classes which 
+was not a good move, but ultimately i cleaned it all up */
+
+/* At first getting the elements to fit together well seemed like my biggest issue, then I realised
+I actually need to figure out tha complicated nest of layering systems I'd created */
+
+
