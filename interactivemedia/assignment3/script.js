@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     if (isVisible) {
       // Force reset first
-      element.classList.remove("visible", "walk-in", "fade-out", "shrink");
+      element.classList.remove("visible", "walk-in", "fade-out", "shrink", "fade-in");
       element.style.opacity = "";  // Clear inline styles
       
       // Apply new state immediately
@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     } else {
       // Complete removal
-      element.classList.remove("visible", "walk-in", "shrink");
+      element.classList.remove("visible", "walk-in", "shrink", "fade-in");
       if (animationClass === "fade-out") {
         element.classList.add("fade-out");
         addToQueue(element, duration);
@@ -83,6 +83,18 @@ document.addEventListener("DOMContentLoaded", () => {
         char.style.opacity = "0"; // Force reset opacity
       }
     });
+// FORCED FIX FOR GIRL2 NOT DISAPPEARING SAME SPEED AS BOY
+      if (characters.girl2) {
+    characters.girl2.classList.remove("visible");
+    characters.girl2.style.opacity = "0";
+    characters.girl2.style.display = "none"; // Temporarily hide
+    // Re-enable after cleanup
+    setTimeout(() => {
+      if (characters.girl2) {
+        characters.girl2.style.display = "";
+      }
+    }, 100);
+  }
     
     // Clear heaven clouds
     heavenClouds.classList.remove("visible");
@@ -121,18 +133,23 @@ document.addEventListener("DOMContentLoaded", () => {
           setElementState(characters.girl, true, "walk-in", 2000);
           handleBackgroundTransition(false);
         }
-        break;
+      break;
 
       case 3:
         if (isEntering) {
           setElementState(characters.boy, true, "walk-in", 2000);
-          // Delay girl2 appearance slightly for smoother transition
+          
+          // SEAMLESS GIRL TRANSITION - Show Girl2 immediately, then fade out Girl
+          setElementState(characters.girl2, true); // Show Girl2 instantly
+          
+          // Very brief delay, then fade out Girl smoothly
           setTimeout(() => {
-            setElementState(characters.girl2, true);
-          }, 500);
+            setElementState(characters.girl, false, "fade-out", 800);
+          }, 300); // Short 300ms delay for overlap
+          
           handleBackgroundTransition(false);
         }
-        break;
+      break;
 
       case 4:
         if (isEntering) {

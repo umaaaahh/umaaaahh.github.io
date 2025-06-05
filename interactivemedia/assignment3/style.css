@@ -297,7 +297,7 @@ body {
 
 /* Character Base Positions */
 .girl {
-  right: 65%; 
+  right: 60%; 
   width: 20%;
   bottom: -5%;
 }
@@ -331,7 +331,12 @@ body {
   transition: opacity var(--fade-duration) var(--standard-easing);
 }
 
+
 /* STANZA 3 - BOY WALK IN */
+.girl2.fade-in {
+  animation: fadeInGirl2 2s ease-out forwards;
+}
+
 .boy.walk-in {
   animation: walkBoyIn var(--character-walk) var(--standard-easing) forwards;
 }
