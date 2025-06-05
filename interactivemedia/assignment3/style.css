@@ -1,4 +1,4 @@
- /* ===== Global Reset ===== */
+/* ===== Global Reset ===== */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -11,7 +11,7 @@ body {
   font-family: 'Georgia', serif;
   background-color: #fdf7e6;
   overflow: hidden;
-  scroll-behavior: smooth; /* Enable smoother scrolling */
+  scroll-behavior: smooth; 
 }
 
 /* ===== Fixed Stage & Background Layers ===== */
@@ -26,7 +26,7 @@ body {
   overflow: hidden;
 }
 
-/* Parallax Background Layers */
+/*Background Layers */
 .bg {
   position: fixed;
   top: 0;
@@ -35,7 +35,7 @@ body {
   height: 100vh;
   object-fit: cover;
   pointer-events: none;
-  will-change: transform; /* Optimized for performance */
+  will-change: transform; 
 }
 
 .bg.hills{
@@ -56,15 +56,78 @@ body {
   
 }
 
+/* White Background (Stanza 4) */
+
+/* Hide background sea + hills when this class is on stage */
+.stage.hide-background .sea,
+.stage.hide-background .hills {
+  opacity: 0;
+  filter: blur(5px); 
+  transition: opacity 3s ease-in-out, filter 1.5s ease-in-out;
+}
+
+/* Heaven Clouds Foreground (Stanza 5) */
+
+.heaven-clouds {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 4;
+  pointer-events: none;
+  overflow: hidden;
+}
+.heaven-top,
+.heaven-bottom {
+  position: absolute;
+  width: 100%;
+  height: auto;
+  opacity: 0;
+  object-fit: cover;
+  filter: drop-shadow(0 0 15px rgb(0, 0, 0));
+  transition: opacity 1s ease-out;
+}
+
+/* Starting positions */
+.heaven-top {
+  top: -10%;
+  transform: translateY(-50px);
+}
+.heaven-bottom {
+  bottom: -10%;
+  transform: translateY(50px) rotate(180deg);
+}
+
+/*Animation */
+
+/* Stars */
 @keyframes twinkle {
   0%, 100% { opacity: 0.9; }
   50% { opacity: 0.6; }
 }
-
+/* Waves */
 @keyframes bobWaves {
   0%   { transform: translateY(0); }
   50%  { transform: translateY(-10px); }
   100% { transform: translateY(0); }
+}
+/* Heaven Cloud Top (stanza 5) */
+@keyframes floatInTop {
+  from { transform: translateY(-80px); opacity: .5; }
+  to { transform: translateY(0); opacity: 1; }
+}
+/* Heaven Cloud Bottom (stanza 5) */
+.heaven-clouds.visible .heaven-top {
+  animation: floatInTop 3s ease-out forwards;
+}
+/* Unsure why but if i group top and bottom it breaks code so wrote seperately */
+.heaven-clouds.visible .heaven-bottom {
+  animation: floatInBottom 3s ease-out forwards;
+}
+@keyframes floatInBottom {
+  from { transform: translateY(80px) rotate(180deg); opacity: .5; }
+  to { transform: translateY(0) rotate(180deg); opacity: 1; }
 }
 
 /* ===== Poem Scroll & Sections ===== */
@@ -84,9 +147,8 @@ body {
   align-items: center;
   scroll-snap-align: start;
   position: relative;
-  transition: opacity 1s ease-in-out; /* Smooth fade effect */
+  transition: opacity 1s ease-in-out;
 }
-
 
 .poem-frame {
   position: absolute;
@@ -95,22 +157,17 @@ body {
   transform: translateX(-50%);
   text-align: center;
   font-family: 'Merriweather', serif;
-font-size: clamp(1.2rem, 2vw, 2rem);
+  font-size: clamp(1.2rem, 2vw, 2rem);
   max-width: 50ch;
   padding: 0 1rem;
   line-height: 1.4;
   font-weight: 600;
   backdrop-filter: blur(.5px);
-text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.9);
+  text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.9);
   -webkit-text-stroke: .2px white;
   color: black;
-  }
+}
 
-/* Background Fade Effect (Applied via JS)
-.poem-section.background-fade {
-  background-color: white;
-  transition: background-color 1s ease-in-out;
-} */
 
 /* ===== Landing Page ===== */
 .landing {
@@ -125,12 +182,10 @@ text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.9);
   z-index: 10;
   scroll-snap-align: start;
 }
-
 .landing h1 {
   font-size: clamp(2rem, 6vw, 4rem);
   margin-bottom: 1rem;
 }
-
 .landing p {
   font-size: clamp(1rem, 3vw, 2rem);
   opacity: 0.7;
@@ -145,7 +200,6 @@ text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.9);
   opacity: 0.6;
   animation: floatArrow 2s ease-in-out infinite;
 }
-
 @keyframes floatArrow {
   0% { transform: translateY(0); }
   50% { transform: translateY(5px); }
@@ -158,26 +212,21 @@ text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.9);
   bottom: 5%;
   width: 20%;
   opacity: 0;
-  /* transition: opacity 1s ease-in-out; */
   z-index: 3;
   filter: drop-shadow(0 0 10px white);
 }
-
 .character.visible {
   opacity: 1;
 }
-
 .girl { right: 65%; width: 20%; bottom: -5%; }
 .girl2 { left: 55%; width: 30%; bottom: -5%; }
 .boy { left: 10%; width: 35%; bottom: -1%; }
 .lovers { left: 50%; transform: translateX(-50%); bottom: -5%; width: 35%; }
 
-/* Walk-in animation (just movement) */
+/* STANZA 2 - GIRL - CONTROLS */
 .girl.walk-in {
   animation: walkIn 2s ease-in forwards;
 }
-
-/* Walking animation from right to left */
 @keyframes walkIn {
   from {
     right: -20%;
@@ -185,15 +234,15 @@ text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.9);
 
   }
   to {
-    right: 15%; /* matches final position */
+    right: 15%; 
     opacity: 1;
   }
 }
 
-
-
-
-/* Walkin stanza 3 */
+/* STANZA 3 - BOY - CONTROLS */
+.boy.walk-in {
+    animation: walkBoyIn 2s ease-out forwards;
+}
 @keyframes walkBoyIn {
     from {
         left: -50%; 
@@ -205,21 +254,7 @@ text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.9);
     }
 }
 
-/* Apply animation when visible */
-.boy.walk-in {
-    animation: walkBoyIn 2s ease-out forwards;
-}
-
-
-/* WHITE BACKGROUND STANZA 4 */
-/* Hide background sea + hills when this class is on stage */
-.stage.hide-background .sea,
-.stage.hide-background .hills {
-  opacity: 0;
-  filter: blur(5px); /* Adds blur before fading out */
-  transition: opacity 3s ease-in-out, filter 1.5s ease-in-out;
-}
-
+/* STANZA 4 - LOVERS - CONTROLS */
 .lovers {
   position: absolute;
   left: 50%;
@@ -230,7 +265,6 @@ text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.9);
   transition: transform 5s ease-out, opacity 1s ease-in-out;
   z-index: 3;
 }
-
 .lovers.visible {
   transform: translateX(-50%) scale(1); /* Zoom in, stay centered */
   opacity: 1;
@@ -242,80 +276,22 @@ text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.9);
   transition: transform 2s ease-out;
 }
 
+/* Stanza 6 - Heaven Angel clouds can be found in stage section of css */
 
-/* ===== Heaven Clouds (Stanza 5) ===== */
-.heaven-clouds {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 4;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-/* Cloud image styling */
-.heaven-top,
-.heaven-bottom {
-  position: absolute;
-  width: 100%;
-  height: auto;
-  opacity: 0;
-  object-fit: cover;
-  filter: drop-shadow(0 0 15px rgb(0, 0, 0));
-  transition: opacity 1s ease-out;
-}
-
-/* Starting positions */
-.heaven-top {
-  top: -10%;
-  transform: translateY(-50px);
-}
-
-.heaven-bottom {
-  bottom: -10%;
-  transform: translateY(50px) rotate(180deg);
-}
-
-/* Animation when stanza 5 is visible */
-.heaven-clouds.visible .heaven-top {
-  animation: floatInTop 3s ease-out forwards;
-}
-
-.heaven-clouds.visible .heaven-bottom {
-  animation: floatInBottom 3s ease-out forwards;
-}
-
-/* Keyframes */
-@keyframes floatInTop {
-  from { transform: translateY(-80px); opacity: .5; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
-@keyframes floatInBottom {
-  from { transform: translateY(80px) rotate(180deg); opacity: .5; }
-  to { transform: translateY(0) rotate(180deg); opacity: 1; }
-}
-
+/* STANZA 6 - ANGEL - CONTROLS */
 .angel {
   position: absolute;
   top: 20%;
   left: 50%;
   width: 25%;
   opacity: 0;
-  /* display: none; */
   z-index: 4;
-  /* transition: opacity 2s ease-in-out, transform 2s ease-in-out; */
   filter: drop-shadow(0 0 10px rgb(2, 2, 2));
 }
-
-/* Visible state */
 .angel.visible {
   display: block;
   animation: angelFlyIn 2s ease-out forwards;
 }
-
 @keyframes angelFlyIn {
   0% {
     transform: translate(-100px, -100px) scale(0.8);
@@ -327,14 +303,12 @@ text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.9);
   }
 }
 
-
-/* Annebel flipped */
-
+/* STANZA 7 - GIRL3 & ANGEL - CONTROLS */
 .character.girl3 {
   transform: scaleX(-1); /* Flipped */
   position: absolute;
   bottom: -5%;
-  left: 20%; /* Adjust to position her on screen */
+  left: 20%; 
   opacity: 0;
   transition: opacity 1s ease-in-out, transform 0.5s ease;
 }
@@ -345,8 +319,8 @@ text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.9);
 
 .angel2 {
   position: absolute;
-  left: 80%; /* Moves toward the right */
-  transform: translateX(-50%) scale(1.6); /* Keeps it centered relative to its position */
+  left: 80%; 
+  transform: translateX(-50%) scale(1.6); 
   width: clamp(50%, 80vw, 75%);
   opacity: 0;
   z-index: 0;
@@ -358,7 +332,26 @@ text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.9);
   opacity: .50;
 }
 
-/* Base Gust Style */
+/* Transitions*/
+.transition {
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+  pointer-events: none;
+}
+
+.girl.fade-out {
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out, transform 2s ease-in-out;
+}
+
+.girl2.visible {
+  opacity: 1;
+  transition: opacity 0.6s ease-in-out, transform 0.8s ease-in-out;
+}
+
+
+
+/* === GUST OF WIND (Stanza 7) === */
 .gust {
   position: absolute;
   top: 25%;
@@ -386,22 +379,4 @@ text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.9);
     opacity: 0;
     transform: translate(-30vw, 55vh) scale(5) rotate(0deg);
   }
-}
-
-
-/* Transition Out */
-.transition {
-  opacity: 0;
-  transition: opacity 0.6s ease-in-out;
-  pointer-events: none;
-}
-
-.girl.fade-out {
-  opacity: 0;
-  transition: opacity 0.6s ease-in-out, transform 2s ease-in-out;
-}
-
-.girl2.visible {
-  opacity: 1;
-  transition: opacity 0.6s ease-in-out, transform 0.8s ease-in-out;
 }

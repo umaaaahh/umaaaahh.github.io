@@ -5,10 +5,10 @@ document.addEventListener("DOMContentLoaded", () => {
     girl2: document.querySelector(".girl2"),
     boy: document.querySelector(".boy"),
     lovers: document.querySelector(".lovers"),
-    angel: document.querySelector (".angel"),
-    angel2: document.querySelector (".angel2"),
+    angel: document.querySelector(".angel"),
+    angel2: document.querySelector(".angel2"),
     girl3: document.querySelector(".girl3"),
-    gust: document.querySelector(".gust")
+    gust: document.querySelector(".gust"),
   };
 
   const stage = document.querySelector(".stage");
@@ -22,37 +22,22 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Reset walk-in animation after it finishes so it can replay
-  // function setupAnimationReset(element, className) {
-  //   if (element) {
-  //     element.addEventListener("animationend", () => {
-  //       element.classList.remove(className);
-  //     });
-  //   }
-  // }
-
-  // setupAnimationReset(characters.girl, "walk-in");
-  // setupAnimationReset(characters.boy, "walk-in");
-
   // Intersection Observer to track scroll position
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       const stanzaIndex = parseInt(entry.target.dataset.stanza);
       const visible = entry.isIntersecting;
 
-      console.log("Stanza:", stanzaIndex, "Visible:", visible); // Debug
-
       switch (stanzaIndex) {
-       case 2:
-        if (visible) {
-          characters.girl.classList.add("walk-in");
-          characters.girl2.classList.remove("visible")
-        } else {
-          characters.girl.classList.remove("walk-in");
-          characters.girl.classList.add("fade-out"); 
-           characters.girl2.classList.add("visible")
-        }
-        break;
+        case 2:
+          toggleVisibility(characters.girl, visible);
+          if (visible) {
+            characters.girl.classList.add("walk-in");
+          } else {
+            characters.girl.classList.remove("walk-in");
+            characters.girl.classList.add("fade-out");
+          }
+          break;
 
         case 3:
           toggleVisibility(characters.boy, visible);
@@ -60,74 +45,69 @@ document.addEventListener("DOMContentLoaded", () => {
 
           if (visible) {
             characters.boy.classList.add("walk-in");
-            stage.classList.remove("hide-background"); // Restore background
+            stage.classList.remove("hide-background");
             characters.girl2.classList.add("visible");
           } else {
-          characters.boy.classList.remove("walk-in", "visible");
-          characters.girl2.classList.remove("visible");
+            characters.boy.classList.remove("walk-in", "visible");
+            characters.girl2.classList.remove("visible");
           }
           break;
 
         case 4:
           toggleVisibility(characters.lovers, visible);
-        if (visible){
-           stage.classList.toggle("hide-background", visible);
+          if (visible) {
+            stage.classList.add("hide-background");
           }
           break;
 
         case 5:
-            toggleVisibility(characters.lovers, visible);
+          toggleVisibility(characters.lovers, visible);
+          if (visible) {
+            stage.classList.add("hide-background"); 
+            heavenClouds.classList.add("visible");
+            characters.lovers.classList.add("shrink");
+          } else {
+            heavenClouds.classList.remove("visible");
+            characters.lovers.classList.remove("shrink");
+          }
+          break;
 
-            if (visible) {
-                heavenClouds.classList.add("visible");
+        case 6:
+          toggleVisibility(characters.angel, visible);
+          if (visible) {
+            characters.angel.classList.add("visible");
+            stage.classList.remove("hide-background");
+          } else {
+            characters.angel.classList.remove("visible");
+          }
+          break;
 
-                // Ensure lovers shrink in stanza 5
-                characters.lovers.classList.add("shrink"); 
-            } else {
-                heavenClouds.classList.remove("visible"); 
-                characters.lovers.classList.remove("shrink"); // Reset shrink when scrolling back up
-            }
-            break;
+        case 7:
+          toggleVisibility(characters.girl3, visible);
+          toggleVisibility(characters.angel2, visible);
+          toggleVisibility(characters.gust, visible);
 
-
-          case 6: 
-            toggleVisibility(characters.angel, visible); 
-              if (visible) {
-                characters.angel.classList.add("visible");
-                stage.classList.remove("hide-background");
-              } else {
-                characters.angel.classList.remove("visible");
-              }
-
-          
-            break;
-            
-          case 7: 
-            toggleVisibility(characters.girl3, visible);
-            toggleVisibility(characters.angel2, visible);
-            toggleVisibility(characters.gust, visible);
-
-            if (visible) {
-              characters.girl3.classList.add("visible")
-              characters.angel2.classList.add("visible")
-               characters.gust.classList.add("visible");
-            } else {
-              characters.girl3.classList.remove("visible")
-              characters.angel2.classList.remove("visible");
-              characters.gust.classList.remove("visible");
-            }
-          
+          if (visible) {
+            characters.girl3.classList.add("visible");
+            characters.angel2.classList.add("visible");
+            characters.gust.classList.add("visible");
+          } else {
+            characters.girl3.classList.remove("visible");
+            characters.angel2.classList.remove("visible");
+            characters.gust.classList.remove("visible");
+          }
+          break;
 
         default:
-          // If any stanza before 4 is intersecting, ensure background is visible
+          // If any section before 4 is intersecting, ensure background is visible
           if (visible && stanzaIndex < 4) {
             stage.classList.remove("hide-background");
           }
-        break;
+          break;
       }
     });
   }, { threshold: 0.6 });
 
   // Observe each poem section
-  sections.forEach(section => observer.observe(section));
+  sections.forEach((section) => observer.observe(section));
 });
