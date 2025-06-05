@@ -323,3 +323,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 100);
   });
 });
+
+// Buttons
+// Restart the entire poem animation
+function restartPoem() {
+ window.location.reload();
+}
+
+// Open the full poem in a new tab
+function readFullPoem() {
+ window.open('https://www.poetryfoundation.org/poems/44885/annabel-lee', '_blank');
+}
