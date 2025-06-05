@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     } else {
       // Complete removal
-      element.classList.remove("visible", "walk-in", "shrink", "fade-in");
+      element.classList.remove("visible", "walk-in", "shrink", "fade-");
       if (animationClass === "fade-out") {
         element.classList.add("fade-out");
         addToQueue(element, duration);
@@ -128,28 +128,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function handleStanzaTransition(stanzaIndex, isEntering) {
     switch (stanzaIndex) {
-      case 2:
-        if (isEntering) {
-          setElementState(characters.girl, true, "walk-in", 2000);
-          handleBackgroundTransition(false);
-        }
-      break;
+case 2:
+  if (isEntering) {
+    setElementState(characters.girl, true, "walk-in", 2000);
+    handleBackgroundTransition(false);
+  }
+  break;
 
-      case 3:
-        if (isEntering) {
-          setElementState(characters.boy, true, "walk-in", 2000);
-          
-          // SEAMLESS GIRL TRANSITION - Show Girl2 immediately, then fade out Girl
-          setElementState(characters.girl2, true); // Show Girl2 instantly
-          
-          // Very brief delay, then fade out Girl smoothly
-          setTimeout(() => {
-            setElementState(characters.girl, false, "fade-out", 800);
-          }, 300); // Short 300ms delay for overlap
-          
-          handleBackgroundTransition(false);
-        }
-      break;
+case 3:
+  if (isEntering) {
+    // LOVERS PATTERN: Keep Girl visible first (like lovers in case 5)
+    setElementState(characters.girl, true, null, 2000); // Keep Girl visible
+    
+    // Add boy
+    setElementState(characters.boy, true, "walk-in", 2000);
+    
+    // After boy's walk completes, do the swap
+    setTimeout(() => {
+      setElementState(characters.girl2, true); // Show Girl2
+      setTimeout(() => {
+        setElementState(characters.girl, false, "fade-out", 600); // Hide Girl
+      }, 200);
+    }, 2200); // After boy's animation
+    
+    handleBackgroundTransition(false);
+  }
+  break;
 
       case 4:
         if (isEntering) {

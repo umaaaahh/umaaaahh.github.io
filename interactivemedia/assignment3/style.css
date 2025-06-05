@@ -134,7 +134,7 @@ body {
 @keyframes floatInTop {
   from { 
     transform: translateY(-80px); 
-    opacity: 0; 
+    opacity: .5; 
   }
   to { 
     transform: translateY(0); 
@@ -145,7 +145,7 @@ body {
 @keyframes floatInBottom {
   from { 
     transform: translateY(80px) rotate(180deg); 
-    opacity: 0; 
+    opacity: 0.5; 
   }
   to { 
     transform: translateY(0) rotate(180deg); 
@@ -157,7 +157,7 @@ body {
 @keyframes walkIn {
   from {
     right: -20%;
-    opacity: 0;
+    opacity: 1;
   }
   to {
     right: 15%; 
@@ -168,7 +168,7 @@ body {
 @keyframes walkBoyIn {
   from {
     left: -50%; 
-    opacity: 0;
+    opacity: 1;
   }
   to {
     left: 10%; 
@@ -297,7 +297,7 @@ body {
 
 /* Character Base Positions */
 .girl {
-  right: 60%; 
+  right: 15%; 
   width: 20%;
   bottom: -5%;
 }
