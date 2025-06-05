@@ -46,10 +46,11 @@ document.addEventListener("DOMContentLoaded", () => {
        case 2:
         if (visible) {
           characters.girl.classList.add("walk-in");
-          // characters.girl.classList.add("visible", "walk-in");
+          characters.girl2.classList.remove("visible")
         } else {
           characters.girl.classList.remove("walk-in");
-          // characters.girl.classList.remove("visible");
+          characters.girl.classList.add("fade-out"); 
+           characters.girl2.classList.add("visible")
         }
         break;
 
@@ -60,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
           if (visible) {
             characters.boy.classList.add("walk-in");
             stage.classList.remove("hide-background"); // Restore background
-              characters.girl2.classList.add("visible");
+            characters.girl2.classList.add("visible");
           } else {
           characters.boy.classList.remove("walk-in", "visible");
           characters.girl2.classList.remove("visible");
@@ -107,11 +108,11 @@ document.addEventListener("DOMContentLoaded", () => {
             toggleVisibility(characters.gust, visible);
 
             if (visible) {
-              characters.girl3.classlist.add("visible")
-              characters.angel2.classlist.add("visible")
+              characters.girl3.classList.add("visible")
+              characters.angel2.classList.add("visible")
                characters.gust.classList.add("visible");
             } else {
-              characters.girl3.classlist.remove("visible")
+              characters.girl3.classList.remove("visible")
               characters.angel2.classList.remove("visible");
               characters.gust.classList.remove("visible");
             }

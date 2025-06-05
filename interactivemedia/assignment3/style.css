@@ -172,24 +172,6 @@ text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.9);
 .boy { left: 10%; width: 35%; bottom: -1%; }
 .lovers { left: 50%; transform: translateX(-50%); bottom: -5%; width: 35%; }
 
-
-/* Walk in stanza 2*/
-
-/* Initial position */
-/* .girl {
-  position: absolute;
-  right: -20%; /* Start off-screen from the right 
-  bottom: -5%;
-  width: 20%;
-  opacity: 1;
-  transition: opacity 1s ease-in-out; This transition for opacity is fine
-}*/
-
-/* When visible */
-/* .girl.visible {
-  opacity: 1;
-} */
-
 /* Walk-in animation (just movement) */
 .girl.walk-in {
   animation: walkIn 2s ease-in forwards;
@@ -198,15 +180,17 @@ text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.9);
 /* Walking animation from right to left */
 @keyframes walkIn {
   from {
-    right: -30%;
+    right: -20%;
     opacity: 1;
 
   }
   to {
-    right: 10%; /* matches final position */
+    right: 15%; /* matches final position */
     opacity: 1;
   }
 }
+
+
 
 
 /* Walkin stanza 3 */
@@ -410,4 +394,14 @@ text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.9);
   opacity: 0;
   transition: opacity 0.6s ease-in-out;
   pointer-events: none;
+}
+
+.girl.fade-out {
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out, transform 2s ease-in-out;
+}
+
+.girl2.visible {
+  opacity: 1;
+  transition: opacity 0.6s ease-in-out, transform 0.8s ease-in-out;
 }
