@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     lovers: document.querySelector(".lovers"),
     angel: document.querySelector (".angel"),
     angel2: document.querySelector (".angel2"),
-    girl3: document.querySelector(".girl3")
+    girl3: document.querySelector(".girl3"),
     gust: document.querySelector(".gust")
   };
 
@@ -90,7 +90,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
           case 6: 
             toggleVisibility(characters.angel, visible); 
-            toggleVisibility(characters.gust, visible);
               if (visible) {
                 characters.angel.classList.add("visible");
                 stage.classList.remove("hide-background");
@@ -104,12 +103,16 @@ document.addEventListener("DOMContentLoaded", () => {
           case 7: 
             toggleVisibility(characters.girl3, visible);
             toggleVisibility(characters.angel2, visible);
+            toggleVisibility(characters.gust, visible);
+
             if (visible) {
               characters.girl3.classlist.add("visible")
               characters.angel2.classlist.add("visible")
+               characters.gust.classList.add("visible");
             } else {
               characters.girl3.classlist.remove("visible")
               characters.angel2.classList.remove("visible");
+              characters.gust.classList.remove("visible");
             }
           
 
