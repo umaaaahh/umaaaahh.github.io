@@ -60,9 +60,10 @@ document.addEventListener("DOMContentLoaded", () => {
           if (visible) {
             characters.boy.classList.add("walk-in");
             stage.classList.remove("hide-background"); // Restore background
+              characters.girl2.classList.add("visible");
           } else {
           characters.boy.classList.remove("walk-in", "visible");
-          
+          characters.girl2.classList.remove("visible");
           }
           break;
 
