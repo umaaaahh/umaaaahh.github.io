@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Squ1d 1nc.</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+</head>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Squ1d 1nc · UX/UI by Uma Bridges</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <header>
+    <nav>
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+    <main>
+
+        <section id="hero">
+                <h1>Squ1d 1nc.</h1>
+                <p>UX/UI Design & Creative Code by Uma Bridges</p>
+            <h2>Designing cozy chaos, one weird interface at a time.</h2>
+            <!-- Optional: Add a doodle or animation here -->
+        </section>
+
+        <section id="work">
+        <h2>Featured Work</h2>
+        <div class="project-grid">
+            <!-- You can replace these placeholders with real projects -->
+            <div class="project-card">
+            <h3>Annabel Lee</h3>
+            <p>An interactive Poem · UX, narrative, technical design</p>
+            </div>
+            <div class="project-card">
+            <h3>Overthinker’s Typing Pad</h3>
+            <p>Web tool exploring friction in writing · UX experiment</p>
+            </div>
+            <div class="project-card">
+            <h3>Squ1d Starter Kit</h3>
+            <p>Freelance workspace template · Productivity design</p>
+            </div>
+        </div>
+        </section>
+
+        <section id="about">
+            <h2>About Uma</h2>
+            <p>I’m the creator of Squ1d 1nc — a weird little studio where I design playful, thoughtful, sometimes glitchy things. Whether it’s apps, games, or odd tools, I care about how people feel when they use stuff.</p>
+            <p>Let’s make things that are both ✨useful and strange✨.</p>
+        </section>
+
+        <section id="contact">
+            <h2>Say hi</h2>
+            <p>Email: <a href="mailto:your@email.com">your@email.com</a></p>
+            <p>Or whisper into the void (aka Instagram or LinkedIn)</p>
+        </section>
+
+    </main>
+
+  <footer>
+    <p>&copy; 2025 Squ1d 1nc. Designed and built by Uma Bridges.</p>
+  </footer>
+
+</body>
+</html>

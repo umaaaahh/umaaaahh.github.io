@@ -1,0 +1,196 @@
+/* ===== Global Reset ===== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'IBM Plex Mono', monospace;
+  background-color: #0a0a0a;
+  color: #f0f0f0;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ===== Layout Containers ===== */
+header,
+main,
+footer {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* ===== Header ===== */
+header {
+  text-align: center;
+  border-bottom: 2px solid #22e2ff;
+  padding-bottom: 1rem;
+  
+}
+
+h1 {
+  font-size: 3rem;
+  color: #22e2ff;
+  letter-spacing: 2px;
+  text-shadow: #ff77ff 0px 0px 10px, #ff77ff 0px 0px 20px, #ff77ff 0px 0px 30px;
+}
+
+ p {
+  font-size: 1.2rem;
+  color: #aaaaaa;
+  margin-top: 0.5rem;
+}
+
+/* ===== Navigation ===== */
+nav {
+  margin-top: 1.5rem;
+}
+
+nav a {
+  color: #f0f0f0;
+  text-decoration: none;
+  margin: 0 1rem;
+  font-weight: bold;
+  position: relative;
+}
+
+nav a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #22e2ff;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+
+nav a:hover::after {
+  transform: scaleX(1);
+}
+
+/* ===== Hero Section ===== */
+#hero {
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+#hero h2 {
+  font-size: 2rem;
+  color: #ff77ff;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* ===== Section Layout ===== */
+section {
+  margin-bottom: 4rem;
+}
+
+section h2 {
+  font-size: 2.2rem;
+  border-left: 4px solid #ff77ff;
+  padding-left: 0.5rem;
+  margin-bottom: 1rem;
+  color: #22e2ff;
+}
+
+section p {
+  font-size: 1.1rem;
+  color: #dddddd;
+  max-width: 800px;
+  margin-bottom: 1rem;
+}
+
+/* ===== Project Grid ===== */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.project-card {
+  background-color: #111;
+  padding: 1.5rem;
+  border: 2px solid #22e2ff;
+  border-radius: 10px;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.project-card:hover {
+  transform: translateY(-6px) rotate(-1deg);
+  box-shadow: 0 0 15px #ff77ff88;
+}
+
+.project-card h3 {
+  font-size: 1.4rem;
+  color: #ff77ff;
+  margin-bottom: 0.5rem;
+}
+
+.project-card p {
+  font-size: 1rem;
+  color: #cccccc;
+}
+
+/* ===== Links ===== */
+a {
+  color: #22e2ff;
+  text-decoration: none;
+  position: relative;
+}
+
+a:hover {
+  color: #ff77ff;
+}
+
+a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  height: 2px;
+  width: 100%;
+  background-color: #22e2ff;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.2s ease;
+}
+
+a:hover::after {
+  transform: scaleX(1);
+}
+
+/* ===== Buttons ===== */
+.button {
+  display: inline-block;
+  padding: 0.75rem 1.25rem;
+  background-color: #22e2ff;
+  color: #0a0a0a;
+  font-weight: bold;
+  border-radius: 8px;
+  text-transform: uppercase;
+  transition: background 0.3s ease, transform 0.2s ease;
+  text-decoration: none;
+}
+
+.button:hover {
+  background-color: #ff77ff;
+  transform: scale(1.05);
+}
+
+/* ===== Footer ===== */
+footer {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 4rem;
+  border-top: 1px solid #333;
+  padding-top: 1.5rem;
+}
