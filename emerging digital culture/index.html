@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patchwork Cyborg - UI Mockup</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="neural-grid"></div>
+    
+    <div class="game-container">
+        <!-- Character Viewport -->
+        <div class="character-viewport">
+            <div class="hud-overlay">
+                <div class="hud-item">
+                    <div class="hud-label">BALANCE</div>
+                    <div class="hud-value" id="balance">$75</div>
+                </div>
+                <div class="hud-item">
+                    <div class="hud-label">DAY</div>
+                    <div class="hud-value" id="day">01</div>
+                </div>
+                <div class="hud-item">
+                    <div class="hud-label">EFFICIENCY</div>
+                    <div class="hud-value" id="efficiency">65%</div>
+                </div>
+            </div>
+            
+            <div class="character-model" id="character">
+                <div class="body-part head" data-part="head"></div>
+                <div class="body-part left-arm" data-part="left-arm"></div>
+                <div class="body-part right-arm" data-part="right-arm"></div>
+                <div class="body-part torso" data-part="torso"></div>
+                <div class="body-part left-leg" data-part="left-leg"></div>
+                <div class="body-part right-leg" data-part="right-leg"></div>
+            </div>
+        </div>
+        
+        <!-- UI Panel -->
+        <div class="ui-panel">
+            <div class="panel-section">
+                <div class="section-title">System Stats</div>
+                <div class="stats-display">
+                    <div class="stat-item">
+                        <div class="stat-label">STRENGTH</div>
+                        <div class="stat-value" id="strength">12</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">SPEED</div>
+                        <div class="stat-value" id="speed">8</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">FOCUS</div>
+                        <div class="stat-value" id="focus">15</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">ENDURANCE</div>
+                        <div class="stat-value" id="endurance">10</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="panel-section">
+                <div class="section-title">Available Upgrades</div>
+                <div class="upgrades-grid">
+                    <div class="upgrade-card" data-upgrade="neural">
+                        <div class="upgrade-icon">🧠</div>
+                        <div class="upgrade-title">Neural Interface</div>
+                        <div class="upgrade-price">$120</div>
+                    </div>
+                    <div class="upgrade-card" data-upgrade="arm">
+                        <div class="upgrade-icon">🦾</div>
+                        <div class="upgrade-title">Hydraulic Arms</div>
+                        <div class="upgrade-price">$85</div>
+                    </div>
+                    <div class="upgrade-card" data-upgrade="legs">
+                        <div class="upgrade-icon">🦿</div>
+                        <div class="upgrade-title">Sprint Boost</div>
+                        <div class="upgrade-price">$150</div>
+                    </div>
+                    <div class="upgrade-card" data-upgrade="torso">
+                        <div class="upgrade-icon">⚙️</div>
+                        <div class="upgrade-title">Reinforced Core</div>
+                        <div class="upgrade-price">$95</div>
+                    </div>
+                    <div class="upgrade-card" data-upgrade="eyes">
+                        <div class="upgrade-icon">👁️</div>
+                        <div class="upgrade-title">Optic Enhancement</div>
+                        <div class="upgrade-price">$110</div>
+                    </div>
+                    <div class="upgrade-card" data-upgrade="spine">
+                        <div class="upgrade-icon">🔗</div>
+                        <div class="upgrade-title">Neural Spine</div>
+                        <div class="upgrade-price">$200</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="panel-section">
+                <div class="section-title">Actions</div>
+                <button class="action-button" onclick="startDay()">Start Work Day</button>
+                <button class="action-button" onclick="showUpgradeShop()">Upgrade Shop</button>
+                <button class="action-button" onclick="viewStats()">View Analytics</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Results Modal -->
+    <div class="modal" id="resultsModal">
+        <div class="modal-content">
+            <div class="modal-title">Day Complete</div>
+            <div class="earnings-display">
+                <div class="earnings-item">
+                    <span class="earnings-label">EARNINGS:</span>
+                    <span class="earnings-value" id="modalEarnings">$150</span>
+                </div>
+                <div class="earnings-item">
+                    <span class="earnings-label">BILLS:</span>
+                    <span class="earnings-value" id="modalBills">$100</span>
+                </div>
+                <div class="earnings-item">
+                    <span class="earnings-label">LEFTOVER:</span>
+                    <span class="earnings-value" id="modalLeftover">$50</span>
+                </div>
+                <hr style="margin: 15px 0; border-color: #00ffff;">
+                <div class="earnings-item">
+                    <span class="earnings-label">TOTAL BALANCE:</span>
+                    <span class="earnings-value" id="modalBalance">$125</span>
+                </div>
+            </div>
+            <button class="action-button" onclick="closeModal('results')">Continue</button>
+        </div>
+    </div>
+
+    <!-- Upgrade Details Modal -->
+    <div class="modal" id="upgradeModal">
+        <div class="modal-content upgrade-modal-content">
+            <div class="upgrade-modal-header">
+                <div class="upgrade-modal-icon" id="upgradeModalIcon">🧠</div>
+                <div>
+                    <div class="upgrade-modal-title" id="upgradeModalTitle">Neural Interface v2.1</div>
+                    <div class="upgrade-modal-subtitle" id="upgradeModalSubtitle">Cognitive Enhancement System</div>
+                </div>
+            </div>
+            
+            <div class="upgrade-modal-description" id="upgradeModalDescription">
+                Advanced neural interface that directly connects to your brain stem, providing enhanced cognitive processing and reaction times. May cause mild headaches during initial integration period.
+            </div>
+            
+            <div class="upgrade-stats-grid">
+                <div class="upgrade-stat-item positive" id="statPositive">
+                    <div class="stat-change">+5</div>
+                    <div class="stat-name">Focus</div>
+                </div>
+                <div class="upgrade-stat-item positive" id="statPositive2">
+                    <div class="stat-change">+2</div>
+                    <div class="stat-name">Speed</div>
+                </div>
+                <div class="upgrade-stat-item negative" id="statNegative" style="display: none;">
+                    <div class="stat-change">-1</div>
+                    <div class="stat-name">Endurance</div>
+                </div>
+            </div>
+            
+            <div class="upgrade-modal-footer">
+                <div class="upgrade-total-cost">
+                    <span class="cost-label">Total Cost:</span>
+                    <span class="cost-value" id="upgradeModalCost">$120</span>
+                </div>
+                <div class="upgrade-modal-actions">
+                    <button class="action-button secondary" onclick="closeModal('upgrade')">Cancel</button>
+                    <button class="action-button" id="purchaseButton" onclick="purchaseUpgradeFromModal()">Purchase</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
