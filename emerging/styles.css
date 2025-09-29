@@ -4,9 +4,29 @@
     box-sizing: border-box;
 }
 
+.page-bg {
+    background-image: url("assets/background.jpg");
+    background-size: cover;
+    background-position: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+/* Optional: adjust for mobile if needed */
+@media (max-width: 768px) {
+    .page-bg {
+        background-position: center top; /* or center bottom */
+    }
+}
+
+
 body {
     font-family: 'Courier New', monospace;
-    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+    background: transparent;
     color: #00ffff;
     overflow: hidden;
     height: 100vh;
