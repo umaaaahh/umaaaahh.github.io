@@ -1,25 +1,238 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rabi 80 Years</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rabi Island Tournament | Every Match A Battle, Every Village A Hero</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<header>
-  <h1>Eighty Years of Home</h1>
-  <p>Celebrating the 80th Anniversary of Rabi Island</p>
-</header>
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-text">Loading the legend...</div>
+    </div>
 
-<main class="landing">
-  <a href="timetable.html" class="card timetable">Event Timetable</a>
-  <a href="organisers.html" class="card organisers">Organisers</a>
-  <a href="history.html" class="card history">History</a>
-</main>
+    <!-- Cursor trail -->
+    <div class="cursor-trail" id="cursor"></div>
 
-<footer>
-  <p>© 2025 Rabi 80th Anniversary | Built with respect for the Banaban community</p>
-</footer>
+    <!-- Navigation -->
+    <nav class="nav" id="navbar">
+        <div class="nav-container">
+            <div class="logo">Rabi Island</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#villages">Villages</a></li>
+                <li><a href="#culture">Culture</a></li>
+                <li><a href="#legacy">Legacy</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-subtitle">Rabi Island 80th Anniversary Sports Tournament</div>
+            <h1 class="hero-title">
+                <div class="line"><span>Four Villages, </span></div>
+                 <div class="line"><span>One Island, </span></div>
+                <div class="line"><span>Who Will Win?</span></div>
+            </h1>
+            <p class="hero-description">Celebrating 80 years of resilience, unity, and pride through sport</p>
+            <a href="#story" class="cta-button">Begin the Journey</a>
+        </div>
+        <div class="scroll-indicator">
+            <div>Scroll to explore ↓</div>
+        </div>
+    </section>
+
+    <!-- Story Introduction -->
+    <section class="story-section dark" id="story">
+        <div class="container">
+            <div class="story-text">
+                <div class="story-line">It was many and many years ago,</div>
+                <div class="story-line">In a kingdom by the sea.</div>
+                <div class="story-line emphasis">That 703 souls arrived</div>
+                <div class="story-line">On an island they would call home.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- December 15 Section -->
+    <section class="story-section teal">
+        <div class="container">
+            <div class="story-text">
+                <div class="story-line large">December 15, 1945</div>
+                <div class="story-line">A day of arrival.</div>
+                <div class="story-line"></div>
+                <div class="story-line emphasis"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resilience Section -->
+    <section class="story-section light">
+        <div class="container">
+            <div class="story-text">
+                <div class="story-line">From displacement came determination.</div>
+                <div class="story-line">From hardship came unity.</div>
+                <div class="story-line large">The Banaban Story is passed on with every celebration.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Village Champions -->
+    <section class="villages-section" id="villages">
+        <div class="container">
+            <h2 class="section-title">Four Villages, One Dream</h2>
+            <p class="section-subtitle">Each village carries the spirit of their ancestors into battle</p>
+            
+            <div class="villages-grid">
+                <div class="village-card" data-delay="0">
+                    <h3 class="village-name">UMA</h3>
+                    <div class="village-stats">
+                        <div class="stat">
+                            <span class="stat-number">8</span>
+                            <div class="stat-label">Wins</div>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">2</span>
+                            <div class="stat-label">Losses</div>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">80%</span>
+                            <div class="stat-label">Win Rate</div>
+                        </div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="--progress-width: 80%;"></div>
+                    </div>
+                </div>
+
+                <div class="village-card" data-delay="200">
+                    <h3 class="village-name">TABWEWA</h3>
+                    <div class="village-stats">
+                        <div class="stat">
+                            <span class="stat-number">7</span>
+                            <div class="stat-label">Wins</div>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">3</span>
+                            <div class="stat-label">Losses</div>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">70%</span>
+                            <div class="stat-label">Win Rate</div>
+                        </div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="--progress-width: 70%;"></div>
+                    </div>
+                </div>
+
+                <div class="village-card" data-delay="400">
+                    <h3 class="village-name">TABIANG</h3>
+                    <div class="village-stats">
+                        <div class="stat">
+                            <span class="stat-number">5</span>
+                            <div class="stat-label">Wins</div>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">5</span>
+                            <div class="stat-label">Losses</div>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">50%</span>
+                            <div class="stat-label">Win Rate</div>
+                        </div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="--progress-width: 50%;"></div>
+                    </div>
+                </div>
+
+                <div class="village-card" data-delay="600">
+                    <h3 class="village-name">BUAKONIKAI</h3>
+                    <div class="village-stats">
+                        <div class="stat">
+                            <span class="stat-number">4</span>
+                            <div class="stat-label">Wins</div>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">6</span>
+                            <div class="stat-label">Losses</div>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">40%</span>
+                            <div class="stat-label">Win Rate</div>
+                        </div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="--progress-width: 40%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cultural Timeline -->
+    <section class="cultural-timeline" id="culture">
+        <div class="container">
+            <div class="timeline-content">
+                <div class="timeline-item">
+                    <div class="timeline-date">1945</div>
+                    <div class="timeline-text">
+                        The Banaban people arrive on Rabi Island after <span class="timeline-highlight">years of displacement</span> during World War II.
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">1965</div>
+                    <div class="timeline-text">
+                        The first inter-village sports tournament establishes traditions that would last <span class="timeline-highlight">generations</span>.
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">1995</div>
+                    <div class="timeline-text">
+                        The 50th anniversary celebration unites <span class="timeline-highlight">diaspora communities</span> worldwide.
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">2025</div>
+                    <div class="timeline-text">
+                        Today, we celebrate <span class="timeline-highlight">80 years of resilience</span> through sport, community, and cultural pride.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Legacy Section -->
+    <section class="story-section dark" id="legacy">
+        <div class="container">
+            <div class="story-text">
+                <div class="story-line">Every match tells a story.</div>
+                <div class="story-line">Every victory honors the past.</div>
+                <div class="story-line">Every celebration builds the future.</div>
+                <div class="story-line large">This is Rabi Island.</div>
+                <div class="story-line emphasis">This is our legacy.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <h3 class="footer-title">A Living Website for a Living Culture</h3>
+            <p class="footer-subtitle">
+                Te bwinanimaua - December 15, 2025<br>
+                Celebrating 80 years of resilience, unity, and pride
+            </p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>

@@ -219,15 +219,8 @@ function closeModal(modalType) {
     }
 }
 
-function showUpgradeShop() {
-    console.log('Opening upgrade shop - would show expanded upgrade catalog');
-    // TODO: Implement expanded upgrade shop
-}
 
-function viewStats() {
-    console.log('Opening stats view - would show detailed analytics and progression');
-    // TODO: Implement stats/analytics view
-}
+// TODO: add quit (game over) functionality
 
 function updateDisplay() {
     document.getElementById('balance').textContent = `${gameState.balance}`;
