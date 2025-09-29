@@ -8,21 +8,14 @@
     background-image: url("assets/background.jpg");
     background-size: cover;
     background-position: center;
+    background-attachment: fixed;
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
 }
-
-/* Optional: adjust for mobile if needed */
-@media (max-width: 768px) {
-    .page-bg {
-        background-position: center top; /* or center bottom */
-    }
-}
-
 
 body {
     font-family: 'Courier New', monospace;
@@ -30,17 +23,19 @@ body {
     color: #00ffff;
     overflow: hidden;
     height: 100vh;
+    position: relative;
 }
 
 .game-container {
     display: flex;
     height: 100vh;
     position: relative;
+    z-index: 2;
 }
 
 .character-viewport {
     flex: 2;
-    background: radial-gradient(circle at center, #1a1a2e 0%, #0a0a0a 100%);
+    background: radial-gradient(circle at center, rgba(26, 26, 46, 0.8) 0%, rgba(10, 10, 10, 0.9) 100%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -103,7 +98,7 @@ body {
 
 .ui-panel {
     flex: 1;
-    background: linear-gradient(180deg, #0a0a0a 0%, #1a1a2e 100%);
+    background:  #000000;
     padding: 20px;
     border-left: 2px solid #ff0040;
     overflow-y: auto;
@@ -473,7 +468,7 @@ body {
 }
 
 .neural-grid {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -485,6 +480,7 @@ body {
     pointer-events: none;
     opacity: 0.3;
     animation: gridMove 10s linear infinite;
+    z-index: 1;
 }
 
 @keyframes gridMove {
