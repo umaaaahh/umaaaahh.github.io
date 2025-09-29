@@ -93,91 +93,81 @@ document.addEventListener('DOMContentLoaded', function() {
     showIntroSplash();
 });
 
-const introSlides = [
-    ["The year is 2099.", "Location: New Naarm."],
-    ["LifeWork owns everything.", "The jobs. Your house. The platform."],
-    ["Every day, LifeWork posts gigs.", "You take what you can get."],
-    ["Each job has different physical requirements.", "Choose carefully."],
-    ["Your meat body can barely keep up.", "LifeWork sells the solution: cybernetic upgrades."],
-    ["Jobs test your body.", "Upgrades improve your odds.", "Better chrome = easier work."],
-    ["Upgrade your body.", "Take the jobs you can handle.", "Pay your rent."],
-    ["Rent is $85 per day.", "If your balance hits zero, you're sent to a LifeWork labor camp."],
-    ["Survive the grind."]
+const introLines = [
+    "The year is 2099.",
+    "Location: New Naarm.",
+    "",
+    "LifeWork owns everything.",
+    "The jobs. Your house. The platform.",
+    "",
+    "Every day, LifeWork posts gigs.",
+    "You take what you can get.",
+    "",
+    "Your meat body can barely keep up.",
+    "",
+    "Luckily, LifeWork sells the solution:",
+    "Cybernetic upgrades. Synthetic limbs. Bio-enhancements.",
+    "",
+    "Upgrade your body.",
+    "Take the jobs you can handle.",
+    "Pay your rent.",
+    "",
+    "Rent is $85 per day.",
+    "You have $90.",
+    "",
+    "If your balance hits zero,",
+    "you're sent to a LifeWork labor camp.",
+    "",
+    "Survive the grind."
 ];
 
 let typewriterActive = false;
-let currentSlideIndex = 0;
 
 function showIntroSplash() {
     const modal = document.getElementById('splashModal');
     modal.style.display = 'flex';
     typewriterActive = true;
-    currentSlideIndex = 0;
-    typeSlide();
+    typeIntroText();
 }
 
-function typeSlide() {
-    if (!typewriterActive || currentSlideIndex >= introSlides.length) {
-        document.getElementById('nextButton').style.display = 'none';
-        document.getElementById('skipButton').style.display = 'none';
-        document.getElementById('startButton').style.display = 'block';
-        return;
-    }
-    
+function typeIntroText() {
     const textEl = document.getElementById('introText');
-    const nextButton = document.getElementById('nextButton');
-    nextButton.style.display = 'none';
+    const startButton = document.getElementById('startButton');
+    let currentLine = 0;
+    let currentChar = 0;
+    let currentText = '';
     
-    const slide = introSlides[currentSlideIndex];
-    let lineIndex = 0;
-    let charIndex = 0;
-    let displayText = '';
-    
-    function typeChar() {
+    function typeNextChar() {
         if (!typewriterActive) return;
         
-        if (lineIndex >= slide.length) {
-            // Slide complete, show NEXT button
-            nextButton.style.display = 'block';
+        if (currentLine >= introLines.length) {
+            startButton.style.display = 'block';
             return;
         }
         
-        const currentLine = slide[lineIndex];
+        const line = introLines[currentLine];
         
-        if (charIndex < currentLine.length) {
-            displayText = slide.slice(0, lineIndex).join('<br>');
-            if (displayText) displayText += '<br>';
-            displayText += currentLine.substring(0, charIndex + 1);
-            textEl.innerHTML = `<p>${displayText}</p>`;
-            textEl.style.opacity = '1';
-            charIndex++;
-            setTimeout(typeChar, 30);
+        if (currentChar < line.length) {
+            currentText += line[currentChar];
+            textEl.innerHTML = currentText.split('\n').map(l => `<p>${l}</p>`).join('');
+            currentChar++;
+            setTimeout(typeNextChar, 30);
         } else {
-            lineIndex++;
-            charIndex = 0;
-            setTimeout(typeChar, 200);
+            currentText += '\n';
+            currentLine++;
+            currentChar = 0;
+            setTimeout(typeNextChar, line === '' ? 100 : 400);
         }
     }
     
-    typeChar();
-}
-
-function nextSlide() {
-    const textEl = document.getElementById('introText');
-    textEl.style.opacity = '0';
-    setTimeout(() => {
-        if (!typewriterActive) return;
-        currentSlideIndex++;
-        typeSlide();
-    }, 300);
+    typeNextChar();
 }
 
 function skipIntro() {
     typewriterActive = false;
     const textEl = document.getElementById('introText');
     const startButton = document.getElementById('startButton');
-    textEl.innerHTML = `<p>${introSlides[introSlides.length - 1].join('<br>')}</p>`;
-    textEl.style.opacity = '1';
+    textEl.innerHTML = introLines.map(line => `<p>${line}</p>`).join('');
     startButton.style.display = 'block';
 }
 
