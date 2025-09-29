@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+\<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Patchwork Cyborg - UI Mockup</title>
+    <title>Patchwork Cyborg</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -16,15 +16,11 @@
             <div class="hud-overlay">
                 <div class="hud-item">
                     <div class="hud-label">BALANCE</div>
-                    <div class="hud-value" id="balance">$75</div>
+                    <div class="hud-value" id="balance">$90</div>
                 </div>
                 <div class="hud-item">
                     <div class="hud-label">DAY</div>
                     <div class="hud-value" id="day">01</div>
-                </div>
-                <div class="hud-item">
-                    <div class="hud-label">EFFICIENCY</div>
-                    <div class="hud-value" id="efficiency">65%</div>
                 </div>
             </div>
             
@@ -40,55 +36,55 @@
         
         <!-- UI Panel -->
         <div class="ui-panel">
-            <div class="panel-section">
-                <div class="section-title">System Stats</div>
+            <div class="panel-section stats-section">
+                <div class="section-title">Stats</div>
                 <div class="stats-display">
                     <div class="stat-item">
                         <div class="stat-label">STRENGTH</div>
-                        <div class="stat-value" id="strength">12</div>
+                        <div class="stat-value" id="strength">5</div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-label">SPEED</div>
-                        <div class="stat-value" id="speed">8</div>
+                        <div class="stat-value" id="speed">5</div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-label">FOCUS</div>
-                        <div class="stat-value" id="focus">15</div>
+                        <div class="stat-value" id="focus">5</div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-label">ENDURANCE</div>
-                        <div class="stat-value" id="endurance">10</div>
+                        <div class="stat-value" id="endurance">5</div>
                     </div>
                 </div>
             </div>
             
-            <div class="panel-section">
-                <div class="section-title">Available Upgrades</div>
+            <div class="panel-section upgrades-section">
+                <div class="section-title">Chrome Shop</div>
                 <div class="upgrades-grid">
+                    <div class="upgrade-card" data-upgrade="arm">
+                        <div class="upgrade-icon">🦾</div>
+                        <div class="upgrade-title">Hydraulic Arm</div>
+                        <div class="upgrade-price">$85</div>
+                    </div>
+                    <div class="upgrade-card" data-upgrade="eyes">
+                        <div class="upgrade-icon">👁️</div>
+                        <div class="upgrade-title">Bionic Eyes</div>
+                        <div class="upgrade-price">$110</div>
+                    </div>
+                    <div class="upgrade-card" data-upgrade="legs">
+                        <div class="upgrade-icon">🦿</div>
+                        <div class="upgrade-title">Bionic Legs</div>
+                        <div class="upgrade-price">$150</div>
+                    </div>
                     <div class="upgrade-card" data-upgrade="neural">
                         <div class="upgrade-icon">🧠</div>
                         <div class="upgrade-title">Neural Interface</div>
                         <div class="upgrade-price">$120</div>
                     </div>
-                    <div class="upgrade-card" data-upgrade="arm">
-                        <div class="upgrade-icon">🦾</div>
-                        <div class="upgrade-title">Hydraulic Arms</div>
-                        <div class="upgrade-price">$85</div>
-                    </div>
-                    <div class="upgrade-card" data-upgrade="legs">
-                        <div class="upgrade-icon">🦿</div>
-                        <div class="upgrade-title">Sprint Boost</div>
-                        <div class="upgrade-price">$150</div>
-                    </div>
                     <div class="upgrade-card" data-upgrade="torso">
                         <div class="upgrade-icon">⚙️</div>
                         <div class="upgrade-title">Reinforced Core</div>
                         <div class="upgrade-price">$95</div>
-                    </div>
-                    <div class="upgrade-card" data-upgrade="eyes">
-                        <div class="upgrade-icon">👁️</div>
-                        <div class="upgrade-title">Optic Enhancement</div>
-                        <div class="upgrade-price">$110</div>
                     </div>
                     <div class="upgrade-card" data-upgrade="spine">
                         <div class="upgrade-icon">🔗</div>
@@ -98,38 +94,132 @@
                 </div>
             </div>
             
-            <div class="panel-section">
-                <div class="section-title">Actions</div>
+            <div class="panel-section actions-section">
                 <button class="action-button" onclick="startDay()">Start Work Day</button>
-                <button class="action-button" onclick="quit()">QUIT</button>
+                <button class="action-button secondary" onclick="quit()">Quit Game</button>
             </div>
         </div>
     </div>
     
-    <!-- Results Modal -->
-    <div class="modal" id="resultsModal">
-        <div class="modal-content">
-            <div class="modal-title">Day Complete</div>
-            <div class="earnings-display">
-                <div class="earnings-item">
-                    <span class="earnings-label">EARNINGS:</span>
-                    <span class="earnings-value" id="modalEarnings">$150</span>
+    <!-- Splash Screen Modal -->
+    <div class="modal" id="splashModal">
+        <div class="modal-content intro-splash">
+            <div class="intro-title">PATCHWORK CYBORG</div>
+            <div class="intro-subtitle">New Naarm // 2099</div>
+            <div class="intro-line"></div>
+            <div class="intro-text" id="introText"></div>
+            <div class="intro-controls">
+                <button class="intro-nav-button" id="nextButton" style="display: none;" onclick="nextSlide()">NEXT →</button>
+                <button class="intro-nav-button secondary" id="skipButton" onclick="skipIntro()">SKIP INTRO</button>
+            </div>
+            <button class="action-button" id="startButton" style="display: none;" onclick="startGame()">START</button>
+        </div>
+    </div>
+
+    <!-- Game Over Modal -->
+    <div class="modal" id="gameOverModal">
+        <div class="modal-content game-over-content">
+            <div class="game-over-glitch">LABOR CAMP</div>
+            <div class="game-over-subtitle">LifeWork has terminated your contract</div>
+            <div class="game-over-line"></div>
+            
+            <div class="stats-summary">
+                <div class="summary-row">
+                    <span class="summary-label">Days Survived:</span>
+                    <span class="summary-value" id="gameOverDays">0</span>
                 </div>
-                <div class="earnings-item">
-                    <span class="earnings-label">BILLS:</span>
-                    <span class="earnings-value" id="modalBills">$100</span>
+                <div class="summary-row">
+                    <span class="summary-label">Final Balance:</span>
+                    <span class="summary-value negative" id="gameOverBalance">$0</span>
                 </div>
-                <div class="earnings-item">
-                    <span class="earnings-label">LEFTOVER:</span>
-                    <span class="earnings-value" id="modalLeftover">$50</span>
+                <div class="summary-row">
+                    <span class="summary-label">Total Stats:</span>
+                    <span class="summary-value" id="gameOverStats">0</span>
                 </div>
-                <hr style="margin: 15px 0; border-color: #00ffff;">
-                <div class="earnings-item">
-                    <span class="earnings-label">TOTAL BALANCE:</span>
-                    <span class="earnings-value" id="modalBalance">$125</span>
+                <div class="summary-row">
+                    <span class="summary-label">Upgrades Installed:</span>
+                    <span class="summary-value" id="gameOverUpgrades">0/6</span>
                 </div>
             </div>
-            <button class="action-button" onclick="closeModal('results')">Continue</button>
+            
+            <div class="stats-breakdown">
+                <div class="breakdown-item">
+                    <span>STR</span>
+                    <span id="gameOverStrength">5</span>
+                </div>
+                <div class="breakdown-item">
+                    <span>SPD</span>
+                    <span id="gameOverSpeed">5</span>
+                </div>
+                <div class="breakdown-item">
+                    <span>FOC</span>
+                    <span id="gameOverFocus">5</span>
+                </div>
+                <div class="breakdown-item">
+                    <span>END</span>
+                    <span id="gameOverEndurance">5</span>
+                </div>
+            </div>
+            
+            <button class="action-button" onclick="restartFromGameOver()">START OVER</button>
+        </div>
+    </div>
+
+    <!-- Quit Modal -->
+    <div class="modal" id="quitModal">
+        <div class="modal-content quit-modal-content">
+            <div class="quit-title">GAME STATISTICS</div>
+            <div class="intro-line"></div>
+            
+            <div class="stats-summary">
+                <div class="summary-row">
+                    <span class="summary-label">Days Survived:</span>
+                    <span class="summary-value" id="quitDays">0</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Current Balance:</span>
+                    <span class="summary-value" id="quitBalance">$0</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Total Stats:</span>
+                    <span class="summary-value" id="quitStats">0</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Upgrades Installed:</span>
+                    <span class="summary-value" id="quitUpgrades">0/6</span>
+                </div>
+            </div>
+            
+            <div class="stats-breakdown">
+                <div class="breakdown-item">
+                    <span>STR</span>
+                    <span id="quitStrength">5</span>
+                </div>
+                <div class="breakdown-item">
+                    <span>SPD</span>
+                    <span id="quitSpeed">5</span>
+                </div>
+                <div class="breakdown-item">
+                    <span>FOC</span>
+                    <span id="quitFocus">5</span>
+                </div>
+                <div class="breakdown-item">
+                    <span>END</span>
+                    <span id="quitEndurance">5</span>
+                </div>
+            </div>
+            
+            <div class="quit-actions">
+                <button class="action-button secondary" onclick="continueGame()">Continue Playing</button>
+                <button class="action-button" onclick="confirmQuit()">Quit & Restart</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Job Modal -->
+    <div class="modal" id="jobModal">
+        <div class="modal-content job-modal-content">
+            <div id="jobModalContent"></div>
         </div>
     </div>
 
@@ -139,33 +229,21 @@
             <div class="upgrade-modal-header">
                 <div class="upgrade-modal-icon" id="upgradeModalIcon">🧠</div>
                 <div>
-                    <div class="upgrade-modal-title" id="upgradeModalTitle">Neural Interface v2.1</div>
-                    <div class="upgrade-modal-subtitle" id="upgradeModalSubtitle">Cognitive Enhancement System</div>
+                    <div class="upgrade-modal-title" id="upgradeModalTitle">Neural Interface</div>
+                    <div class="upgrade-modal-subtitle" id="upgradeModalSubtitle">Enhancement</div>
                 </div>
             </div>
             
             <div class="upgrade-modal-description" id="upgradeModalDescription">
-                Advanced neural interface that directly connects to your brain stem, providing enhanced cognitive processing and reaction times. May cause mild headaches during initial integration period.
+                Advanced cybernetic enhancement.
             </div>
             
             <div class="upgrade-stats-grid">
-                <div class="upgrade-stat-item positive" id="statPositive">
-                    <div class="stat-change">+5</div>
-                    <div class="stat-name">Focus</div>
-                </div>
-                <div class="upgrade-stat-item positive" id="statPositive2">
-                    <div class="stat-change">+2</div>
-                    <div class="stat-name">Speed</div>
-                </div>
-                <div class="upgrade-stat-item negative" id="statNegative" style="display: none;">
-                    <div class="stat-change">-1</div>
-                    <div class="stat-name">Endurance</div>
-                </div>
             </div>
             
             <div class="upgrade-modal-footer">
                 <div class="upgrade-total-cost">
-                    <span class="cost-label">Total Cost:</span>
+                    <span class="cost-label">Cost:</span>
                     <span class="cost-value" id="upgradeModalCost">$120</span>
                 </div>
                 <div class="upgrade-modal-actions">
