@@ -1,5 +1,5 @@
 let gameState = {
-    balance: 90,
+    balance: 130,
     day: 1,
     stats: {
         strength: 5,
@@ -19,6 +19,7 @@ let gameState = {
 
 let selectedUpgrade = null;
 let selectedJob = null;
+let currentJobResult = null;
 
 const upgradeData = {
     eyes: {
@@ -78,101 +79,34 @@ const upgradeData = {
 };
 
 const jobPool = [
-    { name: "Street Courier", pay: 45, req1: { stat: 'speed', value: 8 }, req2: { stat: 'endurance', value: 7 } },
-    { name: "Data Heist", pay: 65, req1: { stat: 'focus', value: 9 }, req2: { stat: 'speed', value: 8 } },
-    { name: "Bouncer Shift", pay: 50, req1: { stat: 'strength', value: 10 }, req2: { stat: 'endurance', value: 8 } },
-    { name: "Netrunner Job", pay: 70, req1: { stat: 'focus', value: 11 }, req2: { stat: 'endurance', value: 6 } },
-    { name: "Package Smuggle", pay: 55, req1: { stat: 'speed', value: 9 }, req2: { stat: 'focus', value: 7 } },
-    { name: "Body Guard", pay: 60, req1: { stat: 'strength', value: 9 }, req2: { stat: 'focus', value: 8 } },
-    { name: "Repo Work", pay: 75, req1: { stat: 'strength', value: 11 }, req2: { stat: 'speed', value: 9 } },
-    { name: "Corp Infiltration", pay: 80, req1: { stat: 'focus', value: 10 }, req2: { stat: 'speed', value: 10 } }
+    { name: "Street Courier", pay: 60, req1: { stat: 'speed', value: 5 }, req2: { stat: 'endurance', value: 4 } },
+    { name: "Data Heist", pay: 80, req1: { stat: 'focus', value: 6 }, req2: { stat: 'speed', value: 5 } },
+    { name: "Bouncer Shift", pay: 65, req1: { stat: 'strength', value: 7 }, req2: { stat: 'endurance', value: 5 } },
+    { name: "Netrunner Job", pay: 85, req1: { stat: 'focus', value: 8 }, req2: { stat: 'endurance', value: 3 } },
+    { name: "Package Smuggle", pay: 70, req1: { stat: 'speed', value: 6 }, req2: { stat: 'focus', value: 4 } },
+    { name: "Body Guard", pay: 75, req1: { stat: 'strength', value: 6 }, req2: { stat: 'focus', value: 5 } },
+    { name: "Repo Work", pay: 90, req1: { stat: 'strength', value: 8 }, req2: { stat: 'speed', value: 6 } },
+    { name: "Corp Infiltration", pay: 95, req1: { stat: 'focus', value: 7 }, req2: { stat: 'speed', value: 7 } }
 ];
 
 document.addEventListener('DOMContentLoaded', function() {
     loadGame();
+    updateDisplay();
     showIntroSplash();
 });
 
-const introLines = [
-    "The year is 2099.",
-    "Location: New Naarm.",
-    "",
-    "LifeWork owns everything.",
-    "The jobs. Your house. The platform.",
-    "",
-    "Every day, LifeWork posts gigs.",
-    "You take what you can get.",
-    "",
-    "Your meat body can barely keep up.",
-    "",
-    "Luckily, LifeWork sells the solution:",
-    "Cybernetic upgrades. Synthetic limbs. Bio-enhancements.",
-    "",
-    "Upgrade your body.",
-    "Take the jobs you can handle.",
-    "Pay your rent.",
-    "",
-    "Rent is $85 per day.",
-    "You have $90.",
-    "",
-    "If your balance hits zero,",
-    "you're sent to a LifeWork labor camp.",
-    "",
-    "Survive the grind."
-];
-
-let typewriterActive = false;
-
 function showIntroSplash() {
     const modal = document.getElementById('splashModal');
-    modal.style.display = 'flex';
-    typewriterActive = true;
-    typeIntroText();
-}
-
-function typeIntroText() {
-    const textEl = document.getElementById('introText');
-    const startButton = document.getElementById('startButton');
-    let currentLine = 0;
-    let currentChar = 0;
-    let currentText = '';
-    
-    function typeNextChar() {
-        if (!typewriterActive) return;
-        
-        if (currentLine >= introLines.length) {
-            startButton.style.display = 'block';
-            return;
-        }
-        
-        const line = introLines[currentLine];
-        
-        if (currentChar < line.length) {
-            currentText += line[currentChar];
-            textEl.innerHTML = currentText.split('\n').map(l => `<p>${l}</p>`).join('');
-            currentChar++;
-            setTimeout(typeNextChar, 30);
-        } else {
-            currentText += '\n';
-            currentLine++;
-            currentChar = 0;
-            setTimeout(typeNextChar, line === '' ? 100 : 400);
-        }
+    if (modal) {
+        modal.style.display = 'flex';
     }
-    
-    typeNextChar();
-}
-
-function skipIntro() {
-    typewriterActive = false;
-    const textEl = document.getElementById('introText');
-    const startButton = document.getElementById('startButton');
-    textEl.innerHTML = introLines.map(line => `<p>${line}</p>`).join('');
-    startButton.style.display = 'block';
 }
 
 function startGame() {
-    document.getElementById('splashModal').style.display = 'none';
+    const modal = document.getElementById('splashModal');
+    if (modal) {
+        modal.style.display = 'none';
+    }
     initializeGame();
 }
 
@@ -296,6 +230,7 @@ function calculateRollTarget(job) {
 function showJobSelection(jobs) {
     const modal = document.getElementById('jobModal');
     const content = document.getElementById('jobModalContent');
+    const helpButton = document.getElementById('helpButton');
     
     let jobCardsHTML = jobs.map((job, index) => {
         const meetsReq1 = gameState.stats[job.req1.stat] >= job.req1.value;
@@ -316,7 +251,7 @@ function showJobSelection(jobs) {
                         <span style="color: #888;">(You: ${gameState.stats[job.req1.stat]})</span>
                     </div>
                     <div>
-                        ${meetsReq2 ? '✓' : '✗'} ${job.req2.stat.toUpperCase()} ${job.req2.value}+ 
+                        ${meetsReq2 ? '✗' : '✗'} ${job.req2.stat.toUpperCase()} ${job.req2.value}+ 
                         <span style="color: #888;">(You: ${gameState.stats[job.req2.stat]})</span>
                     </div>
                 </div>
@@ -338,13 +273,32 @@ function showJobSelection(jobs) {
         </div>
     `;
     
+    // Show help button during job selection
+    if (helpButton) {
+        helpButton.style.display = 'block';
+    }
+    
     modal.style.display = 'flex';
     modal.dataset.jobs = JSON.stringify(jobs);
+}
+
+function toggleHelpPanel() {
+    const panel = document.getElementById('helpPanel');
+    if (panel) {
+        panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+    }
 }
 
 function selectJob(index) {
     const jobs = JSON.parse(document.getElementById('jobModal').dataset.jobs);
     selectedJob = jobs[index];
+    
+    // Hide help button and panel when job is selected
+    const helpButton = document.getElementById('helpButton');
+    const helpPanel = document.getElementById('helpPanel');
+    if (helpButton) helpButton.style.display = 'none';
+    if (helpPanel) helpPanel.style.display = 'none';
+    
     rollDice();
 }
 
@@ -388,21 +342,42 @@ function rollDice() {
             `;
             
             setTimeout(() => {
-                processJobResult(total, target);
+                showJobResult(total, target);
             }, 2000);
         }, 1000);
     }, 500);
 }
 
-function processJobResult(diceTotal, target) {
+function showJobResult(diceTotal, target) {
     const success = diceTotal >= target;
+    
+    const content = document.getElementById('jobModalContent');
+    content.innerHTML = `
+        <div class="job-result ${success ? 'success' : 'failure'}">
+            <div class="result-title">${success ? 'SUCCESS' : 'FAILED'}</div>
+            <div class="result-detail">Needed ${target}+, Rolled ${diceTotal}</div>
+        </div>
+        <button class="action-button" onclick="processDayEnd()">VIEW DAY SUMMARY</button>
+    `;
+    
+    currentJobResult = {
+        success: success,
+        diceTotal: diceTotal,
+        target: target
+    };
+}
+
+function processDayEnd() {
+    document.getElementById('jobModal').style.display = 'none';
+    
+    const success = currentJobResult.success;
     const earnings = success ? selectedJob.pay : Math.floor(selectedJob.pay * 0.4);
-    const bills = Math.floor(80 + (gameState.day * 5));
+    const bills = 50;
     
-    let eventHTML = '';
     let eventCost = 0;
+    let eventTitle = '';
     
-    if (gameState.day >= 5 && Math.random() < 0.4) {
+    if (gameState.day >= 3 && Math.random() < 0.4) {
         const events = [
             { title: "Maintenance Required", cost: 60 },
             { title: "Rent Increase", cost: 0, billIncrease: 15 },
@@ -410,13 +385,7 @@ function processJobResult(diceTotal, target) {
         ];
         const event = events[Math.floor(Math.random() * events.length)];
         eventCost = event.cost;
-        
-        eventHTML = `
-            <div class="event-alert">
-                <div class="event-title">⚠️ ${event.title}</div>
-                <div class="event-cost">Cost: $${event.cost}</div>
-            </div>
-        `;
+        eventTitle = event.title;
     }
     
     const previousState = JSON.parse(JSON.stringify(gameState));
@@ -425,50 +394,56 @@ function processJobResult(diceTotal, target) {
     gameState.balance += leftover;
     gameState.day++;
     
-    const content = document.getElementById('jobModalContent');
-    content.innerHTML = `
-        <div class="job-result ${success ? 'success' : 'failure'}">
-            <div class="result-title">${success ? 'SUCCESS' : 'FAILED'}</div>
-            <div class="result-detail">Needed ${target}+, Rolled ${diceTotal}</div>
-        </div>
-        ${eventHTML}
-        <div class="daily-tally">
-            <div class="tally-title">DAILY TALLY</div>
-            <div class="tally-line">
-                <span>Earnings:</span>
-                <span class="tally-positive">$${earnings}</span>
-            </div>
-            <div class="tally-line">
-                <span>Bills:</span>
-                <span class="tally-negative">-$${bills}</span>
-            </div>
-            ${eventCost > 0 ? `
-            <div class="tally-line">
-                <span>Event:</span>
-                <span class="tally-negative">-$${eventCost}</span>
-            </div>
-            ` : ''}
-            <div class="tally-separator"></div>
-            <div class="tally-line tally-total">
-                <span>Net:</span>
-                <span class="${leftover >= 0 ? 'tally-positive' : 'tally-negative'}">${leftover >= 0 ? '+' : ''}$${leftover}</span>
-            </div>
-            <div class="tally-line tally-balance">
-                <span>New Balance:</span>
-                <span>$${gameState.balance}</span>
-            </div>
-        </div>
-        <button class="action-button" onclick="closeJobModal()">CONTINUE</button>
-    `;
+    const modal = document.getElementById('dayEndModal');
+    const summary = document.getElementById('jobResultSummary');
+    
+    summary.className = 'job-result-summary ' + (success ? 'success' : 'failure');
+    document.getElementById('resultStatus').textContent = success ? 'SUCCESS' : 'FAILED';
+    document.getElementById('resultJobName').textContent = selectedJob.name;
+    document.getElementById('resultRoll').textContent = `Rolled ${currentJobResult.diceTotal} / Target ${currentJobResult.target}+`;
+    
+    document.getElementById('dayEndDay').textContent = `DAY ${String(gameState.day - 1).padStart(2, '0')}`;
+    
+    document.getElementById('dayEndEarnings').textContent = '+$' + earnings;
+    document.getElementById('dayEndBills').textContent = '-$' + bills;
+    
+    const eventNotice = document.getElementById('eventNotice');
+    const eventLine = document.getElementById('dayEndEventLine');
+    
+    if (eventCost > 0) {
+        eventNotice.style.display = 'block';
+        eventLine.style.display = 'flex';
+        document.getElementById('eventTitle').textContent = '⚠️ ' + eventTitle;
+        document.getElementById('eventCost').textContent = 'Deduction: $' + eventCost;
+        document.getElementById('dayEndEventCost').textContent = '-$' + eventCost;
+    } else {
+        eventNotice.style.display = 'none';
+        eventLine.style.display = 'none';
+    }
+    
+    const netEl = document.getElementById('dayEndNet');
+    netEl.textContent = (leftover >= 0 ? '+' : '') + '$' + leftover;
+    netEl.className = 'breakdown-value ' + (leftover >= 0 ? 'positive' : 'negative');
+    
+    document.getElementById('dayEndBalance').textContent = 'CURRENT BALANCE: $' + gameState.balance;
+    
+    modal.style.display = 'flex';
     
     updateDisplay(previousState);
     saveGame();
     
     if (gameState.balance < -50) {
         setTimeout(() => {
+            document.getElementById('dayEndModal').style.display = 'none';
             showGameOver();
         }, 1000);
     }
+}
+
+function closeDayEnd() {
+    document.getElementById('dayEndModal').style.display = 'none';
+    selectedJob = null;
+    currentJobResult = null;
 }
 
 function showGameOver() {
@@ -492,11 +467,6 @@ function restartFromGameOver() {
     document.getElementById('gameOverModal').style.display = 'none';
     resetGame();
     showIntroSplash();
-}
-
-function closeJobModal() {
-    document.getElementById('jobModal').style.display = 'none';
-    selectedJob = null;
 }
 
 function quit() {
@@ -528,7 +498,7 @@ function confirmQuit() {
 
 function resetGame() {
     gameState = {
-        balance: 90,
+        balance: 130,
         day: 1,
         stats: {
             strength: 5,

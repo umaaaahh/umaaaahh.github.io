@@ -1,4 +1,4 @@
-\<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -13,14 +13,15 @@
     <div class="game-container">
         <!-- Character Viewport -->
         <div class="character-viewport">
-            <div class="hud-overlay">
-                <div class="hud-item">
-                    <div class="hud-label">BALANCE</div>
-                    <div class="hud-value" id="balance">$90</div>
+            <!-- Top Right HUD -->
+            <div class="hud-corner">
+                <div class="hud-corner-row">
+                    <span class="hud-corner-label">BAL</span>
+                    <span class="hud-corner-value" id="balance">$90</span>
                 </div>
-                <div class="hud-item">
-                    <div class="hud-label">DAY</div>
-                    <div class="hud-value" id="day">01</div>
+                <div class="hud-corner-row">
+                    <span class="hud-corner-label">DAY</span>
+                    <span class="hud-corner-value" id="day">01</span>
                 </div>
             </div>
             
@@ -104,15 +105,59 @@
     <!-- Splash Screen Modal -->
     <div class="modal" id="splashModal">
         <div class="modal-content intro-splash">
-            <div class="intro-title">PATCHWORK CYBORG</div>
-            <div class="intro-subtitle">New Naarm // 2099</div>
-            <div class="intro-line"></div>
-            <div class="intro-text" id="introText"></div>
-            <div class="intro-controls">
-                <button class="intro-nav-button" id="nextButton" style="display: none;" onclick="nextSlide()">NEXT →</button>
-                <button class="intro-nav-button secondary" id="skipButton" onclick="skipIntro()">SKIP INTRO</button>
+            <div class="corporate-header">
+                <div class="corporate-logo">LIFEWORK INDUSTRIES</div>
+                <div class="intro-title">TERMS OF SERVICE</div>
+                <div class="intro-subtitle">Contractor Agreement v.12.4.2099</div>
             </div>
-            <button class="action-button" id="startButton" style="display: none;" onclick="startGame()">START</button>
+            <div class="intro-line"></div>
+            <div class="contract-scroll-container">
+                <div class="contract-text">
+                    <p><strong>1. ACCEPTANCE OF TERMS</strong></p>
+                    <p>By accessing this platform, you ("Contractor") agree to be bound by these Terms of Service. If you do not agree to these terms, you must immediately cease use of this service and forfeit any outstanding balance to LifeWork Industries ("Company").</p>
+                    
+                    <p><strong>2. SERVICE DESCRIPTION</strong></p>
+                    <p>2.1 The Company operates a gig-based employment marketplace within the New Naarm metropolitan zone. Available positions are posted daily at 0600 hours local time.</p>
+                    <p>2.2 Each contract opportunity lists minimum physical capability requirements across four (4) categories: Strength, Speed, Focus, and Endurance.</p>
+                    <p>2.3 Contractors must select ONE (1) daily contract from available options. Failure to select constitutes voluntary termination.</p>
+                    
+                    <p><strong>3. PERFORMANCE EVALUATION</strong></p>
+                    <p>3.1 Contract completion is evaluated via randomized assessment protocol (2d6 algorithmic determination).</p>
+                    <p>3.2 Target thresholds are calculated based on requirements met: (a) 2/2 requirements met = 6+ threshold; (b) 1/2 requirements met = 8+ threshold; (c) 0/2 requirements met = 10+ threshold.</p>
+                    <p>3.3 Successful completion results in 100% compensation. Failed completion results in 40% compensation for attempted work.</p>
+                    
+                    <p><strong>4. FINANCIAL OBLIGATIONS</strong></p>
+                    <p>4.1 Daily platform access fee: $50 flat rate.</p>
+                    <p>4.2 Emergency maintenance costs may be assessed at Company's discretion after Day 3 of service.</p>
+                    <p>4.3 Contractors are responsible for maintaining positive account balance at all times.</p>
+                    <p>4.4 Account balance below -$50 triggers automatic termination and asset seizure per Section 7.</p>
+                    
+                    <p><strong>5. AUGMENTATION SERVICES</strong></p>
+                    <p>5.1 Company offers voluntary cybernetic enhancement services via Chrome Shop storefront.</p>
+                    <p>5.2 All augmentations are permanent, non-reversible, and non-refundable.</p>
+                    <p>5.3 Enhanced physical capabilities may improve contract completion probabilities.</p>
+                    <p>5.4 Company assumes no liability for augmentation side effects, compatibility issues, or biological rejection.</p>
+                    
+                    <p><strong>6. INTELLECTUAL PROPERTY</strong></p>
+                    <p>All work product, biological data, performance metrics, and augmentation telemetry generated during service are exclusive property of LifeWork Industries in perpetuity.</p>
+                    
+                    <p><strong>7. TERMINATION</strong></p>
+                    <p>7.1 Company reserves right to terminate contractor access at any time for any reason.</p>
+                    <p>7.2 Negative account balance constitutes breach of contract and triggers immediate termination.</p>
+                    <p>7.3 Upon termination for breach, contractor shall be remanded to LifeWork Labor Camp facilities for debt resolution.</p>
+                    <p>7.4 No appeals process available. All decisions final.</p>
+                    
+                    <p><strong>8. LIMITATION OF LIABILITY</strong></p>
+                    <p>Company shall not be liable for injury, death, psychological trauma, existential dread, loss of humanity, or other damages arising from platform use.</p>
+                    
+                    <p><strong>9. GOVERNING LAW</strong></p>
+                    <p>This agreement is governed by LifeWork Corporate Charter. All disputes subject to binding arbitration in Company-operated tribunals.</p>
+                    
+                    <p><strong>10. ACKNOWLEDGMENT</strong></p>
+                    <p>By clicking "I ACCEPT," you acknowledge you have read, understood, and agree to these terms. You acknowledge this is not employment. This is contract labor. This is survival. Welcome to the platform.</p>
+                </div>
+            </div>
+            <button class="action-button" onclick="startGame()">I ACCEPT</button>
         </div>
     </div>
 
@@ -220,6 +265,79 @@
     <div class="modal" id="jobModal">
         <div class="modal-content job-modal-content">
             <div id="jobModalContent"></div>
+            <!-- Help button that appears during job selection -->
+            <button class="help-button" id="helpButton" style="display: none;" onclick="toggleHelpPanel()">?</button>
+            <!-- Help panel -->
+            <div class="help-panel" id="helpPanel" style="display: none;">
+                <div class="help-panel-title">How Dice Rolls Work</div>
+                <div class="help-panel-content">
+                    <div class="help-row success">
+                        <span>✓ 2/2 Requirements:</span>
+                        <span>Roll 6+ (72%)</span>
+                    </div>
+                    <div class="help-row medium">
+                        <span>⚠ 1/2 Requirements:</span>
+                        <span>Roll 8+ (42%)</span>
+                    </div>
+                    <div class="help-row fail">
+                        <span>✗ 0/2 Requirements:</span>
+                        <span>Roll 10+ (17%)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Day End Processing Modal -->
+    <div class="modal" id="dayEndModal">
+        <div class="modal-content day-end-content">
+            <div class="processing-header">
+                <div class="processing-title">SHIFT COMPLETE</div>
+                <div class="processing-day" id="dayEndDay">DAY 01</div>
+            </div>
+
+            <div class="job-result-summary" id="jobResultSummary">
+                <div class="result-status" id="resultStatus">SUCCESS</div>
+                <div class="result-job-name" id="resultJobName">Street Courier</div>
+                <div class="result-roll" id="resultRoll">Rolled 8 / Target 6+</div>
+            </div>
+
+            <div class="event-notice" id="eventNotice" style="display: none;">
+                <div class="event-notice-title" id="eventTitle">⚠️ MAINTENANCE REQUIRED</div>
+                <div class="event-notice-cost" id="eventCost">Deduction: $60</div>
+            </div>
+
+            <div class="financial-breakdown">
+                <div class="breakdown-header">Financial Processing</div>
+                
+                <div class="breakdown-line">
+                    <span>Shift Earnings:</span>
+                    <span class="breakdown-value positive" id="dayEndEarnings">+$45</span>
+                </div>
+                
+                <div class="breakdown-line">
+                    <span>Daily Expenses:</span>
+                    <span class="breakdown-value negative" id="dayEndBills">-$50</span>
+                </div>
+                
+                <div class="breakdown-line" id="dayEndEventLine" style="display: none;">
+                    <span>Emergency Costs:</span>
+                    <span class="breakdown-value negative" id="dayEndEventCost">-$60</span>
+                </div>
+
+                <div class="breakdown-separator"></div>
+
+                <div class="breakdown-line breakdown-total">
+                    <span>Net Change:</span>
+                    <span class="breakdown-value" id="dayEndNet">-$5</span>
+                </div>
+
+                <div class="breakdown-balance" id="dayEndBalance">
+                    CURRENT BALANCE: $125
+                </div>
+            </div>
+
+            <button class="continue-button" onclick="closeDayEnd()">CONTINUE</button>
         </div>
     </div>
 
