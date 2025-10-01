@@ -1,0 +1,773 @@
+/* MODALS - All modal styles, overlays, and animations */
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: linear-gradient(135deg, #1a1a2e, #0a0a0a);
+    border: 2px solid #00ffff;
+    border-radius: 10px;
+    padding: 30px;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+/* LIFEWORK SPLASH SCREEN - Corporate Loading */
+.lifework-splash {
+    max-width: 500px;
+    background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
+    border: 2px solid #ff6b6b;
+    padding: 60px 40px;
+}
+
+.lifework-logo-container {
+    margin-bottom: 40px;
+    animation: logoFadeIn 0.8s ease-out;
+}
+
+@keyframes logoFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.lifework-logo {
+    width: 100%;
+    max-width: 350px;
+    height: auto;
+    filter: drop-shadow(0 0 20px rgba(255, 107, 107, 0.3));
+}
+
+.lifework-tagline {
+    color: #fff;
+    font-size: 24px;
+    font-weight: 300;
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+    animation: slideUp 0.8s ease-out 0.3s both;
+    font-family: 'Courier New', monospace;
+}
+
+.lifework-subtitle {
+    color: #ff6b6b;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.8;
+    margin-bottom: 50px;
+    animation: slideUp 0.8s ease-out 0.5s both;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.lifework-loading-bar {
+    width: 100%;
+    max-width: 250px;
+    height: 2px;
+    background: rgba(255, 107, 107, 0.2);
+    margin: 0 auto 15px;
+    position: relative;
+    overflow: hidden;
+    animation: slideUp 0.8s ease-out 0.7s both;
+}
+
+.lifework-loading-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, #ff6b6b, transparent);
+    animation: loading 2s ease-in-out infinite;
+}
+
+@keyframes loading {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+.lifework-loading-text {
+    color: rgba(255, 107, 107, 0.6);
+    font-size: 10px;
+    letter-spacing: 2px;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 0.4;
+    }
+    50% {
+        opacity: 0.8;
+    }
+}
+/* SPLASH SCREEN - TERMS OF SERVICE */
+.intro-splash {
+    max-width: 700px;
+    padding: 50px 40px;
+}
+
+.corporate-header {
+    text-align: center;
+    margin-bottom: 35px;
+    padding-bottom: 25px;
+    border-bottom: 2px solid rgba(0, 255, 255, 0.3);
+}
+
+.corporate-logo {
+    color: #ff0040;
+    font-size: 13px;
+    letter-spacing: 6px;
+    margin-bottom: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.intro-title {
+    color: #00ffff;
+    font-size: 38px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    letter-spacing: 6px;
+    text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+}
+
+.intro-subtitle {
+    color: #888;
+    font-size: 12px;
+    letter-spacing: 2px;
+    font-style: italic;
+}
+
+.intro-line {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #ff0040, transparent);
+    margin: 25px 0;
+}
+
+.contract-scroll-container {
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    padding: 0;
+    margin: 25px 0;
+    height: 350px;
+    overflow-y: auto;
+    border-radius: 3px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.contract-scroll-container::-webkit-scrollbar {
+    width: 12px;
+}
+
+.contract-scroll-container::-webkit-scrollbar-track {
+    background: #e0e0e0;
+}
+
+.contract-scroll-container::-webkit-scrollbar-thumb {
+    background: #999;
+    border-radius: 6px;
+    border: 2px solid #e0e0e0;
+}
+
+.contract-scroll-container::-webkit-scrollbar-thumb:hover {
+    background: #777;
+}
+
+.contract-text {
+    padding: 30px;
+    color: #1a1a1a;
+    font-size: 9px;
+    line-height: 1.3;
+    text-align: left;
+    font-family: 'Times New Roman', serif;
+}
+
+.contract-text p {
+    margin-bottom: 10px;
+}
+
+.contract-text p strong {
+    color: #000;
+    display: block;
+    margin-top: 16px;
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+    font-size: 12px;
+}
+
+.contract-text p:first-child strong {
+    margin-top: 0;
+}
+
+/* GAME OVER MODAL */
+.game-over-content {
+    border-color: #ff0040;
+    max-width: 600px;
+}
+
+.game-over-glitch {
+    color: #ff0040;
+    font-size: 48px;
+    font-weight: bold;
+    letter-spacing: 6px;
+    text-shadow: 0 0 20px rgba(255, 0, 64, 0.8);
+    animation: glitchText 0.5s infinite;
+    margin-bottom: 10px;
+}
+
+@keyframes glitchText {
+    0%, 100% { text-shadow: 0 0 20px rgba(255, 0, 64, 0.8); }
+    50% { text-shadow: 2px 2px 10px rgba(255, 0, 64, 1), -2px -2px 10px rgba(0, 255, 255, 0.5); }
+}
+
+.game-over-subtitle {
+    color: #888;
+    font-size: 14px;
+    margin-bottom: 20px;
+    font-style: italic;
+}
+
+.game-over-line {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #ff0040, transparent);
+    margin: 20px 0 30px 0;
+}
+
+/* QUIT MODAL */
+.quit-modal-content {
+    max-width: 600px;
+}
+
+.quit-title {
+    color: #00ffff;
+    font-size: 28px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+}
+
+.quit-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.quit-actions .action-button {
+    flex: 1;
+}
+
+/* JOB MODAL */
+.job-modal-content {
+    max-width: 700px;
+    position: relative;
+}
+
+.job-selection-header {
+    margin-bottom: 30px;
+}
+
+.job-day {
+    color: #00ffff;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.job-cards-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.job-card {
+    background: linear-gradient(135deg, rgba(0, 255, 255, 0.1) 0%, rgba(0, 255, 255, 0.05) 100%);
+    border: 2px solid #00ffff40;
+    border-radius: 10px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+}
+
+.job-card:hover {
+    border-color: #00ffff;
+    box-shadow: 0 5px 20px rgba(0, 255, 255, 0.3);
+    transform: translateY(-5px);
+}
+
+.job-card-title {
+    color: #00ffff;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.job-card-requirements {
+    color: #888;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.job-card-roll {
+    color: #ccc;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.job-card-modifier {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.job-card-pay {
+    color: #ff0040;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* DICE ROLL */
+.dice-roll-container {
+    padding: 40px 20px;
+}
+
+.dice-title {
+    color: #00ffff;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+
+.dice-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.dice {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #00ffff 0%, #0088ff 100%);
+    border: 3px solid #00ffff;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    color: #0a0a0a;
+    font-weight: bold;
+    box-shadow: 0 5px 20px rgba(0, 255, 255, 0.5);
+}
+
+.dice.rolling {
+    animation: diceRoll 1s ease-in-out;
+}
+
+@keyframes diceRoll {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(90deg) scale(1.1); }
+    50% { transform: rotate(180deg) scale(1.2); }
+    75% { transform: rotate(270deg) scale(1.1); }
+}
+
+.dice-total {
+    color: #ccc;
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+.final-roll {
+    color: #00ffff;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.job-result {
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+}
+
+.job-result.success {
+    background: rgba(0, 255, 0, 0.1);
+    border: 2px solid #00ff00;
+}
+
+.job-result.failure {
+    background: rgba(255, 0, 0, 0.1);
+    border: 2px solid #ff0000;
+}
+
+.result-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.job-result.success .result-title {
+    color: #00ff00;
+}
+
+.job-result.failure .result-title {
+    color: #ff0000;
+}
+
+.result-detail {
+    color: #ccc;
+    font-size: 14px;
+}
+
+/* DAY END PROCESSING MODAL */
+.day-end-content {
+    max-width: 650px;
+    border-color: #00ffff;
+    text-align: center;
+}
+
+.processing-header {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+}
+
+.processing-title {
+    color: #00ffff;
+    font-size: 24px;
+    letter-spacing: 4px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.processing-day {
+    color: #888;
+    font-size: 14px;
+    letter-spacing: 2px;
+}
+
+.job-result-summary {
+    padding: 25px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    border: 2px solid;
+}
+
+.job-result-summary.success {
+    background: rgba(0, 255, 0, 0.08);
+    border-color: #00ff00;
+}
+
+.job-result-summary.failure {
+    background: rgba(255, 0, 0, 0.08);
+    border-color: #ff0040;
+}
+
+.result-status {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    letter-spacing: 3px;
+}
+
+.job-result-summary.success .result-status {
+    color: #00ff00;
+}
+
+.job-result-summary.failure .result-status {
+    color: #ff0040;
+}
+
+.result-job-name {
+    color: #ccc;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.result-roll {
+    color: #888;
+    font-size: 13px;
+}
+
+.financial-breakdown {
+    background: rgba(0, 255, 255, 0.05);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.breakdown-header {
+    color: #00ffff;
+    font-size: 16px;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    text-align: center;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+}
+
+.breakdown-line {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    font-size: 16px;
+    color: #ccc;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.breakdown-line:last-of-type {
+    border-bottom: none;
+}
+
+.breakdown-value {
+    font-weight: bold;
+}
+
+.breakdown-value.positive {
+    color: #00ff00;
+}
+
+.breakdown-value.negative {
+    color: #ff0040;
+}
+
+.breakdown-separator {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.3), transparent);
+    margin: 15px 0;
+}
+
+.breakdown-total {
+    padding: 15px 0 0 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.breakdown-balance {
+    background: rgba(0, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #00ffff;
+    text-align: center;
+    letter-spacing: 2px;
+}
+
+.event-notice {
+    background: rgba(255, 0, 64, 0.1);
+    border: 2px solid #ff0040;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 25px;
+    animation: eventPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes eventPulse {
+    0%, 100% { box-shadow: 0 0 10px rgba(255, 0, 64, 0.3); }
+    50% { box-shadow: 0 0 25px rgba(255, 0, 64, 0.6); }
+}
+
+.event-notice-title {
+    color: #ff0040;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    letter-spacing: 2px;
+}
+
+.event-notice-cost {
+    color: #ff0040;
+    font-size: 16px;
+}
+
+.continue-button {
+    width: 100%;
+    padding: 18px;
+    background: linear-gradient(45deg, #00ffff, #0088ff);
+    border: none;
+    border-radius: 8px;
+    color: #0a0a0a;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    transition: all 0.3s ease;
+    font-family: 'Courier New', monospace;
+}
+
+.continue-button:hover {
+    background: linear-gradient(45deg, #0088ff, #00ffff);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0, 255, 255, 0.5);
+}
+
+/* UPGRADE MODAL */
+.upgrade-modal-content {
+    max-width: 600px;
+    width: 90%;
+}
+
+.upgrade-modal-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #00ffff40;
+}
+
+.upgrade-modal-icon {
+    font-size: 48px;
+    filter: drop-shadow(0 0 15px rgba(0, 255, 255, 0.7));
+}
+
+.upgrade-modal-title {
+    color: #00ffff;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.upgrade-modal-subtitle {
+    color: #888;
+    font-size: 14px;
+    font-style: italic;
+}
+
+.upgrade-modal-description {
+    color: #ccc;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    padding: 15px;
+    background: rgba(0, 255, 255, 0.05);
+    border-radius: 8px;
+    border-left: 3px solid #00ffff;
+}
+
+.upgrade-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.upgrade-stat-item {
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid;
+}
+
+.upgrade-stat-item.positive {
+    background: rgba(0, 255, 0, 0.1);
+    border-color: #00ff00;
+}
+
+.stat-change {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #00ff00;
+}
+
+.stat-name {
+    font-size: 12px;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.upgrade-modal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    border-top: 1px solid #00ffff40;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.upgrade-total-cost {
+    font-size: 18px;
+}
+
+.cost-label {
+    color: #888;
+    margin-right: 10px;
+}
+
+.cost-value {
+    color: #ff0040;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.upgrade-modal-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+    .job-cards-container {
+        grid-template-columns: 1fr;
+    }
+
+    .dice-wrapper {
+        gap: 20px;
+    }
+
+    .dice {
+        width: 60px;
+        height: 60px;
+        font-size: 36px;
+    }
+}
+
+@media (max-width: 480px) {
+    .intro-title {
+        font-size: 24px;
+    }
+}

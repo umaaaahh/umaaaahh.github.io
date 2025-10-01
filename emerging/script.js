@@ -96,9 +96,17 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function showIntroSplash() {
-    const modal = document.getElementById('splashModal');
-    if (modal) {
-        modal.style.display = 'flex';
+    const lifeworkModal = document.getElementById('lifeworkSplash');
+    if (lifeworkModal) {
+        lifeworkModal.style.display = 'flex';
+        
+        setTimeout(() => {
+            lifeworkModal.style.display = 'none';
+            const userAgreement = document.getElementById('splashModal');
+            if (userAgreement) {
+                userAgreement.style.display = 'flex';
+            }
+        }, 3000);
     }
 }
 
@@ -140,6 +148,7 @@ function initializeGame() {
     });
     
     updateDisplay();
+    updateStatBars();
     
     setInterval(() => {
         const character = document.getElementById('character');
@@ -251,7 +260,7 @@ function showJobSelection(jobs) {
                         <span style="color: #888;">(You: ${gameState.stats[job.req1.stat]})</span>
                     </div>
                     <div>
-                        ${meetsReq2 ? '✗' : '✗'} ${job.req2.stat.toUpperCase()} ${job.req2.value}+ 
+                        ${meetsReq2 ? '✓' : '✗'} ${job.req2.stat.toUpperCase()} ${job.req2.value}+ 
                         <span style="color: #888;">(You: ${gameState.stats[job.req2.stat]})</span>
                     </div>
                 </div>
@@ -266,14 +275,14 @@ function showJobSelection(jobs) {
     
     content.innerHTML = `
         <div class="job-selection-header">
-            <div class="job-day">DAY ${String(gameState.day).padStart(2, '0')} - CHOOSE YOUR GIG</div>
+            <img src="assets/Lifework-Logo.png" class="modal-header-logo" alt="LifeWork Corporation">
+            <div class="job-day">CONTRACT FULFILLMENT - DAY ${String(gameState.day).padStart(2, '0')}</div>
         </div>
         <div class="job-cards-container">
             ${jobCardsHTML}
         </div>
     `;
     
-    // Show help button during job selection
     if (helpButton) {
         helpButton.style.display = 'block';
     }
@@ -293,7 +302,6 @@ function selectJob(index) {
     const jobs = JSON.parse(document.getElementById('jobModal').dataset.jobs);
     selectedJob = jobs[index];
     
-    // Hide help button and panel when job is selected
     const helpButton = document.getElementById('helpButton');
     const helpPanel = document.getElementById('helpPanel');
     if (helpButton) helpButton.style.display = 'none';
@@ -536,17 +544,13 @@ function updateDisplay(previousState = null) {
     const newBalance = gameState.balance;
     
     if (previousState && previousState.balance !== newBalance) {
-        if (newBalance > previousState.balance) {
-            balanceEl.classList.add('flash-gain');
-        } else {
-            balanceEl.classList.add('flash-loss');
-        }
-        setTimeout(() => {
-            balanceEl.classList.remove('flash-gain', 'flash-loss');
-        }, 600);
+        const change = newBalance - previousState.balance;
+        showBalanceChange(change);
+        animateNumber(balanceEl, previousState.balance, newBalance);
+    } else {
+        balanceEl.textContent = `$${newBalance}`;
     }
     
-    balanceEl.textContent = `$${newBalance}`;
     document.getElementById('day').textContent = String(gameState.day).padStart(2, '0');
     
     const stats = ['strength', 'speed', 'focus', 'endurance'];
@@ -563,6 +567,8 @@ function updateDisplay(previousState = null) {
         
         el.textContent = newValue;
     });
+    
+    updateStatBars();
     
     Object.entries(gameState.upgrades).forEach(([upgrade, purchased]) => {
         const card = document.querySelector(`[data-upgrade="${upgrade}"]`);
@@ -598,4 +604,53 @@ function loadGame() {
     } catch (e) {
         console.log('Could not load game');
     }
+}
+
+function updateStatBars() {
+    const maxStat = 20;
+    ['strength', 'speed', 'focus', 'endurance'].forEach(stat => {
+        const value = gameState.stats[stat];
+        const percentage = (value / maxStat) * 100;
+        const bar = document.getElementById(`${stat}-bar`);
+        if (bar) {
+            bar.style.width = percentage + '%';
+        }
+    });
+}
+
+function animateNumber(element, from, to, duration = 800) {
+    const start = Date.now();
+    const range = to - from;
+    
+    function update() {
+        const now = Date.now();
+        const progress = Math.min((now - start) / duration, 1);
+        const easeProgress = 1 - Math.pow(1 - progress, 3);
+        const current = Math.floor(from + (range * easeProgress));
+        
+        element.textContent = current >= 0 ? `$${current}` : `-$${Math.abs(current)}`;
+        
+        if (progress < 1) {
+            requestAnimationFrame(update);
+        }
+    }
+    
+    requestAnimationFrame(update);
+}
+
+function showBalanceChange(amount) {
+    const balanceEl = document.getElementById('balance');
+    const container = balanceEl.parentElement;
+    
+    if (getComputedStyle(container).position === 'static') {
+        container.style.position = 'relative';
+    }
+    
+    const indicator = document.createElement('div');
+    indicator.className = `balance-change-indicator ${amount >= 0 ? 'gain' : 'loss'}`;
+    indicator.textContent = amount >= 0 ? `+$${amount}` : `-$${Math.abs(amount)}`;
+    
+    container.appendChild(indicator);
+    
+    setTimeout(() => indicator.remove(), 1000);
 }

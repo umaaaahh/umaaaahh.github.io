@@ -5,10 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Patchwork Cyborg</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/character.css">
+    <link rel="stylesheet" href="css/ui-components.css">
+    <link rel="stylesheet" href="css/modals.css">
 </head>
 <body>
     <div class="page-bg"></div>
     <div class="neural-grid"></div>
+    
+    <!-- LifeWork Loading Splash - Shows FIRST -->
+    <div class="modal" id="lifeworkSplash" style="display: flex;">
+        <div class="modal-content lifework-splash">
+            <div class="lifework-logo-container">
+                <img src="assets/Lifework-Logo.png" alt="LifeWork Corporation" class="lifework-logo">
+            </div>
+            
+            <div class="lifework-tagline">YOUR LIFE. OUR WORK.</div>
+            <div class="lifework-subtitle">Optimizing Human Capital Since 2047</div>
+            
+            <div class="lifework-loading-bar"></div>
+            <div class="lifework-loading-text">INITIALIZING EMPLOYMENT PROTOCOL...</div>
+        </div>
+    </div>
     
     <div class="game-container">
         <!-- Character Viewport -->
@@ -38,29 +56,52 @@
         <!-- UI Panel -->
         <div class="ui-panel">
             <div class="panel-section stats-section">
-                <div class="section-title">Stats</div>
+                <div class="section-title">Performance Metrics</div>
                 <div class="stats-display">
                     <div class="stat-item">
                         <div class="stat-label">STRENGTH</div>
-                        <div class="stat-value" id="strength">5</div>
+                        <div class="stat-display-row">
+                            <div class="stat-value" id="strength">5</div>
+                            <div class="stat-bar-container">
+                                <div class="stat-bar" id="strength-bar" style="width: 25%"></div>
+                            </div>
+                        </div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-label">SPEED</div>
-                        <div class="stat-value" id="speed">5</div>
+                        <div class="stat-display-row">
+                            <div class="stat-value" id="speed">5</div>
+                            <div class="stat-bar-container">
+                                <div class="stat-bar" id="speed-bar" style="width: 25%"></div>
+                            </div>
+                        </div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-label">FOCUS</div>
-                        <div class="stat-value" id="focus">5</div>
+                        <div class="stat-display-row">
+                            <div class="stat-value" id="focus">5</div>
+                            <div class="stat-bar-container">
+                                <div class="stat-bar" id="focus-bar" style="width: 25%"></div>
+                            </div>
+                        </div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-label">ENDURANCE</div>
-                        <div class="stat-value" id="endurance">5</div>
+                        <div class="stat-display-row">
+                            <div class="stat-value" id="endurance">5</div>
+                            <div class="stat-bar-container">
+                                <div class="stat-bar" id="endurance-bar" style="width: 25%"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             
             <div class="panel-section upgrades-section">
-                <div class="section-title">Chrome Shop</div>
+                <div class="section-title lifework-branded">
+                    <img src="assets/Lifework-Logo.png" class="section-logo" alt="LifeWork">
+                    Enhancement Center
+                </div>
                 <div class="upgrades-grid">
                     <div class="upgrade-card" data-upgrade="arm">
                         <div class="upgrade-icon">🦾</div>
@@ -96,17 +137,17 @@
             </div>
             
             <div class="panel-section actions-section">
-                <button class="action-button" onclick="startDay()">Start Work Day</button>
-                <button class="action-button secondary" onclick="quit()">Quit Game</button>
+                <button class="action-button" onclick="startDay()">Accept Contract</button>
+                <button class="action-button secondary" onclick="quit()">View Contract Status</button>
             </div>
         </div>
     </div>
     
-    <!-- Splash Screen Modal -->
+    <!-- User Agreement Modal -->
     <div class="modal" id="splashModal">
         <div class="modal-content intro-splash">
             <div class="corporate-header">
-                <div class="corporate-logo">LIFEWORK INDUSTRIES</div>
+                <img src="assets/Lifework-Logo.png" class="agreement-logo" alt="LifeWork Corporation">
                 <div class="intro-title">TERMS OF SERVICE</div>
                 <div class="intro-subtitle">Contractor Agreement v.12.4.2099</div>
             </div>
@@ -133,7 +174,7 @@
                     <p>4.4 Account balance below -$50 triggers automatic termination and asset seizure per Section 7.</p>
                     
                     <p><strong>5. AUGMENTATION SERVICES</strong></p>
-                    <p>5.1 Company offers voluntary cybernetic enhancement services via Chrome Shop storefront.</p>
+                    <p>5.1 Company offers voluntary cybernetic enhancement services via LifeWork Enhancement Center.</p>
                     <p>5.2 All augmentations are permanent, non-reversible, and non-refundable.</p>
                     <p>5.3 Enhanced physical capabilities may improve contract completion probabilities.</p>
                     <p>5.4 Company assumes no liability for augmentation side effects, compatibility issues, or biological rejection.</p>
@@ -164,8 +205,9 @@
     <!-- Game Over Modal -->
     <div class="modal" id="gameOverModal">
         <div class="modal-content game-over-content">
-            <div class="game-over-glitch">LABOR CAMP</div>
-            <div class="game-over-subtitle">LifeWork has terminated your contract</div>
+            <img src="assets/Lifework-Logo.png" class="game-over-logo" alt="LifeWork Corporation">
+            <div class="game-over-glitch">CONTRACT TERMINATED</div>
+            <div class="game-over-subtitle">LifeWork Industries has severed your employment</div>
             <div class="game-over-line"></div>
             
             <div class="stats-summary">
@@ -213,7 +255,8 @@
     <!-- Quit Modal -->
     <div class="modal" id="quitModal">
         <div class="modal-content quit-modal-content">
-            <div class="quit-title">GAME STATISTICS</div>
+            <img src="assets/Lifework-Logo.png" class="modal-header-logo" alt="LifeWork Corporation">
+            <div class="quit-title">CONTRACT STATUS</div>
             <div class="intro-line"></div>
             
             <div class="stats-summary">
@@ -255,8 +298,8 @@
             </div>
             
             <div class="quit-actions">
-                <button class="action-button secondary" onclick="continueGame()">Continue Playing</button>
-                <button class="action-button" onclick="confirmQuit()">Quit & Restart</button>
+                <button class="action-button secondary" onclick="continueGame()">Continue Contract</button>
+                <button class="action-button" onclick="confirmQuit()">Terminate & Restart</button>
             </div>
         </div>
     </div>
@@ -265,9 +308,7 @@
     <div class="modal" id="jobModal">
         <div class="modal-content job-modal-content">
             <div id="jobModalContent"></div>
-            <!-- Help button that appears during job selection -->
             <button class="help-button" id="helpButton" style="display: none;" onclick="toggleHelpPanel()">?</button>
-            <!-- Help panel -->
             <div class="help-panel" id="helpPanel" style="display: none;">
                 <div class="help-panel-title">How Dice Rolls Work</div>
                 <div class="help-panel-content">
@@ -292,6 +333,7 @@
     <div class="modal" id="dayEndModal">
         <div class="modal-content day-end-content">
             <div class="processing-header">
+                <img src="assets/Lifework-Logo.png" class="modal-header-logo" alt="LifeWork">
                 <div class="processing-title">SHIFT COMPLETE</div>
                 <div class="processing-day" id="dayEndDay">DAY 01</div>
             </div>
