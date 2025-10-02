@@ -30,6 +30,7 @@
     
     <div class="game-container">
         <!-- Character Viewport -->
+      
         <div class="character-viewport">
             <!-- Top Right HUD -->
             <div class="hud-corner">
@@ -43,10 +44,13 @@
                 </div>
             </div>
             
+            <!-- Character Model with Video Support -->
             <div class="character-model" id="character">
-            <img src="assets/3d.gif" alt="3D character" class="character-gif">
-</div>
-
+                <!-- Fallback GIF (will fade out when videos load) -->
+                <img src="assets/3d.gif" alt="3D character" class="character-gif">
+                
+                <!-- Video container will be injected here by video-system.js -->
+            </div>
         </div>
         
         <!-- UI Panel -->

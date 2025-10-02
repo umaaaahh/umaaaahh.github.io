@@ -1,5 +1,5 @@
 /* =============================
-   CHARACTER MODEL & HUD
+   CHARACTER MODEL & VIDEO SYSTEM
    ============================= */
 
 .character-model {
@@ -14,7 +14,7 @@
     position: relative;
     box-shadow: 0 0 30px #00ffff40;
     animation: pulse 2s infinite;
-    overflow: hidden; /* keeps gif inside the frame */
+    overflow: hidden;
 }
 
 @keyframes pulse {
@@ -22,17 +22,62 @@
     50% { box-shadow: 0 0 50px #00ffff80; }
 }
 
-/* Embed your 3D gif inside the frame */
+/* Video container - holds all character videos */
+.character-videos {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Individual video elements */
+.character-video {
+    position: absolute;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    pointer-events: none;
+}
+
+/* Active video is visible */
+.character-video.active {
+    opacity: 1;
+    z-index: 2;
+}
+
+/* Preview video fades in on hover */
+.character-video.preview {
+    opacity: 1;
+    z-index: 3;
+}
+
+/* Fallback for old GIF (will be hidden when videos load) */
 .character-model img.character-gif {
     max-width: 100%;
     max-height: 100%;
-    object-fit: contain; /* keeps proportions */
+    object-fit: contain;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+    z-index: 1;
 }
 
-/* Remove old placeholder text and body-part dots */
+/* Hide GIF once videos are loaded */
+.character-model.video-loaded img.character-gif {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Remove old placeholder content */
 .character-model::before {
     content: none;
 }
+
 .body-part {
     display: none;
 }

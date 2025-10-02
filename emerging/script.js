@@ -654,3 +654,191 @@ function showBalanceChange(amount) {
     
     setTimeout(() => indicator.remove(), 1000);
 }
+
+
+/* =============================
+   CHARACTER VIDEO SYSTEM
+   Handles video switching, hover previews, and purchase updates
+   ============================= */
+
+const VideoSystem = {
+    videos: {
+        default: 'https://pub-761726dded894be79bd817c097520beb.r2.dev/human1.mp4',
+        arm: 'https://pub-761726dded894be79bd817c097520beb.r2.dev/human-arm.mp4',
+        eyes: 'https://pub-761726dded894be79bd817c097520beb.r2.dev/human-eye.mp4',
+        legs: 'https://pub-761726dded894be79bd817c097520beb.r2.dev/human-leg.mp4'
+    },
+    
+    currentDefault: 'default',
+    elements: {},
+    hoverTimeout: null,
+    
+    // Initialize the video system
+    init() {
+        console.log('Initializing video system...');
+        this.createVideoElements();
+        this.setupUpgradeHovers();
+    },
+    
+    // Create all video elements and inject into character model
+    createVideoElements() {
+        const characterModel = document.getElementById('character');
+        if (!characterModel) {
+            console.error('Character model not found');
+            return;
+        }
+        
+        // Create video container
+        const videoContainer = document.createElement('div');
+        videoContainer.className = 'character-videos';
+        
+        // Create video elements for each model
+        Object.keys(this.videos).forEach(key => {
+            const video = document.createElement('video');
+            video.className = 'character-video';
+            video.setAttribute('data-video-type', key);
+            video.autoplay = true;
+            video.loop = true;
+            video.muted = true;
+            video.playsInline = true;
+            
+            const source = document.createElement('source');
+            source.src = this.videos[key];
+            source.type = 'video/mp4';
+            
+            video.appendChild(source);
+            videoContainer.appendChild(video);
+            
+            // Store reference
+            this.elements[key] = video;
+            
+            // Add loaded event
+            video.addEventListener('loadeddata', () => {
+                console.log(`Video loaded: ${key}`);
+                if (key === 'default') {
+                    this.showVideo('default');
+                    characterModel.classList.add('video-loaded');
+                }
+            });
+        });
+        
+        // Add container to character model
+        characterModel.appendChild(videoContainer);
+    },
+    
+    // Show a specific video as the active default
+    showVideo(type) {
+        console.log(`Showing video: ${type}`);
+        Object.keys(this.elements).forEach(key => {
+            const video = this.elements[key];
+            if (key === type) {
+                video.classList.add('active');
+                video.classList.remove('preview');
+            } else {
+                video.classList.remove('active', 'preview');
+            }
+        });
+        this.currentDefault = type;
+    },
+    
+    // Show preview video (on hover)
+    showPreview(type) {
+        if (!this.elements[type]) {
+            console.log(`No video for type: ${type}`);
+            return;
+        }
+        
+        console.log(`Showing preview: ${type}`);
+        
+        // Hide current default, show preview
+        if (this.elements[this.currentDefault]) {
+            this.elements[this.currentDefault].classList.remove('active');
+        }
+        this.elements[type].classList.add('preview');
+    },
+    
+    // Hide preview, return to default
+    hidePreview() {
+        console.log(`Hiding preview, returning to: ${this.currentDefault}`);
+        
+        Object.keys(this.elements).forEach(key => {
+            this.elements[key].classList.remove('preview');
+        });
+        
+        if (this.elements[this.currentDefault]) {
+            this.elements[this.currentDefault].classList.add('active');
+        }
+    },
+    
+    // Set up hover events on upgrade cards
+    setupUpgradeHovers() {
+        const upgradeCards = document.querySelectorAll('.upgrade-card');
+        
+        upgradeCards.forEach(card => {
+            const upgradeType = card.getAttribute('data-upgrade');
+            
+            // Only add hover for upgrades that have videos
+            if (this.videos[upgradeType]) {
+                card.addEventListener('mouseenter', () => {
+                    // Clear any existing timeout
+                    if (this.hoverTimeout) {
+                        clearTimeout(this.hoverTimeout);
+                    }
+                    
+                    // Slight delay to prevent flickering on quick mouse movements
+                    this.hoverTimeout = setTimeout(() => {
+                        this.showPreview(upgradeType);
+                    }, 100);
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    // Clear timeout if mouse leaves before delay completes
+                    if (this.hoverTimeout) {
+                        clearTimeout(this.hoverTimeout);
+                    }
+                    
+                    this.hidePreview();
+                });
+            }
+        });
+        
+        console.log('Hover events set up for upgrade cards');
+    },
+    
+    // Update default video after purchase
+    updateDefaultAfterPurchase(upgradeType) {
+        if (this.videos[upgradeType]) {
+            console.log(`Purchased ${upgradeType}, updating default video`);
+            this.showVideo(upgradeType);
+        } else {
+            console.log(`No video available for ${upgradeType}, keeping current default`);
+        }
+    }
+};
+
+// Initialize video system when DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+    // Wait a bit to ensure character model exists
+    setTimeout(() => {
+        VideoSystem.init();
+    }, 100);
+});
+
+// Hook into the existing purchaseUpgradeFromModal function
+// Store the original function
+const originalPurchaseUpgrade = window.purchaseUpgradeFromModal;
+
+// Override with video system integration
+window.purchaseUpgradeFromModal = function() {
+    const upgradeType = selectedUpgrade;
+    
+    // Call original purchase function
+    if (originalPurchaseUpgrade) {
+        originalPurchaseUpgrade.call(this);
+    }
+    
+    // Update video after successful purchase
+    if (upgradeType && gameState.upgrades[upgradeType]) {
+        VideoSystem.updateDefaultAfterPurchase(upgradeType);
+    }
+};
