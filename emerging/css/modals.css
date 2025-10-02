@@ -771,3 +771,212 @@
         font-size: 24px;
     }
 }
+
+
+/* Black Market Job Cards - Dangerous and Enticing */
+.job-card.black-market {
+    background: linear-gradient(135deg, rgba(255, 0, 64, 0.15) 0%, rgba(139, 0, 0, 0.1) 100%);
+    border: 2px solid #ff0040;
+    position: relative;
+    overflow: hidden;
+    animation: blackMarketPulse 2s ease-in-out infinite;
+}
+
+@keyframes blackMarketPulse {
+    0%, 100% { 
+        box-shadow: 0 0 20px rgba(255, 0, 64, 0.4);
+        border-color: #ff0040;
+    }
+    50% { 
+        box-shadow: 0 0 40px rgba(255, 0, 64, 0.8);
+        border-color: #ff3366;
+    }
+}
+
+/* Glowing scanline effect */
+.job-card.black-market::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: 0;
+    width: 100%;
+    height: 200%;
+    background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(255, 0, 64, 0.1) 45%,
+        rgba(255, 0, 64, 0.3) 50%,
+        rgba(255, 0, 64, 0.1) 55%,
+        transparent 100%
+    );
+    animation: scanline 3s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes scanline {
+    0% { transform: translateY(-50%); }
+    100% { transform: translateY(50%); }
+}
+
+/* BLACK MARKET label */
+.job-card.black-market::after {
+    content: '⚠ BLACK MARKET';
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(255, 0, 64, 0.9);
+    color: #fff;
+    padding: 4px 8px;
+    font-size: 9px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    border-radius: 3px;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+    animation: labelFlash 1.5s ease-in-out infinite;
+    z-index: 10;
+}
+
+@keyframes labelFlash {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+/* Enhanced hover for black market */
+.job-card.black-market:hover {
+    border-color: #ff3366;
+    box-shadow: 0 5px 30px rgba(255, 0, 64, 0.6);
+    transform: translateY(-5px) scale(1.02);
+}
+
+/* Black market title styling */
+.job-card.black-market .job-card-title {
+    color: #ff3366;
+    text-shadow: 0 0 8px rgba(255, 0, 64, 0.5);
+}
+
+/* Black market pay styling - more enticing */
+.job-card.black-market .job-card-pay {
+    color: #ff3366;
+    font-size: 20px;
+    text-shadow: 0 0 10px rgba(255, 0, 64, 0.6);
+    animation: payGlow 2s ease-in-out infinite;
+}
+
+@keyframes payGlow {
+    0%, 100% { text-shadow: 0 0 10px rgba(255, 0, 64, 0.6); }
+    50% { text-shadow: 0 0 20px rgba(255, 0, 64, 1); }
+}
+
+/* Risk warning styling */
+.job-card.black-market .job-card-risk {
+    color: #ff6b6b;
+    font-size: 11px;
+    margin-top: 8px;
+    padding: 6px 8px;
+    background: rgba(255, 0, 64, 0.2);
+    border-radius: 4px;
+    border: 1px solid rgba(255, 0, 64, 0.4);
+    font-weight: bold;
+}
+
+/* Detection roll result styling */
+.detection-roll-container {
+    padding: 30px 20px;
+    text-align: center;
+}
+
+.detection-title {
+    color: #ff0040;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    animation: detectionPulse 1s ease-in-out infinite;
+}
+
+@keyframes detectionPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.detection-result {
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.detection-result.caught {
+    background: rgba(255, 0, 0, 0.15);
+    border: 2px solid #ff0040;
+}
+
+.detection-result.escaped {
+    background: rgba(0, 255, 0, 0.15);
+    border: 2px solid #00ff00;
+}
+
+.detection-result-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.detection-result.caught .detection-result-title {
+    color: #ff0040;
+    text-shadow: 0 0 10px rgba(255, 0, 64, 0.8);
+}
+
+.detection-result.escaped .detection-result-title {
+    color: #00ff00;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
+}
+
+.detection-detail {
+    color: #ccc;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.fine-amount {
+    color: #ff0040;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* =============================
+   MUTE BUTTON
+   ============================= */
+.mute-button {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 50px;
+    height: 50px;
+    background: rgba(0, 255, 255, 0.2);
+    border: 2px solid #00ffff;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 10000;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mute-button:hover {
+    background: rgba(0, 255, 255, 0.4);
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+}
+
+/* =============================
+   JOB CARD EMOJI
+   ============================= */
+.job-card-emoji {
+    font-size: 32px;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 0 5px rgba(0, 255, 255, 0.3));
+}
