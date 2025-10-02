@@ -1,9 +1,11 @@
-/* CHARACTER MODEL & HUD */
+/* =============================
+   CHARACTER MODEL & HUD
+   ============================= */
 
 .character-model {
     width: 300px;
     height: 400px;
-    background: linear-gradient(180deg, #00ffff20 0%, #ff004020 100%);
+    background: #000; 
     border: 2px solid #00ffff;
     border-radius: 20px;
     display: flex;
@@ -12,6 +14,7 @@
     position: relative;
     box-shadow: 0 0 30px #00ffff40;
     animation: pulse 2s infinite;
+    overflow: hidden; /* keeps gif inside the frame */
 }
 
 @keyframes pulse {
@@ -19,41 +22,24 @@
     50% { box-shadow: 0 0 50px #00ffff80; }
 }
 
+/* Embed your 3D gif inside the frame */
+.character-model img.character-gif {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* keeps proportions */
+}
+
+/* Remove old placeholder text and body-part dots */
 .character-model::before {
-    content: "3D CHARACTER\aMODEL HERE";
-    text-align: center;
-    font-size: 14px;
-    color: #00ffff;
-    white-space: pre-line;
+    content: none;
 }
-
 .body-part {
-    position: absolute;
-    background: #ff0040;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    animation: bodyPulse 3s infinite;
+    display: none;
 }
 
-@keyframes bodyPulse {
-    0%, 100% { opacity: 0.7; }
-    50% { opacity: 1; }
-}
-
-.body-part:hover {
-    background: #ffff00;
-    transform: scale(1.2);
-}
-
-.head { top: 20px; left: 50%; width: 15px; height: 15px; transform: translateX(-50%); }
-.left-arm { top: 80px; left: 30px; width: 12px; height: 12px; }
-.right-arm { top: 80px; right: 30px; width: 12px; height: 12px; }
-.torso { top: 120px; left: 50%; width: 20px; height: 20px; transform: translateX(-50%); }
-.left-leg { bottom: 80px; left: 80px; width: 12px; height: 12px; }
-.right-leg { bottom: 80px; right: 80px; width: 12px; height: 12px; }
-
-/* HUD - TOP RIGHT CORNER */
+/* =============================
+   HUD - TOP RIGHT CORNER
+   ============================= */
 .hud-corner {
     position: absolute;
     top: 20px;
@@ -111,7 +97,9 @@
     100% { transform: scale(1); color: #00ffff; }
 }
 
-/* MOBILE */
+/* =============================
+   MOBILE
+   ============================= */
 @media (max-width: 768px) {
     .character-model {
         width: 250px;
