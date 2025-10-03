@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tournament Hub | Rabi Island 2025</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .tournament-hero {
+            min-height: 60vh;
+            background: linear-gradient(135deg, var(--navy), var(--ocean));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+        }
+
+        .tournament-hero h1 {
+            font-size: clamp(3rem, 8vw, 5rem);
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--uma-red), var(--tabiang-yellow), var(--buakonikai-green), var(--tabwewa-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tournament-hero p {
+            font-size: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .leaderboard-section {
+            padding: 4rem 2rem;
+            background: var(--navy);
+        }
+
+        .leaderboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            text-align: center;
+            margin-bottom: 3rem;
+            color: white;
+        }
+
+        .leaderboard-table {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 4rem;
+        }
+
+        .leaderboard-row {
+            display: grid;
+            grid-template-columns: 80px 1fr 120px 120px 120px;
+            gap: 1rem;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .leaderboard-row:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .leaderboard-row.header {
+            background: rgba(255, 255, 255, 0.1);
+            font-weight: 700;
+        }
+
+        .rank {
+            font-size: 2rem;
+            font-weight: 800;
+        }
+
+        .rank.first { color: #FFD700; }
+        .rank.second { color: #C0C0C0; }
+        .rank.third { color: #CD7F32; }
+        .rank.fourth { color: rgba(255, 255, 255, 0.5); }
+
+        .village-name-cell {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .uma-cell { color: var(--uma-red); }
+        .tabwewa-cell { color: var(--tabwewa-blue); }
+        .tabiang-cell { color: var(--tabiang-yellow); }
+        .buakonikai-cell { color: var(--buakonikai-green); }
+
+        .points {
+            font-size: 1.8rem;
+            font-weight: 800;
+            text-align: center;
+        }
+
+        .sports-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .sport-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            border: 2px solid;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: white;
+            display: block;
+        }
+
+        .sport-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .sport-card.netball { border-color: var(--uma-red); }
+        .sport-card.volleyball { border-color: var(--tabiang-yellow); }
+        .sport-card.rugby { border-color: var(--buakonikai-green); }
+
+        .sport-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .sport-name {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .sport-card.netball .sport-name { color: var(--uma-red); }
+        .sport-card.volleyball .sport-name { color: var(--tabiang-yellow); }
+        .sport-card.rugby .sport-name { color: var(--buakonikai-green); }
+
+        .sport-status {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .leaderboard-row {
+                grid-template-columns: 60px 1fr 80px;
+                gap: 0.5rem;
+                padding: 1rem;
+            }
+
+            .leaderboard-row .points:nth-child(4),
+            .leaderboard-row .points:nth-child(5) {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav visible">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Rabi Island</a>
+            <ul class="nav-links">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#history">History</a></li>
+                <li><a href="villages.html">Villages</a></li>
+                <li class="tournament-dropdown">
+                    <a href="tournament.html" class="tournament-link">Tournament ▾</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="netball.html">Netball</a></li>
+                        <li><a href="volleyball.html">Volleyball</a></li>
+                        <li><a href="rugby.html">Rugby</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <a href="tournament.html" class="cta-nav-button">Enter Tournament</a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="tournament-hero">
+        <div>
+            <h1>2025 Tournament</h1>
+            <p>December 15-21 | Four Villages, One Champion</p>
+        </div>
+    </section>
+
+    <!-- Overall Leaderboard -->
+    <section class="leaderboard-section">
+        <div class="leaderboard-container">
+            <h2 class="section-title">🏆 Overall Championship Standings</h2>
+            
+            <div class="leaderboard-table">
+                <div class="leaderboard-row header">
+                    <div>Rank</div>
+                    <div>Village</div>
+                    <div style="text-align: center;">Total Points</div>
+                    <div style="text-align: center;">Golds</div>
+                    <div style="text-align: center;">Win %</div>
+                </div>
+
+                <div class="leaderboard-row">
+                    <div class="rank first">1</div>
+                    <div class="village-name-cell uma-cell">UMA</div>
+                    <div class="points uma-cell">245</div>
+                    <div class="points">12</div>
+                    <div class="points">78%</div>
+                </div>
+
+                <div class="leaderboard-row">
+                    <div class="rank second">2</div>
+                    <div class="village-name-cell tabwewa-cell">TABWEWA</div>
+                    <div class="points tabwewa-cell">232</div>
+                    <div class="points">10</div>
+                    <div class="points">72%</div>
+                </div>
+
+                <div class="leaderboard-row">
+                    <div class="rank third">3</div>
+                    <div class="village-name-cell tabiang-cell">TABIANG</div>
+                    <div class="points tabiang-cell">198</div>
+                    <div class="points">6</div>
+                    <div class="points">54%</div>
+                </div>
+
+                <div class="leaderboard-row">
+                    <div class="rank fourth">4</div>
+                    <div class="village-name-cell buakonikai-cell">BUAKONIKAI</div>
+                    <div class="points buakonikai-cell">175</div>
+                    <div class="points">4</div>
+                    <div class="points">48%</div>
+                </div>
+            </div>
+
+            <h2 class="section-title">Select a Sport</h2>
+            <div class="sports-grid">
+                <a href="netball.html" class="sport-card netball">
+                    <div class="sport-icon">🏀</div>
+                    <div class="sport-name">NETBALL</div>
+                    <div class="sport-status">View Bracket & Results</div>
+                </a>
+
+                <a href="volleyball.html" class="sport-card volleyball">
+                    <div class="sport-icon">🏐</div>
+                    <div class="sport-name">VOLLEYBALL</div>
+                    <div class="sport-status">View Bracket & Results</div>
+                </a>
+
+                <a href="rugby.html" class="sport-card rugby">
+                    <div class="sport-icon">🏉</div>
+                    <div class="sport-name">RUGBY</div>
+                    <div class="sport-status">View Bracket & Results</div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rabi Island Tournament | Four Villages, One Island, Who Will Win?</title>
+  <meta name="description" content="80 years of resilience. A living history and tournament across Rabi Island's four villages: Uma, Tabwewa, Tabiang, Buakonikai." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Skip link for a11y -->
+  <a href="#history" class="visually-hidden">Skip to history timeline</a>
+
+  <!-- NAV -->
+  <nav class="nav" id="navbar" aria-label="Primary navigation">
+    <div class="nav-container">
+      <a href="index.html" class="logo" aria-label="Rabi Island Home">
+        <span class="logo-icon">🏝️</span>
+        <span class="logo-text">Rabi Island</span>
+      </a>
+      <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span class="hamburger"></span>
+      </button>
+      <ul class="nav-links" role="menubar" aria-label="Main links">
+        <li role="none"><a role="menuitem" href="#home">Home</a></li>
+        <li role="none"><a role="menuitem" href="#history">History</a></li>
+        <li role="none"><a role="menuitem" href="#villages">Villages</a></li>
+        <li class="tournament-dropdown" aria-expanded="false">
+          <button class="dropdown-toggle tournament-link" type="button" aria-haspopup="true" aria-expanded="false">
+            Tournament <span class="dropdown-arrow">▾</span>
+          </button>
+          <ul class="dropdown-menu" role="menu" aria-label="Tournament sports">
+            <li role="none"><a role="menuitem" href="netball.html">🏐 Netball</a></li>
+            <li role="none"><a role="menuitem" href="volleyball.html">🏐 Volleyball</a></li>
+            <li role="none"><a role="menuitem" href="rugby.html">🏉 Rugby</a></li>
+          </ul>
+        </li>
+      </ul>
+      <a href="tournament.html" class="cta-nav-button">Enter Tournament</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home" aria-label="Intro">
+    <div class="ocean-background" aria-hidden="true">
+      <div class="wave-container">
+        <svg class="wave" viewBox="0 0 1200 100" preserveAspectRatio="none">
+          <path d="M0,50 Q300,80 600,50 T1200,50 L1200,100 L0,100 Z" fill="#4ECDC4"/>
+        </svg>
+        <svg class="wave" viewBox="0 0 1200 100" preserveAspectRatio="none">
+          <path d="M0,60 Q300,30 600,60 T1200,60 L1200,100 L0,100 Z" fill="#457B9D"/>
+        </svg>
+        <svg class="wave" viewBox="0 0 1200 100" preserveAspectRatio="none">
+          <path d="M0,70 Q300,100 600,70 T1200,70 L1200,100 L0,100 Z" fill="#2A9D8F"/>
+        </svg>
+      </div>
+      <div class="particles" aria-hidden="true"></div>
+    </div>
+    <div class="hero-content" data-parallax="0.04">
+      <h1 class="hero-title">
+        <span class="title-line">Four Villages,</span>
+        <span class="title-line">One Island,</span>
+        <span class="title-line">Who Will Win?</span>
+      </h1>
+      <p class="hero-subtitle">
+        <span class="subtitle-highlight">80 Years of Resilience</span>
+        <span class="subtitle-divider">•</span>
+        <time datetime="2025-12-15">December 15, 2025</time>
+      </p>
+      <a href="#history" class="cta-button">
+        <span>Begin the Journey</span>
+        <span class="cta-arrow">→</span>
+      </a>
+    </div>
+    <div class="scroll-indicator" aria-hidden="true">
+      <span class="scroll-text">Scroll to explore</span>
+      <span class="scroll-arrow">↓</span>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section class="expanded-timeline" id="history" aria-label="History timeline">
+    <!-- Ship along the left rail -->
+    <div class="scrolling-ship" id="scrollingShip" aria-hidden="true" role="img" aria-label="Journey progress indicator">🚢</div>
+
+    <!-- Right-side nav dots -->
+    <nav class="timeline-nav" aria-label="Timeline navigation">
+      <button aria-label="Navigate to event: Before 1900"></button>
+      <button aria-label="Navigate to event: 1900"></button>
+      <button aria-label="Navigate to event: 1942-1945"></button>
+      <button aria-label="Navigate to event: December 15, 1945"></button>
+      <button aria-label="Navigate to event: 1946-1950"></button>
+      <button aria-label="Navigate to event: 1965"></button>
+      <button aria-label="Navigate to event: 1995"></button>
+      <button aria-label="Navigate to event: 2025"></button>
+    </nav>
+
+    <div class="timeline-container">
+      <div class="timeline-line" aria-hidden="true" data-parallax="-0.06"></div>
+
+      <!-- Header content -->
+      <div class="timeline-header" data-parallax="0.06">
+        <div class="timeline-header-content">
+          <h2>The Journey to Rabi</h2>
+          <p>From displacement to determination. From hardship to home.</p>
+          <div class="scroll-hint" aria-hidden="true">
+            <span>Scroll to explore</span>
+            <span class="hint-arrow">↓</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Events -->
+      <article class="timeline-event">
+        <div class="timeline-event-inner">
+          <div class="event-date-large" data-parallax="0.08">
+            <time class="date-text">Before<br>1900</time>
+          </div>
+          <div class="event-content" data-parallax="0.03">
+            <div class="event-text">
+              The Banaban people lived on <strong class="event-highlight">Ocean Island (Banaba)</strong>, a small coral island in the central Pacific. Four villages—Uma, Tabwewa, Tabiang, and Buakonikai—thrived as one people.
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="timeline-event">
+        <div class="timeline-event-inner">
+          <div class="event-date-large" data-parallax="0.08">
+            <time class="date-text">1900</time>
+          </div>
+          <div class="event-content" data-parallax="0.03">
+            <div class="event-text">
+              British phosphate mining began, <strong class="event-highlight">stripping the island bare</strong>. The Banabans' homeland was sold for fertilizer on a 999-year lease they never truly understood.
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="timeline-event">
+        <div class="timeline-event-inner">
+          <div class="event-date-large" data-parallax="0.08">
+            <time class="date-text">1942<br>1945</time>
+          </div>
+          <div class="event-content" data-parallax="0.03">
+            <div class="event-text">
+              <strong class="event-highlight">Japanese occupation.</strong> War. Internment camps. Starvation. Many died. Survivors were scattered across the Pacific, wondering if they'd ever see home again.
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="timeline-event">
+        <div class="timeline-event-inner">
+          <div class="event-date-large" data-parallax="0.08">
+            <time class="date-text" datetime="1945-12-15">Dec 15<br>1945</time>
+          </div>
+          <div class="event-content" data-parallax="0.03">
+            <div class="event-text">
+              703 souls arrived on Rabi aboard the MV Triona. <strong class="event-highlight">Tents, not houses.</strong> Cyclone season. Two months of rations. 40 elders died. But the four villages lived on.
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="timeline-event">
+        <div class="timeline-event-inner">
+          <div class="event-date-large" data-parallax="0.08">
+            <time class="date-text">1946<br>1950</time>
+          </div>
+          <div class="event-content" data-parallax="0.03">
+            <div class="event-text">
+              The four villages were <strong class="event-highlight">rebuilt on Rabi</strong>, each named after their original homes. From volcanic soil and determination, a new community rose.
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="timeline-event">
+        <div class="timeline-event-inner">
+          <div class="event-date-large" data-parallax="0.08">
+            <time class="date-text">1965</time>
+          </div>
+          <div class="event-content" data-parallax="0.03">
+            <div class="event-text">
+              The first <strong class="event-highlight">inter-village sports tournament.</strong> Netball. Volleyball. Rugby. Competition became celebration. Sport became survival.
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="timeline-event">
+        <div class="timeline-event-inner">
+          <div class="event-date-large" data-parallax="0.08">
+            <time class="date-text">1995</time>
+          </div>
+          <div class="event-content" data-parallax="0.03">
+            <div class="event-text">
+              50 years. The <strong class="event-highlight">diaspora returned</strong>—from Australia, New Zealand, across the Pacific. The tournament united thousands as one people.
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="timeline-event">
+        <div class="timeline-event-inner">
+          <div class="event-date-large" data-parallax="0.08">
+            <time class="date-text">2025</time>
+          </div>
+          <div class="event-content" data-parallax="0.03">
+            <div class="event-text">
+              <strong class="event-highlight">80 years of resilience.</strong> Four villages. One island. One unbreakable spirit. The tournament continues. The story lives on.
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <div class="skip-timeline">
+        <a href="#villages" class="skip-button">
+          <span>Skip to Villages</span>
+          <span class="skip-arrow">↓</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- VILLAGES -->
+  <section class="villages-showcase" id="villages" aria-label="Villages">
+    <div class="villages-header" data-parallax="-0.02">
+      <h2>The Four Villages</h2>
+      <p>Each carries their ancestors' spirit into every match</p>
+    </div>
+
+    <div class="villages-grid">
+      <article class="village-card uma" data-parallax="0.02" aria-labelledby="v-uma">
+        <div class="village-icon" aria-hidden="true">🔴</div>
+        <h3 class="village-name" id="v-uma">UMA</h3>
+        <p class="village-subtitle">The Resilient</p>
+        <div class="village-stats" aria-label="Statistics">
+          <div class="stat">
+            <span class="stat-number" aria-label="8 championships">8</span>
+            <div class="stat-label">Championships</div>
+          </div>
+          <div class="stat">
+            <span class="stat-number" aria-label="80 percent win rate">80%</span>
+            <div class="stat-label">Win Rate</div>
+          </div>
+        </div>
+        <div class="village-color-bar uma-bar" role="presentation"></div>
+      </article>
+
+      <article class="village-card tabwewa" data-parallax="-0.015" aria-labelledby="v-tabwewa">
+        <div class="village-icon" aria-hidden="true">🔵</div>
+        <h3 class="village-name" id="v-tabwewa">TABWEWA</h3>
+        <p class="village-subtitle">The Mighty</p>
+        <div class="village-stats">
+          <div class="stat">
+            <span class="stat-number">7</span>
+            <div class="stat-label">Championships</div>
+          </div>
+          <div class="stat">
+            <span class="stat-number">70%</span>
+            <div class="stat-label">Win Rate</div>
+          </div>
+        </div>
+        <div class="village-color-bar tabwewa-bar" role="presentation"></div>
+      </article>
+
+      <article class="village-card tabiang" data-parallax="0.012" aria-labelledby="v-tabiang">
+        <div class="village-icon" aria-hidden="true">🟡</div>
+        <h3 class="village-name" id="v-tabiang">TABIANG</h3>
+        <p class="village-subtitle">The Balanced</p>
+        <div class="village-stats">
+          <div class="stat">
+            <span class="stat-number">5</span>
+            <div class="stat-label">Championships</div>
+          </div>
+          <div class="stat">
+            <span class="stat-number">50%</span>
+            <div class="stat-label">Win Rate</div>
+          </div>
+        </div>
+        <div class="village-color-bar tabiang-bar" role="presentation"></div>
+      </article>
+
+      <article class="village-card buakonikai" data-parallax="-0.018" aria-labelledby="v-buakonikai">
+        <div class="village-icon" aria-hidden="true">🟢</div>
+        <h3 class="village-name" id="v-buakonikai">BUAKONIKAI</h3>
+        <p class="village-subtitle">The Determined</p>
+        <div class="village-stats">
+          <div class="stat">
+            <span class="stat-number">4</span>
+            <div class="stat-label">Championships</div>
+          </div>
+          <div class="stat">
+            <span class="stat-number">40%</span>
+            <div class="stat-label">Win Rate</div>
+          </div>
+        </div>
+        <div class="village-color-bar buakonikai-bar" role="presentation"></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="tournament-cta" aria-label="Enter tournament">
+    <h2>Ready for the Tournament?</h2>
+    <p>Watch four villages compete for glory. Track every match. Crown the champion.</p>
+    <a href="tournament.html" class="tournament-button">
+      <span>Enter the Arena</span>
+      <span class="button-arrow">→</span>
+    </a>
+  </section>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
