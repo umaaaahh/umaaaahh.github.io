@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Victorian Hiking Hub</title>
+  
+  <!-- Mapbox GL JS -->
+  <script src='https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js'></script>
+  <link href='https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css' rel='stylesheet' />
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  
+  <!-- Splash Page -->
+  <div id="splashPage" class="splash-page">
+    <div class="splash-header">
+      <div id="userInfo"></div>
+    </div>
+    
+    <div class="splash-content">
+      <!-- Logo Section -->
+      <div class="logo-section">
+        <div class="logo-box">
+          <svg class="logo-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+        </div>
+        <h1>Victorian Hiking Hub</h1>
+        <p class="subtitle">Discover Multi-Day Trails Across Victoria</p>
+      </div>
+      
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <button class="action-btn" onclick="showMap()">
+          <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
+          </svg>
+          <div class="btn-title">Explore Map</div>
+          <p class="btn-desc">Discover trails across Victorian national parks</p>
+        </button>
+        
+        <button class="action-btn" onclick="showMyTrips()">
+          <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+          </svg>
+          <div class="btn-title">My Trips</div>
+          <p class="btn-desc">Plan and save your hiking trips</p>
+        </button>
+      </div>
+      
+      <!-- Alerts Section -->
+      <div class="alerts-section">
+        <h2 class="section-title">
+          <svg width="32" height="32" fill="none" stroke="#dc2626" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+          </svg>
+          Current Alerts & Warnings
+        </h2>
+        <div class="alert-item alert-high">
+          <div class="alert-header">
+            <span>Fire Warning</span>
+            <span>Grampians</span>
+          </div>
+          <p class="alert-message">Total Fire Ban in effect. No campfires permitted.</p>
+          <p class="alert-date">2025-10-06</p>
+        </div>
+        <div class="alert-item alert-high">
+          <div class="alert-header">
+            <span>Track Closure</span>
+            <span>Wilsons Promontory</span>
+          </div>
+          <p class="alert-message">Roaring Meg to South Point section closed due to storm damage.</p>
+          <p class="alert-date">2025-09-20</p>
+        </div>
+        <div class="alert-item alert-medium">
+          <div class="alert-header">
+            <span>Weather Warning</span>
+            <span>Alpine National Park</span>
+          </div>
+          <p class="alert-message">High winds forecast for exposed ridges. Check conditions before hiking.</p>
+          <p class="alert-date">2025-10-05</p>
+        </div>
+      </div>
+      
+      <!-- News Section -->
+      <div class="news-section">
+        <h2 class="section-title">Victorian Bush News</h2>
+        <div class="news-item">
+          <div class="news-header">
+            <span class="news-title">New Hut Opens on Razorback Ridge</span>
+            <span class="news-date">2025-09-28</span>
+          </div>
+          <p class="news-summary">Parks Victoria has completed construction of a new emergency shelter along the popular Razorback Ridge walk.</p>
+        </div>
+        <div class="news-item">
+          <div class="news-header">
+            <span class="news-title">Spring Wildflower Season Begins</span>
+            <span class="news-date">2025-09-25</span>
+          </div>
+          <p class="news-summary">The Grampians are ablaze with color as spring wildflowers begin their spectacular display across the ranges.</p>
+        </div>
+        <div class="news-item">
+          <div class="news-header">
+            <span class="news-title">Beach Camping Bookings Open</span>
+            <span class="news-date">2025-09-20</span>
+          </div>
+          <p class="news-summary">Summer camping bookings are now open for Wilsons Promontory beach sites. Book early to secure your spot!</p>
+        </div>
+      </div>
+    </div>
+    
+    <footer>
+      Victorian Hiking Hub • Community-driven trail information
+    </footer>
+  </div>
+  
+  <!-- Map Page -->
+  <div id="mapPage" class="map-page hidden">
+    <div class="map-header">
+      <button class="back-btn" onclick="showSplash()">
+        <span style="font-size: 1.25rem;">←</span>
+        <span>Back to Home</span>
+      </button>
+      <h1 class="map-title">Victorian National Parks</h1>
+      <div style="width: 120px;"></div>
+    </div>
+    
+    <div class="map-container">
+      <div id="map"></div>
+      
+      <!-- Park Detail Sidebar -->
+      <div id="parkSidebar" class="park-sidebar">
+        <div class="sidebar-content">
+          <div class="sidebar-header">
+            <div style="flex: 1;">
+              <h2 class="park-name" id="parkName"></h2>
+              <p class="park-region" id="parkRegion"></p>
+            </div>
+            <button class="close-btn" onclick="closeSidebar()">
+              <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+              </svg>
+            </button>
+          </div>
+          
+          <h3 class="trails-title">Multi-Day Trails</h3>
+          <div id="trailsList"></div>
+        </div>
+      </div>
+      
+      <!-- Map Controls -->
+      <div class="map-controls">
+        <button class="control-btn" onclick="toggle3D()">Toggle 3D Terrain</button>
+        <button class="control-btn" onclick="toggleSatellite()">Toggle Satellite</button>
+        <button class="control-btn" onclick="resetView()">Reset View</button>
+      </div>
+    </div>
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>
