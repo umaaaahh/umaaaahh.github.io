@@ -1,266 +1,209 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rabi Island Tournament | Every Match A Battle, Every Village A Hero</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rabi Island Tournament | Four Villages, One Island, Who Will Win?</title>
+  <meta name="description" content="80 years of resilience. A living history and tournament across Rabi Island's four villages: Uma, Tabwewa, Tabiang, Buakonikai." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <!-- Loader -->
-    <div class="loader" id="loader">
-        <div class="loader-text">Loading the legend...</div>
+  <!-- NAV -->
+  <nav class="nav" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <span>🏝️</span>
+        <span>Rabi Island</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#story">History</a></li>
+        <li><a href="#villages">Villages</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-video-wrapper">
+      <video class="hero-video" autoplay muted loop playsinline preload="auto">
+        <source src="https://pub-1c602d934f9649b09216ca0d037811b0.r2.dev/landing-page-1.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1 class="hero-title">
+        <span class="title-line">Four Villages,</span>
+        <span class="title-line">One Island,</span>
+        <span class="title-line">Who Will Win?</span>
+      </h1>
+      <p class="hero-subtitle">
+        <span class="subtitle-highlight">80 Years of Resilience</span>
+        <span>•</span>
+        <time datetime="2025-12-15">December 15, 2025</time>
+      </p>
+      <a href="#story" class="cta-button">
+        <span>Begin the Journey</span>
+        <span>→</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- MINING SECTION -->
+  <section class="video-story-section mining-section autoplay-section" id="story">
+    <div class="video-sticky-container">
+      <div class="video-background">
+        <video class="story-video" id="mining-video" autoplay muted loop playsinline preload="auto">
+          <source src="https://pub-1c602d934f9649b09216ca0d037811b0.r2.dev/mining.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="video-overlay"></div>
+      <div class="story-content">
+        <div class="story-text-box" id="mining-text">
+          <div class="story-date">1900 - 1940s</div>
+          <div class="story-text">
+            From 1900, <span class="story-highlight">British-backed mining stripped away fertile surface and ancestral land.</span> By the 1940s, decades of extraction and Japanese occupation during WWII had made Banaba nearly uninhabitable. The soil was taken, but the people carried their culture with them.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIVIDER 1 -->
+  <section class="story-divider"></section>
+
+  <!-- JOURNEY SECTION -->
+  <section class="video-story-section journey-section">
+    <div class="video-sticky-container">
+      <div class="video-background">
+        <video class="story-video" id="journey-video" muted preload="auto">
+          <source src="https://pub-1c602d934f9649b09216ca0d037811b0.r2.dev/banaba-rabi-earth.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="video-overlay"></div>
+      <div class="story-content">
+        <div class="story-text-box" id="journey-text">
+          <div class="story-date">December 15, 1945</div>
+          <div class="story-text">
+            When over 1,000 Banaban people arrived on Rabi Island, Fiji, they were <span class="story-highlight">refugees of war and mining</span>, displaced from their homeland more than 2,000 kilometres away. Sport was the last thing on their minds. They carried fragments of home, faith, and memory into an uncertain future.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIVIDER 2 -->
+  <section class="story-divider"></section>
+
+  <!-- CULTURAL SECTION -->
+  <section class="video-story-section cultural-section autoplay-section">
+    <div class="video-sticky-container">
+      <div class="video-background">
+        <video class="story-video" id="cultural-video" autoplay muted loop playsinline preload="auto">
+          <source src="https://pub-1c602d934f9649b09216ca0d037811b0.r2.dev/cultural.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="video-overlay"></div>
+      <div class="story-content">
+        <div class="story-text-box" id="cultural-text">
+          <div class="story-date">1946 - Today</div>
+          <div class="story-text">
+            Rabi was rebuilt in Banaba's image. <span class="story-highlight">Four villages rose again</span>—each named after their original homes. Community grew through shared labour, faith, and moments of joy. Even in hardship, the will to play persisted. Today, sport celebrates 80 years of resilience.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VILLAGES -->
+  <section class="villages-showcase" id="villages">
+    <div class="villages-header">
+      <h2>The Four Villages</h2>
+      <p>Each carries their ancestors' spirit into every match</p>
     </div>
 
-    <!-- Cursor trail -->
-    <div class="cursor-trail" id="cursor"></div>
-
-    <!-- Navigation -->
-    <nav class="nav" id="navbar">
-        <div class="nav-container">
-            <div class="logo">Rabi Island</div>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#villages">Villages</a></li>
-                <li><a href="#history">History</a></li>
-                <li><a href="#legacy">Legacy</a></li>
-            </ul>
+    <div class="villages-grid">
+      <article class="village-card uma">
+        <div class="village-icon">🔴</div>
+        <h3 class="village-name">UMA</h3>
+        <p class="village-subtitle">The Resilient</p>
+        <div class="village-stats">
+          <div class="stat">
+            <span class="stat-number">8</span>
+            <div class="stat-label">Championships</div>
+          </div>
+          <div class="stat">
+            <span class="stat-number">80%</span>
+            <div class="stat-label">Win Rate</div>
+          </div>
         </div>
-    </nav>
+      </article>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <div class="hero-subtitle">Rabi Island 80th Anniversary Sports Tournament</div>
-            <h1 class="hero-title">
-                <div class="line"><span>Four Villages, </span></div>
-                 <div class="line"><span>One Island, </span></div>
-                <div class="line"><span>Who Will Win?</span></div>
-            </h1>
-            <p class="hero-description">Celebrating 80 years of resilience, unity, and pride through sport</p>
-            <a href="#story" class="cta-button">Begin the Journey</a>
+      <article class="village-card tabwewa">
+        <div class="village-icon">🔵</div>
+        <h3 class="village-name">TABWEWA</h3>
+        <p class="village-subtitle">The Mighty</p>
+        <div class="village-stats">
+          <div class="stat">
+            <span class="stat-number">7</span>
+            <div class="stat-label">Championships</div>
+          </div>
+          <div class="stat">
+            <span class="stat-number">70%</span>
+            <div class="stat-label">Win Rate</div>
+          </div>
         </div>
-        <div class="scroll-indicator">
-            <div>Scroll to explore ↓</div>
+      </article>
+
+      <article class="village-card tabiang">
+        <div class="village-icon">🟡</div>
+        <h3 class="village-name">TABIANG</h3>
+        <p class="village-subtitle">The Balanced</p>
+        <div class="village-stats">
+          <div class="stat">
+            <span class="stat-number">5</span>
+            <div class="stat-label">Championships</div>
+          </div>
+          <div class="stat">
+            <span class="stat-number">50%</span>
+            <div class="stat-label">Win Rate</div>
+          </div>
         </div>
-    </section>
+      </article>
 
-    <!-- Story Introduction -->
-    <section class="story-section dark" id="story">
-        <div class="container">
-            <div class="story-text">
-                <div class="story-line">It was many and many years ago,</div>
-                <div class="story-line">In a kingdom by the sea.</div>
-                <div class="story-line emphasis">That 703 souls arrived</div>
-                <div class="story-line">On an island they would call home.</div>
-            </div>
+      <article class="village-card buakonikai">
+        <div class="village-icon">🟢</div>
+        <h3 class="village-name">BUAKONIKAI</h3>
+        <p class="village-subtitle">The Determined</p>
+        <div class="village-stats">
+          <div class="stat">
+            <span class="stat-number">4</span>
+            <div class="stat-label">Championships</div>
+          </div>
+          <div class="stat">
+            <span class="stat-number">40%</span>
+            <div class="stat-label">Win Rate</div>
+          </div>
         </div>
-    </section>
+      </article>
+    </div>
+  </section>
 
-    <!-- December 15 Section -->
-    <section class="story-section teal">
-        <div class="container">
-            <div class="story-text">
-                <div class="story-line large">December 15, 1945</div>
-                <div class="story-line">A day of arrival.</div>
-                <div class="story-line">A day of survival.</div>
-                <div class="story-line emphasis">A day that would define generations.</div>
-            </div>
-        </div>
-    </section>
+  <!-- CTA -->
+  <section class="tournament-cta">
+    <h2>Ready for the Tournament?</h2>
+    <p>Watch four villages compete for glory. Track every match. Crown the champion.</p>
+    <a href="tournament.html" class="tournament-button">
+      <span>Enter the Arena</span>
+      <span>→</span>
+    </a>
+  </section>
 
-    <!-- Resilience Section -->
-    <section class="story-section light">
-        <div class="container">
-            <div class="story-text">
-                <div class="story-line">From displacement came determination.</div>
-                <div class="story-line">From hardship came unity.</div>
-                <div class="story-line large">The Banaban story is passed on with every celebration.</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Village Champions -->
-    <section class="villages-section" id="villages">
-        <div class="container">
-            <h2 class="section-title">Four Villages, One Dream</h2>
-            <p class="section-subtitle">Each village carries the spirit of their ancestors into battle</p>
-            
-            <div class="villages-grid">
-                <div class="village-card" data-delay="0">
-                    <h3 class="village-name">UMA</h3>
-                    <div class="village-stats">
-                        <div class="stat">
-                            <span class="stat-number">8</span>
-                            <div class="stat-label">Wins</div>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">2</span>
-                            <div class="stat-label">Losses</div>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">80%</span>
-                            <div class="stat-label">Win Rate</div>
-                        </div>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="--progress-width: 80%;"></div>
-                    </div>
-                </div>
-
-                <div class="village-card" data-delay="200">
-                    <h3 class="village-name">TABWEWA</h3>
-                    <div class="village-stats">
-                        <div class="stat">
-                            <span class="stat-number">7</span>
-                            <div class="stat-label">Wins</div>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">3</span>
-                            <div class="stat-label">Losses</div>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">70%</span>
-                            <div class="stat-label">Win Rate</div>
-                        </div>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="--progress-width: 70%;"></div>
-                    </div>
-                </div>
-
-                <div class="village-card" data-delay="400">
-                    <h3 class="village-name">TABIANG</h3>
-                    <div class="village-stats">
-                        <div class="stat">
-                            <span class="stat-number">5</span>
-                            <div class="stat-label">Wins</div>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">5</span>
-                            <div class="stat-label">Losses</div>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">50%</span>
-                            <div class="stat-label">Win Rate</div>
-                        </div>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="--progress-width: 50%;"></div>
-                    </div>
-                </div>
-
-                <div class="village-card" data-delay="600">
-                    <h3 class="village-name">BUAKONIKAI</h3>
-                    <div class="village-stats">
-                        <div class="stat">
-                            <span class="stat-number">4</span>
-                            <div class="stat-label">Wins</div>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">6</span>
-                            <div class="stat-label">Losses</div>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">40%</span>
-                            <div class="stat-label">Win Rate</div>
-                        </div>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="--progress-width: 40%;"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Cultural Timeline - EXPANDED -->
-    <section class="cultural-timeline" id="history">
-        <div class="container">
-            <div class="timeline-content">
-                <div class="timeline-item">
-                    <div class="timeline-date">Before 1900</div>
-                    <div class="timeline-text">
-                        The Banaban people thrived on <span class="timeline-highlight">Ocean Island (Banaba)</span>, a small coral island in the central Pacific. Four villages—Uma, Tabwewa, Tabiang, and Buakonikai—formed the heart of their community.
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-date">1900</div>
-                    <div class="timeline-text">
-                        British phosphate mining began, <span class="timeline-highlight">destroying the island's surface</span>. The Banabans' homeland was stripped away for fertilizer, sold without their true consent for a 999-year lease.
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-date">1942-1945</div>
-                    <div class="timeline-text">
-                        <span class="timeline-highlight">Japanese occupation</span> during WWII. The Banaban people endured internment camps, starvation, and brutal conditions. Many died. Survivors were scattered across the Pacific.
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-date">December 15, 1945</div>
-                    <div class="timeline-text">
-                        703 Banabans arrived on Rabi Island, Fiji aboard the MV Triona. They were given <span class="timeline-highlight">tents in cyclone season</span>, not the houses they were promised. 40 elders died that first season. But they survived.
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-date">1946-1950</div>
-                    <div class="timeline-text">
-                        The four villages were <span class="timeline-highlight">rebuilt on Rabi</span>, each named after their original homes on Banaba. From displacement came determination to preserve their identity and unity.
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-date">1965</div>
-                    <div class="timeline-text">
-                        The first inter-village sports tournament establishes traditions that would last <span class="timeline-highlight">generations</span>. Sport becomes the celebration of resilience.
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-date">1995</div>
-                    <div class="timeline-text">
-                        The 50th anniversary celebration unites <span class="timeline-highlight">diaspora communities</span> worldwide. Banabans from Fiji, Australia, New Zealand, and beyond return home.
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-date">2025</div>
-                    <div class="timeline-text">
-                        Today, we celebrate <span class="timeline-highlight">80 years of resilience</span> through sport, community, and cultural pride. Four villages. One island. One unbreakable spirit.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Legacy Section -->
-    <section class="story-section dark" id="legacy">
-        <div class="container">
-            <div class="story-text">
-                <div class="story-line">Every match tells a story.</div>
-                <div class="story-line">Every victory honors the past.</div>
-                <div class="story-line">Every celebration builds the future.</div>
-                <div class="story-line large">This is Rabi Island.</div>
-                <div class="story-line emphasis">This is our legacy.</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <h3 class="footer-title">A Living Website for a Living Culture</h3>
-            <p class="footer-subtitle">
-                Te bwinanimaua - December 15, 2025<br>
-                Celebrating 80 years of resilience, unity, and pride
-            </p>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

@@ -531,3 +531,37 @@ if (typeof window !== 'undefined') {
     updateResponsiveImages
   };
 }
+/* ========== Video Background Enhancements ========== */
+const heroVideo = document.querySelector('.hero-video');
+
+if (heroVideo) {
+  // Ensure video plays and loops properly
+  heroVideo.play().catch(err => {
+    console.log('Video autoplay prevented:', err);
+    // Fallback: Try to play on user interaction
+    document.addEventListener('click', () => {
+      heroVideo.play();
+    }, { once: true });
+  });
+
+  // Force loop to ensure it never stops
+  heroVideo.addEventListener('ended', () => {
+    heroVideo.currentTime = 0;
+    heroVideo.play();
+  });
+
+  // Handle video loading errors
+  heroVideo.addEventListener('error', (e) => {
+    console.error('Video failed to load:', e);
+    // Video wrapper will show fallback background
+  });
+
+  // Pause video when tab is not visible (performance optimization)
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      heroVideo.pause();
+    } else {
+      heroVideo.play();
+    }
+  });
+}
