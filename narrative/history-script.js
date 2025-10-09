@@ -1,9 +1,11 @@
 // ========== GSAP ScrollTrigger setup ==========
 gsap.registerPlugin(ScrollTrigger);
 
-// ========== Carousel ==========
-const carousel = document.getElementById('carousel-1');
-if (carousel) {
+// ========== Carousel (handles both carousel-1 and carousel-8) ==========
+function initCarousel(carouselId) {
+  const carousel = document.getElementById(carouselId);
+  if (!carousel) return;
+
   const images = carousel.querySelectorAll('.chapter-image');
   const dots = carousel.querySelectorAll('.dot');
   let currentIndex = 0;
@@ -12,11 +14,15 @@ if (carousel) {
   function showImage(index) {
     // Remove active class from all
     images.forEach(img => img.classList.remove('active'));
-    dots.forEach(dot => dot.classList.remove('active'));
+    dots.forEach(dot => {
+      dot.classList.remove('active');
+      dot.setAttribute('aria-selected', 'false');
+    });
 
     // Add active class to current
     images[index].classList.add('active');
     dots[index].classList.add('active');
+    dots[index].setAttribute('aria-selected', 'true');
   }
 
   function nextImage() {
@@ -51,6 +57,10 @@ if (carousel) {
   carousel.addEventListener('mouseleave', startAutoRotate);
 }
 
+// Initialize both carousels
+initCarousel('carousel-1');
+initCarousel('carousel-8');
+
 // ========== Parallax Images ==========
 const images = document.querySelectorAll('.chapter-image');
 
@@ -58,7 +68,7 @@ images.forEach(img => {
   // Skip carousel images for parallax
   if (img.closest('.carousel')) return;
   
-  const speed = img.dataset.speed || 0.5;
+  const speed = parseFloat(img.dataset.speed) || 0.5;
   
   gsap.to(img, {
     y: () => (img.offsetHeight - img.parentElement.offsetHeight) * speed,
@@ -75,11 +85,19 @@ images.forEach(img => {
 // ========== Chapter Content Animations ==========
 const chapters = document.querySelectorAll('.story-chapter');
 
-chapters.forEach((chapter, index) => {
+chapters.forEach((chapter) => {
   const number = chapter.querySelector('.chapter-number');
   const title = chapter.querySelector('.chapter-title');
   const text = chapter.querySelector('.chapter-text');
   const connection = chapter.querySelector('.chapter-connection');
+
+  // Set initial states
+  const elementsToAnimate = [number, title, text, connection].filter(el => el);
+  
+  gsap.set(elementsToAnimate, {
+    opacity: 0,
+    y: 30
+  });
 
   // Create a timeline for each chapter
   const tl = gsap.timeline({
@@ -128,6 +146,72 @@ chapters.forEach((chapter, index) => {
     }, '-=0.4');
   }
 });
+
+// ========== Hero Section Animation ==========
+const heroTitle = document.querySelector('.hero-title');
+const heroSubtitle = document.querySelector('.hero-subtitle');
+const heroScrollHint = document.querySelector('.hero-scroll-hint');
+
+if (heroTitle && heroSubtitle && heroScrollHint) {
+  gsap.set([heroTitle, heroSubtitle, heroScrollHint], {
+    opacity: 0,
+    y: 30
+  });
+
+  const heroTimeline = gsap.timeline({
+    delay: 0.2
+  });
+
+  heroTimeline
+    .to(heroTitle, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out'
+    })
+    .to(heroSubtitle, {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      ease: 'power2.out'
+    }, '-=0.5')
+    .to(heroScrollHint, {
+      opacity: 1,
+      y: 0,
+      duration: 0.6,
+      ease: 'power2.out'
+    }, '-=0.3');
+}
+
+// ========== CTA Animation ==========
+const ctaContent = document.querySelector('.cta-content');
+
+if (ctaContent) {
+  const ctaTitle = ctaContent.querySelector('h2');
+  const ctaParas = ctaContent.querySelectorAll('p');
+  const ctaButton = ctaContent.querySelector('.cta-button');
+
+  const ctaElements = [ctaTitle, ...ctaParas, ctaButton].filter(el => el);
+
+  gsap.set(ctaElements, {
+    opacity: 0,
+    y: 30
+  });
+
+  gsap.timeline({
+    scrollTrigger: {
+      trigger: ctaContent,
+      start: 'top 70%',
+      toggleActions: 'play none none reverse'
+    }
+  }).to(ctaElements, {
+    opacity: 1,
+    y: 0,
+    duration: 0.8,
+    stagger: 0.15,
+    ease: 'power2.out'
+  });
+}
 
 // ========== Smooth Scroll to Sections ==========
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {

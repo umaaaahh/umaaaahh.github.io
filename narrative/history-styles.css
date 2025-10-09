@@ -97,7 +97,7 @@ body {
   position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
   opacity:0; transition:opacity .8s ease-in-out; will-change:opacity;
 }
-.carousel .chapter-image.active{ opacity:1; } /* keep absolute, no sticky here */
+.carousel .chapter-image.active{ opacity:1; }
 .carousel-dots{
   position:absolute; bottom:2rem; left:50%; transform:translateX(-50%);
   display:flex; gap:.75rem; z-index:2;
@@ -122,7 +122,8 @@ body {
   background:linear-gradient(135deg,var(--tabiang-yellow),var(--uma-red));
   -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
 }
-.history-cta p{ font-size:clamp(1.1rem,2.5vw,1.5rem); opacity:.9; margin-bottom:3rem; line-height:1.7; }
+.history-cta p{ font-size:clamp(1.1rem,2.5vw,1.5rem); opacity:.9; margin-bottom:1rem; line-height:1.7; }
+.history-cta p:last-of-type{ margin-bottom:3rem; }
 .cta-button{
   display:inline-flex; align-items:center; gap:.75rem; padding:1.5rem 3rem;
   background:linear-gradient(135deg,var(--teal),var(--tabiang-yellow)); color:var(--navy);
