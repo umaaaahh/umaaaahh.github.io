@@ -14,26 +14,29 @@
   <!-- NAV -->
   <nav class="nav" id="navbar">
     <div class="nav-container">
-      <a href="index.html" class="logo">
-        <span>🏝️</span>
+      <a href="#home" class="logo">
+        <img src="trophy.png" alt="Trophy" class="logo-trophy">
         <span>Rabi Island</span>
       </a>
       <ul class="nav-links">
         <li><a href="#home">Home</a></li>
         <li><a href="#history">History</a></li>
-        <li><a href="#villages">Villages</a></li>
+        <li><a href="#arena">Arena</a></li>
       </ul>
     </div>
   </nav>
 
-  <!-- HERO -->
-  <section class="hero" id="home">
+  <!-- SECTION A: HERO -->
+  <section class="hero pre-enter" id="home">
     <div class="hero-video-wrapper">
       <video class="hero-video" autoplay muted loop playsinline preload="auto">
         <source src="https://pub-1c602d934f9649b09216ca0d037811b0.r2.dev/landing-page-1.mp4" type="video/mp4">
       </video>
     </div>
     <div class="hero-overlay"></div>
+    <div class="hero-trophy-bg" aria-hidden="true">
+      <img src="trophy.png" alt="">
+    </div>
     <div class="hero-content">
       <h1 class="hero-title">
         <span class="title-line">Four Villages,</span>
@@ -52,20 +55,23 @@
     </div>
   </section>
 
-  <!-- HISTORY TEASER (Journey Section) -->
-  <section class="video-story-section journey-section" id="history">
+  <!-- SECTION B: JOURNEY (History Teaser) -->
+  <!-- Default loop mode; add data-mode="scrub" to try scroll-scrub -->
+  <section class="video-story-section journey-section pre-enter" id="history" data-mode="">
     <div class="video-sticky-container">
       <div class="video-background">
-        <video class="story-video" id="journey-video" muted preload="auto">
+        <video class="story-video" id="journey-video" muted preload="auto" playsinline>
           <source src="https://pub-1c602d934f9649b09216ca0d037811b0.r2.dev/banaba-rabi-earth.mp4" type="video/mp4">
         </video>
       </div>
       <div class="video-overlay"></div>
       <div class="story-content">
         <div class="story-text-box" id="journey-text">
-          <div class="story-date">December 15, 1945</div>
+          <div class="story-date">Why We Compete</div>
           <div class="story-text">
-            Over 1,000 Banaban people arrived on Rabi Island as <span class="story-highlight">refugees of war and mining</span>, displaced from their homeland 2,000 kilometres away. From that journey of survival grew four villages, a community rebuilt, and 80 years of unbreakable spirit.
+            When the Banabans first arrived on Rabi Island on December 15, 1945, sport was the last thing on their minds.
+            Their story is one of resilience in the face of displacement. Today, we come together to honour
+            those who came before us, and to play in celebration of that enduring survival.
           </div>
           <a href="history.html" class="history-link">Explore Full History →</a>
         </div>
@@ -73,92 +79,111 @@
     </div>
   </section>
 
-  <!-- VILLAGES -->
-  <section class="villages-showcase" id="villages">
-    <div class="trophy-backdrop">
-      <img src="trophy.png" alt="">
+  <!-- SECTION C: ARENA (Villages + Tournament combined) -->
+  <section class="arena-section pre-enter" id="arena">
+    <div class="arena-inner">
+      <aside class="arena-left">
+        <div class="arena-trophy" aria-hidden="true">
+          <img src="trophy.png" alt="">
+        </div>
+        <h2 class="arena-title">The Four Villages</h2>
+        <p class="arena-subtitle">One island. One week. One champion.</p>
+
+        <a href="tournament.html" class="arena-button">
+          <span>View Tournament</span>
+          <span>→</span>
+        </a>
+
+        <ul class="arena-highlights">
+          <li><strong>Dec 15</strong> • Opening Ceremony</li>
+          <li><strong>Dec 17</strong> • Rivalry Day</li>
+          <li><strong>Dec 20</strong> • Finals</li>
+        </ul>
+      </aside>
+
+      <div class="arena-right">
+        <div class="villages-grid compact">
+          <!-- Reuse your village cards -->
+          <article class="village-card uma">
+            <div class="village-icon">🔴</div>
+            <h3 class="village-name">UMA</h3>
+            <p class="village-subtitle">The Resilient</p>
+            <div class="village-stats">
+              <div class="stat">
+                <span class="stat-number">8</span>
+                <div class="stat-label">Championships</div>
+              </div>
+              <div class="stat">
+                <span class="stat-number">80%</span>
+                <div class="stat-label">Win Rate</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="village-card tabwewa">
+            <div class="village-icon">🔵</div>
+            <h3 class="village-name">TABWEWA</h3>
+            <p class="village-subtitle">The Mighty</p>
+            <div class="village-stats">
+              <div class="stat">
+                <span class="stat-number">7</span>
+                <div class="stat-label">Championships</div>
+              </div>
+              <div class="stat">
+                <span class="stat-number">70%</span>
+                <div class="stat-label">Win Rate</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="village-card tabiang">
+            <div class="village-icon">🟡</div>
+            <h3 class="village-name">TABIANG</h3>
+            <p class="village-subtitle">The Balanced</p>
+            <div class="village-stats">
+              <div class="stat">
+                <span class="stat-number">5</span>
+                <div class="stat-label">Championships</div>
+              </div>
+              <div class="stat">
+                <span class="stat-number">50%</span>
+                <div class="stat-label">Win Rate</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="village-card buakonikai">
+            <div class="village-icon">🟢</div>
+            <h3 class="village-name">BUAKONIKAI</h3>
+            <p class="village-subtitle">The Determined</p>
+            <div class="village-stats">
+              <div class="stat">
+                <span class="stat-number">4</span>
+                <div class="stat-label">Championships</div>
+              </div>
+              <div class="stat">
+                <span class="stat-number">40%</span>
+                <div class="stat-label">Win Rate</div>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Compact fixtures/results ticker -->
+        <div class="arena-ticker" aria-label="Key fixtures">
+          <div class="ticker-row">
+            <span class="sport">Rugby</span>
+            <span class="match">UMA vs TABWEWA</span>
+            <span class="time">Sat 3:00 PM</span>
+          </div>
+          <div class="ticker-row">
+            <span class="sport">Netball</span>
+            <span class="match">TABIANG vs BUAKONIKAI</span>
+            <span class="time">Sun 11:00 AM</span>
+          </div>
+        </div>
+      </div>
     </div>
-    
-    <div class="villages-header">
-      <h2>The Four Villages</h2>
-      <p>Each carries their ancestors' spirit into every match</p>
-    </div>
-
-    <div class="villages-grid">
-      <article class="village-card uma">
-        <div class="village-icon">🔴</div>
-        <h3 class="village-name">UMA</h3>
-        <p class="village-subtitle">The Resilient</p>
-        <div class="village-stats">
-          <div class="stat">
-            <span class="stat-number">8</span>
-            <div class="stat-label">Championships</div>
-          </div>
-          <div class="stat">
-            <span class="stat-number">80%</span>
-            <div class="stat-label">Win Rate</div>
-          </div>
-        </div>
-      </article>
-
-      <article class="village-card tabwewa">
-        <div class="village-icon">🔵</div>
-        <h3 class="village-name">TABWEWA</h3>
-        <p class="village-subtitle">The Mighty</p>
-        <div class="village-stats">
-          <div class="stat">
-            <span class="stat-number">7</span>
-            <div class="stat-label">Championships</div>
-          </div>
-          <div class="stat">
-            <span class="stat-number">70%</span>
-            <div class="stat-label">Win Rate</div>
-          </div>
-        </div>
-      </article>
-
-      <article class="village-card tabiang">
-        <div class="village-icon">🟡</div>
-        <h3 class="village-name">TABIANG</h3>
-        <p class="village-subtitle">The Balanced</p>
-        <div class="village-stats">
-          <div class="stat">
-            <span class="stat-number">5</span>
-            <div class="stat-label">Championships</div>
-          </div>
-          <div class="stat">
-            <span class="stat-number">50%</span>
-            <div class="stat-label">Win Rate</div>
-          </div>
-        </div>
-      </article>
-
-      <article class="village-card buakonikai">
-        <div class="village-icon">🟢</div>
-        <h3 class="village-name">BUAKONIKAI</h3>
-        <p class="village-subtitle">The Determined</p>
-        <div class="village-stats">
-          <div class="stat">
-            <span class="stat-number">4</span>
-            <div class="stat-label">Championships</div>
-          </div>
-          <div class="stat">
-            <span class="stat-number">40%</span>
-            <div class="stat-label">Win Rate</div>
-          </div>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="tournament-cta">
-    <h2>Ready for the Tournament?</h2>
-    <p>Watch four villages compete for glory. Track every match. Crown the champion.</p>
-    <a href="tournament.html" class="tournament-button">
-      <span>Enter the Arena</span>
-      <span>→</span>
-    </a>
   </section>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
