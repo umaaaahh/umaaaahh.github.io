@@ -193,19 +193,10 @@ body {
   box-shadow: 0 14px 48px rgba(244, 162, 97, 0.55);
 }
 
-/* ========== Video Story Sections ========== */
-.video-story-section {
-  position: relative;
-}
-
-/* Autoplay sections - shorter since just background atmosphere */
-.autoplay-section {
-  height: 150vh;
-}
-
-/* Journey section - tall for smooth scrubbing */
+/* ========== History Teaser (Journey Section) ========== */
 .journey-section {
   height: 300vh;
+  position: relative;
 }
 
 .video-sticky-container {
@@ -254,7 +245,7 @@ body {
   backdrop-filter: blur(20px);
   padding: 3rem;
   border-radius: 24px;
-  border: 2px solid rgba(78, 205, 196, 0.3);
+  border: 2px solid rgba(42, 157, 143, 0.3);
   max-width: 800px;
   opacity: 0;
   transform: translateY(30px);
@@ -264,7 +255,7 @@ body {
 .story-date {
   font-size: clamp(1.5rem, 4vw, 2.5rem);
   font-weight: 900;
-  color: var(--tabiang-yellow);
+  color: var(--buakonikai-green);
   margin-bottom: 1rem;
   line-height: 1.2;
 }
@@ -273,6 +264,7 @@ body {
   font-size: clamp(1.1rem, 2vw, 1.4rem);
   line-height: 1.8;
   color: #fff;
+  margin-bottom: 1.5rem;
 }
 
 .story-highlight {
@@ -283,26 +275,54 @@ body {
   border-radius: 6px;
 }
 
-/* Section-specific colors */
-.mining-section .story-date { color: var(--uma-red); }
-.mining-section .story-text-box { border-color: rgba(230, 57, 70, 0.3); }
+.history-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--tabiang-yellow);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.1rem;
+  transition: gap 0.2s ease;
+}
 
-.journey-section .story-date { color: var(--buakonikai-green); }
-.journey-section .story-text-box { border-color: rgba(42, 157, 143, 0.3); }
-
-.cultural-section .story-date { color: var(--tabiang-yellow); }
-.cultural-section .story-text-box { border-color: rgba(244, 162, 97, 0.3); }
+.history-link:hover {
+  gap: 0.75rem;
+}
 
 /* ========== Villages ========== */
 .villages-showcase {
   padding: 6rem 2rem;
   background: linear-gradient(135deg, #1D3557, #023047);
+  position: relative;
+  overflow: hidden;
+}
+
+.trophy-backdrop {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(300px, 40vw, 600px);
+  height: clamp(300px, 40vw, 600px);
+  opacity: 0.25;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.trophy-backdrop img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: blur(2px);
 }
 
 .villages-header {
   max-width: 1200px;
   margin: 0 auto 3rem;
   text-align: center;
+  position: relative;
+  z-index: 1;
 }
 
 .villages-header h2 {
@@ -322,6 +342,8 @@ body {
   display: grid;
   gap: 2rem;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  position: relative;
+  z-index: 1;
 }
 
 .village-card {
@@ -450,23 +472,13 @@ body {
     padding: 2rem;
   }
   
-  .villages-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .autoplay-section {
-    height: 100vh;
-  }
-  
   .journey-section {
     height: 200vh;
   }
-}
-/* ========== Story Dividers ========== */
-.story-divider {
-  height: 60vh;
-  background: linear-gradient(135deg, var(--navy), var(--ocean));
-  position: relative;
+  
+  .villages-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* ========== Reduced Motion ========== */

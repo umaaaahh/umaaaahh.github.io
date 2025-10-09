@@ -19,21 +19,7 @@ window.addEventListener('scroll', () => {
 // ========== GSAP ScrollTrigger setup ==========
 gsap.registerPlugin(ScrollTrigger);
 
-// Mining Section - Text fade in only (video autoplays)
-const miningText = document.getElementById('mining-text');
-
-gsap.to(miningText, {
-  opacity: 1,
-  y: 0,
-  scrollTrigger: {
-    trigger: '.mining-section',
-    start: 'top center',
-    end: 'top top',
-    scrub: 1
-  }
-});
-
-// Journey Section - SCROLL-SCRUB VIDEO (the showcase effect!)
+// Journey Section - SCROLL-SCRUB VIDEO (plays forward and reverse)
 const journeyVideo = document.getElementById('journey-video');
 const journeyText = document.getElementById('journey-text');
 
@@ -42,13 +28,9 @@ journeyVideo.addEventListener('loadedmetadata', () => {
     trigger: '.journey-section',
     start: 'top top',
     end: 'bottom bottom',
-    scrub: 0.5,
+    scrub: 1,
     onUpdate: (self) => {
-      const targetTime = journeyVideo.duration * self.progress;
-      // Only update if difference is significant (performance optimization)
-      if (Math.abs(journeyVideo.currentTime - targetTime) > 0.1) {
-        journeyVideo.currentTime = targetTime;
-      }
+      journeyVideo.currentTime = journeyVideo.duration * self.progress;
     }
   });
 });
@@ -60,20 +42,6 @@ gsap.to(journeyText, {
     trigger: '.journey-section',
     start: 'top top',
     end: '15% top',
-    scrub: 0.5
-  }
-});
-
-// Cultural Section - Text fade in only (video autoplays)
-const culturalText = document.getElementById('cultural-text');
-
-gsap.to(culturalText, {
-  opacity: 1,
-  y: 0,
-  scrollTrigger: {
-    trigger: '.cultural-section',
-    start: 'top center',
-    end: 'top top',
     scrub: 1
   }
 });
@@ -93,7 +61,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // ========== Video playback handling ==========
-// Hero video
 const heroVideo = document.querySelector('.hero-video');
 if (heroVideo) {
   heroVideo.play().catch(err => {
@@ -101,35 +68,11 @@ if (heroVideo) {
   });
 }
 
-// Autoplay videos (mining and cultural)
-const miningVideo = document.getElementById('mining-video');
-const culturalVideo = document.getElementById('cultural-video');
-
-[miningVideo, culturalVideo].forEach(video => {
-  if (video) {
-    video.play().catch(err => {
-      console.log('Video autoplay prevented:', err);
-      // Fallback: try to play on user interaction
-      document.addEventListener('click', () => {
-        video.play();
-      }, { once: true });
-    });
-  }
-});
-
-// Pause videos when not visible (performance optimization)
+// Pause videos when not visible
 document.addEventListener('visibilitychange', () => {
   if (document.hidden) {
-    [heroVideo, miningVideo, culturalVideo].forEach(video => {
-      if (video && !video.paused) {
-        video.pause();
-      }
-    });
+    if (heroVideo && !heroVideo.paused) heroVideo.pause();
   } else {
-    [heroVideo, miningVideo, culturalVideo].forEach(video => {
-      if (video && video.paused) {
-        video.play();
-      }
-    });
+    if (heroVideo && heroVideo.paused) heroVideo.play();
   }
 });

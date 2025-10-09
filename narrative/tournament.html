@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tournament 2025 | Rabi Island</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="tournament-styles.css" />
+</head>
+<body>
+  <!-- NAV -->
+  <nav class="nav visible" id="navbar" aria-label="Primary">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <span aria-hidden="true">🏝️</span>
+        <span>Rabi Island</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="history.html">History</a></li>
+        <li><a href="tournament.html" aria-current="page">Tournament</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- SCOREBOARD -->
+  <section class="scoreboard">
+    <div class="scoreboard-container">
+      <div class="scoreboard-header">
+        <h1 class="scoreboard-title">TOURNAMENT 2025</h1>
+        <div class="live-badge" aria-live="polite">
+          <span class="pulse-dot" aria-hidden="true"></span>
+          <span>LIVE</span>
+        </div>
+        <p class="scoreboard-subtitle">80 Years of Competition • December 15–21, 2025</p>
+      </div>
+
+      <div class="standings-grid">
+        <article class="standing-card uma rank-1" aria-label="Uma standings">
+          <div class="rank-badge">1st</div>
+          <div class="village-info">
+            <div class="village-icon" aria-hidden="true">🔴</div>
+            <h3 class="village-name">UMA</h3>
+          </div>
+          <div class="points-display">
+            <span class="points-number">245</span>
+            <span class="points-label">Points</span>
+          </div>
+          <div class="trophy-count" aria-label="Trophies">
+            <span>🏐 2</span><span>🏉 1</span><span>⚽ 2</span>
+          </div>
+        </article>
+
+        <article class="standing-card tabwewa rank-2" aria-label="Tabwewa standings">
+          <div class="rank-badge">2nd</div>
+          <div class="village-info">
+            <div class="village-icon" aria-hidden="true">🔵</div>
+            <h3 class="village-name">TABWEWA</h3>
+          </div>
+          <div class="points-display">
+            <span class="points-number">232</span>
+            <span class="points-label">Points</span>
+          </div>
+          <div class="trophy-count" aria-label="Trophies">
+            <span>🏐 1</span><span>🏉 2</span><span>⚽ 1</span>
+          </div>
+        </article>
+
+        <article class="standing-card tabiang rank-3" aria-label="Tabiang standings">
+          <div class="rank-badge">3rd</div>
+          <div class="village-info">
+            <div class="village-icon" aria-hidden="true">🟡</div>
+            <h3 class="village-name">TABIANG</h3>
+          </div>
+          <div class="points-display">
+            <span class="points-number">218</span>
+            <span class="points-label">Points</span>
+          </div>
+          <div class="trophy-count" aria-label="Trophies">
+            <span>🏐 1</span><span>🏉 1</span><span>⚽ 1</span>
+          </div>
+        </article>
+
+        <article class="standing-card buakonikai rank-4" aria-label="Buakonikai standings">
+          <div class="rank-badge">4th</div>
+          <div class="village-info">
+            <div class="village-icon" aria-hidden="true">🟢</div>
+            <h3 class="village-name">BUAKONIKAI</h3>
+          </div>
+          <div class="points-display">
+            <span class="points-number">205</span>
+            <span class="points-label">Points</span>
+          </div>
+          <div class="trophy-count" aria-label="Trophies">
+            <span>🏐 1</span><span>🏉 1</span><span>⚽ 1</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALENDAR WEEK VIEW -->
+  <section class="calendar-section" aria-labelledby="calendar-title">
+    <div class="calendar-container">
+      <h2 class="calendar-title" id="calendar-title">Week Schedule</h2>
+
+      <div class="calendar-grid">
+        <!-- Sunday -->
+        <div class="day-column ceremony-day">
+          <header class="day-header">
+            <div class="day-name">Sunday</div>
+            <div class="day-date">Dec 15</div>
+          </header>
+          <div class="day-events">
+            <div class="event ceremony">
+              <div class="event-time">6:00 PM</div>
+              <div class="event-title">Opening Ceremony</div>
+              <div class="event-location">Main Arena</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Monday -->
+        <div class="day-column">
+          <header class="day-header">
+            <div class="day-name">Monday</div>
+            <div class="day-date">Dec 16</div>
+          </header>
+          <div class="day-events">
+            <div class="event volleyball completed uma-win">
+              <div class="event-time">9:00 AM</div>
+              <div class="event-sport"><span>🏐</span><span>Volleyball</span></div>
+              <div class="event-matchup"><span class="team uma">UMA</span><span class="vs">vs</span><span class="team tabwewa">TABWEWA</span></div>
+              <div class="event-location">Court 1</div>
+              <div class="winner-tag">Uma Won</div>
+            </div>
+
+            <div class="event rugby completed tabiang-win">
+              <div class="event-time">11:30 AM</div>
+              <div class="event-sport"><span>🏉</span><span>Rugby</span></div>
+              <div class="event-matchup"><span class="team tabiang">TABIANG</span><span class="vs">vs</span><span class="team buakonikai">BUAKONIKAI</span></div>
+              <div class="event-location">Rugby Pitch</div>
+              <div class="winner-tag">Tabiang Won</div>
+            </div>
+
+            <div class="event netball completed uma-win">
+              <div class="event-time">2:00 PM</div>
+              <div class="event-sport"><span>⚽</span><span>Netball</span></div>
+              <div class="event-matchup"><span class="team uma">UMA</span><span class="vs">vs</span><span class="team tabiang">TABIANG</span></div>
+              <div class="event-location">Court 2</div>
+              <div class="winner-tag">Uma Won</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tuesday -->
+        <div class="day-column today">
+          <header class="day-header">
+            <div class="day-name">Tuesday</div>
+            <div class="day-date">Dec 17</div>
+            <div class="today-badge">Today</div>
+          </header>
+          <div class="day-events">
+            <div class="event volleyball live">
+              <div class="event-time">9:00 AM</div>
+              <div class="event-sport"><span>🏐</span><span>Volleyball</span></div>
+              <div class="event-matchup"><span class="team tabiang">TABIANG</span><span class="vs">vs</span><span class="team tabwewa">TABWEWA</span></div>
+              <div class="event-location">Court 1</div>
+              <div class="live-tag"><span class="pulse-dot"></span><span>LIVE NOW</span></div>
+            </div>
+
+            <div class="event rugby upcoming">
+              <div class="event-time">11:30 AM</div>
+              <div class="event-sport"><span>🏉</span><span>Rugby</span></div>
+              <div class="event-matchup"><span class="team uma">UMA</span><span class="vs">vs</span><span class="team buakonikai">BUAKONIKAI</span></div>
+              <div class="event-location">Rugby Pitch</div>
+            </div>
+
+            <div class="event netball upcoming">
+              <div class="event-time">2:00 PM</div>
+              <div class="event-sport"><span>⚽</span><span>Netball</span></div>
+              <div class="event-matchup"><span class="team tabwewa">TABWEWA</span><span class="vs">vs</span><span class="team buakonikai">BUAKONIKAI</span></div>
+              <div class="event-location">Court 2</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Wednesday -->
+        <div class="day-column">
+          <header class="day-header">
+            <div class="day-name">Wednesday</div>
+            <div class="day-date">Dec 18</div>
+          </header>
+          <div class="day-events">
+            <div class="event volleyball upcoming">
+              <div class="event-time">9:00 AM</div>
+              <div class="event-sport"><span>🏐</span><span>Volleyball</span></div>
+              <div class="event-matchup"><span class="team uma">UMA</span><span class="vs">vs</span><span class="team buakonikai">BUAKONIKAI</span></div>
+              <div class="event-location">Court 1</div>
+            </div>
+
+            <div class="event rugby upcoming">
+              <div class="event-time">11:30 AM</div>
+              <div class="event-sport"><span>🏉</span><span>Rugby</span></div>
+              <div class="event-matchup"><span class="team tabiang">TABIANG</span><span class="vs">vs</span><span class="team tabwewa">TABWEWA</span></div>
+              <div class="event-location">Rugby Pitch</div>
+            </div>
+
+            <div class="event netball upcoming">
+              <div class="event-time">2:00 PM</div>
+              <div class="event-sport"><span>⚽</span><span>Netball</span></div>
+              <div class="event-matchup"><span class="team uma">UMA</span><span class="vs">vs</span><span class="team tabwewa">TABWEWA</span></div>
+              <div class="event-location">Court 2</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Thursday -->
+        <div class="day-column">
+          <header class="day-header">
+            <div class="day-name">Thursday</div>
+            <div class="day-date">Dec 19</div>
+          </header>
+          <div class="day-events">
+            <div class="event volleyball upcoming">
+              <div class="event-time">9:00 AM</div>
+              <div class="event-sport"><span>🏐</span><span>Volleyball</span></div>
+              <div class="event-matchup"><span class="team tabwewa">TABWEWA</span><span class="vs">vs</span><span class="team buakonikai">BUAKONIKAI</span></div>
+              <div class="event-location">Court 1</div>
+            </div>
+
+            <div class="event rugby upcoming">
+              <div class="event-time">11:30 AM</div>
+              <div class="event-sport"><span>🏉</span><span>Rugby</span></div>
+              <div class="event-matchup"><span class="team uma">UMA</span><span class="vs">vs</span><span class="team tabiang">TABIANG</span></div>
+              <div class="event-location">Rugby Pitch</div>
+            </div>
+
+            <div class="event netball upcoming">
+              <div class="event-time">2:00 PM</div>
+              <div class="event-sport"><span>⚽</span><span>Netball</span></div>
+              <div class="event-matchup"><span class="team tabiang">TABIANG</span><span class="vs">vs</span><span class="team buakonikai">BUAKONIKAI</span></div>
+              <div class="event-location">Court 2</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Friday (Finals) -->
+        <div class="day-column finals-day">
+          <header class="day-header">
+            <div class="day-name">Friday</div>
+            <div class="day-date">Dec 20</div>
+            <div class="finals-badge">Finals</div>
+          </header>
+          <div class="day-events">
+            <div class="event volleyball upcoming finals">
+              <div class="event-time">10:00 AM</div>
+              <div class="event-sport"><span>🏐</span><span>Volleyball Finals</span></div>
+              <div class="event-matchup"><span class="team uma">UMA</span><span class="vs">vs</span><span class="team tabwewa">TABWEWA</span></div>
+              <div class="event-location">Main Arena</div>
+            </div>
+
+            <div class="event rugby upcoming finals">
+              <div class="event-time">1:00 PM</div>
+              <div class="event-sport"><span>🏉</span><span>Rugby Finals</span></div>
+              <div class="event-matchup"><span class="team tabiang">TABIANG</span><span class="vs">vs</span><span class="team uma">UMA</span></div>
+              <div class="event-location">Rugby Stadium</div>
+            </div>
+
+            <div class="event netball upcoming finals">
+              <div class="event-time">4:00 PM</div>
+              <div class="event-sport"><span>⚽</span><span>Netball Finals</span></div>
+              <div class="event-matchup"><span class="team uma">UMA</span><span class="vs">vs</span><span class="team tabiang">TABIANG</span></div>
+              <div class="event-location">Main Arena</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Saturday -->
+        <div class="day-column ceremony-day">
+          <header class="day-header">
+            <div class="day-name">Saturday</div>
+            <div class="day-date">Dec 21</div>
+          </header>
+          <div class="day-events">
+            <div class="event ceremony">
+              <div class="event-time">7:00 PM</div>
+              <div class="event-title">Closing Ceremony</div>
+              <div class="event-subtitle">Champion Celebration</div>
+              <div class="event-location">Main Arena</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="tournament-cta">
+    <h2>Witness History in the Making</h2>
+    <p>80 years of tradition. 7 days of glory. One champion.</p>
+    <a href="index.html" class="cta-button">
+      <span>Back to Home</span>
+      <span aria-hidden="true">→</span>
+    </a>
+  </section>
+</body>
+</html>

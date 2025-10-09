@@ -1,44 +1,233 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>History</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Why We Compete — Rabi Island</title>
+
+  <!-- Meta / Share -->
+  <meta name="description" content="From Banaba to Rabi: why four villages compete — an 80-year story of survival, rebuilding, and pride." />
+  <meta property="og:title" content="Why We Compete — Rabi Island" />
+  <meta property="og:description" content="From Banaba to Rabi: why four villages compete — an 80-year story of survival, rebuilding, and pride." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://pub-1c602d934f9649b09216ca0d037811b0.r2.dev/rabi-tournament-crowd.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="history-styles.css" />
 </head>
 <body>
-<nav>
-  <a href="index.html">Home</a>
-  <a href="timetable.html">Timetable</a>
-  <a href="organisers.html">Organisers</a>
-  <a href="history.html" class="active">History</a>
-</nav>
+  <!-- NAV -->
+  <nav class="nav visible" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <span>🏝️</span>
+        <span>Rabi Island</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a aria-current="page" href="history.html">History</a></li>
+        <li><a href="tournament.html">Tournament</a></li>
+      </ul>
+    </div>
+  </nav>
 
-<main>
-  <section>
-    <h1>On 15 December 1945, Banaban families arrived on Rabi.</h1>
-    <p>This section will tell the story of the journey from Banaba to Rabi.</p>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1 class="hero-title">Why We Compete</h1>
+      <p class="hero-subtitle">Our story has not been easy. But it is ours.</p>
+      <div class="hero-scroll-hint">
+        <span>Scroll to begin</span>
+        <span class="scroll-arrow">↓</span>
+      </div>
+    </div>
   </section>
-  <section>
-    <h2>Before Mining</h2>
-    <p>Life on Banaba before phosphate extraction...</p>
+
+  <!-- CHAPTER 1: BANABA -->
+  <section class="story-chapter" id="chapter-1">
+    <div class="chapter-media">
+      <div class="carousel" id="carousel-1" role="region" aria-label="Banaba gallery">
+        <div class="carousel-track">
+          <img loading="lazy" src="https://pub-1c602d934f9649b09216ca0d037811b0.r2.dev/banaba-island-22.jpg" alt="Banaba Island" class="chapter-image active" data-speed="0.5">
+          <img loading="lazy" src="https://pub-1c602d934f9649b09216ca0d037811b0.r2.dev/map.jpg" alt="Banaba map" class="chapter-image" data-speed="0.5">
+          <img loading="lazy" src="https://pub-1c602d934f9649b09216ca0d037811b0.r2.dev/war-dance.jpg" alt="Historical dance" class="chapter-image" data-speed="0.5">
+        </div>
+        <div class="carousel-dots" role="tablist" aria-label="Slide navigation">
+          <button class="dot active" role="tab" aria-selected="true" data-index="0"><span class="sr-only">Slide 1</span></button>
+          <button class="dot" role="tab" aria-selected="false" data-index="1"><span class="sr-only">Slide 2</span></button>
+          <button class="dot" role="tab" aria-selected="false" data-index="2"><span class="sr-only">Slide 3</span></button>
+        </div>
+      </div>
+    </div>
+    <div class="chapter-content">
+      <div class="chapter-number">Chapter 1</div>
+      <h2 class="chapter-title">Banaba: Paradise of the Birds</h2>
+      <div class="chapter-text">
+        <p>Our story begins on Banaba—renamed by colonisers as Ocean Island—a small but beautiful island formed atop a bed of raised coral.</p>
+        <p>Favoured by seabirds, guano nourished its thin soils and a lush green dot emerged in the ocean.</p>
+        <p>But fresh water was scarce. Islanders adapted to its challenges with ingenuity.</p>
+      </div>
+      <div class="chapter-connection">
+        <p><strong>The four villages competing today</strong> were once neighbourhoods on this single island. Each family knew their land, their trees, their place in the community.</p>
+      </div>
+    </div>
   </section>
-  <section>
-    <h2>Mining Impact</h2>
-    <p>How mining changed the island...</p>
+
+  <!-- CHAPTER 2 -->
+  <section class="story-chapter" id="chapter-2">
+    <div class="chapter-media">
+      <video class="chapter-image" autoplay loop muted playsinline preload="metadata" data-speed="0.5">
+        <source src="https://pub-1c602d934f9649b09216ca0d037811b0.r2.dev/mining.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="chapter-content">
+      <div class="chapter-number">Chapter 2</div>
+      <h2 class="chapter-title">The Gift That Cursed</h2>
+      <div class="chapter-text">
+        <p>Colonial geologists found phosphate beneath the coral and soil—among the richest deposits in the Pacific.</p>
+        <p>From 1900 onward, mining stripped the land, leaving razor-sharp pinnacles where gardens once grew.</p>
+      </div>
+      <div class="chapter-connection">
+        <p><strong>They took the land, but not the identity.</strong> Village names carry what was almost lost.</p>
+      </div>
+    </div>
   </section>
-  <section>
-    <h2>War and Occupation</h2>
-    <p>Events during World War II...</p>
+
+  <!-- CHAPTER 3 -->
+  <section class="story-chapter" id="chapter-3">
+    <div class="chapter-media">
+      <video class="chapter-image" autoplay loop muted playsinline preload="metadata" data-speed="0.5">
+        <source src="https://pub-1c602d934f9649b09216ca0d037811b0.r2.dev/ww2.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="chapter-content">
+      <div class="chapter-number">Chapter 3</div>
+      <h2 class="chapter-title">A War Not Ours</h2>
+      <div class="chapter-text">
+        <p>The Second World War reached Banaba. Japanese forces occupied the island; people were exiled to labour camps across Micronesia.</p>
+        <p>Many never returned.</p>
+      </div>
+      <div class="chapter-connection">
+        <p><strong>In 1945, sport was the last thing on anyone’s mind.</strong> Survival was everything.</p>
+      </div>
+    </div>
   </section>
-  <section>
-    <h2>The Voyage</h2>
-    <p>The journey to Rabi Island...</p>
+
+  <!-- CHAPTER 4 -->
+  <section class="story-chapter" id="chapter-4">
+    <div class="chapter-media">
+      <img loading="lazy" src="https://pub-1c602d934f9649b09216ca0d037811b0.r2.dev/war-over.jpg" alt="Post-war resettlement planning" class="chapter-image" data-speed="0.5">
+    </div>
+    <div class="chapter-content">
+      <div class="chapter-number">Chapter 4</div>
+      <h2 class="chapter-title">The Broken Promise</h2>
+      <div class="chapter-text">
+        <p>When the war ended, mining resumed. Authorities declared Banaba uninhabitable and promised a new home with infrastructure and support.</p>
+        <p>Many promises went unfulfilled.</p>
+      </div>
+    </div>
   </section>
-  <section>
-    <h2>Arrival and Resilience</h2>
-    <p>Overcoming hardships and celebrating today...</p>
+
+  <!-- CHAPTER 5 -->
+  <section class="story-chapter" id="chapter-5">
+    <div class="chapter-media">
+      <img loading="lazy" src="https://pub-1c602d934f9649b09216ca0d037811b0.r2.dev/first-banaban-rabi.jpg" alt="Arrival on Rabi Island, 1945" class="chapter-image" data-speed="0.5">
+    </div>
+    <div class="chapter-content">
+      <div class="chapter-number">Chapter 5</div>
+      <h2 class="chapter-title">December 15, 1945</h2>
+      <div class="chapter-text">
+        <p>Banabans arrived on Rabi—an island bought using their royalties—during peak cyclone season.</p>
+        <p>They found tents and a month of rations. In the wet tropics, weakened by years of forced labour, many died.</p>
+      </div>
+    </div>
   </section>
-</main>
+
+  <!-- CHAPTER 6 -->
+  <section class="story-chapter" id="chapter-6">
+    <div class="chapter-media">
+      <img loading="lazy" src="https://pub-1c602d934f9649b09216ca0d037811b0.r2.dev/rabi-island-3.png" alt="First remembrance ceremony" class="chapter-image" data-speed="0.5">
+    </div>
+    <div class="chapter-content">
+      <div class="chapter-number">Chapter 6</div>
+      <h2 class="chapter-title">The First Ceremony</h2>
+      <div class="chapter-text">
+        <p>One year later, the first December 15 ceremony was held—not a celebration, but mourning and remembrance.</p>
+        <p>From grief came resolve.</p>
+      </div>
+      <div class="chapter-connection">
+        <p><strong>Rebuilding began.</strong> Uma, Tabwewa, Tabiang, Buakonikai rose again—each a promise to endure.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER 7 -->
+  <section class="story-chapter" id="chapter-7">
+    <div class="chapter-media">
+      <video class="chapter-image" autoplay loop muted playsinline preload="metadata" data-speed="0.5">
+        <source src="https://pub-1c602d934f9649b09216ca0d037811b0.r2.dev/cultural.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="chapter-content">
+      <div class="chapter-number">Chapter 7</div>
+      <h2 class="chapter-title">Finding Joy Again</h2>
+      <div class="chapter-text">
+        <p>Gardens returned. Houses and schools followed. Then came play.</p>
+        <p>Volleyball, rugby, netball—games that stitched community back together.</p>
+      </div>
+      <div class="chapter-connection">
+        <p><strong>Sport honoured the past while building the future.</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER 8: TODAY -->
+  <section class="story-chapter" id="chapter-8">
+    <div class="chapter-media">
+      <div class="carousel" id="carousel-8" role="region" aria-label="Modern tournament gallery">
+        <div class="carousel-track">
+          <img loading="lazy" src="https://pub-1c602d934f9649b09216ca0d037811b0.r2.dev/rabi-rugby-1.jpg" alt="Modern tournament" class="chapter-image active" data-speed="0.5">
+          <img loading="lazy" src="https://pub-1c602d934f9649b09216ca0d037811b0.r2.dev/rabi-rugby-2.png" alt="Rugby match" class="chapter-image" data-speed="0.5">
+          <img loading="lazy" src="https://pub-1c602d934f9649b09216ca0d037811b0.r2.dev/rabi-tournament-crowd.jpg" alt="Tournament crowd celebrating" class="chapter-image" data-speed="0.5">
+        </div>
+        <div class="carousel-dots" role="tablist" aria-label="Slide navigation">
+          <button class="dot active" role="tab" aria-selected="true" data-index="0"><span class="sr-only">Slide 1</span></button>
+          <button class="dot" role="tab" aria-selected="false" data-index="1"><span class="sr-only">Slide 2</span></button>
+          <button class="dot" role="tab" aria-selected="false" data-index="2"><span class="sr-only">Slide 3</span></button>
+        </div>
+      </div>
+    </div>
+    <div class="chapter-content">
+      <div class="chapter-number">Chapter 8</div>
+      <h2 class="chapter-title">80 Years Later</h2>
+      <div class="chapter-text">
+        <p>Today, every December 15 we celebrate.</p>
+        <p>Four villages compete with pride and the strength of those who came before.</p>
+        <p>This is not just a tournament. It’s our story written in sweat, teamwork, and unbreakable spirit.</p>
+      </div>
+      <div class="chapter-connection highlight">
+        <p><strong>This is why we compete.</strong> Not for glory alone, but to honour every ancestor who fought to give us this moment.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="history-cta">
+    <div class="cta-content">
+      <h2>Witness the Legacy</h2>
+      <p>80 years of resilience. One week of competition. Four villages honouring their ancestors.</p>
+      <a href="tournament.html" class="cta-button">
+        <span>View Tournament</span>
+        <span>→</span>
+      </a>
+    </div>
+  </section>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="history-script.js"></script>
 </body>
 </html>
