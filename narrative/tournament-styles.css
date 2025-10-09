@@ -58,8 +58,30 @@ body{
 .scoreboard{
   padding:calc(var(--nav-h) + 1.2rem) 1rem 1.2rem;
   background:linear-gradient(135deg,var(--navy),var(--ocean));
+
+  /* NEW: make this a stacking context + host the bg trophy */
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
 }
-.scoreboard-container{max-width:1280px; margin:0 auto}
+
+/* NEW: Trophy underlay behind the cards (adjust path if needed) */
+.scoreboard::before{
+  content:"";
+  position:absolute;
+  inset:auto 0 0 0;                      /* stretch left/right, anchored towards bottom */
+  top: clamp(40px, 12vh, 160px);         /* nudge down from the nav */
+  margin-inline:auto;
+  width: min(1100px, 86vw);              /* responsive size */
+  aspect-ratio: 1 / 1;                   /* tweak if your PNG isn’t square */
+  background: center/contain no-repeat url("./assets/trophy.png");
+  opacity: .18;                          /* subtle underlay */
+  z-index: 0;                            /* ensure it stays behind content */
+  pointer-events: none;                  /* never block clicks */
+  filter: drop-shadow(0 14px 34px rgba(0,0,0,.28));
+}
+
+.scoreboard-container{max-width:1280px; margin:0 auto; position: relative; z-index: 1;} /* NEW z-index */
 .scoreboard-header{text-align:center; margin-bottom:1rem}
 .scoreboard-title{
   font-size:clamp(1.8rem,4vw,3rem); font-weight:900;
@@ -80,11 +102,19 @@ body{
 .standings-grid{
   display:grid; grid-template-columns:repeat(4,minmax(0,1fr));
   gap:.75rem;
+
+  /* NEW: sit above the trophy layer */
+  position: relative;
+  z-index: 1;
 }
 .standing-card{
   background:var(--card); backdrop-filter:blur(10px);
   border-radius:14px; padding:.9rem; border:2px solid transparent;
   transition:transform .2s ease;
+
+  /* NEW: belt & braces so each card is above bg */
+  position: relative;
+  z-index: 1;
 }
 .standing-card:hover{transform:translateY(-3px)}
 .standing-card.uma{border-color:var(--uma-red)}
@@ -200,6 +230,14 @@ body{
 @media (max-width: 768px){
   .nav-links{display:none}
   .scoreboard{padding:calc(var(--nav-h) + .8rem) .8rem 1rem}
+
+  /* NEW: adjust trophy size/position on mobile */
+  .scoreboard::before{
+    top: clamp(24px, 10vh, 96px);
+    width: 92vw;
+    opacity: .22;
+  }
+
   .standings-grid{grid-template-columns:1fr; gap:.6rem}
 
   .calendar-grid{grid-template-columns:1fr; gap:.8rem; padding:.6rem}
