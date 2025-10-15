@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifeWork Slack - #contractor-cases</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="workspace-header">
+            <div class="workspace-name">
+                <img src="https://pub-de2c4bff858e4780bed5cf1c911d1333.r2.dev/lifework%20(1).png" alt="LifeWork" class="workspace-logo">
+                LifeWork Corp
+            </div>
+            <div class="workspace-status">● 14M active contractors</div>
+        </div>
+        <div class="channels">
+            <div class="channel-section">
+                <div class="section-title">Channels</div>
+                <a href="slack.html" class="channel-item active"># contractor-cases</a>
+                <a href="compliance-alerts.html" class="channel-item"># compliance-alerts <span style="color: #dc2626; margin-left: auto;">247</span></a>
+                <a href="meet-the-ais.html" class="channel-item"># meet-the-ais</a>
+                <a href="crisis-management.html" class="channel-item"># crisis-management <span style="color: #f59e0b; margin-left: auto;">12</span></a>
+                <div class="channel-item restricted">🔒 # asset-reclamation <span style="color: #9ca3af; margin-left: auto;">89</span></div>
+                <div class="channel-item restricted">🔒 # labour-reallocation <span style="color: #9ca3af; margin-left: auto;">52</span></div>
+                <div class="channel-item restricted">🔒 # firmware-updates</div>
+                <div class="channel-item restricted">🔒 # debt-collection</div>
+                <div class="channel-item restricted">🔒 # terminated-housing</div>
+            </div>
+            <div class="channel-section">
+                <div class="section-title">Direct Messages</div>
+                <div class="channel-item">ARIA (Executive AI) <span style="color: #22c55e; margin-left: auto;">●</span></div>
+                <div class="channel-item">HRU-7 (Compliance) <span style="color: #22c55e; margin-left: auto;">●</span></div>
+                <div class="channel-item">Collections-Bot-3</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="main-chat">
+        <div class="chat-header">
+            <div class="channel-name"># contractor-cases</div>
+            <div class="channel-topic">Payment default resolutions • Case management • Contract enforcement</div>
+        </div>
+        
+        <div class="messages" id="messagesContainer">
+            <div class="system-message">
+                ⚠️ <strong>Compliance Alert:</strong> This thread has been flagged for sympathetic language violations. HR monitoring active.
+            </div>
+            
+            <!-- Message 1 - Marcus (always visible) -->
+            <div class="message">
+                <div class="avatar human">MC</div>
+                <div class="message-content">
+                    <div class="message-header">
+                        <span class="username">Marcus Chen</span>
+                        <span class="timestamp">9:23 AM</span>
+                    </div>
+                    <div class="message-text">
+                        <p>Need help with Contractor #47829 - David Reeves. 47 days behind on payments after his mom died. He's back on platform now, has gigs lined up. Can we do a 60-day extension? Guy's been solid for 3 years, 4.9 stars, 98% completion rate.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Container for dynamic content -->
+            <div id="dynamicContent"></div>
+        </div>
+    </div>
+    
+    <!-- Access Denied Modal -->
+    <div class="access-denied-modal" id="accessDeniedModal">
+        <div class="access-denied-content">
+            <div class="access-denied-icon">🔒</div>
+            <div class="access-denied-title">ACCESS RESTRICTED</div>
+            <div class="access-denied-message">
+                Insufficient clearance level.<br>
+                This channel requires executive authorization.
+            </div>
+            <button class="access-denied-button" onclick="closeModal()">UNDERSTOOD</button>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+    <script>
+        // Handle restricted channel clicks
+        document.querySelectorAll('.channel-item.restricted').forEach(item => {
+            item.addEventListener('click', function() {
+                document.getElementById('accessDeniedModal').classList.add('show');
+            });
+        });
+        
+        function closeModal() {
+            document.getElementById('accessDeniedModal').classList.remove('show');
+        }
+        
+        // Close modal on background click
+        document.getElementById('accessDeniedModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

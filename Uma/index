@@ -1,78 +1,485 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Squ1d 1nc.</title>
-
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap" rel="stylesheet">
-</head>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Squ1d 1nc · UX/UI by Uma Bridges</title>
-  <link rel="stylesheet" href="css/style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>4 Round Trivia Night</title>
+  <link rel="stylesheet" href="https://unpkg.com/98.css@0.1.20/dist/98.css" />
+  <style>
+    :root {
+      --bg: #FF69B4;
+      --accent: #32CD32;
+    }
+    body {
+      margin: 0;
+      background: linear-gradient(135deg, #FF1493 0%, #FF69B4 50%, #32CD32 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 12px;
+      font-size: 16px;
+    }
+    button {
+      font-size: 16px;
+      padding: 8px 16px;
+    }
+    input, textarea, select {
+      font-size: 16px;
+      padding: 6px;
+    }
+    label {
+      font-size: 16px;
+    }
+    legend {
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .landing {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .landing .window {
+      max-width: 600px;
+      width: 100%;
+    }
+    .landing-content {
+      text-align: center;
+      padding: 20px;
+    }
+    .landing-content h1 {
+      font-size: 48px;
+      margin: 20px 0 10px;
+    }
+    .landing-content p {
+      font-size: 20px;
+      margin-bottom: 30px;
+    }
+    .landing-content .emoji {
+      font-size: 80px;
+    }
+    .app {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      flex: 1;
+    }
+    .window-body {
+      height: calc(100% - 28px);
+      overflow: auto;
+      font-size: 16px;
+    }
+    .question-display {
+      background: #ffff00;
+      border: 2px solid #000;
+      padding: 20px;
+      margin-bottom: 15px;
+      font-size: 22px;
+      font-weight: bold;
+      line-height: 1.4;
+    }
+    .answer-slots {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .answer-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .answer-number {
+      background: var(--accent);
+      color: #fff;
+      padding: 10px 16px;
+      font-weight: bold;
+      min-width: 40px;
+      text-align: center;
+      font-size: 18px;
+    }
+    .answer-row input {
+      flex: 1;
+      font-size: 18px;
+    }
+    .team-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .team-badge {
+      background: #c0c0c0;
+      padding: 6px 12px;
+      border: 2px solid;
+      border-color: #fff #808080 #808080 #fff;
+      font-size: 16px;
+    }
+    .round-btn {
+      font-size: 18px;
+      min-width: 100px;
+    }
+    .status-bar-field {
+      font-size: 16px;
+    }
+    .title-bar-text {
+      font-size: 16px;
+    }
+    @media (max-width: 900px) {
+      .app {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
-
-  <header>
-    <nav>
-      <a href="#work">Work</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
-
-    <main>
-
-        <section id="hero">
-                <h1>Squ1d 1nc.</h1>
-                <p>UX/UI Design & Creative Code by Uma Bridges</p>
-            <h2>Designing cozy chaos, one weird interface at a time.</h2>
-            <!-- Optional: Add a doodle or animation here -->
-        </section>
-
-        <section id="work">
-        <h2>Featured Work</h2>
-        <div class="project-grid">
-            <!-- You can replace these placeholders with real projects -->
-            <div class="project-card">
-            <h3>Annabel Lee</h3>
-            <p>An interactive Poem · UX, narrative, technical design</p>
-            </div>
-            <div class="project-card">
-            <h3>Overthinker’s Typing Pad</h3>
-            <p>Web tool exploring friction in writing · UX experiment</p>
-            </div>
-            <div class="project-card">
-            <h3>Squ1d Starter Kit</h3>
-            <p>Freelance workspace template · Productivity design</p>
-            </div>
+  <!-- Landing Page -->
+  <div id="landingPage" class="landing">
+    <div class="window">
+      <div class="title-bar">
+        <div class="title-bar-text">Welcome to Trivia Night</div>
+        <div class="title-bar-controls">
+          <button aria-label="Minimize"></button>
+          <button aria-label="Maximize"></button>
+          <button aria-label="Close"></button>
         </div>
-        </section>
+      </div>
+      <div class="window-body landing-content">
+        <div class="emoji">🏆</div>
+        <h1>Trivia Night</h1>
+        <p>4 Rounds of Brain-Busting Fun</p>
+        
+        <fieldset style="margin-bottom: 20px;">
+          <legend>Setup</legend>
+          <div class="field-row" style="margin-bottom: 10px;">
+            <input type="checkbox" id="isHostCheckbox" />
+            <label for="isHostCheckbox">I'm the host (I'll post questions)</label>
+          </div>
+          <p style="font-size: 14px; color: #666; margin: 10px 0;">
+            You can add player/team names on the next screen
+          </p>
+        </fieldset>
 
-        <section id="about">
-            <h2>About Uma</h2>
-            <p>I’m the creator of Squ1d 1nc — a weird little studio where I design playful, thoughtful, sometimes glitchy things. Whether it’s apps, games, or odd tools, I care about how people feel when they use stuff.</p>
-            <p>Let’s make things that are both ✨useful and strange✨.</p>
-        </section>
+        <button id="startGameBtn" style="font-size: 20px; padding: 12px 30px;">Start Game</button>
+      </div>
+    </div>
+  </div>
 
-        <section id="contact">
-            <h2>Say hi</h2>
-            <p>Email: <a href="mailto:your@email.com">your@email.com</a></p>
-            <p>Or whisper into the void (aka Instagram or LinkedIn)</p>
-        </section>
+  <!-- Main Game -->
+  <div id="gameApp" style="display: none;">
+    <header class="window">
+      <div class="title-bar">
+        <div class="title-bar-text">🎉 Trivia Night - 4 Rounds</div>
+        <div class="title-bar-controls">
+          <button aria-label="Minimize"></button>
+          <button aria-label="Maximize"></button>
+          <button aria-label="Close"></button>
+        </div>
+      </div>
+      <div class="window-body">
+        <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+          <fieldset style="flex: 1; min-width: 250px;">
+            <legend>Group/Player Names</legend>
+            <div style="display: flex; gap: 6px; margin-bottom: 8px;">
+              <input id="teamNameInput" type="text" placeholder="Enter name" style="flex: 1;" />
+              <button id="addTeamBtn">Add</button>
+            </div>
+            <div class="team-badges" id="teamBadges"></div>
+          </fieldset>
+          
+          <fieldset>
+            <legend>Select Round</legend>
+            <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+              <button id="round1Btn" class="round-btn">Round 1</button>
+              <button id="round2Btn" class="round-btn">Round 2</button>
+              <button id="round3Btn" class="round-btn">Round 3</button>
+              <button id="round4Btn" class="round-btn">Round 4</button>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+      <div class="status-bar">
+        <p class="status-bar-field" id="statusText">Round 1: General Knowledge</p>
+      </div>
+    </header>
 
-    </main>
+    <div class="app">
+      <!-- Host Panel -->
+      <section class="window" id="hostPanel">
+        <div class="title-bar">
+          <div class="title-bar-text">📝 Host Panel</div>
+          <div class="title-bar-controls">
+            <button aria-label="Close"></button>
+          </div>
+        </div>
+        <div class="window-body">
+          <fieldset>
+            <legend>Post Question Live</legend>
+            <div class="field-row-stacked">
+              <label for="questionInput">Question:</label>
+              <textarea id="questionInput" rows="5" placeholder="Type your question here..."></textarea>
+            </div>
+            <div style="display: flex; gap: 6px; justify-content: flex-end; margin-top: 10px;">
+              <button id="clearQuestionBtn">Clear</button>
+              <button id="postQuestionBtn">Post Question</button>
+            </div>
+          </fieldset>
+        </div>
+      </section>
 
-  <footer>
-    <p>&copy; 2025 Squ1d 1nc. Designed and built by Uma Bridges.</p>
-  </footer>
+      <!-- Answer Sheet -->
+      <section class="window" style="grid-column: span 1;">
+        <div class="title-bar">
+          <div class="title-bar-text">📋 Answer Sheet - <span id="roundTitle">Round 1</span></div>
+          <div class="title-bar-controls">
+            <button aria-label="Close"></button>
+          </div>
+        </div>
+        <div class="window-body">
+          <div id="liveQuestionDisplay" style="display: none;" class="question-display">
+            <div style="font-size: 14px; margin-bottom: 5px;">⚡ LIVE QUESTION</div>
+            <div id="liveQuestionText"></div>
+          </div>
+          <div id="waitingMessage" class="sunken-panel" style="padding: 25px; text-align: center; margin-bottom: 15px; font-size: 18px;">
+            Waiting for host to post question...
+          </div>
 
+          <fieldset>
+            <legend>Your Answers</legend>
+            <div class="answer-slots">
+              <div class="answer-row">
+                <span class="answer-number">1</span>
+                <input type="text" id="answer1" />
+              </div>
+              <div class="answer-row">
+                <span class="answer-number">2</span>
+                <input type="text" id="answer2" />
+              </div>
+              <div class="answer-row">
+                <span class="answer-number">3</span>
+                <input type="text" id="answer3" />
+              </div>
+              <div class="answer-row">
+                <span class="answer-number">4</span>
+                <input type="text" id="answer4" />
+              </div>
+              <div class="answer-row">
+                <span class="answer-number">5</span>
+                <input type="text" id="answer5" />
+              </div>
+            </div>
+          </fieldset>
+
+          <div style="display: flex; gap: 6px; justify-content: flex-end; margin-top: 10px;">
+            <button id="clearAnswersBtn">Clear Answers</button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <footer class="window">
+      <div class="title-bar">
+        <div class="title-bar-text">Progress</div>
+      </div>
+      <div class="window-body">
+        <div style="margin-bottom: 8px; font-size: 18px;">
+          <strong id="progressText">Round 1 of 4</strong> - <span id="progressPercent">25%</span> Complete
+        </div>
+        <div class="progress-indicator">
+          <span class="progress-indicator-bar" id="progressBar" style="width: 25%;"></span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const ROUNDS = [
+      { id: 1, name: 'General Knowledge' },
+      { id: 2, name: 'Pop Culture' },
+      { id: 3, name: 'Music' },
+      { id: 4, name: 'Sports & Geography' }
+    ];
+
+    const state = {
+      currentRound: 1,
+      teams: [],
+      liveQuestion: '',
+      isHost: false,
+      answers: {
+        1: ['', '', '', '', ''],
+        2: ['', '', '', '', ''],
+        3: ['', '', '', '', ''],
+        4: ['', '', '', '', '']
+      }
+    };
+
+    // Landing page
+    const landingPage = document.getElementById('landingPage');
+    const gameApp = document.getElementById('gameApp');
+    const startGameBtn = document.getElementById('startGameBtn');
+    const isHostCheckbox = document.getElementById('isHostCheckbox');
+
+    startGameBtn.addEventListener('click', () => {
+      state.isHost = isHostCheckbox.checked;
+      landingPage.style.display = 'none';
+      gameApp.style.display = 'flex';
+      gameApp.style.flexDirection = 'column';
+      gameApp.style.gap = '12px';
+      gameApp.style.flex = '1';
+      
+      if (!state.isHost) {
+        document.getElementById('hostPanel').style.display = 'none';
+        document.querySelector('.app').style.gridTemplateColumns = '1fr';
+      }
+      
+      persist();
+    });
+
+    // Elements
+    const teamNameInput = document.getElementById('teamNameInput');
+    const addTeamBtn = document.getElementById('addTeamBtn');
+    const teamBadges = document.getElementById('teamBadges');
+    const questionInput = document.getElementById('questionInput');
+    const postQuestionBtn = document.getElementById('postQuestionBtn');
+    const clearQuestionBtn = document.getElementById('clearQuestionBtn');
+    const liveQuestionDisplay = document.getElementById('liveQuestionDisplay');
+    const liveQuestionText = document.getElementById('liveQuestionText');
+    const waitingMessage = document.getElementById('waitingMessage');
+    const clearAnswersBtn = document.getElementById('clearAnswersBtn');
+    const statusText = document.getElementById('statusText');
+    const roundTitle = document.getElementById('roundTitle');
+    const progressText = document.getElementById('progressText');
+    const progressPercent = document.getElementById('progressPercent');
+    const progressBar = document.getElementById('progressBar');
+
+    // Add team
+    addTeamBtn.addEventListener('click', () => {
+      const name = teamNameInput.value.trim();
+      if (name) {
+        state.teams.push(name);
+        teamNameInput.value = '';
+        renderTeams();
+        persist();
+      }
+    });
+
+    teamNameInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        addTeamBtn.click();
+      }
+    });
+
+    function renderTeams() {
+      teamBadges.innerHTML = '';
+      state.teams.forEach((team, index) => {
+        const badge = document.createElement('span');
+        badge.className = 'team-badge';
+        badge.textContent = team;
+        const removeBtn = document.createElement('button');
+        removeBtn.textContent = '×';
+        removeBtn.style.cssText = 'margin-left: 6px; padding: 2px 6px; font-weight: bold;';
+        removeBtn.onclick = () => {
+          state.teams.splice(index, 1);
+          renderTeams();
+          persist();
+        };
+        badge.appendChild(removeBtn);
+        teamBadges.appendChild(badge);
+      });
+    }
+
+    // Round selection
+    document.querySelectorAll('.round-btn').forEach((btn, index) => {
+      btn.addEventListener('click', () => {
+        state.currentRound = index + 1;
+        updateRound();
+        persist();
+      });
+    });
+
+    function updateRound() {
+      const round = ROUNDS[state.currentRound - 1];
+      statusText.textContent = `Round ${round.id}: ${round.name}`;
+      roundTitle.textContent = `Round ${round.id}`;
+      progressText.textContent = `Round ${state.currentRound} of 4`;
+      const percent = (state.currentRound / 4) * 100;
+      progressPercent.textContent = `${percent}%`;
+      progressBar.style.width = `${percent}%`;
+      loadAnswers();
+    }
+
+    // Post question
+    postQuestionBtn.addEventListener('click', () => {
+      const question = questionInput.value.trim();
+      if (question) {
+        state.liveQuestion = question;
+        liveQuestionText.textContent = question;
+        liveQuestionDisplay.style.display = 'block';
+        waitingMessage.style.display = 'none';
+        questionInput.value = '';
+        persist();
+      }
+    });
+
+    clearQuestionBtn.addEventListener('click', () => {
+      questionInput.value = '';
+    });
+
+    // Answers
+    for (let i = 1; i <= 5; i++) {
+      const input = document.getElementById(`answer${i}`);
+      input.addEventListener('input', () => {
+        state.answers[state.currentRound][i - 1] = input.value;
+        persist();
+      });
+    }
+
+    function loadAnswers() {
+      for (let i = 1; i <= 5; i++) {
+        document.getElementById(`answer${i}`).value = state.answers[state.currentRound][i - 1];
+      }
+    }
+
+    clearAnswersBtn.addEventListener('click', () => {
+      state.answers[state.currentRound] = ['', '', '', '', ''];
+      loadAnswers();
+      persist();
+    });
+
+    // Persistence
+    function persist() {
+      localStorage.setItem('trivia-game', JSON.stringify(state));
+    }
+
+    function restore() {
+      const saved = localStorage.getItem('trivia-game');
+      if (saved) {
+        try {
+          const data = JSON.parse(saved);
+          state.currentRound = data.currentRound || 1;
+          state.teams = data.teams || [];
+          state.liveQuestion = data.liveQuestion || '';
+          state.answers = data.answers || state.answers;
+          state.isHost = data.isHost || false;
+          
+          if (state.liveQuestion) {
+            liveQuestionText.textContent = state.liveQuestion;
+            liveQuestionDisplay.style.display = 'block';
+            waitingMessage.style.display = 'none';
+          }
+          
+          renderTeams();
+          updateRound();
+        } catch (e) {
+          console.error('Failed to restore state', e);
+        }
+      }
+    }
+
+    // Init
+    restore();
+  </script>
 </body>
 </html>

@@ -40,6 +40,11 @@ section::after {
   background: linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,0), rgba(0,0,0,.18));
 }
 
+/* Override z-index for journey section so button is clickable */
+.journey-section::after {
+  z-index: 1;
+}
+
 /* reveal-on-enter */
 .pre-enter { opacity: 0; transform: translateY(24px); }
 .inview { opacity: 1; transform: none; transition: opacity .6s ease, transform .6s ease; }
@@ -59,7 +64,7 @@ section::after {
 .nav-container { max-width: 1200px; width: 100%; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center; gap: 2rem; }
 .logo { font-size: 1.25rem; font-weight: 800; color: var(--teal); text-decoration: none; display: flex; align-items: center; gap: .5rem; transition: transform .2s ease; }
 .logo:hover { transform: scale(1.05); }
-.logo-trophy { height: 36px; width: auto; object-fit: contain; filter: drop-shadow(0 2px 8px rgba(78, 205, 196, 0.4)); }
+.logo-trophy { height: 36px; width: auto; object-fit: contain; filter: drop-shadow(0 4px 8px rgb(255, 247, 94)); }
 .nav-links { display: flex; list-style: none; gap: 2rem; align-items: center; }
 .nav-links a { color: #fff; text-decoration: none; font-weight: 500; position: relative; transition: color 0.2s ease; }
 .nav-links a::after { content: ''; position: absolute; left: 0; bottom: -6px; height: 2px; width: 0; background: var(--teal); transition: width 0.2s ease; }
@@ -91,8 +96,8 @@ section::after {
   pointer-events: none;
 }
 .hero-trophy-bg img {
-  width: min(85vw, 900px); height: auto;
-  object-fit: contain; opacity: 0.2;
+  width: min(60vw, 600px); height: auto;
+  object-fit: contain; opacity: 0.4;
   filter: drop-shadow(0 20px 60px rgba(0,0,0,.4));
 }
 .hero-content {
@@ -139,8 +144,24 @@ section::after {
 }
 .story-date { font-size: clamp(1.5rem, 4vw, 2.5rem); font-weight: 900; color: var(--buakonikai-green); margin-bottom: 1rem; line-height: 1.2; }
 .story-text { font-size: clamp(1.1rem, 2vw, 1.4rem); line-height: 1.8; margin-bottom: 1.5rem; }
-.history-link { display: inline-flex; align-items: center; gap: .5rem; color: var(--tabiang-yellow); text-decoration: none; font-weight: 700; font-size: 1.1rem; transition: gap .2s ease; }
-.history-link:hover { gap: .75rem; }
+.history-button {
+  display: inline-flex; align-items: center; gap: .6rem; padding: .9rem 1.6rem;
+  border-radius: 999px; font-weight: 900; background: linear-gradient(135deg, var(--teal), var(--tabiang-yellow));
+  color: var(--navy); text-decoration: none; box-shadow: 0 12px 36px rgba(78,205,196,.35);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.history-button:hover { transform: translateY(-2px); box-shadow: 0 18px 44px rgba(78,205,196,.5); }
+
+.continue-button {
+  position: absolute;
+  bottom: 4rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.continue-button:hover {
+  transform: translateX(-50%) translateY(-3px);
+}
 
 /* Fallback mode for journey: show text immediately */
 .journey-section.fallback .story-text-box { opacity: 1; transform: none; }
@@ -224,7 +245,7 @@ section::after {
   .journey-section { height: 220vh; }
   .story-text-box { padding: 2rem; }
   .arena-inner { grid-template-columns: 1fr; }
-  .arena-trophy { position: static; width: min(60vw, 420px); margin-bottom: .75rem; opacity: .18; transform: none; }
+  .arena-trophy { position: static; width: min(60vw, 420px); margin: 0 auto .75rem auto; opacity: .18; transform: none; }
   @keyframes trophyFloat {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-20px); }
