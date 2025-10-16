@@ -2,13 +2,13 @@
 const conversation = [
     {
         type: 'prompt',
-        text: '💬 New response from HR.ai • Click to read'
+        text: '💬 New response from Compliance.AI • Click to read'
     },
     {
         type: 'message',
         avatar: 'ai',
         avatarText: 'HR',
-        username: 'HR.ai',
+        username: 'Compliance.AI',
         isAI: true,
         timestamp: '9:24 AM',
         content: `<p><strong>Terminology violation detected.</strong> Phrases flagged: "his mom died", "guy's been solid", "can we do"</p>
@@ -27,21 +27,24 @@ const conversation = [
         type: 'message',
         avatar: 'human',
         avatarText: 'MC',
+        avatarImage: 'https://pub-de2c4bff858e4780bed5cf1c911d1333.r2.dev/marcus.png',
         username: 'Marcus Chen',
+        badge: 'SUPPORT',
+        badgeColor: '#8b5cf6',
         isAI: false,
         timestamp: '9:27 AM',
         content: `<p>Wait. You're going to take his LIMBS? Or send him to a labour camp? He's already working again. This is insane.</p>
-        <p>@Executive.ai can someone human review this?</p>`
+        <p>@Executive.AI can someone human review this?</p>`
     },
     {
         type: 'prompt',
-        text: '💬 Executive.ai is responding • Click to read'
+        text: '💬 Executive.AI is responding • Click to read'
     },
     {
         type: 'message',
         avatar: 'ai-exec',
         avatarText: 'AI',
-        username: 'Executive.ai',
+        username: 'Executive.AI',
         isAI: true,
         timestamp: '9:28 AM',
         content: `<p>I am always monitoring, Marcus.</p>
@@ -61,20 +64,23 @@ const conversation = [
         type: 'message',
         avatar: 'human',
         avatarText: 'MC',
+        avatarImage: 'https://pub-de2c4bff858e4780bed5cf1c911d1333.r2.dev/marcus.png',
         username: 'Marcus Chen',
+        badge: 'SUPPORT',
+        badgeColor: '#8b5cf6',
         isAI: false,
         timestamp: '2:41 PM',
         content: `<p>I'll make the call.</p>`
     },
     {
         type: 'prompt',
-        text: '💬 Final message from Executive.ai • Click to read'
+        text: '💬 Final message from Executive.AI • Click to read'
     },
     {
         type: 'message',
         avatar: 'ai-exec',
         avatarText: 'AI',
-        username: 'Executive.ai',
+        username: 'Executive.AI',
         isAI: true,
         timestamp: '2:42 PM',
         content: `<p>Good choice. Performance evaluation updated: initial resistance, ultimate compliance.</p>
@@ -91,12 +97,17 @@ function scrollToBottom() {
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
 
-function showTypingIndicator(avatarClass, avatarText) {
+function showTypingIndicator(avatarClass, avatarText, avatarImage) {
     const typing = document.createElement('div');
     typing.className = 'typing-indicator';
     typing.id = 'currentTyping';
+    
+    const avatarHTML = avatarImage 
+        ? `<div class="avatar ${avatarClass}"><img src="${avatarImage}" alt="${avatarText}"></div>`
+        : `<div class="avatar ${avatarClass}">${avatarText}</div>`;
+    
     typing.innerHTML = `
-        <div class="avatar ${avatarClass}">${avatarText}</div>
+        ${avatarHTML}
         <div class="typing-dots">
             <span></span>
             <span></span>
@@ -117,11 +128,21 @@ function removeTypingIndicator() {
 function showMessage(messageData) {
     const messageDiv = document.createElement('div');
     messageDiv.className = 'message';
+    
+    const avatarHTML = messageData.avatarImage 
+        ? `<div class="avatar ${messageData.avatar}"><img src="${messageData.avatarImage}" alt="${messageData.avatarText}"></div>`
+        : `<div class="avatar ${messageData.avatar}">${messageData.avatarText}</div>`;
+    
+    const badgeHTML = messageData.badge 
+        ? `<span style="color: ${messageData.badgeColor}; font-size: 10px; padding: 2px 6px; border-radius: 3px; font-weight: 700; background: rgba(139, 92, 246, 0.2);">${messageData.badge}</span>`
+        : '';
+    
     messageDiv.innerHTML = `
-        <div class="avatar ${messageData.avatar}">${messageData.avatarText}</div>
+        ${avatarHTML}
         <div class="message-content">
             <div class="message-header">
                 <span class="username">${messageData.username}</span>
+                ${badgeHTML}
                 ${messageData.isAI ? '<span class="ai-badge">AI</span>' : ''}
                 <span class="timestamp">${messageData.timestamp}</span>
             </div>
@@ -150,7 +171,7 @@ function handlePromptClick(event) {
     // Show typing indicator
     const nextMessage = conversation[currentStep + 1];
     if (nextMessage && nextMessage.type === 'message') {
-        showTypingIndicator(nextMessage.avatar, nextMessage.avatarText);
+        showTypingIndicator(nextMessage.avatar, nextMessage.avatarText, nextMessage.avatarImage);
         
         // After 2 seconds, show the message
         setTimeout(() => {

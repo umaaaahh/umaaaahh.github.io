@@ -141,9 +141,9 @@
       <div class="title-bar">
         <div class="title-bar-text">Welcome to Trivia Night</div>
         <div class="title-bar-controls">
-          <button Executive.ai-label="Minimize"></button>
-          <button Executive.ai-label="Maximize"></button>
-          <button Executive.ai-label="Close"></button>
+          <button aria-label="Minimize"></button>
+          <button aria-label="Maximize"></button>
+          <button aria-label="Close"></button>
         </div>
       </div>
       <div class="window-body landing-content">
@@ -173,9 +173,9 @@
       <div class="title-bar">
         <div class="title-bar-text">🎉 Trivia Night - 4 Rounds</div>
         <div class="title-bar-controls">
-          <button Executive.ai-label="Minimize"></button>
-          <button Executive.ai-label="Maximize"></button>
-          <button Executive.ai-label="Close"></button>
+          <button aria-label="Minimize"></button>
+          <button aria-label="Maximize"></button>
+          <button aria-label="Close"></button>
         </div>
       </div>
       <div class="window-body">
@@ -211,7 +211,7 @@
         <div class="title-bar">
           <div class="title-bar-text">📝 Host Panel</div>
           <div class="title-bar-controls">
-            <button Executive.ai-label="Close"></button>
+            <button aria-label="Close"></button>
           </div>
         </div>
         <div class="window-body">
@@ -234,7 +234,7 @@
         <div class="title-bar">
           <div class="title-bar-text">📋 Answer Sheet - <span id="roundTitle">Round 1</span></div>
           <div class="title-bar-controls">
-            <button Executive.ai-label="Close"></button>
+            <button aria-label="Close"></button>
           </div>
         </div>
         <div class="window-body">

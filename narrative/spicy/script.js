@@ -42,8 +42,8 @@ const navLinks = $('.nav-links');
 
 if (mobileToggle && navLinks) {
   mobileToggle.addEventListener('click', () => {
-    const isExpanded = mobileToggle.getAttribute('Executive.ai-expanded') === 'true';
-    mobileToggle.setAttribute('Executive.ai-expanded', !isExpanded);
+    const isExpanded = mobileToggle.getAttribute('aria-expanded') === 'true';
+    mobileToggle.setAttribute('aria-expanded', !isExpanded);
     navLinks.classList.toggle('open');
     document.body.style.overflow = !isExpanded ? 'hidden' : '';
   });
@@ -51,7 +51,7 @@ if (mobileToggle && navLinks) {
   // Close menu when clicking links
   $$('.nav-links a').forEach(link => {
     link.addEventListener('click', () => {
-      mobileToggle.setAttribute('Executive.ai-expanded', 'false');
+      mobileToggle.setAttribute('aria-expanded', 'false');
       navLinks.classList.remove('open');
       document.body.style.overflow = '';
     });
@@ -60,7 +60,7 @@ if (mobileToggle && navLinks) {
   // Close menu on escape
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && navLinks.classList.contains('open')) {
-      mobileToggle.setAttribute('Executive.ai-expanded', 'false');
+      mobileToggle.setAttribute('aria-expanded', 'false');
       navLinks.classList.remove('open');
       document.body.style.overflow = '';
     }
@@ -78,8 +78,8 @@ if (mobileToggle && navLinks) {
   if (!toggle || !menu) return;
 
   const open = (state) => {
-    dd.setAttribute('Executive.ai-expanded', String(state));
-    toggle.setAttribute('Executive.ai-expanded', String(state));
+    dd.setAttribute('aria-expanded', String(state));
+    toggle.setAttribute('aria-expanded', String(state));
     
     if (state) {
       // Focus first menu item
@@ -92,7 +92,7 @@ if (mobileToggle && navLinks) {
 
   toggle.addEventListener('click', (e) => {
     e.stopPropagation();
-    const isOpen = dd.getAttribute('Executive.ai-expanded') === 'true';
+    const isOpen = dd.getAttribute('aria-expanded') === 'true';
     open(!isOpen);
   });
 
@@ -161,7 +161,7 @@ if (timelineEvents.length) {
         const idx = timelineEvents.indexOf(entry.target);
         if (navDots.length && idx > -1) {
           navDots.forEach((d, i) => {
-            d.setAttribute('Executive.ai-current', i === idx ? 'true' : 'false');
+            d.setAttribute('aria-current', i === idx ? 'true' : 'false');
           });
         }
       });
@@ -384,7 +384,7 @@ if (timelineHeader && !prefersReduced) {
 const createScrollProgress = () => {
   const progressBar = document.createElement('div');
   progressBar.className = 'scroll-progress';
-  progressBar.setAttribute('Executive.ai-hidden', 'true');
+  progressBar.setAttribute('aria-hidden', 'true');
   
   Object.assign(progressBar.style, {
     position: 'fixed',

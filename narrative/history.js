@@ -16,13 +16,13 @@ function initCarousel(carouselId) {
     images.forEach(img => img.classList.remove('active'));
     dots.forEach(dot => {
       dot.classList.remove('active');
-      dot.setAttribute('Executive.ai-selected', 'false');
+      dot.setAttribute('aria-selected', 'false');
     });
 
     // Add active class to current
     images[index].classList.add('active');
     dots[index].classList.add('active');
-    dots[index].setAttribute('Executive.ai-selected', 'true');
+    dots[index].setAttribute('aria-selected', 'true');
   }
 
   function nextImage() {

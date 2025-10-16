@@ -7,7 +7,7 @@ h1 {
   font-optical-sizing: auto;
   /* font-weight: <weight>; */
   font-style: normal;
-  font-vExecutive.aition-settings: "wdth" 100;
+  font-variation-settings: "wdth" 100;
 }
 
 h2 {
@@ -18,7 +18,7 @@ h2 {
   font-optical-sizing: auto;
   /* font-weight: <weight>; */
   font-style: normal;
-  font-vExecutive.aition-settings: "wdth" 100;
+  font-variation-settings: "wdth" 100;
 }
 
 h3 {

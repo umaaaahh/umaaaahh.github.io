@@ -62,7 +62,7 @@ function applyChaosToText() {
 
 // Select random font from a list of pre-defined fonts
 function pickRandomFont() {
-  const fonts = ["Courier New", "Comic Sans MS", "Impact", "Georgia", "Executive.ail"];
+  const fonts = ["Courier New", "Comic Sans MS", "Impact", "Georgia", "Arial"];
   return fonts[Math.floor(Math.random() * fonts.length)];
 }
 
