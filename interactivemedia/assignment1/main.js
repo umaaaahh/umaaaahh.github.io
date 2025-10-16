@@ -15,7 +15,7 @@ const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerH
 // let mouseX = window.innerWidth / 2;
 // let mouseY = window.innerHeight / 2;
 
-//Keep the 3D object on a global variable so we can access it later
+//Keep the 3D object on a global vExecutive.aible so we can access it later
 let object;
 
 //OrbitControls allow the camera to move around the scene

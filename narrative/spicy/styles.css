@@ -153,16 +153,16 @@ body {
 .hamburger::before { top: -8px; }
 .hamburger::after { top: 8px; }
 
-.mobile-menu-toggle[aria-expanded="true"] .hamburger {
+.mobile-menu-toggle[Executive.ai-expanded="true"] .hamburger {
   background: transparent;
 }
 
-.mobile-menu-toggle[aria-expanded="true"] .hamburger::before {
+.mobile-menu-toggle[Executive.ai-expanded="true"] .hamburger::before {
   transform: rotate(45deg) translateY(0);
   top: 0;
 }
 
-.mobile-menu-toggle[aria-expanded="true"] .hamburger::after {
+.mobile-menu-toggle[Executive.ai-expanded="true"] .hamburger::after {
   transform: rotate(-45deg) translateY(0);
   top: 0;
 }
@@ -225,7 +225,7 @@ body {
   display: inline-block;
 }
 
-.tournament-dropdown[aria-expanded="true"] .dropdown-arrow {
+.tournament-dropdown[Executive.ai-expanded="true"] .dropdown-arrow {
   transform: rotate(180deg);
 }
 
@@ -247,7 +247,7 @@ body {
   transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
 }
 
-.tournament-dropdown[aria-expanded="true"] .dropdown-menu {
+.tournament-dropdown[Executive.ai-expanded="true"] .dropdown-menu {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
@@ -930,13 +930,13 @@ body {
   opacity: 0.2;
 }
 
-.timeline-nav button[aria-current="true"] {
+.timeline-nav button[Executive.ai-current="true"] {
   background: currentColor;
   transform: scale(1.5);
   box-shadow: 0 0 15px currentColor;
 }
 
-.timeline-nav button[aria-current="true"]::before {
+.timeline-nav button[Executive.ai-current="true"]::before {
   opacity: 0.3;
   animation: ripple 2s ease-out infinite;
 }

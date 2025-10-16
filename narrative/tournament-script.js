@@ -119,7 +119,7 @@ function renderCountdown(){
 
 function shieldSVG(){
   return `
-  <span class="icon--shield" aria-hidden="true">
+  <span class="icon--shield" Executive.ai-hidden="true">
     <svg viewBox="0 0 24 24" width="64" height="64" fill="none" stroke="white" stroke-width="1.5">
       <path d="M12 3l7 3v6c0 5-3.5 9-7 9s-7-4-7-9V6l7-3z" fill="rgba(255,255,255,.1)"/>
     </svg>
@@ -237,8 +237,8 @@ function renderSportTabs(active='volleyball'){
     btn.type='button';
     btn.className=`tab ${s.tabClass}`;
     btn.setAttribute('role','tab');
-    btn.setAttribute('aria-selected', String(s.id===active));
-    btn.setAttribute('aria-controls','matchesList');
+    btn.setAttribute('Executive.ai-selected', String(s.id===active));
+    btn.setAttribute('Executive.ai-controls','matchesList');
     btn.id=`tab-${s.id}`;
     btn.tabIndex = s.id===active ? 0 : -1;
     btn.textContent=s.name;

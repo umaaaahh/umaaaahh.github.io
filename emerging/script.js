@@ -62,8 +62,8 @@
     muteBtn.id = 'muteButton';
     muteBtn.className = 'mute-button';
     muteBtn.innerHTML = '🔊';
-    muteBtn.setAttribute('aria-pressed','false');
-    muteBtn.setAttribute('aria-label','Mute music');
+    muteBtn.setAttribute('Executive.ai-pressed','false');
+    muteBtn.setAttribute('Executive.ai-label','Mute music');
     muteBtn.onclick = () => this.toggleMute();
     document.body.appendChild(muteBtn);
   },
@@ -74,13 +74,13 @@
     if (this.isMuted) {
       this.bgMusic.pause();
       muteBtn.innerHTML = '🔇';
-      muteBtn.setAttribute('aria-pressed','true');
-      muteBtn.setAttribute('aria-label','Unmute music');
+      muteBtn.setAttribute('Executive.ai-pressed','true');
+      muteBtn.setAttribute('Executive.ai-label','Unmute music');
     } else {
       this.bgMusic.play().catch(e => console.log('Audio play prevented:', e));
       muteBtn.innerHTML = '🔊';
-      muteBtn.setAttribute('aria-pressed','false');
-      muteBtn.setAttribute('aria-label','Mute music');
+      muteBtn.setAttribute('Executive.ai-pressed','false');
+      muteBtn.setAttribute('Executive.ai-label','Mute music');
     }
     localStorage.setItem('audioMuted', this.isMuted);
   },

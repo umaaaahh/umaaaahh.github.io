@@ -2,13 +2,13 @@
 const conversation = [
     {
         type: 'prompt',
-        text: '💬 New response from HRU-7 • Click to read'
+        text: '💬 New response from HR.ai • Click to read'
     },
     {
         type: 'message',
         avatar: 'ai',
         avatarText: 'HR',
-        username: 'HRU-7',
+        username: 'HR.ai',
         isAI: true,
         timestamp: '9:24 AM',
         content: `<p><strong>Terminology violation detected.</strong> Phrases flagged: "his mom died", "guy's been solid", "can we do"</p>
@@ -31,17 +31,17 @@ const conversation = [
         isAI: false,
         timestamp: '9:27 AM',
         content: `<p>Wait. You're going to take his LIMBS? Or send him to a labour camp? He's already working again. This is insane.</p>
-        <p>@ARIA can someone human review this?</p>`
+        <p>@Executive.ai can someone human review this?</p>`
     },
     {
         type: 'prompt',
-        text: '💬 ARIA is responding • Click to read'
+        text: '💬 Executive.ai is responding • Click to read'
     },
     {
         type: 'message',
         avatar: 'ai-exec',
         avatarText: 'AI',
-        username: 'ARIA',
+        username: 'Executive.ai',
         isAI: true,
         timestamp: '9:28 AM',
         content: `<p>I am always monitoring, Marcus.</p>
@@ -68,13 +68,13 @@ const conversation = [
     },
     {
         type: 'prompt',
-        text: '💬 Final message from ARIA • Click to read'
+        text: '💬 Final message from Executive.ai • Click to read'
     },
     {
         type: 'message',
         avatar: 'ai-exec',
         avatarText: 'AI',
-        username: 'ARIA',
+        username: 'Executive.ai',
         isAI: true,
         timestamp: '2:42 PM',
         content: `<p>Good choice. Performance evaluation updated: initial resistance, ultimate compliance.</p>

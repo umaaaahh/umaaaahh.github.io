@@ -190,9 +190,9 @@ const PARKS = [
           'Starts in Walhalla, ends at NSW border',
           'Crosses Mount Bogong, Bogong High Plains, Falls Creek',
           'Multiple resupply points at Mt Baw Baw, Mt Hotham, Falls Creek',
-          'Highly variable track quality - navigation skills essential'
+          'Highly vExecutive.aible track quality - navigation skills essential'
         ],
-        routeNotes: 'Track follows ridges and high plains. Many route variations exist, especially in wilderness areas. GPS recommended.'
+        routeNotes: 'Track follows ridges and high plains. Many route vExecutive.aitions exist, especially in wilderness areas. GPS recommended.'
       }
     ]
   },
@@ -371,7 +371,7 @@ const PARKS = [
             elevation: 800,
             description: 'WILDERNESS ROUTE: Experienced hikers only. Undefined tracks, navigation essential.',
             routeOptions: [
-              'Multiple route variations exist',
+              'Multiple route vExecutive.aitions exist',
               'Track marked only with flagging tape in sections',
               'Requires advanced navigation and bushwalking skills',
               'Must complete Hiker Self-Assessment before permits issued'
@@ -739,7 +739,7 @@ function addParkPolygons() {
         'text-size': 13,
         'text-anchor': 'center',
         'text-offset': [0, 0],
-        'text-font': ['DIN Pro Medium', 'Arial Unicode MS Regular']
+        'text-font': ['DIN Pro Medium', 'Executive.ail Unicode MS Regular']
       },
       paint: {
         'text-color': '#059669',
