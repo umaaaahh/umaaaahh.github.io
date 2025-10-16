@@ -37,10 +37,8 @@ body {
 }
 
 .workspace-logo {
-    width: 32px;
-    height: 32px;
+    height: 100px;
     object-fit: contain;
-    flex-shrink: 0;
 }
 
 .workspace-status {
