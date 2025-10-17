@@ -1,145 +1,585 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Tournament 2025 — Four Villages. One Spirit.</title>
-
-  <!-- Tailwind CDN for rapid styling (keeps CSS file small) -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Lucide icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
-
-  <!-- App styles -->
-  <link rel="stylesheet" href="tournament-styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tournament 2025 | Rabi Island</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="tournament.css">
 </head>
-<body class="min-h-screen bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 text-white antialiased">
 
-  <!-- Hero -->
-  <header class="relative overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-red-600/20 to-yellow-500/20"></div>
-    <div class="relative max-w-7xl mx-auto px-4 py-16 md:py-20 text-center">
-      <p class="mb-3 text-amber-400 text-xs sm:text-sm font-semibold tracking-widest uppercase">
-        December 15–21, 2025
-      </p>
-      <h1 class="text-5xl md:text-8xl font-black mb-6 bg-gradient-to-r from-blue-400 via-red-400 to-yellow-400 bg-clip-text text-transparent">
-        TOURNAMENT 2025
-      </h1>
-      <p class="text-xl md:text-3xl mb-2 text-slate-300">80 years of resilience</p>
-      <p class="text-lg md:text-2xl mb-12 text-amber-400 font-semibold">Four villages. One unstoppable spirit.</p>
+<body>
+  <!-- NAV -->
+  <nav class="nav visible" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <img src="trophy.png" alt="Trophy" class="logo-trophy">
+        <span>Rabi Island Tournament</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="history.html">History</a></li>
+        <li><a href="tournament.html">Tournament</a></li>
+      </ul>
+    </div>
+  </nav>
 
+  <!-- Hero Section with Video -->
+  <section class="hero">
+    <div class="hero-video-wrapper">
+      <video class="hero-video" autoplay muted loop playsinline preload="auto">
+        <source src="https://pub-1c602d934f9649b09216ca0d037811b0.r2.dev/landing-page-1.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-date">December 15–21, 2025</div>
+      <h1 class="hero-title">TOURNAMENT 2025</h1>
+      <p class="hero-subtitle">80 years of resilience</p>
+      <p class="hero-subtitle">7 days of competition</p>
+      <p class="hero-tagline">Four villages. One unstoppable spirit.</p>
+      
       <!-- Countdown -->
-      <div id="countdown" class="flex justify-center gap-3 md:gap-6 mb-8"></div>
-      <p class="text-slate-400 italic">Celebrating our survival. Honoring those who came before.</p>
-    </div>
-  </header>
-
-  <!-- Last Year Results -->
-  <section class="max-w-6xl mx-auto px-4 py-16">
-    <div class="bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-sm border-2 border-yellow-500/30 rounded-2xl p-6 md:p-10 relative overflow-hidden">
-      <div class="absolute inset-0 bg-gradient-to-br from-yellow-500/5 via-transparent to-red-500/5 pointer-events-none"></div>
-
-      <div class="relative z-10">
-        <div class="text-center mb-10">
-          <div class="inline-flex items-center gap-3 mb-4">
-            <div class="h-px w-12 bg-gradient-to-r from-transparent to-yellow-500"></div>
-            <span class="text-yellow-400 text-sm font-bold tracking-widest uppercase">2024 Results</span>
-            <div class="h-px w-12 bg-gradient-to-l from-transparent to-yellow-500"></div>
-          </div>
-          <h2 class="text-3xl md:text-5xl font-black mb-4 bg-gradient-to-r from-yellow-400 via-red-400 to-blue-400 bg-clip-text text-transparent">
-            Unfinished Business
-          </h2>
-          <p class="text-lg md:text-xl text-slate-300 mb-2">The underdogs shocked the capital.</p>
-          <p class="text-base md:text-lg text-slate-400 italic">The controversy still echoes…</p>
+      <div class="countdown" id="countdown">
+        <div class="countdown-item">
+          <div class="countdown-number" id="days">0</div>
+          <div class="countdown-label">days</div>
         </div>
+        <div class="countdown-item">
+          <div class="countdown-number" id="hours">0</div>
+          <div class="countdown-label">hours</div>
+        </div>
+        <div class="countdown-item">
+          <div class="countdown-number" id="minutes">0</div>
+          <div class="countdown-label">minutes</div>
+        </div>
+        <div class="countdown-item">
+          <div class="countdown-number" id="seconds">0</div>
+          <div class="countdown-label">seconds</div>
+        </div>
+      </div>
+      
+      <p class="hero-footer">Celebrating our survival. Honoring those who came before.</p>
+    </div>
+  </section>
 
-        <div id="standingsGrid" class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8"></div>
-
-        <div class="space-y-4 max-w-2xl mx-auto">
-          <div class="bg-slate-900/50 border border-red-500/30 rounded-lg p-4 text-center">
-            <p class="text-sm text-slate-300">
-              <span class="text-red-400 font-bold">*</span>
-              <span class="italic ml-2">Disputed finish in the final match</span>
+  <!-- Drama Section -->
+  <section class="drama-section">
+    <div class="container">
+      <div class="drama-card">
+        <div class="drama-header">
+          <div class="drama-badge">
+            <div class="drama-line"></div>
+            <span class="drama-badge-text">2024 Results</span>
+            <div class="drama-line" style="transform: scaleX(-1);"></div>
+          </div>
+          <h2 class="drama-title">Unfinished Business</h2>
+          <p class="drama-text">The underdogs shocked the capital.</p>
+          <p class="drama-subtext">The controversy still echoes...</p>
+        </div>
+        
+        <div class="standings-grid">
+          <div class="standing-card champion">
+            <svg class="trophy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+            </svg>
+            <div class="standing-number text-yellow">1</div>
+            <div class="standing-village">Tabiang</div>
+            <div class="controversy-badge">*</div>
+          </div>
+          
+          <div class="standing-card second">
+            <div class="standing-number text-blue">2</div>
+            <div class="standing-village">Tabwewa</div>
+          </div>
+          
+          <div class="standing-card third">
+            <div class="standing-number text-red">3</div>
+            <div class="standing-village">Uma</div>
+          </div>
+          
+          <div class="standing-card fourth">
+            <div class="standing-number text-green">4</div>
+            <div class="standing-village">Buakonikai</div>
+          </div>
+        </div>
+        
+        <div class="drama-details">
+          <div class="drama-note">
+            <p class="drama-note-text">
+              <span style="color: #f87171; font-weight: 700;">*</span>
+              <span style="margin-left: 0.5rem; font-style: italic;">Disputed finish in the final match</span>
             </p>
           </div>
-
-          <div class="grid md:grid-cols-2 gap-4 text-center text-sm">
-            <div class="bg-blue-500/10 border border-blue-500/30 rounded-lg p-4">
-              <div class="text-blue-400 font-bold mb-1">The Capital's Question</div>
-              <div class="text-slate-400">Did Tabwewa get robbed?</div>
+          
+          <div class="drama-questions">
+            <div class="drama-question">
+              <div class="drama-question-title">The Capital's Question</div>
+              <div class="drama-question-text">Did Tabwewa get robbed?</div>
             </div>
-            <div class="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-4">
-              <div class="text-yellow-400 font-bold mb-1">The Underdog's Pride</div>
-              <div class="text-slate-400">Can Tabiang prove it wasn't luck?</div>
+            <div class="drama-question yellow">
+              <div class="drama-question-title">The Underdog's Pride</div>
+              <div class="drama-question-text">Can Tabiang prove it wasn't luck?</div>
             </div>
           </div>
 
-          <div class="text-center pt-4">
-            <p class="text-xl font-bold text-transparent bg-gradient-to-r from-red-400 to-yellow-400 bg-clip-text">
-              This year, they settle it on the field.
-            </p>
+          <div class="drama-conclusion">
+            <p class="drama-conclusion-text">This year, they settle it on the field.</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Four Villages -->
-  <section class="max-w-7xl mx-auto px-4 py-16">
-    <div class="text-center mb-12">
-      <h2 class="text-3xl md:text-5xl font-bold mb-4">The Four Villages</h2>
-      <p class="text-lg md:text-xl text-slate-400">Bound by blood, history, and resilience</p>
-    </div>
-    <div id="villagesGrid" class="grid grid-cols-2 md:grid-cols-4 gap-6"></div>
-  </section>
-
-  <!-- Schedule -->
-  <section class="max-w-[1600px] mx-auto px-4 py-16">
-    <div class="text-center mb-8">
-      <h2 class="text-3xl md:text-5xl font-bold text-teal-400 mb-2">Week Schedule</h2>
-    </div>
-    <div id="scheduleGrid" class="grid grid-cols-1 sm:grid-cols-7 gap-2 md:gap-3"></div>
-  </section>
-
-  <!-- Brackets & Tabs -->
-  <section class="max-w-5xl mx-auto px-4 py-16">
-    <div class="text-center mb-8">
-      <div class="inline-flex items-center gap-2 mb-4">
-        <i data-lucide="trophy" class="w-8 h-8 text-amber-400"></i>
-        <h2 class="text-3xl md:text-5xl font-bold">Round Robin Brackets</h2>
+  <!-- Villages Section -->
+  <section class="villages-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">The Four Villages</h2>
+        <p class="section-subtitle">Bound by blood, history, and resilience</p>
       </div>
-      <p class="text-slate-400">Every village plays every other village — top scorers advance</p>
-    </div>
-
-    <!-- Tabs -->
-    <div id="sportTabs"
-         class="flex justify-center gap-2 mb-8 flex-wrap"
-         role="tablist" aria-label="Sport tabs">
-    </div>
-
-    <!-- Content -->
-    <div class="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-lg p-6 md:p-8">
-      <div class="grid md:grid-cols-2 gap-8">
-        <div>
-          <h4 class="text-lg font-semibold text-slate-300 mb-4">Matches</h4>
-          <div id="matchesList" class="space-y-3"></div>
+      
+      <div class="villages-grid">
+        <div class="village-card">
+          <div class="village-shield blue">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+            </svg>
+          </div>
+          <div class="village-content">
+            <h3 class="village-name">Tabwewa</h3>
+            <div class="village-title">The Capital</div>
+            <p class="village-tagline">Lead with pride. Win with grace.</p>
+            <p class="village-motto">Dignity on the field, dominance in the game</p>
+          </div>
         </div>
-        <div>
-          <h4 class="text-lg font-semibold text-slate-300 mb-4">Standings</h4>
-          <div class="bg-slate-700/50 rounded-lg overflow-hidden">
-            <table class="w-full text-sm">
-              <thead class="bg-slate-600/50">
-                <tr>
-                  <th class="text-left p-3 text-slate-400 font-semibold">#</th>
-                  <th class="text-left p-3 text-slate-400 font-semibold">Village</th>
-                  <th class="text-center p-3 text-slate-400 font-semibold">W</th>
-                  <th class="text-center p-3 text-slate-400 font-semibold">L</th>
-                  <th class="text-center p-3 text-slate-400 font-semibold">Pts</th>
-                </tr>
-              </thead>
-              <tbody id="standingsTableBody"></tbody>
-            </table>
+        
+        <div class="village-card">
+          <div class="village-shield red">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+            </svg>
+          </div>
+          <div class="village-content">
+            <h3 class="village-name">Uma</h3>
+            <div class="village-title">The Warriors</div>
+            <p class="village-tagline">The heart that never backs down</p>
+            <p class="village-motto">When Uma believes, Uma fights</p>
+          </div>
+        </div>
+        
+        <div class="village-card">
+          <div class="village-shield yellow">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+            </svg>
+          </div>
+          <div class="village-content">
+            <h3 class="village-name">Tabiang</h3>
+            <div class="village-title">The Underdogs</div>
+            <p class="village-tagline">Laugh loudest. Play hardest.</p>
+            <p class="village-motto">Humble on arrival. Champions at departure.</p>
+          </div>
+        </div>
+        
+        <div class="village-card">
+          <div class="village-shield green">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+            </svg>
+          </div>
+          <div class="village-content">
+            <h3 class="village-name">Buakonikai</h3>
+            <div class="village-title">The Wild Ones</div>
+            <p class="village-tagline">Beauty. Tradition. Power.</p>
+            <p class="village-motto">Remote but never forgotten</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Schedule Section -->
+  <section class="schedule-section">
+    <div class="container-wide">
+      <h2 class="schedule-title">Week Schedule</h2>
+      
+      <div class="schedule-grid">
+        <!-- Sunday -->
+        <div class="day-column">
+          <div class="day-header">
+            <div class="day-name">Sunday</div>
+            <div class="day-date">Dec 15</div>
+          </div>
+          <div class="day-events">
+            <div class="event ceremony">
+              <div class="event-time">9:00 AM</div>
+              <div class="event-title">Village Marches Begin</div>
+              <div class="event-location">Main Street</div>
+            </div>
+            <div class="event ceremony">
+              <div class="event-time">11:30 AM</div>
+              <div class="event-title">Traditional Performances</div>
+              <div class="event-location">Main Arena</div>
+            </div>
+            <div class="event ceremony">
+              <div class="event-time">2:00 PM</div>
+              <div class="event-title">Elder Speeches</div>
+              <div class="event-subtitle">Honoring the past</div>
+              <div class="event-location">Main Arena</div>
+            </div>
+            <div class="event ceremony">
+              <div class="event-time">6:00 PM</div>
+              <div class="event-title">Opening Ceremony</div>
+              <div class="event-subtitle">Official start</div>
+              <div class="event-location">Main Arena</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Monday -->
+        <div class="day-column">
+          <div class="day-header">
+            <div class="day-name">Monday</div>
+            <div class="day-date">Dec 16</div>
+          </div>
+          <div class="day-events">
+            <div class="event volleyball">
+              <div class="event-time">9:00 AM</div>
+              <div class="event-title">Volleyball</div>
+              <div class="event-matchup">
+                <span class="team-name blue">TABWEWA</span>
+                <span class="vs">vs</span>
+                <span class="team-name red">UMA</span>
+              </div>
+              <div class="event-location">Court 1</div>
+            </div>
+            <div class="event rugby">
+              <div class="event-time">11:30 AM</div>
+              <div class="event-title">Rugby</div>
+              <div class="event-matchup">
+                <span class="team-name yellow">TABIANG</span>
+                <span class="vs">vs</span>
+                <span class="team-name green">BUAKONIKAI</span>
+              </div>
+              <div class="event-location">Rugby Pitch</div>
+            </div>
+            <div class="event netball">
+              <div class="event-time">2:00 PM</div>
+              <div class="event-title">Netball</div>
+              <div class="event-matchup">
+                <span class="team-name red">UMA</span>
+                <span class="vs">vs</span>
+                <span class="team-name yellow">TABIANG</span>
+              </div>
+              <div class="event-location">Court 2</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tuesday -->
+        <div class="day-column">
+          <div class="day-header">
+            <div class="day-name">Tuesday</div>
+            <div class="day-date">Dec 17</div>
+          </div>
+          <div class="day-events">
+            <div class="event volleyball">
+              <div class="event-time">9:00 AM</div>
+              <div class="event-title">Volleyball</div>
+              <div class="event-matchup">
+                <span class="team-name yellow">TABIANG</span>
+                <span class="vs">vs</span>
+                <span class="team-name blue">TABWEWA</span>
+              </div>
+              <div class="event-location">Court 1</div>
+            </div>
+            <div class="event rugby">
+              <div class="event-time">11:30 AM</div>
+              <div class="event-title">Rugby</div>
+              <div class="event-matchup">
+                <span class="team-name red">UMA</span>
+                <span class="vs">vs</span>
+                <span class="team-name green">BUAKONIKAI</span>
+              </div>
+              <div class="event-location">Rugby Pitch</div>
+            </div>
+            <div class="event netball">
+              <div class="event-time">2:00 PM</div>
+              <div class="event-title">Netball</div>
+              <div class="event-matchup">
+                <span class="team-name blue">TABWEWA</span>
+                <span class="vs">vs</span>
+                <span class="team-name green">BUAKONIKAI</span>
+              </div>
+              <div class="event-location">Court 2</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Wednesday -->
+        <div class="day-column">
+          <div class="day-header">
+            <div class="day-name">Wednesday</div>
+            <div class="day-date">Dec 18</div>
+          </div>
+          <div class="day-events">
+            <div class="event volleyball">
+              <div class="event-time">9:00 AM</div>
+              <div class="event-title">Volleyball</div>
+              <div class="event-matchup">
+                <span class="team-name red">UMA</span>
+                <span class="vs">vs</span>
+                <span class="team-name green">BUAKONIKAI</span>
+              </div>
+              <div class="event-location">Court 1</div>
+            </div>
+            <div class="event rugby">
+              <div class="event-time">11:30 AM</div>
+              <div class="event-title">Rugby</div>
+              <div class="event-matchup">
+                <span class="team-name yellow">TABIANG</span>
+                <span class="vs">vs</span>
+                <span class="team-name blue">TABWEWA</span>
+              </div>
+              <div class="event-location">Rugby Pitch</div>
+            </div>
+            <div class="event netball">
+              <div class="event-time">2:00 PM</div>
+              <div class="event-title">Netball</div>
+              <div class="event-matchup">
+                <span class="team-name red">UMA</span>
+                <span class="vs">vs</span>
+                <span class="team-name blue">TABWEWA</span>
+              </div>
+              <div class="event-location">Court 2</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Thursday -->
+        <div class="day-column">
+          <div class="day-header">
+            <div class="day-name">Thursday</div>
+            <div class="day-date">Dec 19</div>
+          </div>
+          <div class="day-events">
+            <div class="event volleyball">
+              <div class="event-time">9:00 AM</div>
+              <div class="event-title">Volleyball</div>
+              <div class="event-matchup">
+                <span class="team-name blue">TABWEWA</span>
+                <span class="vs">vs</span>
+                <span class="team-name green">BUAKONIKAI</span>
+              </div>
+              <div class="event-location">Court 1</div>
+            </div>
+            <div class="event rugby">
+              <div class="event-time">11:30 AM</div>
+              <div class="event-title">Rugby</div>
+              <div class="event-matchup">
+                <span class="team-name red">UMA</span>
+                <span class="vs">vs</span>
+                <span class="team-name yellow">TABIANG</span>
+              </div>
+              <div class="event-location">Rugby Pitch</div>
+            </div>
+            <div class="event netball">
+              <div class="event-time">2:00 PM</div>
+              <div class="event-title">Netball</div>
+              <div class="event-matchup">
+                <span class="team-name yellow">TABIANG</span>
+                <span class="vs">vs</span>
+                <span class="team-name green">BUAKONIKAI</span>
+              </div>
+              <div class="event-location">Court 2</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Friday (Finals) -->
+        <div class="day-column">
+          <div class="day-header">
+            <div class="day-name">Friday</div>
+            <div class="day-date">Dec 20</div>
+            <div class="finals-badge">Finals</div>
+          </div>
+          <div class="day-events">
+            <div class="event volleyball">
+              <div class="event-time">9:00 AM</div>
+              <div class="event-title">Volleyball Finals</div>
+              <div class="event-matchup">
+                <span class="team-name tbd">TBD</span>
+                <span class="vs">vs</span>
+                <span class="team-name tbd">TBD</span>
+              </div>
+              <div class="event-location">Main Arena</div>
+            </div>
+            <div class="event rugby">
+              <div class="event-time">11:30 AM</div>
+              <div class="event-title">Rugby Finals</div>
+              <div class="event-matchup">
+                <span class="team-name tbd">TBD</span>
+                <span class="vs">vs</span>
+                <span class="team-name tbd">TBD</span>
+              </div>
+              <div class="event-location">Rugby Stadium</div>
+            </div>
+            <div class="event netball">
+              <div class="event-time">2:00 PM</div>
+              <div class="event-title">Netball Finals</div>
+              <div class="event-matchup">
+                <span class="team-name tbd">TBD</span>
+                <span class="vs">vs</span>
+                <span class="team-name tbd">TBD</span>
+              </div>
+              <div class="event-location">Main Arena</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Saturday -->
+        <div class="day-column">
+          <div class="day-header">
+            <div class="day-name">Saturday</div>
+            <div class="day-date">Dec 21</div>
+          </div>
+          <div class="day-events">
+            <div class="event ceremony">
+              <div class="event-time">9:00 AM</div>
+              <div class="event-title">Final Matches</div>
+              <div class="event-location">All Venues</div>
+            </div>
+            <div class="event ceremony">
+              <div class="event-time">11:30 AM</div>
+              <div class="event-title">Award Preparations</div>
+              <div class="event-location">Main Arena</div>
+            </div>
+            <div class="event ceremony">
+              <div class="event-time">2:00 PM</div>
+              <div class="event-title">Community Feast</div>
+              <div class="event-location">Village Grounds</div>
+            </div>
+            <div class="event ceremony">
+              <div class="event-time">7:00 PM</div>
+              <div class="event-title">Closing Ceremony</div>
+              <div class="event-subtitle">Champion Celebration</div>
+              <div class="event-location">Main Arena</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Brackets Section -->
+  <section class="brackets-section">
+    <div class="container">
+      <div class="brackets-header">
+        <div class="brackets-icon">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+          </svg>
+          <h2 class="section-title">Round Robin Brackets</h2>
+        </div>
+        <p class="brackets-subtitle">Every village plays every other village — top scorers advance</p>
+      </div>
+
+      <!-- Sport Tabs -->
+      <div class="sport-tabs">
+        <button class="sport-tab active volleyball" onclick="switchSport('volleyball')">Volleyball</button>
+        <button class="sport-tab netball" onclick="switchSport('netball')">Netball</button>
+        <button class="sport-tab rugby" onclick="switchSport('rugby')">Rugby</button>
+      </div>
+
+      <!-- Bracket Content -->
+      <div class="bracket-content">
+        <div class="bracket-grid">
+          <!-- Matches -->
+          <div>
+            <h4 class="bracket-section-title">Matches</h4>
+            <div class="matches-list">
+              <div class="match">
+                <div class="match-team left text-blue">Tabwewa</div>
+                <div class="match-vs">vs</div>
+                <div class="match-team right text-red">Uma</div>
+              </div>
+              <div class="match">
+                <div class="match-team left text-yellow">Tabiang</div>
+                <div class="match-vs">vs</div>
+                <div class="match-team right text-green">Buakonikai</div>
+              </div>
+              <div class="match">
+                <div class="match-team left text-blue">Tabwewa</div>
+                <div class="match-vs">vs</div>
+                <div class="match-team right text-yellow">Tabiang</div>
+              </div>
+              <div class="match">
+                <div class="match-team left text-red">Uma</div>
+                <div class="match-vs">vs</div>
+                <div class="match-team right text-green">Buakonikai</div>
+              </div>
+              <div class="match">
+                <div class="match-team left text-blue">Tabwewa</div>
+                <div class="match-vs">vs</div>
+                <div class="match-team right text-green">Buakonikai</div>
+              </div>
+              <div class="match">
+                <div class="match-team left text-red">Uma</div>
+                <div class="match-vs">vs</div>
+                <div class="match-team right text-yellow">Tabiang</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Standings -->
+          <div>
+            <h4 class="bracket-section-title">Standings</h4>
+            <div class="standings-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Village</th>
+                    <th class="center">W</th>
+                    <th class="center">L</th>
+                    <th class="center">Pts</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="standings-rank">1</td>
+                    <td class="standings-village text-blue">Tabwewa</td>
+                    <td class="center">-</td>
+                    <td class="center">-</td>
+                    <td class="center">-</td>
+                  </tr>
+                  <tr>
+                    <td class="standings-rank">2</td>
+                    <td class="standings-village text-red">Uma</td>
+                    <td class="center">-</td>
+                    <td class="center">-</td>
+                    <td class="center">-</td>
+                  </tr>
+                  <tr>
+                    <td class="standings-rank">3</td>
+                    <td class="standings-village text-yellow">Tabiang</td>
+                    <td class="center">-</td>
+                    <td class="center">-</td>
+                    <td class="center">-</td>
+                  </tr>
+                  <tr>
+                    <td class="standings-rank">4</td>
+                    <td class="standings-village text-green">Buakonikai</td>
+                    <td class="center">-</td>
+                    <td class="center">-</td>
+                    <td class="center">-</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
@@ -147,20 +587,25 @@
   </section>
 
   <!-- Footer Quote -->
-  <footer class="max-w-4xl mx-auto px-4 py-16 text-center">
-    <blockquote class="text-2xl md:text-3xl italic text-slate-300 border-l-4 border-amber-400 pl-6">
-      "Not for glory alone, but to honour every ancestor who fought to give us this moment."
-    </blockquote>
-    <p class="text-slate-500 mt-6">— The spirit of December 15</p>
-  </footer>
+  <section class="footer-quote">
+    <div class="container">
+      <blockquote class="quote-text">
+        "Not for glory alone, but to honour every ancestor who fought to give us this moment."
+      </blockquote>
+      <p class="quote-attribution">— The spirit of December 15</p>
+    </div>
+  </section>
 
-  <!-- App script -->
-  <script src="historscript.js"></script>
-  <script>
-    // hydrate lucide icons
-    window.addEventListener('DOMContentLoaded', () => {
-      if (window.lucide) lucide.createIcons();
-    });
-  </script>
+  <!-- Background Music -->
+<audio id="bg-music" loop>
+  <source src="https://pub-1c602d934f9649b09216ca0d037811b0.r2.dev/Rabi-music-2.mp3" type="audio/mpeg">
+</audio>
+
+<button id="music-toggle" aria-label="Toggle music">
+  <span class="music-on">🔊</span>
+  <span class="music-off" style="display:none;">🔇</span>
+</button>
+
+  <script src="tournament.js"></script>
 </body>
 </html>

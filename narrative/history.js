@@ -1,6 +1,21 @@
 // ========== GSAP ScrollTrigger setup ==========
 gsap.registerPlugin(ScrollTrigger);
 
+// ========== Hero video autoplay + visibility ==========
+(() => {
+  const heroVideo = document.querySelector('.hero-video');
+  if (!heroVideo) return;
+
+  const tryPlay = () => heroVideo.play().catch(() => {});
+  if (heroVideo.readyState >= 2) tryPlay();
+  else heroVideo.addEventListener('loadeddata', tryPlay, { once: true });
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) { if (!heroVideo.paused) heroVideo.pause(); }
+    else { if (heroVideo.paused) tryPlay(); }
+  });
+})();
+
 // ========== Carousel (handles both carousel-1 and carousel-8) ==========
 function initCarousel(carouselId) {
   const carousel = document.getElementById(carouselId);
@@ -225,4 +240,47 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       });
     }
   });
+});
+
+// Background Music Toggle with Autoplay
+document.addEventListener('DOMContentLoaded', () => {
+  const music = document.getElementById('bg-music');
+  const toggle = document.getElementById('music-toggle');
+
+  if (music && toggle) {
+    const musicOn = toggle.querySelector('.music-on');
+    const musicOff = toggle.querySelector('.music-off');
+    
+    // Set volume to 50%
+    music.volume = 0.1;
+    
+    // Try to autoplay
+    let isPlaying = false;
+    music.play()
+      .then(() => {
+        isPlaying = true;
+        musicOn.style.display = 'inline';
+        musicOff.style.display = 'none';
+      })
+      .catch(() => {
+        // Autoplay blocked - show muted icon
+        console.log('Autoplay blocked - user must click to play');
+        musicOn.style.display = 'none';
+        musicOff.style.display = 'inline';
+      });
+
+    // Toggle on click
+    toggle.addEventListener('click', () => {
+      if (isPlaying) {
+        music.pause();
+        musicOn.style.display = 'none';
+        musicOff.style.display = 'inline';
+      } else {
+        music.play().catch(err => console.log('Play failed:', err));
+        musicOn.style.display = 'inline';
+        musicOff.style.display = 'none';
+      }
+      isPlaying = !isPlaying;
+    });
+  }
 });

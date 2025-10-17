@@ -23,19 +23,25 @@
   <nav class="nav visible" id="navbar">
     <div class="nav-container">
       <a href="index.html" class="logo">
-        <span>🏝️</span>
-        <span>Rabi Island</span>
+        <img src="trophy.png" alt="Trophy" class="logo-trophy">
+        <span>Rabi Island Sports Tournament</span>
       </a>
       <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#home">Home</a></li>
         <li><a aria-current="page" href="history.html">History</a></li>
         <li><a href="tournament.html">Tournament</a></li>
       </ul>
     </div>
   </nav>
 
-  <!-- HERO -->
+  <!-- HERO with Video -->
   <section class="hero">
+    <div class="hero-video-wrapper">
+      <video class="hero-video" autoplay muted loop playsinline preload="auto">
+        <source src="https://pub-1c602d934f9649b09216ca0d037811b0.r2.dev/landing-page-1.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="hero-overlay"></div>
     <div class="hero-content">
       <h1 class="hero-title">Why We Compete</h1>
       <p class="hero-subtitle">Our Banaban Story has not been easy. But it is ours.</p>
@@ -236,9 +242,18 @@
       </a>
     </div>
   </section>
+  <!-- Background Music -->
+      <audio id="bg-music" loop>
+        <source src="https://pub-1c602d934f9649b09216ca0d037811b0.r2.dev/hyme.mp3" type="audio/mpeg">
+      </audio>
+
+      <button id="music-toggle" aria-label="Toggle music">
+        <span class="music-on">🔊</span>
+        <span class="music-off" style="display:none;">🔇</span>
+      </button>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="history-script.js"></script>
+  <script src="history.js"></script>
 </body>
 </html>

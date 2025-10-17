@@ -10,18 +10,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
   <!-- NAV -->
   <nav class="nav" id="navbar">
     <div class="nav-container">
       <a href="#home" class="logo">
         <img src="trophy.png" alt="Trophy" class="logo-trophy">
-        <span>Rabi Island Sports Tournament</span>
+        <span>Rabi Island Tournament</span>
       </a>
       <ul class="nav-links">
         <li><a href="#home">Home</a></li>
-        <li><a href="#history">History</a></li>
-        <li><a href="#arena">Tournament</a></li>
+        <li><a href="history.html">History</a></li>
+        <li><a href="tournament.html">Tournament</a></li>
       </ul>
     </div>
   </nav>
@@ -192,9 +193,18 @@
       </div>
     </div>
   </section>
+<!-- Background Music -->
+    <audio id="bg-music" loop>
+      <source src="https://pub-1c602d934f9649b09216ca0d037811b0.r2.dev/Rabi-Music.mp3" type="audio/mpeg">
+    </audio>
 
+    <button id="music-toggle" aria-label="Toggle music">
+      <span class="music-on">🔊</span>
+      <span class="music-off" style="display:none;">🔇</span>
+    </button>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="script.js"></script>
+  
 </body>
 </html>
