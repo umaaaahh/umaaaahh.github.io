@@ -1,485 +1,672 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>4 Round Trivia Night</title>
-  <link rel="stylesheet" href="https://unpkg.com/98.css@0.1.20/dist/98.css" />
-  <style>
-    :root {
-      --bg: #FF69B4;
-      --accent: #32CD32;
-    }
-    body {
-      margin: 0;
-      background: linear-gradient(135deg, #FF1493 0%, #FF69B4 50%, #32CD32 100%);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      padding: 12px;
-      font-size: 16px;
-    }
-    button {
-      font-size: 16px;
-      padding: 8px 16px;
-    }
-    input, textarea, select {
-      font-size: 16px;
-      padding: 6px;
-    }
-    label {
-      font-size: 16px;
-    }
-    legend {
-      font-size: 18px;
-      font-weight: bold;
-    }
-    .landing {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      padding: 20px;
-    }
-    .landing .window {
-      max-width: 600px;
-      width: 100%;
-    }
-    .landing-content {
-      text-align: center;
-      padding: 20px;
-    }
-    .landing-content h1 {
-      font-size: 48px;
-      margin: 20px 0 10px;
-    }
-    .landing-content p {
-      font-size: 20px;
-      margin-bottom: 30px;
-    }
-    .landing-content .emoji {
-      font-size: 80px;
-    }
-    .app {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      flex: 1;
-    }
-    .window-body {
-      height: calc(100% - 28px);
-      overflow: auto;
-      font-size: 16px;
-    }
-    .question-display {
-      background: #ffff00;
-      border: 2px solid #000;
-      padding: 20px;
-      margin-bottom: 15px;
-      font-size: 22px;
-      font-weight: bold;
-      line-height: 1.4;
-    }
-    .answer-slots {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .answer-row {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-    }
-    .answer-number {
-      background: var(--accent);
-      color: #fff;
-      padding: 10px 16px;
-      font-weight: bold;
-      min-width: 40px;
-      text-align: center;
-      font-size: 18px;
-    }
-    .answer-row input {
-      flex: 1;
-      font-size: 18px;
-    }
-    .team-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 10px;
-    }
-    .team-badge {
-      background: #c0c0c0;
-      padding: 6px 12px;
-      border: 2px solid;
-      border-color: #fff #808080 #808080 #fff;
-      font-size: 16px;
-    }
-    .round-btn {
-      font-size: 18px;
-      min-width: 100px;
-    }
-    .status-bar-field {
-      font-size: 16px;
-    }
-    .title-bar-text {
-      font-size: 16px;
-    }
-    @media (max-width: 900px) {
-      .app {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Squ1d 1nc - Where Analog Meets Code</title>
+    <link rel="stylesheet" href="https://unpkg.com/98.css@0.1.20/dist/98.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-green: #00ff41;
+            --neon-pink: #ff1493;
+            --bg-dark: #0a0a0a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'IBM Plex Mono', 'MS Sans Serif', sans-serif;
+            background: url('https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/windows.jfif') center center fixed;
+            background-size: cover;
+            color: #f0f0f0;
+            padding: 0;
+            margin: 0;
+            font-size: 14px;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(0, 255, 65, 0.03) 2px,
+                    rgba(0, 255, 65, 0.03) 4px
+                );
+            pointer-events: none;
+            animation: scan 8s linear infinite;
+            z-index: 1;
+        }
+
+        body > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .glitch {
+            position: relative;
+            animation: glitch 3s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 90%, 100% {
+                text-shadow: var(--neon-green) 0px 0px 10px, var(--neon-green) 0px 0px 20px, var(--neon-green) 0px 0px 30px;
+            }
+            92% {
+                text-shadow: 2px 0 var(--neon-pink), -2px 0 var(--neon-green);
+                transform: translate(-2px, 0);
+            }
+            94% {
+                text-shadow: -2px 0 var(--neon-pink), 2px 0 var(--neon-green);
+                transform: translate(2px, 0);
+            }
+        }
+
+        /* Landing Section */
+        .landing {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .landing .window {
+            max-width: 700px;
+            width: 100%;
+            position: relative;
+            z-index: 10;
+        }
+
+        .landing-content {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .logo {
+            font-size: 48px;
+            font-weight: bold;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+            color: var(--neon-green);
+            text-shadow: none;
+        }
+
+        .logo.glitch {
+            animation: glitch-logo 0.3s infinite;
+        }
+
+        @keyframes glitch-logo {
+            0% {
+                text-shadow: 0.05em 0 0 var(--neon-pink), -0.05em -0.025em 0 var(--neon-green);
+            }
+            14% {
+                text-shadow: 0.05em 0 0 var(--neon-pink), -0.05em -0.025em 0 var(--neon-green);
+            }
+            15% {
+                text-shadow: -0.05em -0.025em 0 var(--neon-pink), 0.05em 0.025em 0 var(--neon-green);
+            }
+            49% {
+                text-shadow: -0.05em -0.025em 0 var(--neon-pink), 0.05em 0.025em 0 var(--neon-green);
+            }
+            50% {
+                text-shadow: 0.025em 0.05em 0 var(--neon-pink), 0.05em 0 0 var(--neon-green);
+            }
+            99% {
+                text-shadow: 0.025em 0.05em 0 var(--neon-pink), 0.05em 0 0 var(--neon-green);
+            }
+            100% {
+                text-shadow: -0.025em 0 0 var(--neon-pink), -0.025em -0.025em 0 var(--neon-green);
+            }
+        }
+
+        .tagline {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: var(--neon-pink);
+            font-weight: 600;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 30px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            font-size: 16px;
+            padding: 10px 30px;
+            font-weight: bold;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px var(--neon-green);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+            z-index: 10;
+            background: #c0c0c0;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid;
+            border-color: #fff #000 #000 #fff;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        /* Content Sections */
+        .content-section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            margin-bottom: 150px;
+        }
+
+        .window {
+            margin-bottom: 30px;
+        }
+
+        /* Custom Title Bars */
+        .title-bar {
+            background: var(--neon-pink) !important;
+            padding: 3px 4px !important;
+        }
+
+        .title-bar-text {
+            color: var(--neon-green) !important;
+            font-weight: bold !important;
+            text-shadow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green);
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            color: var(--neon-green);
+            padding: 12px;
+            background: #000;
+            border: 2px solid var(--neon-green);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px var(--neon-green);
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .project-card {
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid;
+            border-color: #fff #000 #000 #fff;
+            background: #c0c0c0;
+        }
+
+        .project-card:hover {
+            transform: translateY(-3px) rotate(-0.5deg);
+            box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.5), 0 0 20px var(--neon-green);
+        }
+
+        .project-card-header {
+            background: var(--neon-pink);
+            color: var(--neon-green);
+            padding: 8px 10px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #000;
+            text-shadow: 0 0 5px var(--neon-green);
+        }
+
+        .project-icon {
+            font-size: 24px;
+            filter: drop-shadow(0 0 3px var(--neon-green));
+        }
+
+        .project-status {
+            font-size: 10px;
+            padding: 4px 8px;
+            background: #000;
+            color: var(--neon-green);
+            border: 1px solid var(--neon-green);
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .status-live {
+            background: var(--neon-green);
+            color: #000;
+            border-color: var(--neon-green);
+        }
+
+        .status-dev {
+            background: var(--neon-pink);
+            color: #000;
+            border-color: var(--neon-pink);
+        }
+
+        .project-card-body {
+            padding: 15px;
+            background: #c0c0c0;
+        }
+
+        .project-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #000;
+        }
+
+        .project-description {
+            font-size: 13px;
+            line-height: 1.6;
+            color: #000;
+            margin-bottom: 12px;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .project-link button:hover {
+            box-shadow: 0 0 10px var(--neon-green);
+        }
+
+        /* Ethos Section */
+        .ethos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .ethos-item {
+            border: 2px solid;
+            border-color: #fff #000 #000 #fff;
+            background: #c0c0c0;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .ethos-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.5), 0 0 15px var(--neon-green);
+        }
+
+        .ethos-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 0 3px var(--neon-green));
+        }
+
+        .ethos-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #000;
+        }
+
+        .ethos-text {
+            font-size: 13px;
+            color: #000;
+            line-height: 1.5;
+        }
+
+        /* Manifesto */
+        .manifesto-content {
+            padding: 30px;
+            font-size: 16px;
+            line-height: 1.8;
+            font-style: italic;
+            text-align: center;
+            background: #c0c0c0;
+            color: #000;
+        }
+
+        .manifesto-content p {
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        /* Footer */
+        .footer-section {
+            background: #c0c0c0;
+            border-top: 2px solid;
+            border-color: #fff #000;
+            padding: 30px 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .social-links button:hover {
+            box-shadow: 0 0 10px var(--neon-green);
+        }
+
+        .copyright {
+            font-size: 12px;
+            color: #000;
+            margin-top: 10px;
+        }
+
+        .blink {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50%, 100% { opacity: 1; }
+            25%, 75% { opacity: 0; }
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 32px;
+            }
+            
+            .tagline {
+                font-size: 16px;
+            }
+
+            .projects-grid,
+            .ethos-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- Landing Page -->
-  <div id="landingPage" class="landing">
-    <div class="window">
-      <div class="title-bar">
-        <div class="title-bar-text">Welcome to Trivia Night</div>
-        <div class="title-bar-controls">
-          <button aria-label="Minimize"></button>
-          <button aria-label="Maximize"></button>
-          <button aria-label="Close"></button>
-        </div>
-      </div>
-      <div class="window-body landing-content">
-        <div class="emoji">🏆</div>
-        <h1>Trivia Night</h1>
-        <p>4 Rounds of Brain-Busting Fun</p>
-        
-        <fieldset style="margin-bottom: 20px;">
-          <legend>Setup</legend>
-          <div class="field-row" style="margin-bottom: 10px;">
-            <input type="checkbox" id="isHostCheckbox" />
-            <label for="isHostCheckbox">I'm the host (I'll post questions)</label>
-          </div>
-          <p style="font-size: 14px; color: #666; margin: 10px 0;">
-            You can add player/team names on the next screen
-          </p>
-        </fieldset>
-
-        <button id="startGameBtn" style="font-size: 20px; padding: 12px 30px;">Start Game</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Main Game -->
-  <div id="gameApp" style="display: none;">
-    <header class="window">
-      <div class="title-bar">
-        <div class="title-bar-text">🎉 Trivia Night - 4 Rounds</div>
-        <div class="title-bar-controls">
-          <button aria-label="Minimize"></button>
-          <button aria-label="Maximize"></button>
-          <button aria-label="Close"></button>
-        </div>
-      </div>
-      <div class="window-body">
-        <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
-          <fieldset style="flex: 1; min-width: 250px;">
-            <legend>Group/Player Names</legend>
-            <div style="display: flex; gap: 6px; margin-bottom: 8px;">
-              <input id="teamNameInput" type="text" placeholder="Enter name" style="flex: 1;" />
-              <button id="addTeamBtn">Add</button>
+    <!-- Landing Section -->
+    <section class="landing">
+        <div class="window">
+            <div class="title-bar">
+                <div class="title-bar-text">SQU1D_1NC.exe</div>
+                <div class="title-bar-controls">
+                    <button aria-label="Minimize"></button>
+                    <button aria-label="Maximize"></button>
+                    <button aria-label="Close"></button>
+                </div>
             </div>
-            <div class="team-badges" id="teamBadges"></div>
-          </fieldset>
-          
-          <fieldset>
-            <legend>Select Round</legend>
-            <div style="display: flex; gap: 6px; flex-wrap: wrap;">
-              <button id="round1Btn" class="round-btn">Round 1</button>
-              <button id="round2Btn" class="round-btn">Round 2</button>
-              <button id="round3Btn" class="round-btn">Round 3</button>
-              <button id="round4Btn" class="round-btn">Round 4</button>
+            <div class="window-body landing-content">
+                <div class="logo glitch">SQU1D_1NC</div>
+                <div class="tagline">Where Analog Meets Code</div>
+                <div class="subtitle">Creative experiments crossing art, design, games & digital media</div>
+                
+                <div class="cta-buttons">
+                    <button class="cta-button" onclick="document.getElementById('projects').scrollIntoView({behavior: 'smooth'})">Explore Projects</button>
+                    <button class="cta-button" onclick="document.getElementById('manifesto').scrollIntoView({behavior: 'smooth'})">Read Manifesto</button>
+                </div>
             </div>
-          </fieldset>
         </div>
-      </div>
-      <div class="status-bar">
-        <p class="status-bar-field" id="statusText">Round 1: General Knowledge</p>
-      </div>
-    </header>
+        <div class="scroll-indicator" onclick="document.getElementById('projects').scrollIntoView({behavior: 'smooth'})">↓</div>
+    </section>
 
-    <div class="app">
-      <!-- Host Panel -->
-      <section class="window" id="hostPanel">
-        <div class="title-bar">
-          <div class="title-bar-text">📝 Host Panel</div>
-          <div class="title-bar-controls">
-            <button aria-label="Close"></button>
-          </div>
-        </div>
-        <div class="window-body">
-          <fieldset>
-            <legend>Post Question Live</legend>
-            <div class="field-row-stacked">
-              <label for="questionInput">Question:</label>
-              <textarea id="questionInput" rows="5" placeholder="Type your question here..."></textarea>
+    <!-- Jade Divider 1 -->
+    <img src="https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/jade.png" alt="Jade" class="jade-divider">
+
+    <!-- Projects Section -->
+    <section id="projects" class="content-section">
+        <div class="window">
+            <div class="title-bar">
+                <div class="title-bar-text">📁 LIVE_PROJECTS</div>
+                <div class="title-bar-controls">
+                    <button aria-label="Minimize"></button>
+                    <button aria-label="Maximize"></button>
+                    <button aria-label="Close"></button>
+                </div>
             </div>
-            <div style="display: flex; gap: 6px; justify-content: flex-end; margin-top: 10px;">
-              <button id="clearQuestionBtn">Clear</button>
-              <button id="postQuestionBtn">Post Question</button>
+            <div class="window-body" style="padding: 20px;">
+                <div class="section-title glitch">// LIVE_PROJECTS</div>
+                
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-card-header">
+                            <span><span class="project-icon">🤖</span> Patchwork Cyborg</span>
+                            <span class="project-status status-live">LIVE</span>
+                        </div>
+                        <div class="project-card-body">
+                            <h3 class="project-title">Patchwork Cyborg</h3>
+                            <p class="project-description">
+                                A two-part interactive series critiquing post-humanism through the lens of a dystopian New Naarm. Players survive as exploited gig workers for the Lifework Corporation, upgrading biotech body parts to boost stats and outlast endless bills.
+                            </p>
+                            <div class="project-links">
+                                <a href="https://umaaaahh.github.io/emerging/index" target="_blank" class="project-link">
+                                    <button>Play Game ↗</button>
+                                </a>
+                                <a href="https://umaaaahh.github.io/emerging/assignment3/slack.html" target="_blank" class="project-link">
+                                    <button>Lifework Corp ↗</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-card-header">
+                            <span><span class="project-icon">🧠</span> The Overthinker's Typing Pad</span>
+                            <span class="project-status status-live">LIVE</span>
+                        </div>
+                        <div class="project-card-body">
+                            <h3 class="project-title">The Overthinker's Typing Pad</h3>
+                            <p class="project-description">
+                                A browser-based expressive writing tool that visualizes anxiety through interaction. As you type, the interface resists—text fades, glitches, and unravels, mirroring how overthinking spirals into creative shutdown.
+                            </p>
+                            <div class="project-links">
+                                <a href="https://umaaaahh.github.io/Studio/assignment3/index" target="_blank" class="project-link">
+                                    <button>Experience ↗</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-card-header">
+                            <span><span class="project-icon">🏝️</span> Rabi Island Sports Tournament</span>
+                            <span class="project-status status-live">LIVE</span>
+                        </div>
+                        <div class="project-card-body">
+                            <h3 class="project-title">Rabi Island Sports Tournament</h3>
+                            <p class="project-description">
+                                A community-led digital project commemorating the 80th anniversary of Banabans' arrival on Rabi Island. Through interactive village profiles and sports rivalries, it transforms history into a celebration of resilience and cultural identity.
+                            </p>
+                            <div class="project-links">
+                                <a href="https://umaaaahh.github.io/narrative/index" target="_blank" class="project-link">
+                                    <button>Explore ↗</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-card-header">
+                            <span><span class="project-icon">📜</span> Annabel Lee Scroll Poem</span>
+                            <span class="project-status status-live">LIVE</span>
+                        </div>
+                        <div class="project-card-body">
+                            <h3 class="project-title">Annabel Lee Scroll Poem</h3>
+                            <p class="project-description">
+                                A web adaptation of Edgar Allan Poe's "Annabel Lee" using a shadow-puppet aesthetic and scroll-driven pacing. Each stanza unfolds through parallax movement and minimalist animation.
+                            </p>
+                            <div class="project-links">
+                                <a href="https://umaaaahh.github.io/interactivemedia/assignment3/index.html" target="_blank" class="project-link">
+                                    <button>Read Poem ↗</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </fieldset>
         </div>
-      </section>
+    </section>
 
-      <!-- Answer Sheet -->
-      <section class="window" style="grid-column: span 1;">
-        <div class="title-bar">
-          <div class="title-bar-text">📋 Answer Sheet - <span id="roundTitle">Round 1</span></div>
-          <div class="title-bar-controls">
-            <button aria-label="Close"></button>
-          </div>
-        </div>
-        <div class="window-body">
-          <div id="liveQuestionDisplay" style="display: none;" class="question-display">
-            <div style="font-size: 14px; margin-bottom: 5px;">⚡ LIVE QUESTION</div>
-            <div id="liveQuestionText"></div>
-          </div>
-          <div id="waitingMessage" class="sunken-panel" style="padding: 25px; text-align: center; margin-bottom: 15px; font-size: 18px;">
-            Waiting for host to post question...
-          </div>
+    <!-- Jade Divider 2 (flipped) -->
+    <img src="https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/jade.png" alt="Jade" class="jade-divider flip">
 
-          <fieldset>
-            <legend>Your Answers</legend>
-            <div class="answer-slots">
-              <div class="answer-row">
-                <span class="answer-number">1</span>
-                <input type="text" id="answer1" />
-              </div>
-              <div class="answer-row">
-                <span class="answer-number">2</span>
-                <input type="text" id="answer2" />
-              </div>
-              <div class="answer-row">
-                <span class="answer-number">3</span>
-                <input type="text" id="answer3" />
-              </div>
-              <div class="answer-row">
-                <span class="answer-number">4</span>
-                <input type="text" id="answer4" />
-              </div>
-              <div class="answer-row">
-                <span class="answer-number">5</span>
-                <input type="text" id="answer5" />
-              </div>
+    <!-- In Development Section -->
+    <section id="dev" class="content-section">
+        <div class="window">
+            <div class="title-bar">
+                <div class="title-bar-text">📁 IN_DEVELOPMENT</div>
+                <div class="title-bar-controls">
+                    <button aria-label="Minimize"></button>
+                    <button aria-label="Maximize"></button>
+                    <button aria-label="Close"></button>
+                </div>
             </div>
-          </fieldset>
+            <div class="window-body" style="padding: 20px;">
+                <div class="section-title glitch">// IN_DEVELOPMENT</div>
+                
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-card-header">
+                            <span><span class="project-icon">🎴</span> MARKED</span>
+                            <span class="project-status status-dev">IN DEV</span>
+                        </div>
+                        <div class="project-card-body">
+                            <h3 class="project-title">MARKED</h3>
+                            <p class="project-description">
+                                A turn-based card battler where street mage characters clash in strategic deck destruction. Players draft 6 cards, manage dice-rolled resources, and choose between attacking, destroying, or healing opponent cards. Currently rebuilding core mechanics including card HP system, open information UI, and mid-game card swapping—testing how analog card game logic translates into digital strategy.
+                            </p>
+                        </div>
+                    </div>
 
-          <div style="display: flex; gap: 6px; justify-content: flex-end; margin-top: 10px;">
-            <button id="clearAnswersBtn">Clear Answers</button>
-          </div>
-        </div>
-      </section>
-    </div>
+                    <div class="project-card">
+                        <div class="project-card-header">
+                            <span><span class="project-icon">🧵</span> Bag Map: Limited Run Zine + DIY Box</span>
+                            <span class="project-status status-dev">IN DEV</span>
+                        </div>
+                        <div class="project-card-body">
+                            <h3 class="project-title">Bag Map: Limited Run Zine + DIY Box</h3>
+                            <p class="project-description">
+                                An interactive craft tutorial transformed into a charitable gift concept for hospital patients. The limited-run box includes t-shirt yarn, crochet hooks, stitch markers, ribbon, and a zine linking to the digital Bag Map experience—teaching beginners how to crochet a simple bag.
+                            </p>
+                            <div class="project-links">
+                                <button onclick="window.open('https://umaaaahh.github.io/interactivemedia/assignment2/index.html', '_blank')">View Tutorial ↗</button>
+                            </div>
+                        </div>
+                    </div>
 
-    <footer class="window">
-      <div class="title-bar">
-        <div class="title-bar-text">Progress</div>
-      </div>
-      <div class="window-body">
-        <div style="margin-bottom: 8px; font-size: 18px;">
-          <strong id="progressText">Round 1 of 4</strong> - <span id="progressPercent">25%</span> Complete
+                    <div class="project-card">
+                        <div class="project-card-header">
+                            <span><span class="project-icon">🎲</span> Patchwork Cyborg: Physical Board Game</span>
+                            <span class="project-status status-dev">LIMITED RUN</span>
+                        </div>
+                        <div class="project-card-body">
+                            <h3 class="project-title">Patchwork Cyborg: Physical Board Game</h3>
+                            <p class="project-description">
+                                A tabletop adaptation of the Patchwork Cyborg web experience, translating gig-economy survival into physical cards and tokens. Currently reworking the monetary system and designing win conditions—exploring whether survival mechanics can carry critical commentary within a winnable structure.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="progress-indicator">
-          <span class="progress-indicator-bar" id="progressBar" style="width: 25%;"></span>
+    </section>
+
+    <!-- Jade Divider 3 -->
+    <img src="https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/jade.png" alt="Jade" class="jade-divider">
+
+    <!-- Manifesto Section -->
+    <section id="manifesto" class="content-section">
+        <div class="window">
+            <div class="title-bar">
+                <div class="title-bar-text">📄 MANIFESTO.txt</div>
+                <div class="title-bar-controls">
+                    <button aria-label="Minimize"></button>
+                    <button aria-label="Maximize"></button>
+                    <button aria-label="Close"></button>
+                </div>
+            </div>
+            <div class="window-body">
+                <div class="manifesto-content">
+                    <p>
+                        Squ1d 1nc is a playground for creative systems—where game mechanics, storytelling, and digital craft collide. We prototype fast, think tactile, and build experiences that feel human, messy, and alive.
+                    </p>
+                    
+                    <div class="ethos-grid">
+                        <div class="ethos-item">
+                            <div class="ethos-icon">🎴</div>
+                            <div class="ethos-title">Tactile Play</div>
+                            <p class="ethos-text">Everything starts physical—cards, boards, paper prototypes, then evolves digitally</p>
+                        </div>
+                        <div class="ethos-item">
+                            <div class="ethos-icon">✨</div>
+                            <div class="ethos-title">Digital Emotion</div>
+                            <p class="ethos-text">Systems built around emotion, humor, and creative friction, not just polish</p>
+                        </div>
+                        <div class="ethos-item">
+                            <div class="ethos-icon">🔧</div>
+                            <div class="ethos-title">DIY Systems</div>
+                            <p class="ethos-text">Garage-studio mentality—rough prototypes, experimental storytelling, glitch aesthetics</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-section">
+        <div class="social-links">
+            <button onclick="window.location.href='mailto:hello@squid1nc.com'">[EMAIL]</button>
+            <button>[INSTAGRAM]</button>
+            <button>[GITHUB]</button>
+        </div>
+        <p class="copyright">© 2025 SQU1D_1NC <span class="blink">_</span></p>
+        <p style="font-size: 11px; color: #000; margin-top: 5px;">Interested in collaborating? Get in touch.</p>
     </footer>
-  </div>
-
-  <script>
-    const ROUNDS = [
-      { id: 1, name: 'General Knowledge' },
-      { id: 2, name: 'Pop Culture' },
-      { id: 3, name: 'Music' },
-      { id: 4, name: 'Sports & Geography' }
-    ];
-
-    const state = {
-      currentRound: 1,
-      teams: [],
-      liveQuestion: '',
-      isHost: false,
-      answers: {
-        1: ['', '', '', '', ''],
-        2: ['', '', '', '', ''],
-        3: ['', '', '', '', ''],
-        4: ['', '', '', '', '']
-      }
-    };
-
-    // Landing page
-    const landingPage = document.getElementById('landingPage');
-    const gameApp = document.getElementById('gameApp');
-    const startGameBtn = document.getElementById('startGameBtn');
-    const isHostCheckbox = document.getElementById('isHostCheckbox');
-
-    startGameBtn.addEventListener('click', () => {
-      state.isHost = isHostCheckbox.checked;
-      landingPage.style.display = 'none';
-      gameApp.style.display = 'flex';
-      gameApp.style.flexDirection = 'column';
-      gameApp.style.gap = '12px';
-      gameApp.style.flex = '1';
-      
-      if (!state.isHost) {
-        document.getElementById('hostPanel').style.display = 'none';
-        document.querySelector('.app').style.gridTemplateColumns = '1fr';
-      }
-      
-      persist();
-    });
-
-    // Elements
-    const teamNameInput = document.getElementById('teamNameInput');
-    const addTeamBtn = document.getElementById('addTeamBtn');
-    const teamBadges = document.getElementById('teamBadges');
-    const questionInput = document.getElementById('questionInput');
-    const postQuestionBtn = document.getElementById('postQuestionBtn');
-    const clearQuestionBtn = document.getElementById('clearQuestionBtn');
-    const liveQuestionDisplay = document.getElementById('liveQuestionDisplay');
-    const liveQuestionText = document.getElementById('liveQuestionText');
-    const waitingMessage = document.getElementById('waitingMessage');
-    const clearAnswersBtn = document.getElementById('clearAnswersBtn');
-    const statusText = document.getElementById('statusText');
-    const roundTitle = document.getElementById('roundTitle');
-    const progressText = document.getElementById('progressText');
-    const progressPercent = document.getElementById('progressPercent');
-    const progressBar = document.getElementById('progressBar');
-
-    // Add team
-    addTeamBtn.addEventListener('click', () => {
-      const name = teamNameInput.value.trim();
-      if (name) {
-        state.teams.push(name);
-        teamNameInput.value = '';
-        renderTeams();
-        persist();
-      }
-    });
-
-    teamNameInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        addTeamBtn.click();
-      }
-    });
-
-    function renderTeams() {
-      teamBadges.innerHTML = '';
-      state.teams.forEach((team, index) => {
-        const badge = document.createElement('span');
-        badge.className = 'team-badge';
-        badge.textContent = team;
-        const removeBtn = document.createElement('button');
-        removeBtn.textContent = '×';
-        removeBtn.style.cssText = 'margin-left: 6px; padding: 2px 6px; font-weight: bold;';
-        removeBtn.onclick = () => {
-          state.teams.splice(index, 1);
-          renderTeams();
-          persist();
-        };
-        badge.appendChild(removeBtn);
-        teamBadges.appendChild(badge);
-      });
-    }
-
-    // Round selection
-    document.querySelectorAll('.round-btn').forEach((btn, index) => {
-      btn.addEventListener('click', () => {
-        state.currentRound = index + 1;
-        updateRound();
-        persist();
-      });
-    });
-
-    function updateRound() {
-      const round = ROUNDS[state.currentRound - 1];
-      statusText.textContent = `Round ${round.id}: ${round.name}`;
-      roundTitle.textContent = `Round ${round.id}`;
-      progressText.textContent = `Round ${state.currentRound} of 4`;
-      const percent = (state.currentRound / 4) * 100;
-      progressPercent.textContent = `${percent}%`;
-      progressBar.style.width = `${percent}%`;
-      loadAnswers();
-    }
-
-    // Post question
-    postQuestionBtn.addEventListener('click', () => {
-      const question = questionInput.value.trim();
-      if (question) {
-        state.liveQuestion = question;
-        liveQuestionText.textContent = question;
-        liveQuestionDisplay.style.display = 'block';
-        waitingMessage.style.display = 'none';
-        questionInput.value = '';
-        persist();
-      }
-    });
-
-    clearQuestionBtn.addEventListener('click', () => {
-      questionInput.value = '';
-    });
-
-    // Answers
-    for (let i = 1; i <= 5; i++) {
-      const input = document.getElementById(`answer${i}`);
-      input.addEventListener('input', () => {
-        state.answers[state.currentRound][i - 1] = input.value;
-        persist();
-      });
-    }
-
-    function loadAnswers() {
-      for (let i = 1; i <= 5; i++) {
-        document.getElementById(`answer${i}`).value = state.answers[state.currentRound][i - 1];
-      }
-    }
-
-    clearAnswersBtn.addEventListener('click', () => {
-      state.answers[state.currentRound] = ['', '', '', '', ''];
-      loadAnswers();
-      persist();
-    });
-
-    // Persistence
-    function persist() {
-      localStorage.setItem('trivia-game', JSON.stringify(state));
-    }
-
-    function restore() {
-      const saved = localStorage.getItem('trivia-game');
-      if (saved) {
-        try {
-          const data = JSON.parse(saved);
-          state.currentRound = data.currentRound || 1;
-          state.teams = data.teams || [];
-          state.liveQuestion = data.liveQuestion || '';
-          state.answers = data.answers || state.answers;
-          state.isHost = data.isHost || false;
-          
-          if (state.liveQuestion) {
-            liveQuestionText.textContent = state.liveQuestion;
-            liveQuestionDisplay.style.display = 'block';
-            waitingMessage.style.display = 'none';
-          }
-          
-          renderTeams();
-          updateRound();
-        } catch (e) {
-          console.error('Failed to restore state', e);
-        }
-      }
-    }
-
-    // Init
-    restore();
-  </script>
 </body>
 </html>
