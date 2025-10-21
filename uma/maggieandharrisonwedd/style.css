@@ -1,0 +1,194 @@
+/* ========= FONT IMPORT ========= */
+@import url('https://fonts.googleapis.com/css2?family=Petrona:wght@400;600&family=Quicksand:wght@400;600&display=swap');
+
+/* ========= RESET + BASE ========= */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  scroll-behavior: smooth;
+  font-family: 'Quicksand', sans-serif;
+  background-color: #fdfbf7;
+  color: #3e372d;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+#password-screen {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: #fefcf8;
+  padding: 2rem;
+  font-family: 'Quicksand', sans-serif;
+  overflow: hidden;
+}
+
+#password-screen input {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  margin-top: 1rem;
+}
+
+#password-screen button {
+  margin-top: 1rem;
+  padding: 0.5rem 1.5rem;
+  font-size: 1rem;
+  background-color: #a25c3f;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#password-screen button:hover {
+  background-color: #874b34;
+}
+
+
+/* ========= NAVIGATION ========= */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: #fffefb;
+  padding: 0.8rem 1.5rem;
+  z-index: 999;
+  border-bottom: 1px solid #e2ddcf;
+  text-align: center;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+nav a {
+  text-decoration: none;
+  color: #5a4e3e;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: color 0.2s ease;
+}
+
+nav a:hover {
+  color: #a25c3f;
+}
+
+/* ========= HOME / COUNTDOWN SCREEN ========= */
+header {
+  min-height: 100vh;
+  padding: 7rem 5rem 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  scroll-snap-align: start;
+  background-color: #f5f3ee;
+  text-align: center;
+  position: relative;
+}
+
+header h1 {
+  font-family: 'Petrona', serif;
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  color: #604b3d;
+}
+
+header .subtitle {
+  font-style: italic;
+  margin-bottom: 1rem;
+  color: #7a6b5e;
+}
+
+.countdown {
+  font-size: .5rem;
+  color: #a25c3f;
+  font-weight: bold;
+}
+
+/* ========= SECTION STYLING ========= */
+main section {
+  padding: 6rem 2rem 4rem;
+  scroll-snap-align: start;
+  max-width: 750px;
+  margin: 0 auto;
+}
+
+section h2 {
+  font-family: 'Petrona', serif;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #5c4432;
+}
+
+section p, section li {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+section ul {
+  padding-left: 1.2rem;
+}
+
+/* ========= FOOTER ========= */
+footer {
+  text-align: center;
+  padding: 3rem 1rem;
+  background: #f2f0ea;
+  font-size: 0.9rem;
+  color: #847c6b;
+}
+
+/* ========= DECORATIVE ELEMENT HOOKS ========= */
+.floral {
+  position: absolute;
+  width: 100px;
+  opacity: 0.8;
+}
+
+.floral.top-left {
+  top: 0;
+  left: 0;
+}
+
+.floral.bottom-right {
+  bottom: 0;
+  right: 0;
+}
+
+/* ========= RESPONSIVE ========= */
+@media (min-width: 768px) {
+  header h1 {
+    font-size: 4rem;
+  }
+
+  section h2 {
+    font-size: 2.4rem;
+  }
+
+  nav a {
+    font-size: 1.1rem;
+  }
+}
+.countdown {
+  font-size: 3.5rem;
+  opacity: 0;
+  animation: fadeIn 1.5s ease-in forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
