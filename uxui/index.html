@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Victorian Hiking Hub</title>
+  <title>Victorian Multi-Day Hiking Hub</title>
   
   <!-- Mapbox GL JS -->
   <script src='https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js'></script>
@@ -24,12 +24,11 @@
       <div class="logo-section">
         <div class="logo-box">
           <svg class="logo-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
           </svg>
         </div>
-        <h1>Victorian Hiking Hub</h1>
-        <p class="subtitle">Discover Multi-Day Trails Across Victoria</p>
+        <h1>Victorian Multi-Day Hiking Hub</h1>
+        <p class="subtitle">Discover Overnight & Multi-Day Trails Across Victoria</p>
       </div>
       
       <!-- Action Buttons -->
@@ -38,24 +37,24 @@
           <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
           </svg>
-          <div class="btn-title">Explore Map</div>
-          <p class="btn-desc">Discover trails across Victorian national parks</p>
+          <div class="btn-title">Explore Trail Map</div>
+          <p class="btn-desc">Interactive map of Victorian multi-day hiking trails</p>
         </button>
         
         <button class="action-btn" onclick="window.location.href='planning.html'">
           <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
           </svg>
-          <div class="btn-title">Plan a Trip</div>
-          <p class="btn-desc">Build your route and register for safety</p>
+          <div class="btn-title">Trip Planning Guide</div>
+          <p class="btn-desc">Essential gear, permits, and safety information</p>
         </button>
         
-        <button class="action-btn" onclick="showMyTrips()">
+        <button class="action-btn" onclick="showBookingLinks()">
           <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19a2 2 0 01-2-2V7a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1M5 19h14a2 2 0 002-2v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5a2 2 0 01-2 2z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
           </svg>
-          <div class="btn-title">My Trips</div>
-          <p class="btn-desc">View and manage your saved trips</p>
+          <div class="btn-title">Book Campsites</div>
+          <p class="btn-desc">Quick links to ParkStay Victoria booking</p>
         </button>
       </div>
       
@@ -65,63 +64,169 @@
           <svg width="32" height="32" fill="none" stroke="#dc2626" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
           </svg>
-          Current Alerts & Warnings
+          Current Alerts & Track Conditions
         </h2>
         <div class="alert-item alert-high">
           <div class="alert-header">
-            <span>Fire Warning</span>
-            <span>Grampians</span>
+            <span>⚠️ Track Closure</span>
+            <span>Wilsons Promontory</span>
           </div>
-          <p class="alert-message">Total Fire Ban in effect. No campfires permitted.</p>
-          <p class="alert-date">2025-10-06</p>
+          <p class="alert-message">Telegraph Saddle to Sealers Cove section remains closed. Use alternative routes via Tidal River.</p>
+          <p class="alert-date">Updated: October 2025</p>
         </div>
         <div class="alert-item alert-high">
           <div class="alert-header">
-            <span>Track Closure</span>
-            <span>Wilsons Promontory</span>
+            <span>🔥 Fire Restrictions</span>
+            <span>Multiple Parks</span>
           </div>
-          <p class="alert-message">Roaring Meg to South Point section closed due to storm damage.</p>
-          <p class="alert-date">2025-09-20</p>
+          <p class="alert-message">Fire restrictions in effect. Check VicEmergency before departure. Gas stoves only.</p>
+          <p class="alert-date">Current</p>
         </div>
         <div class="alert-item alert-medium">
           <div class="alert-header">
-            <span>Weather Warning</span>
+            <span>❄️ Alpine Weather</span>
             <span>Alpine National Park</span>
           </div>
-          <p class="alert-message">High winds forecast for exposed ridges. Check conditions before hiking.</p>
-          <p class="alert-date">2025-10-05</p>
+          <p class="alert-message">Unpredictable conditions above 1500m. Snow possible even in summer. Be prepared!</p>
+          <p class="alert-date">Spring/Summer Advisory</p>
+        </div>
+        <div class="alert-item alert-info">
+          <div class="alert-header">
+            <span>💧 Water Alert</span>
+            <span>All Parks</span>
+          </div>
+          <p class="alert-message">Rainwater tanks at campsites may run dry in summer. Carry water filter and plan sources.</p>
+          <p class="alert-date">Summer Season</p>
+        </div>
+        <div class="alert-links">
+          <a href="https://www.emergency.vic.gov.au/" target="_blank" class="alert-link">
+            Check VicEmergency →
+          </a>
+          <a href="https://www.parks.vic.gov.au/" target="_blank" class="alert-link">
+            Parks Victoria Conditions →
+          </a>
+        </div>
+      </div>
+      
+      <!-- Quick Stats -->
+      <div class="stats-section">
+        <div class="stat-card">
+          <div class="stat-number">12+</div>
+          <div class="stat-label">Major Multi-Day Trails</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">2-14</div>
+          <div class="stat-label">Days Duration Range</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">1000+</div>
+          <div class="stat-label">Kilometers of Trails</div>
+        </div>
+      </div>
+      
+      <!-- Featured Trails -->
+      <div class="featured-section">
+        <h2 class="section-title">🥾 Featured Multi-Day Trails</h2>
+        
+        <div class="featured-grid">
+          <div class="featured-trail">
+            <div class="trail-badge beginner-badge">Beginner Friendly</div>
+            <h3>Burchell Trail</h3>
+            <div class="trail-quick-stats">
+              <span>📏 40km</span>
+              <span>⏱️ 3 days</span>
+              <span>📍 Brisbane Ranges</span>
+            </div>
+            <p>Perfect first overnight hike! Well-marked trail with facilities. Easy access from Melbourne.</p>
+          </div>
+          
+          <div class="featured-trail">
+            <div class="trail-badge intermediate-badge">Intermediate</div>
+            <h3>Wilsons Prom Southern Circuit</h3>
+            <div class="trail-quick-stats">
+              <span>📏 43km</span>
+              <span>⏱️ 3-4 days</span>
+              <span>📍 Wilsons Prom</span>
+            </div>
+            <p>Victoria's most iconic coastal multi-day hike. Pristine beaches and stunning granite headlands.</p>
+          </div>
+          
+          <div class="featured-trail">
+            <div class="trail-badge intermediate-badge">Intermediate</div>
+            <h3>Great Ocean Walk</h3>
+            <div class="trail-quick-stats">
+              <span>📏 104km</span>
+              <span>⏱️ 7-8 days</span>
+              <span>📍 Great Ocean Road</span>
+            </div>
+            <p>Epic coastal journey from Apollo Bay to the 12 Apostles. World-class scenery.</p>
+          </div>
+          
+          <div class="featured-trail">
+            <div class="trail-badge advanced-badge">Advanced</div>
+            <h3>Grampians Peaks Trail</h3>
+            <div class="trail-quick-stats">
+              <span>📏 160km</span>
+              <span>⏱️ 13 days</span>
+              <span>📍 Grampians</span>
+            </div>
+            <p>Victoria's premier long-distance trail. Ridge walking and rock scrambling with luxury or standard camping.</p>
+          </div>
         </div>
       </div>
       
       <!-- News Section -->
       <div class="news-section">
-        <h2 class="section-title">Victorian Bush News</h2>
+        <h2 class="section-title">📰 Trail News & Updates</h2>
         <div class="news-item">
           <div class="news-header">
-            <span class="news-title">New Hut Opens on Razorback Ridge</span>
-            <span class="news-date">2025-09-28</span>
+            <span class="news-title">Grampians Peaks Trail Bookings Open</span>
+            <span class="news-date">October 2025</span>
           </div>
-          <p class="news-summary">Parks Victoria has completed construction of a new emergency shelter along the popular Razorback Ridge walk.</p>
+          <p class="news-summary">2026 season bookings now available for both luxury camp-to-camp and standard camping options. Book early!</p>
         </div>
         <div class="news-item">
           <div class="news-header">
             <span class="news-title">Spring Wildflower Season Begins</span>
-            <span class="news-date">2025-09-25</span>
+            <span class="news-date">September 2025</span>
           </div>
-          <p class="news-summary">The Grampians are ablaze with color as spring wildflowers begin their spectacular display across the ranges.</p>
+          <p class="news-summary">Little Desert Discovery Walk and Grampians trails showcase spectacular wildflower displays this spring.</p>
         </div>
         <div class="news-item">
           <div class="news-header">
-            <span class="news-title">Beach Camping Bookings Open</span>
-            <span class="news-date">2025-09-20</span>
+            <span class="news-title">New Camping Sites Open at Wilsons Prom</span>
+            <span class="news-date">September 2025</span>
           </div>
-          <p class="news-summary">Summer camping bookings are now open for Wilsons Promontory beach sites. Book early to secure your spot!</p>
+          <p class="news-summary">Additional hike-in campsites available for booking. Summer bookings filling fast - secure your spot!</p>
+        </div>
+      </div>
+      
+      <!-- Essential Resources -->
+      <div class="resources-section">
+        <h2 class="section-title">🔗 Essential Resources</h2>
+        <div class="resource-grid">
+          <a href="https://www.parkstay.vic.gov.au/overnight-walks" target="_blank" class="resource-link">
+            <strong>ParkStay Victoria</strong>
+            <span>Book campsites & permits</span>
+          </a>
+          <a href="https://www.parks.vic.gov.au/" target="_blank" class="resource-link">
+            <strong>Parks Victoria</strong>
+            <span>Park conditions & info</span>
+          </a>
+          <a href="https://www.emergency.vic.gov.au/" target="_blank" class="resource-link">
+            <strong>VicEmergency</strong>
+            <span>Alerts & fire danger</span>
+          </a>
+          <a href="http://www.bom.gov.au/" target="_blank" class="resource-link">
+            <strong>BOM Weather</strong>
+            <span>Detailed forecasts</span>
+          </a>
         </div>
       </div>
     </div>
     
     <footer>
-      Victorian Hiking Hub • Community-driven trail information
+      Victorian Multi-Day Hiking Hub • Plan Safe, Hike Smart, Leave No Trace
     </footer>
   </div>
   
@@ -132,15 +237,15 @@
         <span style="font-size: 1.25rem;">←</span>
         <span>Back to Home</span>
       </button>
-      <h1 class="map-title">Victorian National Parks</h1>
+      <h1 class="map-title">Victorian Multi-Day Hiking Trails</h1>
       <div style="width: 120px;"></div>
     </div>
     
     <div class="map-container">
       <div id="map"></div>
       
-      <!-- Park Detail Sidebar -->
-      <div id="parkSidebar" class="park-sidebar">
+      <!-- Trail Detail Sidebar -->
+      <div id="trailSidebar" class="park-sidebar">
         <div class="sidebar-content">
           <!-- Content populated by JavaScript -->
         </div>
@@ -149,8 +254,25 @@
       <!-- Map Controls -->
       <div class="map-controls">
         <button id="btn3D" class="control-btn" onclick="toggle3D()">Toggle 3D Terrain</button>
-        <button id="btnSatellite" class="control-btn" onclick="toggleSatellite()">Toggle Satellite</button>
+        <button id="btnSatellite" class="control-btn" onclick="toggleSatellite()">Satellite View</button>
         <button class="control-btn" onclick="resetView()">Reset View</button>
+      </div>
+      
+      <!-- Map Legend -->
+      <div class="map-legend">
+        <div class="legend-title">Trail Types</div>
+        <div class="legend-item">
+          <div class="legend-marker beginner-marker"></div>
+          <span>Beginner (2-3 days)</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-marker intermediate-marker"></div>
+          <span>Intermediate (3-8 days)</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-marker advanced-marker"></div>
+          <span>Advanced (8+ days)</span>
+        </div>
       </div>
     </div>
   </div>

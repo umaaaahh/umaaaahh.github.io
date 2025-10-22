@@ -1,1183 +1,522 @@
 // ============ CONFIGURATION ============
 mapboxgl.accessToken = 'pk.eyJ1IjoidW1hYnJpZGdlcyIsImEiOiJjbWdlbHM5YTkwdjRnMm1vN2M5MHI4ZWU4In0.VSHdE_aN47-FgZXo2-AsNg';
 
-// ============ DATA STRUCTURE ============
-
-// Waypoint types and their icons
-const WAYPOINT_TYPES = {
-  HUT: { icon: '🏠', color: '#8B4513', label: 'Hut' },
-  CAMPSITE: { icon: '⛺', color: '#2E7D32', label: 'Campsite' },
-  PEAK: { icon: '⛰️', color: '#D32F2F', label: 'Peak/Summit' },
-  TRAILHEAD: { icon: '🅿️', color: '#1976D2', label: 'Trailhead' },
-  WATER: { icon: '💧', color: '#0277BD', label: 'Water Source' }
-};
-
-const PARKS = [
-  // ========== ALPINE NATIONAL PARK (Regional Breakdown) ==========
+// ============ VICTORIAN MULTI-DAY TRAILS DATA ============
+const TRAILS = [
   {
-    id: 'alpine-np',
-    name: 'Alpine National Park',
-    region: 'High Country',
-    coords: [147.1000, -36.9000],
-    hasRegions: true,
-    boundary: [
-      [146.80, -37.20],
-      [147.50, -37.30],
-      [147.80, -36.80],
-      [147.70, -36.50],
-      [147.20, -36.40],
-      [146.70, -36.60],
-      [146.80, -37.20]
+    id: 'grampians-peaks-trail',
+    name: 'Grampians Peaks Trail',
+    region: 'Grampians (Gariwerd) National Park',
+    coords: [142.5000, -37.1500],
+    difficulty: 'advanced',
+    distance: 160,
+    days: 13,
+    elevation: 'Variable',
+    description: 'Victoria\'s premier long-distance trail from Mt Zero to Dunkeld. World-class ridge walking with spectacular views across the Grampians.',
+    highlights: [
+      'Iconic ridgeline hiking with 360° views',
+      'Rock scrambling and exposed sections',
+      '12 purpose-built campsites with facilities',
+      'Luxury camp-to-camp or standard camping options',
+      'Can be done in shorter sections'
     ],
-    regions: [
-      {
-        id: 'mount-bogong-area',
-        name: 'Mount Bogong Area',
-        icon: '📍',
-        coords: [147.3061, -36.7353],
-        description: 'Victoria\'s highest peak at 1986m',
-        trails: [
-          {
-            id: 'bogong-staircase',
-            name: 'Mount Bogong via Staircase Spur',
-            icon: '🥾',
-            days: 1,
-            distance: 15,
-            grade: 'Hard',
-            elevation: 1400,
-            description: 'Most popular and direct route to the summit. Steep but well-defined track.',
-            routeOptions: [
-              'Direct ascent via Staircase Spur (steepest, most popular)',
-              'Return via same route or create loop via Eskdale Spur'
-            ]
-          },
-          {
-            id: 'bogong-eskdale',
-            name: 'Mount Bogong via Eskdale Spur',
-            icon: '🥾',
-            days: 1,
-            distance: 13,
-            grade: 'Hard',
-            elevation: 1400,
-            description: 'Longer but more gradual ascent. Can combine with Staircase for a circuit.',
-            routeOptions: [
-              'Eskdale Spur ascent (gentler gradient)',
-              'Circuit: Up Eskdale, down Staircase (or reverse)'
-            ]
-          }
-        ],
-        waypoints: [
-          { type: 'TRAILHEAD', name: 'Mountain Creek Campground', coords: [147.2856, -36.7589] },
-          { type: 'HUT', name: 'Cleve Cole Hut', coords: [147.3089, -36.7356], description: 'Memorial hut near summit, built 1938' },
-          { type: 'HUT', name: 'Bivouac Hut', coords: [147.2978, -36.7445], description: 'On Staircase Spur route' },
-          { type: 'HUT', name: 'Michell Hut', coords: [147.2912, -36.7512], description: 'On Eskdale Spur, rebuilt after 2003 fires' },
-          { type: 'PEAK', name: 'Mount Bogong Summit', coords: [147.3061, -36.7353], description: '1986m - Victoria\'s highest point' }
-        ]
-      },
-      {
-        id: 'mount-feathertop-area',
-        name: 'Mount Feathertop Area',
-        icon: '📍',
-        coords: [147.1333, -36.8833],
-        description: 'Victoria\'s second highest peak, iconic Razorback Ridge',
-        trails: [
-          {
-            id: 'feathertop-razorback',
-            name: 'Feathertop via Razorback Ridge',
-            icon: '🥾',
-            days: 2,
-            distance: 22,
-            grade: 'Hard',
-            elevation: 1600,
-            description: 'Spectacular exposed ridge walk. One of Victoria\'s most iconic alpine hikes.',
-            routeOptions: [
-              'Harrietville → MUMC Hut → Razorback → Feathertop → Bungalow Spur descent',
-              'Circuit option: Return via Federation Hut',
-              'Winter: Extremely exposed, for experienced alpine hikers only'
-            ]
-          }
-        ],
-        waypoints: [
-          { type: 'TRAILHEAD', name: 'Harrietville Trailhead', coords: [147.0589, -36.9245] },
-          { type: 'HUT', name: 'MUMC Hut', coords: [147.0956, -36.8912], description: 'Melbourne Uni Mountaineering Club Hut' },
-          { type: 'HUT', name: 'Federation Hut', coords: [147.1245, -36.8756], description: 'On Bungalow Spur route' },
-          { type: 'PEAK', name: 'Mount Feathertop Summit', coords: [147.1333, -36.8833], description: '1922m - Iconic pyramid peak' }
-        ]
-      },
-      {
-        id: 'bogong-high-plains',
-        name: 'Bogong High Plains',
-        icon: '📍',
-        coords: [147.2500, -36.8500],
-        description: 'Expansive alpine plateau with historic cattlemen huts',
-        trails: [
-          {
-            id: 'wallace-heritage-circuit',
-            name: 'Wallace Heritage Circuit',
-            icon: '🥾',
-            days: 1,
-            distance: 6,
-            grade: 'Easy',
-            elevation: 50,
-            description: 'Easy circuit visiting historic huts on the high plains.',
-            routeOptions: [
-              'Wallace Hut → Cope Hut → Rover Chalet → return',
-              'Wheelchair accessible path to Wallace Hut available'
-            ]
-          },
-          {
-            id: 'falls-hotham-crossing',
-            name: 'Falls Creek to Hotham Alpine Crossing',
-            icon: '🥾',
-            days: 3,
-            distance: 35,
-            grade: 'Moderate',
-            elevation: 800,
-            description: 'Classic high country traverse between ski resorts.',
-            routeOptions: [
-              'Via Cobungra Valley and Dibbins Hut (scenic)',
-              'Via Cope Saddle (higher route, more exposed)',
-              'Can be done in either direction'
-            ]
-          }
-        ],
-        waypoints: [
-          { type: 'TRAILHEAD', name: 'Wallace Hut Car Park', coords: [147.2612, -36.8734] },
-          { type: 'HUT', name: 'Wallace Hut', coords: [147.2623, -36.8745], description: 'Oldest hut in Alpine NP, built 1889' },
-          { type: 'HUT', name: 'Cope Hut', coords: [147.2534, -36.8812], description: 'Popular ski touring hut' },
-          { type: 'HUT', name: 'Rover Chalet', coords: [147.2656, -36.8723], description: 'Largest alpine lodge, built 1940' },
-          { type: 'HUT', name: 'Edmondson Hut', coords: [147.2234, -36.8534], description: 'Cattleman\'s hut, circa 1930s' },
-          { type: 'HUT', name: 'Dibbins Hut', coords: [147.1456, -36.9234], description: 'On Falls-Hotham route' }
-        ]
-      },
-      {
-        id: 'razorback-ridge',
-        name: 'Razorback Ridge',
-        icon: '📍',
-        coords: [147.1200, -36.8900],
-        description: 'Exposed alpine ridge between Feathertop and Hotham',
-        trails: [
-          {
-            id: 'razorback-traverse',
-            name: 'Razorback Ridge Traverse',
-            icon: '🥾',
-            days: 1,
-            distance: 12,
-            grade: 'Hard',
-            elevation: 600,
-            description: 'Spectacular exposed ridge. Amazing views but highly exposed to weather.',
-            routeOptions: [
-              'Mt Hotham → Razorback → MUMC Hut',
-              'Best done in good weather, extremely exposed to wind'
-            ]
-          }
-        ],
-        waypoints: [
-          { type: 'TRAILHEAD', name: 'Mount Hotham Village', coords: [147.1356, -36.9823] }
-        ]
-      }
-    ],
-    thruHikes: [
-      {
-        id: 'aawt-vic-section',
-        name: 'Australian Alps Walking Track (VIC Section)',
-        icon: '🏔️',
-        distance: 300,
-        days: '14-21',
-        grade: 'Hard',
-        description: '655km total (Walhalla to Canberra). Victorian section traverses Baw Baw, Alpine NP, and Bogong High Plains.',
-        highlights: [
-          'Starts in Walhalla, ends at NSW border',
-          'Crosses Mount Bogong, Bogong High Plains, Falls Creek',
-          'Multiple resupply points at Mt Baw Baw, Mt Hotham, Falls Creek',
-          'Highly variable track quality - navigation skills essential'
-        ],
-        routeNotes: 'Track follows ridges and high plains. Many route variations exist, especially in wilderness areas. GPS recommended.'
-      }
-    ]
+    booking: 'Bookings essential via Parks Victoria or commercial operators',
+    link: 'https://www.parks.vic.gov.au/things-to-do/hiking-and-bushwalking/where-to-hike/long-distance-hikes',
+    bestTime: 'Autumn (Mar-May) and Spring (Sep-Nov)'
   },
-
-  // ========== GRAMPIANS NATIONAL PARK (Regional Breakdown) ==========
   {
-    id: 'grampians',
-    name: 'Grampians National Park',
-    region: 'Grampians',
-    coords: [142.5167, -37.2167],
-    hasRegions: true,
-    boundary: [
-      [142.30, -37.40],
-      [142.65, -37.45],
-      [142.75, -37.15],
-      [142.70, -36.95],
-      [142.40, -36.90],
-      [142.25, -37.10],
-      [142.30, -37.40]
-    ],
-    regions: [
-      {
-        id: 'wonderland-range',
-        name: 'Wonderland Range (Pinnacle Area)',
-        icon: '📍',
-        coords: [142.5234, -37.1945],
-        description: 'Iconic rock formations and The Pinnacle lookout',
-        trails: [
-          {
-            id: 'pinnacle-circuit',
-            name: 'Pinnacle Circuit',
-            icon: '🥾',
-            days: 1,
-            distance: 7.5,
-            grade: 'Hard',
-            elevation: 450,
-            description: 'Steep climb to iconic Pinnacle lookout with panoramic views.',
-            routeOptions: [
-              'Halls Gap → Pinnacle → return via Grand Canyon (most popular)',
-              'Alternative: via Wonderland Track loop',
-              'Can extend to Venus Baths for swimming'
-            ]
-          }
-        ],
-        waypoints: [
-          { type: 'TRAILHEAD', name: 'Halls Gap Visitor Centre', coords: [142.5167, -37.1467] },
-          { type: 'PEAK', name: 'The Pinnacle Lookout', coords: [142.5234, -37.1945], description: 'Iconic rock platform with 270° views' }
-        ]
-      },
-      {
-        id: 'serra-range',
-        name: 'Serra Range',
-        icon: '📍',
-        coords: [142.4567, -37.2834],
-        description: 'Remote wilderness ridges in the southern Grampians',
-        trails: [
-          {
-            id: 'serra-circuit',
-            name: 'Serra Range Circuit',
-            icon: '🥾',
-            days: 2,
-            distance: 26,
-            grade: 'Hard',
-            elevation: 900,
-            description: 'Remote and challenging ridge walk. Less crowded, rugged terrain.',
-            routeOptions: [
-              'Clockwise from Halls Gap recommended',
-              'Multiple creek crossings - check water levels',
-              'Navigation skills required - track not always well-defined'
-            ]
-          }
-        ],
-        waypoints: [
-          { type: 'CAMPSITE', name: 'Serra Range Campsite', coords: [142.4512, -37.2912], description: 'Basic bush camping' }
-        ]
-      },
-      {
-        id: 'northern-grampians',
-        name: 'Northern Grampians (Mt Zero Area)',
-        icon: '📍',
-        coords: [142.3456, -36.9723],
-        description: 'Northern ranges with Aboriginal rock art sites',
-        trails: [
-          {
-            id: 'mount-zero',
-            name: 'Mount Zero Summit',
-            icon: '🥾',
-            days: 1,
-            distance: 8,
-            grade: 'Moderate',
-            elevation: 380,
-            description: 'Northern endpoint of the Grampians with excellent views.',
-            routeOptions: [
-              'Direct ascent from car park (steep)',
-              'Can combine with Flat Rock for extended day'
-            ]
-          }
-        ],
-        waypoints: [
-          { type: 'TRAILHEAD', name: 'Mount Zero Car Park', coords: [142.3423, -36.9645] },
-          { type: 'PEAK', name: 'Mount Zero Summit', coords: [142.3456, -36.9723] }
-        ]
-      }
-    ],
-    thruHikes: []
-  },
-
-  // ========== WILSONS PROMONTORY (Regional Breakdown) ==========
-  {
-    id: 'wilsons-prom',
-    name: 'Wilsons Promontory National Park',
-    region: 'Gippsland',
-    coords: [146.4167, -39.0333],
-    hasRegions: true,
-    boundary: [
-      [146.25, -39.15],
-      [146.35, -39.20],
-      [146.50, -39.15],
-      [146.55, -38.95],
-      [146.50, -38.85],
-      [146.35, -38.90],
-      [146.25, -39.00],
-      [146.25, -39.15]
-    ],
-    regions: [
-      {
-        id: 'southern-circuit-area',
-        name: 'Southern Circuit Area',
-        icon: '📍',
-        coords: [146.4500, -39.0800],
-        description: 'Remote southern wilderness with pristine beaches',
-        trails: [
-          {
-            id: 'southern-circuit',
-            name: 'Southern Circuit',
-            icon: '🥾',
-            days: '3-5',
-            distance: '45-59',
-            grade: 'Moderate',
-            elevation: 600,
-            description: 'Victoria\'s most popular multi-day coastal hike. Multiple route options available.',
-            routeOptions: [
-              'Classic 3-day: Telegraph Saddle → Sealers Cove → Refuge Cove → Little Waterloo → return',
-              'NOTE: Sealers Cove boardwalk currently CLOSED (adds 14km detour)',
-              'Alternative: Telegraph → Waterloo → Lighthouse → Roaring Meg → return',
-              'Extended 5-day: Include Oberon Bay and lighthouse',
-              'Tide-dependent sections at Little Waterloo Bay'
-            ]
-          }
-        ],
-        waypoints: [
-          { type: 'TRAILHEAD', name: 'Telegraph Saddle Car Park', coords: [146.3867, -38.9834] },
-          { type: 'CAMPSITE', name: 'Sealers Cove', coords: [146.4712, -39.0145], description: 'Beautiful curved beach (boardwalk closed)' },
-          { type: 'CAMPSITE', name: 'Refuge Cove', coords: [146.4834, -39.0356], description: 'Secluded beach, sheltered' },
-          { type: 'CAMPSITE', name: 'Little Waterloo Bay', coords: [146.4723, -39.0823], description: 'Stunning beach, tide crossings' },
-          { type: 'CAMPSITE', name: 'Waterloo Bay', coords: [146.4645, -39.0912], description: 'Near lighthouse' },
-          { type: 'CAMPSITE', name: 'Roaring Meg', coords: [146.4234, -39.0734], description: 'Fern-covered gully' },
-          { type: 'CAMPSITE', name: 'Oberon Bay', coords: [146.3912, -39.0445], description: 'West coast beach' },
-          { type: 'PEAK', name: 'Wilsons Promontory Lighthouse', coords: [146.4223, -39.1334], description: 'Southernmost point, accommodation available' }
-        ]
-      },
-      {
-        id: 'northern-wilderness',
-        name: 'Northern Wilderness',
-        icon: '📍',
-        coords: [146.4000, -38.9000],
-        description: 'Remote wilderness zone, undefined tracks',
-        trails: [
-          {
-            id: 'northern-circuit',
-            name: 'Northern Circuit',
-            icon: '🥾',
-            days: '4-6',
-            distance: '50+',
-            grade: 'Hard',
-            elevation: 800,
-            description: 'WILDERNESS ROUTE: Experienced hikers only. Undefined tracks, navigation essential.',
-            routeOptions: [
-              'Multiple route variations exist',
-              'Track marked only with flagging tape in sections',
-              'Requires advanced navigation and bushwalking skills',
-              'Must complete Hiker Self-Assessment before permits issued'
-            ]
-          }
-        ],
-        waypoints: [
-          { type: 'CAMPSITE', name: 'Five Mile Beach', coords: [146.3823, -38.8912], description: 'Remote northern beach' }
-        ]
-      },
-      {
-        id: 'tidal-river-area',
-        name: 'Tidal River & Day Walks',
-        icon: '📍',
-        coords: [146.3234, -39.0156],
-        description: 'Main visitor hub with easy access walks',
-        trails: [
-          {
-            id: 'mount-oberon',
-            name: 'Mount Oberon Summit',
-            icon: '🥾',
-            days: 1,
-            distance: 7,
-            grade: 'Moderate',
-            elevation: 350,
-            description: 'Popular summit walk with panoramic views over the Prom.',
-            routeOptions: [
-              'Telegraph Saddle → Summit → return (most popular)',
-              'Sealed management track, some steps near summit'
-            ]
-          }
-        ],
-        waypoints: [
-          { type: 'TRAILHEAD', name: 'Tidal River Campground', coords: [146.3234, -39.0089] },
-          { type: 'PEAK', name: 'Mount Oberon Summit', coords: [146.3956, -38.9967], description: 'Best panoramic views of Wilsons Prom' }
-        ]
-      }
-    ],
-    thruHikes: []
-  },
-
-  // ========== SIMPLE PARKS (No Regional Breakdown) ==========
-  {
-    id: 'great-otway',
-    name: 'Great Otway National Park',
+    id: 'great-ocean-walk',
+    name: 'Great Ocean Walk',
     region: 'Great Ocean Road',
-    coords: [143.5500, -38.6500],
-    hasRegions: false,
-    boundary: [
-      [143.30, -38.80],
-      [143.75, -38.85],
-      [143.80, -38.50],
-      [143.60, -38.40],
-      [143.35, -38.45],
-      [143.30, -38.80]
+    coords: [143.4000, -38.7500],
+    difficulty: 'intermediate',
+    distance: 104,
+    days: '7-8',
+    elevation: 'Moderate',
+    description: 'Spectacular coastal walk from Apollo Bay to the 12 Apostles. Beaches, forests, clifftops, and stunning ocean views throughout.',
+    highlights: [
+      'World-famous 12 Apostles',
+      'Pristine beaches and coastal heathland',
+      'Well-maintained hike-in camps with facilities',
+      'Can do shorter sections',
+      'Regular shuttle services available'
     ],
-    trails: [
-      {
-        id: 'great-ocean-walk',
-        name: 'Great Ocean Walk (Sections)',
-        icon: '🥾',
-        days: 3,
-        distance: 35,
-        grade: 'Easy',
-        elevation: 320,
-        description: 'Stunning coastal walk with ocean views and rainforest sections.',
-        routeOptions: [
-          'Full walk is 100km over 7 days (Apollo Bay to 12 Apostles)',
-          'Popular 3-day section: Apollo Bay → Aire River',
-          'Well-marked track with designated campsites'
-        ]
-      }
-    ],
-    waypoints: [
-      { type: 'TRAILHEAD', name: 'Apollo Bay Visitor Centre', coords: [143.6689, -38.7589] },
-      { type: 'CAMPSITE', name: 'Blanket Bay', coords: [143.5234, -38.7123] },
-      { type: 'CAMPSITE', name: 'Cape Otway', coords: [143.5123, -38.8567] }
-    ],
-    thruHikes: []
+    booking: 'Book campsites in advance via Parks Victoria',
+    link: 'https://www.parks.vic.gov.au/things-to-do/hiking-and-bushwalking/where-to-hike/long-distance-hikes',
+    bestTime: 'Autumn and Spring (avoid summer crowds)'
   },
-
   {
-    id: 'cathedral-range',
-    name: 'Cathedral Range State Park',
-    region: 'Central Highlands',
-    coords: [145.9667, -37.4000],
-    hasRegions: false,
-    boundary: [
-      [145.90, -37.45],
-      [146.05, -37.47],
-      [146.08, -37.35],
-      [145.95, -37.32],
-      [145.90, -37.45]
+    id: 'wilsons-prom-southern',
+    name: 'Wilsons Promontory Southern Circuit',
+    region: 'Wilsons Promontory National Park',
+    coords: [146.4000, -39.0000],
+    difficulty: 'intermediate',
+    distance: 43,
+    days: '3-4',
+    elevation: 'Moderate',
+    description: 'Victoria\'s most iconic coastal multi-day hike. Pristine beaches, granite headlands, and coastal heathlands.',
+    highlights: [
+      'Oberon Bay, Little Waterloo Bay',
+      'Wilsons Prom Lighthouse',
+      'Spectacular coastal scenery',
+      'Well-equipped campsites',
+      'Wildlife spotting opportunities'
     ],
-    trails: [
-      {
-        id: 'cathedral-southern',
-        name: 'Southern Circuit',
-        icon: '🥾',
-        days: 2,
-        distance: 18,
-        grade: 'Hard',
-        elevation: 920,
-        description: 'Challenging rocky circuit with exposed scrambles over spectacular peaks.',
-        routeOptions: [
-          'Clockwise from Cooks Mill recommended',
-          'Includes technical scrambles - not for beginners',
-          'Razorback section exposed - avoid in bad weather'
-        ]
-      }
-    ],
-    waypoints: [
-      { type: 'TRAILHEAD', name: 'Cooks Mill Car Park', coords: [145.9523, -37.4234] },
-      { type: 'CAMPSITE', name: 'Farmyard Creek', coords: [145.9834, -37.4112] }
-    ],
-    thruHikes: []
+    booking: 'Book months in advance via ParkStay - very popular!',
+    link: 'https://www.parks.vic.gov.au/places-to-see/parks/wilsons-promontory-national-park',
+    bestTime: 'Autumn and Spring',
+    alert: 'Telegraph Saddle to Sealers Cove section currently closed'
   },
-
   {
-    id: 'croajingolong',
-    name: 'Croajingolong National Park',
-    region: 'East Gippsland',
-    coords: [149.9167, -37.5167],
-    hasRegions: false,
-    boundary: [
-      [149.60, -37.70],
-      [150.10, -37.75],
-      [150.15, -37.35],
-      [149.95, -37.25],
-      [149.65, -37.30],
-      [149.60, -37.70]
+    id: 'burchell-trail',
+    name: 'Burchell Trail',
+    region: 'Brisbane Ranges National Park',
+    coords: [144.2000, -37.8500],
+    difficulty: 'beginner',
+    distance: 40,
+    days: 3,
+    elevation: 'Low',
+    description: 'Perfect first overnight hike! Well-marked trail through forest with facilities. Easy access from Melbourne.',
+    highlights: [
+      'Great beginner multi-day trail',
+      'Two hike-in campgrounds with facilities',
+      'Historic Steiglitz ghost town',
+      'Can do shorter out-and-back sections',
+      'Close to Melbourne (1.5 hours)'
     ],
-    trails: [
-      {
-        id: 'wilderness-coast',
-        name: 'Wilderness Coast Walk',
-        icon: '🥾',
-        days: 3,
-        distance: 45,
-        grade: 'Moderate',
-        elevation: 520,
-        description: 'Remote coastal wilderness through pristine beaches. Tide-dependent.',
-        routeOptions: [
-          'Sydenham Inlet → Mallacoota Inlet (or reverse)',
-          'Check tide times before departing',
-          'Very remote - carry all supplies'
-        ]
-      }
-    ],
-    waypoints: [
-      { type: 'TRAILHEAD', name: 'Sydenham Inlet', coords: [149.6234, -37.5523] },
-      { type: 'CAMPSITE', name: 'Mueller Inlet', coords: [149.7834, -37.5234] }
-    ],
-    thruHikes: []
+    booking: 'Book via Parks Victoria website',
+    link: 'https://www.parks.vic.gov.au/places-to-see/parks/brisbane-ranges-national-park',
+    bestTime: 'Autumn and Spring (can be hot in summer)'
   },
-
   {
-    id: 'mount-buffalo',
-    name: 'Mount Buffalo National Park',
-    region: 'High Country',
-    coords: [146.7833, -36.7333],
-    hasRegions: false,
-    boundary: [
-      [146.65, -36.80],
-      [146.90, -36.82],
-      [146.92, -36.65],
-      [146.75, -36.62],
-      [146.65, -36.80]
+    id: 'beeripmo-walk',
+    name: 'Beeripmo Walk',
+    region: 'Mount Cole / Mount Buangor State Park',
+    coords: [143.2500, -37.4500],
+    difficulty: 'beginner',
+    distance: 21,
+    days: 2,
+    elevation: 'Moderate',
+    description: 'Beautiful 2-day loop with stunning views of the Grampians. Well-maintained with facilities at camp.',
+    highlights: [
+      'Fern gullies and tall forests',
+      'Panoramic views from Mt Buangor',
+      'Water tank and toilet at Beeripmo Camp',
+      'Loop trail returns to start',
+      'Great training hike for beginners'
     ],
-    trails: [
-      {
-        id: 'buffalo-gorge',
-        name: 'Gorge Walk',
-        icon: '🥾',
-        days: 1,
-        distance: 6,
-        grade: 'Easy',
-        elevation: 220,
-        description: 'Gentle walk through mountain ash forest to stunning gorge views.',
-        routeOptions: ['Loop track from Cresta Valley']
-      },
-      {
-        id: 'the-horn',
-        name: 'The Horn Summit',
-        icon: '🥾',
-        days: 1,
-        distance: 8,
-        grade: 'Moderate',
-        elevation: 300,
-        description: 'Summit walk with 360-degree alpine views from granite tors.',
-        routeOptions: ['Various routes from Mount Buffalo Chalet area']
-      }
-    ],
-    waypoints: [
-      { type: 'PEAK', name: 'The Horn', coords: [146.7889, -36.7245], description: 'Iconic granite summit' }
-    ],
-    thruHikes: []
+    booking: 'Book Beeripmo Campground via Parks Victoria',
+    link: 'https://www.parks.vic.gov.au/places-to-see/parks/mount-buangor-state-park',
+    bestTime: 'Autumn and Spring'
   },
-
   {
-    id: 'baw-baw',
-    name: 'Baw Baw National Park',
-    region: 'Central Highlands',
-    coords: [146.2833, -37.8333],
-    hasRegions: false,
-    boundary: [
-      [146.20, -37.90],
-      [146.40, -37.92],
-      [146.42, -37.78],
-      [146.28, -37.75],
-      [146.20, -37.90]
+    id: 'mount-feathertop',
+    name: 'Mount Feathertop Overnight',
+    region: 'Alpine National Park',
+    coords: [147.1333, -36.8833],
+    difficulty: 'intermediate',
+    distance: 22,
+    days: 2,
+    elevation: 'High (1600m gain)',
+    description: 'Victoria\'s second-highest peak! Stunning alpine scenery with panoramic summit views. Camp near Federation Hut.',
+    highlights: [
+      'Best summit views in Victoria',
+      'Iconic Razorback Ridge traverse',
+      'Alpine vegetation and snow gums',
+      'Federation Hut camping area',
+      'Can descend via multiple routes'
     ],
-    trails: [
-      {
-        id: 'baw-baw-plateau',
-        name: 'Baw Baw Plateau Circuit',
-        icon: '🥾',
-        days: 2,
-        distance: 20,
-        grade: 'Moderate',
-        elevation: 450,
-        description: 'Subalpine plateau walk through snow gum forests and alpine meadows.',
-        routeOptions: ['Part of AAWT route', 'Can be done as day sections']
-      }
+    booking: 'No booking required for Federation Hut area',
+    link: 'https://www.parks.vic.gov.au/places-to-see/parks/alpine-national-park',
+    bestTime: 'November-April (avoid winter unless experienced)',
+    alert: 'Exposed ridge, check weather. Snow possible even in summer.'
+  },
+  {
+    id: 'falls-to-hotham',
+    name: 'Falls to Hotham Alpine Crossing',
+    region: 'Alpine National Park',
+    coords: [147.1500, -36.9000],
+    difficulty: 'intermediate',
+    distance: 37,
+    days: '3 days / 2 nights',
+    elevation: 'High',
+    description: 'High plains trek between Falls Creek and Mt Hotham. Open grassy plains, snow gums, and mountain wetlands.',
+    highlights: [
+      'Above tree line hiking',
+      'Pristine alpine wilderness',
+      'Cope Hut and Dibbins Hut',
+      'Spectacular high country scenery',
+      'Point-to-point walk (car shuffle needed)'
     ],
-    waypoints: [
-      { type: 'TRAILHEAD', name: 'Mount Baw Baw Alpine Resort', coords: [146.2734, -37.8412] }
+    booking: 'Permits required - book via Parks Victoria',
+    link: 'https://www.parks.vic.gov.au/things-to-do/hiking-and-bushwalking/where-to-hike/long-distance-hikes',
+    bestTime: 'November-April only (snow in winter)'
+  },
+  {
+    id: 'great-south-west-walk',
+    name: 'Great South West Walk',
+    region: 'Portland / Discovery Bay',
+    coords: [141.6000, -38.3500],
+    difficulty: 'advanced',
+    distance: 250,
+    days: '12-14',
+    elevation: 'Low',
+    description: 'Epic coastal loop combining beaches, forests, and rivers. Remote sections require good navigation.',
+    highlights: [
+      'Diverse coastal and forest landscapes',
+      'Remote wilderness sections',
+      'Loop trail returns to Portland',
+      'Cape Bridgewater and Discovery Bay',
+      'Can do shorter sections'
     ],
-    thruHikes: []
+    booking: 'Limited facilities - check track conditions',
+    link: 'https://www.parks.vic.gov.au/things-to-do/hiking-and-bushwalking/where-to-hike/long-distance-hikes',
+    bestTime: 'Autumn and Spring'
+  },
+  {
+    id: 'little-desert-discovery',
+    name: 'Little Desert Discovery Walk',
+    region: 'Little Desert National Park',
+    coords: [141.7000, -36.5000],
+    difficulty: 'intermediate',
+    distance: 74,
+    days: 4,
+    elevation: 'Low',
+    description: 'Unique desert landscape with wildflowers in spring. Well-signed trail through mallee scrub and open plains.',
+    highlights: [
+      'Different ecosystem - desert hiking',
+      'Spring wildflower displays (September-November)',
+      'Great for stargazing',
+      'Three campsites along route',
+      'Well-marked trail'
+    ],
+    booking: 'Book campsites via Parks Victoria',
+    link: 'https://www.parks.vic.gov.au/places-to-see/parks/little-desert-national-park',
+    bestTime: 'Spring for wildflowers (Sep-Nov)'
+  },
+  {
+    id: 'wilderness-coast-walk',
+    name: 'Wilderness Coast Walk',
+    region: 'Croajingolong National Park',
+    coords: [149.3000, -37.5000],
+    difficulty: 'advanced',
+    distance: '100+',
+    days: '7-8',
+    elevation: 'Low',
+    description: 'Remote coastal wilderness walk through untouched beaches and forests. Navigation skills essential.',
+    highlights: [
+      'Pristine wilderness beaches',
+      'Wildlife spotting (seals, whales in season)',
+      'Basic campsites',
+      'True backcountry experience',
+      'Can extend into NSW'
+    ],
+    booking: 'Check Parks Victoria for camping areas',
+    link: 'https://www.parks.vic.gov.au/places-to-see/parks/croajingolong-national-park',
+    bestTime: 'Autumn and Spring'
+  },
+  {
+    id: 'northern-prom-circuit',
+    name: 'Northern Wilsons Prom Circuit',
+    region: 'Wilsons Promontory National Park',
+    coords: [146.3500, -38.9000],
+    difficulty: 'advanced',
+    distance: 'Variable',
+    days: '4+',
+    elevation: 'Moderate',
+    description: 'For experienced hikers only! Remote terrain with river crossings and headland traverses. Self-assessment required.',
+    highlights: [
+      'True wilderness experience',
+      'Five Mile Beach and remote camps',
+      'Minimal trail markers',
+      'River crossings and navigation challenges',
+      'Five hike-in campgrounds'
+    ],
+    booking: 'Self-assessment form required. Permits from Parks Victoria.',
+    link: 'https://www.parks.vic.gov.au/places-to-see/parks/wilsons-promontory-national-park',
+    bestTime: 'Summer (avoid winter)',
+    alert: 'Expert navigation essential. Remote with no trail markers in sections.'
+  },
+  {
+    id: 'aawt-victoria',
+    name: 'Australian Alps Walking Track (VIC section)',
+    region: 'Alpine National Park',
+    coords: [146.9000, -37.0000],
+    difficulty: 'advanced',
+    distance: 655,
+    days: 'Multiple weeks',
+    elevation: 'Extreme',
+    description: 'One of Australia\'s great long-distance trails. Victoria section from Walhalla through Alpine NP. Extensive planning required.',
+    highlights: [
+      'Australia\'s premier alpine trail',
+      'Highest peaks in Victoria',
+      'Mt Bogong, Mt Feathertop, and more',
+      'Expert navigation required',
+      'Continues into NSW if desired'
+    ],
+    booking: 'Extensive planning and support needed',
+    link: 'https://www.parks.vic.gov.au/things-to-do/hiking-and-bushwalking/where-to-hike/long-distance-hikes',
+    bestTime: 'November-March',
+    alert: 'Expert only. Requires extensive experience and navigation skills.'
   }
 ];
 
-// ============ STATE ============
+// ============ MAP INITIALIZATION ============
 let map;
 let is3D = false;
 let isSatellite = false;
-let selectedPark = null;
-let selectedRegion = null;
-let currentView = 'overview';
-
-// ============ NAVIGATION ============
-function showMap() {
-  document.getElementById('splashPage').classList.add('hidden');
-  document.getElementById('mapPage').classList.remove('hidden');
-  initMap();
-}
-
-function showSplash() {
-  document.getElementById('mapPage').classList.add('hidden');
-  document.getElementById('splashPage').classList.remove('hidden');
-  closeSidebar();
-}
-
-function showMyTrips() {
-  alert('My Trips feature - Coming soon! (Requires login)');
-}
-
-function closeSidebar() {
-  document.getElementById('parkSidebar').classList.remove('active');
-  selectedPark = null;
-  selectedRegion = null;
-  currentView = 'overview';
-}
-
-// ============ MAP INITIALIZATION ============
-let parkMarkers = []; // Store marker references
-let regionMarkers = []; // Store region-level markers
-let waypointMarkers = []; // Store waypoint markers
 
 function initMap() {
   map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/outdoors-v12',
-    center: [144.5, -37.5],
+    center: [145.0, -37.5], // Victoria center
     zoom: 6.5,
-    pitch: 0
+    pitch: 0,
+    bearing: 0
   });
-  
+
+  map.addControl(new mapboxgl.NavigationControl());
+  map.addControl(new mapboxgl.FullscreenControl());
+
   map.on('load', () => {
-    // Add terrain source
+    // Add terrain source for 3D
     map.addSource('mapbox-dem', {
-      type: 'raster-dem',
-      url: 'mapbox://mapbox.mapbox-terrain-dem-v1',
-      tileSize: 512,
-      maxzoom: 14
+      'type': 'raster-dem',
+      'url': 'mapbox://mapbox.terrain-rgb'
     });
-    
-    // Add glowing dot markers for parks
-    addParkMarkers();
+
+    // Add trail markers
+    addTrailMarkers();
   });
 }
 
-// ============ MARKER SYSTEM (GLOWING DOTS) ============
-function addParkMarkers() {
-  // Clear existing markers
-  parkMarkers.forEach(marker => marker.remove());
-  parkMarkers = [];
-  
-  PARKS.forEach(park => {
-    // Create marker element (glowing dot)
+function addTrailMarkers() {
+  TRAILS.forEach(trail => {
+    // Create marker element
     const el = document.createElement('div');
-    el.className = 'park-marker';
-    el.dataset.parkId = park.id; // Store park ID for hiding/showing
+    el.className = `trail-marker ${trail.difficulty}-marker`;
     
-    // Create popup
-    const popup = new mapboxgl.Popup({
-      offset: 25,
-      closeButton: false,
-      closeOnClick: false
-    }).setHTML(`<strong>${park.name}</strong><br>${park.region}`);
-    
-    // Create and add marker
-    const marker = new mapboxgl.Marker(el)
-      .setLngLat(park.coords)
-      .setPopup(popup)
-      .addTo(map);
-    
-    // Add click handler
-    el.addEventListener('click', () => {
-      showParkDetail(park);
-    });
-    
-    // Show popup on hover
-    el.addEventListener('mouseenter', () => {
-      popup.addTo(map);
-    });
-    
-    el.addEventListener('mouseleave', () => {
-      popup.remove();
-    });
-    
-    // Store reference
-    parkMarkers.push({ marker, parkId: park.id });
-  });
-}
-
-function addRegionMarkers(park) {
-  // Clear existing region markers
-  regionMarkers.forEach(marker => marker.remove());
-  regionMarkers = [];
-  
-  if (!park.hasRegions || !park.regions) return;
-  
-  park.regions.forEach(region => {
-    // Create marker element (smaller dot for regions)
-    const el = document.createElement('div');
-    el.className = 'region-marker';
-    
-    // Create popup
-    const popup = new mapboxgl.Popup({
-      offset: 20,
-      closeButton: false,
-      closeOnClick: false
-    }).setHTML(`<strong>${region.name}</strong><br>${region.trails.length} trail${region.trails.length > 1 ? 's' : ''}`);
-    
-    // Create and add marker
-    const marker = new mapboxgl.Marker(el)
-      .setLngLat(region.coords)
-      .setPopup(popup)
-      .addTo(map);
-    
-    // Add click handler
-    el.addEventListener('click', () => {
-      showRegionDetail(park.id, region.id);
-    });
-    
-    // Show popup on hover
-    el.addEventListener('mouseenter', () => {
-      popup.addTo(map);
-    });
-    
-    el.addEventListener('mouseleave', () => {
-      popup.remove();
-    });
-    
-    // Store reference
-    regionMarkers.push(marker);
-  });
-}
-
-function addWaypointMarkers(waypoints) {
-  // Clear existing waypoint markers
-  waypointMarkers.forEach(marker => marker.remove());
-  waypointMarkers = [];
-  
-  if (!waypoints) return;
-  
-  waypoints.forEach(wp => {
-    const wpType = WAYPOINT_TYPES[wp.type];
-    
-    // Create marker element (emoji icon)
-    const el = document.createElement('div');
-    el.className = 'waypoint-marker';
-    el.innerHTML = wpType.icon;
-    el.style.fontSize = '24px';
-    el.style.cursor = 'pointer';
-    
-    // Create popup with link to Parks Victoria
+    // Create popup content
     const popupContent = `
-      <div class="waypoint-popup">
-        <strong>${wp.name}</strong>
-        <p class="waypoint-type">${wpType.label}</p>
-        ${wp.description ? `<p class="waypoint-desc">${wp.description}</p>` : ''}
-        <a href="https://www.parks.vic.gov.au/" target="_blank" class="waypoint-link">
-          More info on Parks Victoria →
-        </a>
+      <div style="min-width: 250px;">
+        <strong style="font-size: 1.1rem; color: #1f2937;">${trail.name}</strong>
+        <div style="color: #6b7280; font-size: 0.875rem; margin: 0.5rem 0;">
+          ${trail.region}
+        </div>
+        <div style="display: flex; gap: 1rem; font-size: 0.875rem; margin: 0.75rem 0;">
+          <span>📏 ${trail.distance}km</span>
+          <span>⏱️ ${trail.days} days</span>
+        </div>
+        <div style="margin-top: 0.5rem;">
+          <span style="display: inline-block; padding: 0.25rem 0.75rem; border-radius: 1rem; font-size: 0.75rem; font-weight: bold; background: ${getDifficultyColor(trail.difficulty)};">
+            ${trail.difficulty.charAt(0).toUpperCase() + trail.difficulty.slice(1)}
+          </span>
+        </div>
       </div>
     `;
-    
-    const popup = new mapboxgl.Popup({
-      offset: 15,
-      closeButton: true,
-      maxWidth: '300px'
-    }).setHTML(popupContent);
-    
-    // Create and add marker
+
+    const popup = new mapboxgl.Popup({ offset: 25 })
+      .setHTML(popupContent);
+
     const marker = new mapboxgl.Marker(el)
-      .setLngLat(wp.coords)
+      .setLngLat(trail.coords)
       .setPopup(popup)
       .addTo(map);
-    
-    // Click to show popup
+
+    // Click to show sidebar
     el.addEventListener('click', () => {
-      popup.addTo(map);
+      showTrailDetails(trail);
     });
-    
-    // Store reference
-    waypointMarkers.push(marker);
   });
 }
 
-function hideAllParkMarkers() {
-  parkMarkers.forEach(({ marker }) => {
-    marker.getElement().style.display = 'none';
+function getDifficultyColor(difficulty) {
+  const colors = {
+    beginner: '#d1fae5; color: #065f46',
+    intermediate: '#fef3c7; color: #92400e',
+    advanced: '#fee2e2; color: #991b1b'
+  };
+  return colors[difficulty] || colors.intermediate;
+}
+
+function showTrailDetails(trail) {
+  const sidebar = document.getElementById('trailSidebar');
+  const content = sidebar.querySelector('.sidebar-content');
+
+  const alertHTML = trail.alert ? `
+    <div style="background: #fef2f2; border-left: 4px solid #dc2626; padding: 1rem; border-radius: 0.5rem; margin: 1rem 0;">
+      <strong style="color: #991b1b;">⚠️ Alert:</strong>
+      <p style="color: #7f1d1d; margin-top: 0.5rem; font-size: 0.875rem;">${trail.alert}</p>
+    </div>
+  ` : '';
+
+  content.innerHTML = `
+    <div class="sidebar-header">
+      <div>
+        <h2 class="trail-name">${trail.name}</h2>
+        <p class="trail-region">${trail.region}</p>
+      </div>
+      <button class="close-btn" onclick="closeSidebar()">✕</button>
+    </div>
+
+    ${alertHTML}
+
+    <div class="trail-info-grid">
+      <div class="info-item">
+        <div class="info-label">Distance</div>
+        <div class="info-value">${trail.distance}km</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">Duration</div>
+        <div class="info-value">${trail.days} days</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">Difficulty</div>
+        <div class="info-value" style="text-transform: capitalize;">${trail.difficulty}</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">Elevation</div>
+        <div class="info-value">${trail.elevation}</div>
+      </div>
+    </div>
+
+    <div class="section-heading">About This Trail</div>
+    <p class="trail-description">${trail.description}</p>
+
+    <div class="section-heading">Trail Highlights</div>
+    <ul class="highlights-list">
+      ${trail.highlights.map(h => `<li>${h}</li>`).join('')}
+    </ul>
+
+    <div class="booking-info">
+      <strong>Booking:</strong> ${trail.booking}
+    </div>
+
+    <div style="background: #f0fdf4; padding: 1rem; border-radius: 0.5rem; margin: 1rem 0;">
+      <strong style="color: #065f46;">Best Time to Hike:</strong>
+      <p style="color: #047857; margin-top: 0.5rem; font-size: 0.875rem;">${trail.bestTime}</p>
+    </div>
+
+    <a href="${trail.link}" target="_blank" class="external-link">
+      View on Parks Victoria →
+    </a>
+
+    <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #e5e7eb;">
+      <div style="font-size: 0.875rem; color: #6b7280;">
+        <p style="margin-bottom: 0.5rem;"><strong>Before you go:</strong></p>
+        <ul style="padding-left: 1.5rem; line-height: 1.6;">
+          <li>Book campsites in advance</li>
+          <li>Check fire danger rating</li>
+          <li>Download offline maps</li>
+          <li>Tell someone your plans</li>
+        </ul>
+      </div>
+    </div>
+  `;
+
+  sidebar.classList.add('active');
+
+  // Fly to trail location
+  map.flyTo({
+    center: trail.coords,
+    zoom: 10,
+    duration: 1500
   });
 }
 
-function showAllParkMarkers() {
-  parkMarkers.forEach(({ marker }) => {
-    marker.getElement().style.display = 'block';
+function closeSidebar() {
+  document.getElementById('trailSidebar').classList.remove('active');
+}
+
+// ============ MAP CONTROLS ============
+function toggle3D() {
+  is3D = !is3D;
+  const btn = document.getElementById('btn3D');
+  
+  if (is3D) {
+    map.setTerrain({ source: 'mapbox-dem', exaggeration: 1.5 });
+    map.easeTo({ pitch: 60, duration: 1000 });
+    btn.classList.add('active');
+  } else {
+    map.setTerrain(null);
+    map.easeTo({ pitch: 0, duration: 1000 });
+    btn.classList.remove('active');
+  }
+}
+
+function toggleSatellite() {
+  isSatellite = !isSatellite;
+  const btn = document.getElementById('btnSatellite');
+  
+  const style = isSatellite ? 
+    'mapbox://styles/mapbox/satellite-streets-v12' : 
+    'mapbox://styles/mapbox/outdoors-v12';
+  
+  map.setStyle(style);
+  btn.classList.toggle('active');
+  
+  // Re-add markers after style load
+  map.once('style.load', () => {
+    if (is3D) {
+      map.addSource('mapbox-dem', {
+        'type': 'raster-dem',
+        'url': 'mapbox://mapbox.terrain-rgb'
+      });
+      map.setTerrain({ source: 'mapbox-dem', exaggeration: 1.5 });
+    }
+    addTrailMarkers();
   });
 }
 
-function hideRegionMarkers() {
-  regionMarkers.forEach(marker => marker.remove());
-  regionMarkers = [];
+function resetView() {
+  map.flyTo({
+    center: [145.0, -37.5],
+    zoom: 6.5,
+    pitch: 0,
+    bearing: 0,
+    duration: 1500
+  });
+  closeSidebar();
 }
 
 // ============ PAGE NAVIGATION ============
-function showSplash() {
-  document.getElementById('splashPage').classList.remove('hidden');
-  document.getElementById('mapPage').classList.add('hidden');
-}
-
 function showMap() {
   document.getElementById('splashPage').classList.add('hidden');
   document.getElementById('mapPage').classList.remove('hidden');
   
   if (!map) {
     initMap();
-  }
-}
-
-function showMyTrips() {
-  alert('My Trips feature coming soon! This will show your saved trip plans and registrations.');
-}
-
-// ============ SIDEBAR CONTROLS ============
-function closeSidebar() {
-  document.getElementById('parkSidebar').classList.remove('active');
-  currentView = 'overview';
-  selectedRegion = null;
-  
-  // Show all park markers again
-  showAllParkMarkers();
-  
-  // Remove region and waypoint markers
-  hideRegionMarkers();
-  waypointMarkers.forEach(marker => marker.remove());
-  waypointMarkers = [];
-  
-  // Remove old waypoints layer if it exists
-  if (map.getLayer('waypoints')) {
-    map.removeLayer('waypoints');
-    map.removeSource('waypoints');
-  }
-}
-
-function showParkDetail(park) {
-  const sidebar = document.getElementById('parkSidebar');
-  const content = sidebar.querySelector('.sidebar-content');
-  
-  currentView = 'park';
-  
-  // Hide all park-level markers
-  hideAllParkMarkers();
-  
-  // If park has regions, show region markers
-  if (park.hasRegions) {
-    addRegionMarkers(park);
   } else {
-    // If no regions, show waypoints directly
-    if (park.waypoints) {
-      addWaypointMarkers(park.waypoints);
-    }
-  }
-  
-  let html = `
-    <div class="sidebar-header">
-      <div style="flex: 1;">
-        <h2 class="park-name">${park.name}</h2>
-        <p class="park-region">${park.region}</p>
-      </div>
-      <button class="close-btn" onclick="closeSidebar()">
-        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-        </svg>
-      </button>
-    </div>
-  `;
-  
-  if (park.hasRegions) {
-    html += `<h3 class="trails-title">Regions</h3><div class="trails-list">`;
-    park.regions.forEach(region => {
-      html += `
-        <div class="region-card" onclick="showRegionDetail('${park.id}', '${region.id}')">
-          <h4>${region.icon} ${region.name}</h4>
-          <p>${region.description}</p>
-          <p class="trail-count">${region.trails.length} trail${region.trails.length > 1 ? 's' : ''}</p>
-        </div>
-      `;
-    });
-    html += `</div>`;
-    
-    if (park.thruHikes && park.thruHikes.length > 0) {
-      html += `<h3 class="trails-title">Thru-Hikes & Long Trails</h3>`;
-      park.thruHikes.forEach(hike => {
-        html += renderThruHikeCard(hike);
-      });
-    }
-  } else {
-    html += `<h3 class="trails-title">Trails</h3><div class="trails-list">`;
-    park.trails.forEach(trail => {
-      html += renderTrailCard(trail);
-    });
-    html += `</div>`;
-  }
-  
-  content.innerHTML = html;
-  sidebar.classList.add('active');
-  
-  flyToPark(park);
-}
-
-function showRegionDetail(parkId, regionId) {
-  const park = PARKS.find(p => p.id === parkId);
-  const region = park.regions.find(r => r.id === regionId);
-  
-  selectedRegion = region;
-  currentView = 'region';
-  
-  // Hide region markers, show waypoint markers
-  hideRegionMarkers();
-  if (region.waypoints) {
-    addWaypointMarkers(region.waypoints);
-  }
-  
-  const sidebar = document.getElementById('parkSidebar');
-  const content = sidebar.querySelector('.sidebar-content');
-  
-  let html = `
-    <div class="sidebar-header">
-      <button onclick="showParkDetail(${JSON.stringify(park).replace(/"/g, '&quot;')})" class="back-btn" style="background: none; border: none; color: #047857; cursor: pointer; font-size: 1rem; padding: 0.5rem;">← Back</button>
-      <h2 class="park-name" style="margin-top: 1rem;">${region.name}</h2>
-      <button class="close-btn" onclick="closeSidebar()">
-        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-        </svg>
-      </button>
-    </div>
-    <div class="sidebar-body">
-      <p style="color: #6b7280; margin-bottom: 1.5rem;">${region.description}</p>
-      <h3 class="trails-title">Trails</h3>
-  `;
-  
-  region.trails.forEach(trail => {
-    html += renderTrailCard(trail);
-  });
-  
-  if (region.waypoints && region.waypoints.length > 0) {
-    html += `<h3 class="trails-title" style="margin-top: 2rem;">Waypoints on Map</h3>
-    <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 1rem;">
-      Click the icons on the map to see details and links to Parks Victoria.
-    </p>
-    <div class="waypoints-list">`;
-    region.waypoints.forEach(wp => {
-      const wpType = WAYPOINT_TYPES[wp.type];
-      html += `
-        <div class="waypoint-item" style="display: flex; align-items: start; gap: 0.75rem; padding: 0.75rem; background: #f9fafb; border-radius: 0.5rem; margin-bottom: 0.5rem;">
-          <span class="waypoint-icon" style="font-size: 1.5rem;">${wpType.icon}</span>
-          <div>
-            <strong style="color: #1f2937;">${wp.name}</strong>
-            ${wp.description ? `<p style="font-size: 0.875rem; color: #6b7280; margin-top: 0.25rem;">${wp.description}</p>` : ''}
-          </div>
-        </div>
-      `;
-    });
-    html += `</div>`;
-  }
-  
-  html += `</div>`;
-  content.innerHTML = html;
-  
-  flyToRegion(region);
-}
-
-function renderTrailCard(trail) {
-  return `
-    <div class="trail-card">
-      <div class="trail-header" style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
-        <h4 style="color: #1f2937; font-weight: bold;">${trail.icon} ${trail.name}</h4>
-        <span class="grade-badge grade-${trail.grade.toLowerCase()}" style="padding: 0.25rem 0.75rem; border-radius: 1rem; font-size: 0.875rem; font-weight: 600;">${trail.grade}</span>
-      </div>
-      <div class="trail-stats" style="display: flex; gap: 1rem; font-size: 0.875rem; color: #6b7280; margin-bottom: 0.5rem; flex-wrap: wrap;">
-        <span>📅 ${trail.days} day${trail.days > 1 ? 's' : ''}</span>
-        <span>📏 ${trail.distance}km</span>
-        <span>⛰️ ${trail.elevation}m</span>
-      </div>
-      <p style="font-size: 0.875rem; color: #4b5563;">${trail.description}</p>
-      ${trail.routeOptions ? `
-        <details style="margin-top: 0.75rem;">
-          <summary style="cursor: pointer; color: #047857; font-weight: 600;">Route Options</summary>
-          <ul style="margin-top: 0.5rem; margin-left: 1.5rem; font-size: 0.875rem; color: #4b5563;">
-            ${trail.routeOptions.map(opt => `<li style="margin-bottom: 0.25rem;">${opt}</li>`).join('')}
-          </ul>
-        </details>
-      ` : ''}
-    </div>
-  `;
-}
-
-function renderThruHikeCard(hike) {
-  return `
-    <div class="thruhike-card" style="background: #f0fdf4; border-left: 4px solid #047857; padding: 1rem; margin-bottom: 1rem; border-radius: 0.5rem;">
-      <h4 style="color: #1f2937; font-weight: bold; margin-bottom: 0.5rem;">${hike.icon} ${hike.name}</h4>
-      <div class="trail-stats" style="display: flex; gap: 1rem; font-size: 0.875rem; color: #6b7280; margin-bottom: 0.5rem; flex-wrap: wrap;">
-        <span>📅 ${hike.days} days</span>
-        <span>📏 ${hike.distance}km</span>
-        <span class="grade-badge grade-${hike.grade.toLowerCase()}" style="padding: 0.25rem 0.75rem; border-radius: 1rem; font-weight: 600;">${hike.grade}</span>
-      </div>
-      <p style="font-size: 0.875rem; color: #4b5563; margin-bottom: 0.75rem;">${hike.description}</p>
-      ${hike.highlights ? `
-        <details style="margin-top: 0.75rem;">
-          <summary style="cursor: pointer; color: #047857; font-weight: 600;">Highlights</summary>
-          <ul style="margin-top: 0.5rem; margin-left: 1.5rem; font-size: 0.875rem; color: #4b5563;">
-            ${hike.highlights.map(h => `<li style="margin-bottom: 0.25rem;">${h}</li>`).join('')}
-          </ul>
-        </details>
-      ` : ''}
-      ${hike.routeNotes ? `<p style="margin-top: 0.75rem; font-size: 0.875rem; color: #4b5563;"><strong>Route Notes:</strong> ${hike.routeNotes}</p>` : ''}
-    </div>
-  `;
-}
-
-// ============ MAP CONTROLS ============
-function flyToPark(park) {
-  const bounds = new mapboxgl.LngLatBounds();
-  park.boundary.forEach(coord => bounds.extend(coord));
-  
-  map.fitBounds(bounds, {
-    padding: { top: 50, bottom: 50, left: 450, right: 50 },
-    duration: 1500
-  });
-}
-
-function flyToRegion(region) {
-  map.flyTo({
-    center: region.coords,
-    zoom: 12,
-    duration: 1500,
-    padding: { left: 400 }
-  });
-}
-
-function addWaypoints(waypoints) {
-  if (!waypoints) return;
-  
-  if (map.getLayer('waypoints')) {
-    map.removeLayer('waypoints');
-    map.removeSource('waypoints');
-  }
-  
-  const features = waypoints.map(wp => ({
-    type: 'Feature',
-    geometry: {
-      type: 'Point',
-      coordinates: wp.coords
-    },
-    properties: {
-      name: wp.name,
-      type: wp.type,
-      icon: WAYPOINT_TYPES[wp.type].icon,
-      description: wp.description || ''
-    }
-  }));
-  
-  map.addSource('waypoints', {
-    type: 'geojson',
-    data: {
-      type: 'FeatureCollection',
-      features: features
-    }
-  });
-  
-  map.addLayer({
-    id: 'waypoints',
-    type: 'symbol',
-    source: 'waypoints',
-    layout: {
-      'text-field': ['get', 'icon'],
-      'text-size': 20,
-      'text-anchor': 'center'
-    }
-  });
-  
-  map.on('click', 'waypoints', (e) => {
-    const props = e.features[0].properties;
-    new mapboxgl.Popup()
-      .setLngLat(e.lngLat)
-      .setHTML(`
-        <strong>${props.name}</strong><br>
-        ${props.description}
-      `)
-      .addTo(map);
-  });
-  
-  map.on('mouseenter', 'waypoints', () => {
-    map.getCanvas().style.cursor = 'pointer';
-  });
-  
-  map.on('mouseleave', 'waypoints', () => {
-    map.getCanvas().style.cursor = '';
-  });
-}
-
-// ============ VIEW CONTROLS ============
-function toggle3D() {
-  is3D = !is3D;
-  
-  if (is3D) {
-    map.setTerrain({ source: 'mapbox-dem', exaggeration: 1.5 });
-    map.easeTo({ pitch: 60, duration: 1000 });
-  } else {
-    map.setTerrain(null);
-    map.easeTo({ pitch: 0, duration: 1000 });
+    map.resize();
   }
 }
 
-function toggleSatellite() {
-  isSatellite = !isSatellite;
-  
-  if (isSatellite) {
-    map.setStyle('mapbox://styles/mapbox/satellite-streets-v12');
-  } else {
-    map.setStyle('mapbox://styles/mapbox/outdoors-v12');
-  }
-  
-  // Wait for style to load, then re-add markers and terrain
-  map.once('style.load', () => {
-    map.addSource('mapbox-dem', {
-      type: 'raster-dem',
-      url: 'mapbox://mapbox.mapbox-terrain-dem-v1',
-      tileSize: 512,
-      maxzoom: 14
-    });
-    
-    if (is3D) {
-      map.setTerrain({ source: 'mapbox-dem', exaggeration: 1.5 });
-    }
-    
-    // Re-add park markers
-    addParkMarkers();
-    
-    // Restore view-specific markers based on current view
-    if (currentView === 'park') {
-      const activePark = PARKS.find(p => !parkMarkers.find(pm => pm.parkId === p.id)?.marker.getElement().style.display);
-      // We need to find which park is active - simpler to just keep state
-      // For now, park markers will show, user can click again
-      hideAllParkMarkers();
-    } else if (currentView === 'region' && selectedRegion) {
-      hideAllParkMarkers();
-      if (selectedRegion.waypoints) {
-        addWaypointMarkers(selectedRegion.waypoints);
-      }
-    }
-  });
-}
-
-function resetView() {
-  map.flyTo({
-    center: [144.5, -37.5],
-    zoom: 6.5,
-    pitch: 0,
-    bearing: 0,
-    duration: 1500
-  });
-  
+function showSplash() {
+  document.getElementById('mapPage').classList.add('hidden');
+  document.getElementById('splashPage').classList.remove('hidden');
   closeSidebar();
 }
+
+function showBookingLinks() {
+  const links = `
+    🏕️ ParkStay Victoria: https://www.parkstay.vic.gov.au/overnight-walks
+    
+    🏞️ Parks Victoria: https://www.parks.vic.gov.au/
+    
+    🚨 VicEmergency: https://www.emergency.vic.gov.au/
+    
+    📱 Book campsites 2-6 months in advance for popular trails!
+  `;
+  
+  if (confirm('Open booking resources?\n\n' + links)) {
+    window.open('https://www.parkstay.vic.gov.au/overnight-walks', '_blank');
+  }
+}
+
+// ============ INITIALIZE ============
+document.addEventListener('DOMContentLoaded', () => {
+  // Map will be initialized when user clicks "Explore Map"
+  console.log('Victorian Multi-Day Hiking Hub loaded!');
+  console.log(`${TRAILS.length} trails available`);
+});
