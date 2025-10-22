@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trip Planning - Victorian Hiking Hub</title>
+  <title>Trip Planning - Victorian Multi-Day Hiking Hub</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="planning-styles.css">
   <script src='https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js'></script>
@@ -18,7 +18,7 @@
         <span style="font-size: 1.25rem;">←</span>
         <span>Back to Home</span>
       </button>
-      <h1 class="planning-title">Plan Your Trip</h1>
+      <h1 class="planning-title">Plan Your Multi-Day Trip</h1>
       <div style="width: 120px;"></div>
     </div>
 
@@ -32,73 +32,40 @@
             <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
             </svg>
-            Build Your Route
+            Select Your Trail
           </h2>
 
-          <!-- Trip Mode Selection -->
-          <div class="mode-selector">
-            <button class="mode-btn active" data-mode="existing" onclick="switchMode('existing')">
-              Choose Existing Trail
-            </button>
-            <button class="mode-btn" data-mode="custom" onclick="switchMode('custom')">
-              Build Custom Route
-            </button>
-          </div>
-
-          <!-- Existing Trails Mode -->
-          <div id="existingMode" class="mode-content">
+          <!-- Trail Selection -->
+          <div id="trailSelectionMode" class="mode-content">
             <div class="form-group">
-              <label>Select Park</label>
-              <select id="parkSelect" onchange="updateTrailOptions()">
-                <option value="">Choose a park...</option>
-              </select>
-            </div>
-
-            <div class="form-group" id="regionGroup" style="display: none;">
-              <label>Select Region</label>
-              <select id="regionSelect" onchange="updateTrailsForRegion()">
-                <option value="">Choose a region...</option>
-              </select>
-            </div>
-
-            <div class="form-group" id="trailGroup" style="display: none;">
-              <label>Select Trail</label>
+              <label>Choose Multi-Day Trail</label>
               <select id="trailSelect" onchange="selectTrail()">
-                <option value="">Choose a trail...</option>
+                <option value="">Select a trail...</option>
+                <!-- Beginner Trails -->
+                <optgroup label="Beginner (2-3 Days)">
+                  <option value="burchell-trail">Burchell Trail (40km, 3 days)</option>
+                  <option value="beeripmo-walk">Beeripmo Walk (21km, 2 days)</option>
+                </optgroup>
+                <!-- Intermediate Trails -->
+                <optgroup label="Intermediate (3-8 Days)">
+                  <option value="wilsons-prom-southern">Wilsons Prom Southern Circuit (43km, 3-4 days)</option>
+                  <option value="mount-feathertop">Mount Feathertop (22km, 2 days)</option>
+                  <option value="falls-to-hotham">Falls to Hotham Alpine Crossing (37km, 3 days)</option>
+                  <option value="great-ocean-walk">Great Ocean Walk (104km, 7-8 days)</option>
+                  <option value="little-desert-discovery">Little Desert Discovery Walk (74km, 4 days)</option>
+                </optgroup>
+                <!-- Advanced Trails -->
+                <optgroup label="Advanced (8+ Days)">
+                  <option value="grampians-peaks-trail">Grampians Peaks Trail (160km, 13 days)</option>
+                  <option value="great-south-west-walk">Great South West Walk (250km, 12-14 days)</option>
+                  <option value="wilderness-coast-walk">Wilderness Coast Walk (100km+, 7-8 days)</option>
+                  <option value="northern-prom-circuit">Northern Prom Circuit (Variable, 4+ days)</option>
+                  <option value="aawt-victoria">Australian Alps Walking Track - VIC (655km, Multiple weeks)</option>
+                </optgroup>
               </select>
             </div>
 
             <div id="trailInfo" class="trail-info-card" style="display: none;"></div>
-          </div>
-
-          <!-- Custom Route Mode -->
-          <div id="customMode" class="mode-content" style="display: none;">
-            <div class="custom-route-builder">
-              <p class="info-text">Build your own route by selecting waypoints on the map</p>
-              
-              <div class="form-group">
-                <label>Trip Name</label>
-                <input type="text" id="customTripName" placeholder="My Custom Adventure">
-              </div>
-
-              <div class="form-group">
-                <label>Selected Waypoints</label>
-                <div id="waypointsList" class="waypoints-container">
-                  <p class="empty-state">Click waypoints on the map to add them to your route</p>
-                </div>
-              </div>
-
-              <div class="route-stats" id="routeStats" style="display: none;">
-                <div class="stat-item">
-                  <span class="stat-label">Waypoints:</span>
-                  <span id="waypointCount">0</span>
-                </div>
-                <div class="stat-item">
-                  <span class="stat-label">Est. Distance:</span>
-                  <span id="estimatedDistance">0 km</span>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
 
@@ -113,17 +80,17 @@
 
           <div class="form-group">
             <label>Start Date</label>
-            <input type="date" id="startDate">
+            <input type="date" id="startDate" onchange="updateTripDates()">
           </div>
 
           <div class="form-group">
-            <label>End Date</label>
-            <input type="date" id="endDate">
+            <label>End Date (auto-calculated)</label>
+            <input type="date" id="endDate" readonly style="background: #f3f4f6;">
           </div>
 
           <div class="form-group">
-            <label>Group Size</label>
-            <input type="number" id="groupSize" min="1" value="1">
+            <label>Number of Hikers</label>
+            <input type="number" id="groupSize" min="1" max="20" value="1">
           </div>
 
           <div class="form-group">
@@ -132,24 +99,25 @@
           </div>
         </div>
 
-        <!-- Gear List Prompt -->
-        <div class="panel-section" id="gearListPrompt" style="display: none;">
+        <!-- Essential Gear Checklist -->
+        <div class="panel-section" id="gearSection" style="display: none;">
           <h2 class="section-header">
             <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
             </svg>
-            Group Gear Coordination
+            Essential Gear Checklist
           </h2>
           
-          <div class="gear-prompt-content">
-            <p>Ready to coordinate gear with your hiking partners? Create a shared gear list where everyone can see who's bringing what.</p>
-            <button class="primary-btn" onclick="createGearList()" style="margin-top: 1rem;">
-              <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
-              </svg>
-              Create Group Gear List
-            </button>
+          <div class="checklist-container" id="gearChecklist">
+            <!-- Populated by JavaScript -->
           </div>
+          
+          <button class="secondary-btn" onclick="printChecklist()" style="margin-top: 1rem;">
+            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>
+            </svg>
+            Print Checklist
+          </button>
         </div>
 
         <!-- Safety Registration -->
@@ -162,7 +130,7 @@
           </h2>
 
           <div class="safety-info">
-            <p>Register your trip to ensure someone knows your plans. If you don't check in by your expected return time, your emergency contact will be notified.</p>
+            <p><strong>⚠️ Important:</strong> Always tell someone your hiking plans! Enter your emergency contact details below.</p>
           </div>
 
           <div class="form-group">
@@ -181,35 +149,24 @@
           </div>
 
           <div class="form-group">
-            <label>Expected Check-in Time</label>
+            <label>Expected Return Date/Time</label>
             <input type="datetime-local" id="checkinTime">
-          </div>
-
-          <div class="checkbox-group">
-            <input type="checkbox" id="autoAlert">
-            <label for="autoAlert">Send automatic alert if I don't check in</label>
           </div>
         </div>
 
         <!-- Action Buttons -->
         <div class="action-buttons-container" id="actionButtons" style="display: none;">
-          <button class="primary-btn" onclick="createGearList()">
-            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
-            </svg>
-            Create Group Gear List
-          </button>
           <button class="primary-btn" onclick="saveTrip()">
             <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/>
             </svg>
-            Save Trip
+            Save Trip Plan
           </button>
-          <button class="secondary-btn" onclick="saveOffline()">
+          <button class="secondary-btn" onclick="downloadPDF()">
             <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
             </svg>
-            Save for Offline
+            Download as PDF
           </button>
           <button class="secondary-btn" onclick="shareTrip()">
             <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -220,30 +177,32 @@
         </div>
       </div>
 
-      <!-- Right Panel: Map -->
+      <!-- Right Panel: Map & Info -->
       <div class="planning-map-container">
         <div id="planningMap" class="planning-map"></div>
-        <div class="map-legend">
-          <h3>Map Legend</h3>
-          <div class="legend-item">
-            <span class="legend-icon">🏠</span>
-            <span>Hut</span>
-          </div>
-          <div class="legend-item">
-            <span class="legend-icon">⛺</span>
-            <span>Campsite</span>
-          </div>
-          <div class="legend-item">
-            <span class="legend-icon">⛰️</span>
-            <span>Peak/Summit</span>
-          </div>
-          <div class="legend-item">
-            <span class="legend-icon">🅿️</span>
-            <span>Trailhead</span>
-          </div>
-          <div class="legend-item">
-            <span class="legend-icon">💧</span>
-            <span>Water Source</span>
+        
+        <!-- Quick Resources -->
+        <div class="map-resources">
+          <h3>Before You Go</h3>
+          <div class="resource-links">
+            <a href="https://www.parkstay.vic.gov.au/overnight-walks" target="_blank" class="resource-btn">
+              <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+              </svg>
+              Book Campsites
+            </a>
+            <a href="https://www.emergency.vic.gov.au/" target="_blank" class="resource-btn">
+              <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+              </svg>
+              Check Alerts
+            </a>
+            <a href="http://www.bom.gov.au/" target="_blank" class="resource-btn">
+              <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/>
+              </svg>
+              Weather
+            </a>
           </div>
         </div>
       </div>
@@ -254,20 +213,16 @@
   <div id="shareModal" class="modal" style="display: none;">
     <div class="modal-content">
       <div class="modal-header">
-        <h3>Share Your Trip</h3>
-        <button class="close-btn" onclick="closeShareModal()">
-          <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-          </svg>
-        </button>
+        <h3>Share Your Trip Plan</h3>
+        <button class="close-btn" onclick="closeShareModal()">✕</button>
       </div>
       <div class="modal-body">
-        <p>Share this link with your hiking partners:</p>
+        <p>Share this trip plan with your hiking partners:</p>
         <div class="share-link-container">
-          <input type="text" id="shareLink" readonly>
-          <button onclick="copyShareLink()">Copy</button>
+          <input type="text" id="shareLink" readonly value="Plan saved locally">
+          <button onclick="copyTripInfo()">Copy Info</button>
         </div>
-        <p class="share-note">Anyone with this link can view your trip details and checklist.</p>
+        <p class="share-note">Tip: Email or message your trip details to your emergency contact and hiking partners.</p>
       </div>
     </div>
   </div>
