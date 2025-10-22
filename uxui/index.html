@@ -142,27 +142,14 @@
       <!-- Park Detail Sidebar -->
       <div id="parkSidebar" class="park-sidebar">
         <div class="sidebar-content">
-          <div class="sidebar-header">
-            <div style="flex: 1;">
-              <h2 class="park-name" id="parkName"></h2>
-              <p class="park-region" id="parkRegion"></p>
-            </div>
-            <button class="close-btn" onclick="closeSidebar()">
-              <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-              </svg>
-            </button>
-          </div>
-          
-          <h3 class="trails-title">Multi-Day Trails</h3>
-          <div id="trailsList"></div>
+          <!-- Content populated by JavaScript -->
         </div>
       </div>
       
       <!-- Map Controls -->
       <div class="map-controls">
-        <button class="control-btn" onclick="toggle3D()">Toggle 3D Terrain</button>
-        <button class="control-btn" onclick="toggleSatellite()">Toggle Satellite</button>
+        <button id="btn3D" class="control-btn" onclick="toggle3D()">Toggle 3D Terrain</button>
+        <button id="btnSatellite" class="control-btn" onclick="toggleSatellite()">Toggle Satellite</button>
         <button class="control-btn" onclick="resetView()">Reset View</button>
       </div>
     </div>

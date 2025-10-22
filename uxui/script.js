@@ -637,19 +637,21 @@ function closeSidebar() {
 }
 
 // ============ MAP INITIALIZATION ============
+let parkMarkers = []; // Store marker references
+let regionMarkers = []; // Store region-level markers
+let waypointMarkers = []; // Store waypoint markers
+
 function initMap() {
-  if (map) return;
-  
   map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/outdoors-v12',
     center: [144.5, -37.5],
     zoom: 6.5,
-    pitch: 0,
-    bearing: 0
+    pitch: 0
   });
   
   map.on('load', () => {
+    // Add terrain source
     map.addSource('mapbox-dem', {
       type: 'raster-dem',
       url: 'mapbox://mapbox.mapbox-terrain-dem-v1',
@@ -657,146 +659,267 @@ function initMap() {
       maxzoom: 14
     });
     
-    addParkPolygons();
+    // Add glowing dot markers for parks
+    addParkMarkers();
   });
 }
 
-function addParkPolygons() {
+// ============ MARKER SYSTEM (GLOWING DOTS) ============
+function addParkMarkers() {
+  // Clear existing markers
+  parkMarkers.forEach(marker => marker.remove());
+  parkMarkers = [];
+  
   PARKS.forEach(park => {
-    const parkId = `park-${park.id}`;
+    // Create marker element (glowing dot)
+    const el = document.createElement('div');
+    el.className = 'park-marker';
+    el.dataset.parkId = park.id; // Store park ID for hiding/showing
     
-    map.addSource(parkId, {
-      type: 'geojson',
-      data: {
-        type: 'Feature',
-        geometry: {
-          type: 'Polygon',
-          coordinates: [park.boundary]
-        },
-        properties: {
-          name: park.name,
-          id: park.id
-        }
-      }
-    });
+    // Create popup
+    const popup = new mapboxgl.Popup({
+      offset: 25,
+      closeButton: false,
+      closeOnClick: false
+    }).setHTML(`<strong>${park.name}</strong><br>${park.region}`);
     
-    map.addLayer({
-      id: `${parkId}-fill`,
-      type: 'fill',
-      source: parkId,
-      paint: {
-        'fill-color': '#047857',
-        'fill-opacity': 0.3
-      }
-    });
+    // Create and add marker
+    const marker = new mapboxgl.Marker(el)
+      .setLngLat(park.coords)
+      .setPopup(popup)
+      .addTo(map);
     
-    map.addLayer({
-      id: `${parkId}-outline`,
-      type: 'line',
-      source: parkId,
-      paint: {
-        'line-color': '#047857',
-        'line-width': 2
-      }
-    });
-    
-    map.on('mouseenter', `${parkId}-fill`, () => {
-      map.getCanvas().style.cursor = 'pointer';
-      map.setPaintProperty(`${parkId}-fill`, 'fill-opacity', 0.3);
-      map.setPaintProperty(`${parkId}-outline`, 'line-width', 4);
-    });
-    
-    map.on('mouseleave', `${parkId}-fill`, () => {
-      map.getCanvas().style.cursor = '';
-      map.setPaintProperty(`${parkId}-fill`, 'fill-opacity', 0.15);
-      map.setPaintProperty(`${parkId}-outline`, 'line-width', 3);
-    });
-    
-    map.on('click', `${parkId}-fill`, () => {
+    // Add click handler
+    el.addEventListener('click', () => {
       showParkDetail(park);
     });
     
-    map.addSource(`${parkId}-label`, {
-      type: 'geojson',
-      data: {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: park.coords
-        },
-        properties: {
-          name: park.name
-        }
-      }
+    // Show popup on hover
+    el.addEventListener('mouseenter', () => {
+      popup.addTo(map);
     });
     
-    map.addLayer({
-      id: `${parkId}-label`,
-      type: 'symbol',
-      source: `${parkId}-label`,
-      layout: {
-        'text-field': ['get', 'name'],
-        'text-size': 13,
-        'text-anchor': 'center',
-        'text-offset': [0, 0],
-        'text-font': ['DIN Pro Medium', 'Arial Unicode MS Regular']
-      },
-      paint: {
-        'text-color': '#059669',
-        'text-halo-color': '#ffffff',
-        'text-halo-width': 2,
-        'text-halo-blur': 1
-      }
+    el.addEventListener('mouseleave', () => {
+      popup.remove();
     });
+    
+    // Store reference
+    parkMarkers.push({ marker, parkId: park.id });
   });
 }
 
-// ============ PARK DETAIL VIEW ============
+function addRegionMarkers(park) {
+  // Clear existing region markers
+  regionMarkers.forEach(marker => marker.remove());
+  regionMarkers = [];
+  
+  if (!park.hasRegions || !park.regions) return;
+  
+  park.regions.forEach(region => {
+    // Create marker element (smaller dot for regions)
+    const el = document.createElement('div');
+    el.className = 'region-marker';
+    
+    // Create popup
+    const popup = new mapboxgl.Popup({
+      offset: 20,
+      closeButton: false,
+      closeOnClick: false
+    }).setHTML(`<strong>${region.name}</strong><br>${region.trails.length} trail${region.trails.length > 1 ? 's' : ''}`);
+    
+    // Create and add marker
+    const marker = new mapboxgl.Marker(el)
+      .setLngLat(region.coords)
+      .setPopup(popup)
+      .addTo(map);
+    
+    // Add click handler
+    el.addEventListener('click', () => {
+      showRegionDetail(park.id, region.id);
+    });
+    
+    // Show popup on hover
+    el.addEventListener('mouseenter', () => {
+      popup.addTo(map);
+    });
+    
+    el.addEventListener('mouseleave', () => {
+      popup.remove();
+    });
+    
+    // Store reference
+    regionMarkers.push(marker);
+  });
+}
+
+function addWaypointMarkers(waypoints) {
+  // Clear existing waypoint markers
+  waypointMarkers.forEach(marker => marker.remove());
+  waypointMarkers = [];
+  
+  if (!waypoints) return;
+  
+  waypoints.forEach(wp => {
+    const wpType = WAYPOINT_TYPES[wp.type];
+    
+    // Create marker element (emoji icon)
+    const el = document.createElement('div');
+    el.className = 'waypoint-marker';
+    el.innerHTML = wpType.icon;
+    el.style.fontSize = '24px';
+    el.style.cursor = 'pointer';
+    
+    // Create popup with link to Parks Victoria
+    const popupContent = `
+      <div class="waypoint-popup">
+        <strong>${wp.name}</strong>
+        <p class="waypoint-type">${wpType.label}</p>
+        ${wp.description ? `<p class="waypoint-desc">${wp.description}</p>` : ''}
+        <a href="https://www.parks.vic.gov.au/" target="_blank" class="waypoint-link">
+          More info on Parks Victoria →
+        </a>
+      </div>
+    `;
+    
+    const popup = new mapboxgl.Popup({
+      offset: 15,
+      closeButton: true,
+      maxWidth: '300px'
+    }).setHTML(popupContent);
+    
+    // Create and add marker
+    const marker = new mapboxgl.Marker(el)
+      .setLngLat(wp.coords)
+      .setPopup(popup)
+      .addTo(map);
+    
+    // Click to show popup
+    el.addEventListener('click', () => {
+      popup.addTo(map);
+    });
+    
+    // Store reference
+    waypointMarkers.push(marker);
+  });
+}
+
+function hideAllParkMarkers() {
+  parkMarkers.forEach(({ marker }) => {
+    marker.getElement().style.display = 'none';
+  });
+}
+
+function showAllParkMarkers() {
+  parkMarkers.forEach(({ marker }) => {
+    marker.getElement().style.display = 'block';
+  });
+}
+
+function hideRegionMarkers() {
+  regionMarkers.forEach(marker => marker.remove());
+  regionMarkers = [];
+}
+
+// ============ PAGE NAVIGATION ============
+function showSplash() {
+  document.getElementById('splashPage').classList.remove('hidden');
+  document.getElementById('mapPage').classList.add('hidden');
+}
+
+function showMap() {
+  document.getElementById('splashPage').classList.add('hidden');
+  document.getElementById('mapPage').classList.remove('hidden');
+  
+  if (!map) {
+    initMap();
+  }
+}
+
+function showMyTrips() {
+  alert('My Trips feature coming soon! This will show your saved trip plans and registrations.');
+}
+
+// ============ SIDEBAR CONTROLS ============
+function closeSidebar() {
+  document.getElementById('parkSidebar').classList.remove('active');
+  currentView = 'overview';
+  selectedRegion = null;
+  
+  // Show all park markers again
+  showAllParkMarkers();
+  
+  // Remove region and waypoint markers
+  hideRegionMarkers();
+  waypointMarkers.forEach(marker => marker.remove());
+  waypointMarkers = [];
+  
+  // Remove old waypoints layer if it exists
+  if (map.getLayer('waypoints')) {
+    map.removeLayer('waypoints');
+    map.removeSource('waypoints');
+  }
+}
+
 function showParkDetail(park) {
-  selectedPark = park;
+  const sidebar = document.getElementById('parkSidebar');
+  const content = sidebar.querySelector('.sidebar-content');
+  
   currentView = 'park';
   
-  const sidebar = document.getElementById('parkSidebar');
-  const content = document.getElementById('sidebarContent');
+  // Hide all park-level markers
+  hideAllParkMarkers();
+  
+  // If park has regions, show region markers
+  if (park.hasRegions) {
+    addRegionMarkers(park);
+  } else {
+    // If no regions, show waypoints directly
+    if (park.waypoints) {
+      addWaypointMarkers(park.waypoints);
+    }
+  }
   
   let html = `
     <div class="sidebar-header">
-      <h2>${park.name}</h2>
-      <button onclick="closeSidebar()" class="close-btn">✕</button>
+      <div style="flex: 1;">
+        <h2 class="park-name">${park.name}</h2>
+        <p class="park-region">${park.region}</p>
+      </div>
+      <button class="close-btn" onclick="closeSidebar()">
+        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
     </div>
-    <div class="sidebar-body">
-      <p class="region-tag">${park.region}</p>
   `;
   
   if (park.hasRegions) {
-    html += `<h3>Regions</h3><div class="regions-list">`;
+    html += `<h3 class="trails-title">Regions</h3><div class="trails-list">`;
     park.regions.forEach(region => {
       html += `
         <div class="region-card" onclick="showRegionDetail('${park.id}', '${region.id}')">
-          <div class="region-icon">${region.icon}</div>
-          <div>
-            <h4>${region.name}</h4>
-            <p>${region.description}</p>
-          </div>
+          <h4>${region.icon} ${region.name}</h4>
+          <p>${region.description}</p>
+          <p class="trail-count">${region.trails.length} trail${region.trails.length > 1 ? 's' : ''}</p>
         </div>
       `;
     });
     html += `</div>`;
+    
+    if (park.thruHikes && park.thruHikes.length > 0) {
+      html += `<h3 class="trails-title">Thru-Hikes & Long Trails</h3>`;
+      park.thruHikes.forEach(hike => {
+        html += renderThruHikeCard(hike);
+      });
+    }
   } else {
-    html += `<h3>Trails</h3>`;
+    html += `<h3 class="trails-title">Trails</h3><div class="trails-list">`;
     park.trails.forEach(trail => {
       html += renderTrailCard(trail);
     });
+    html += `</div>`;
   }
   
-  if (park.thruHikes && park.thruHikes.length > 0) {
-    html += `<h3>Thru-Hikes</h3>`;
-    park.thruHikes.forEach(hike => {
-      html += renderThruHikeCard(hike);
-    });
-  }
-  
-  html += `</div>`;
   content.innerHTML = html;
   sidebar.classList.add('active');
   
@@ -810,17 +933,28 @@ function showRegionDetail(parkId, regionId) {
   selectedRegion = region;
   currentView = 'region';
   
-  const content = document.getElementById('sidebarContent');
+  // Hide region markers, show waypoint markers
+  hideRegionMarkers();
+  if (region.waypoints) {
+    addWaypointMarkers(region.waypoints);
+  }
+  
+  const sidebar = document.getElementById('parkSidebar');
+  const content = sidebar.querySelector('.sidebar-content');
   
   let html = `
     <div class="sidebar-header">
-      <button onclick="showParkDetail(${JSON.stringify(park).replace(/"/g, '&quot;')})" class="back-btn">← Back</button>
-      <h2>${region.name}</h2>
-      <button onclick="closeSidebar()" class="close-btn">✕</button>
+      <button onclick="showParkDetail(${JSON.stringify(park).replace(/"/g, '&quot;')})" class="back-btn" style="background: none; border: none; color: #047857; cursor: pointer; font-size: 1rem; padding: 0.5rem;">← Back</button>
+      <h2 class="park-name" style="margin-top: 1rem;">${region.name}</h2>
+      <button class="close-btn" onclick="closeSidebar()">
+        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
     </div>
     <div class="sidebar-body">
-      <p>${region.description}</p>
-      <h3>Trails</h3>
+      <p style="color: #6b7280; margin-bottom: 1.5rem;">${region.description}</p>
+      <h3 class="trails-title">Trails</h3>
   `;
   
   region.trails.forEach(trail => {
@@ -828,15 +962,19 @@ function showRegionDetail(parkId, regionId) {
   });
   
   if (region.waypoints && region.waypoints.length > 0) {
-    html += `<h3>Waypoints</h3><div class="waypoints-list">`;
+    html += `<h3 class="trails-title" style="margin-top: 2rem;">Waypoints on Map</h3>
+    <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 1rem;">
+      Click the icons on the map to see details and links to Parks Victoria.
+    </p>
+    <div class="waypoints-list">`;
     region.waypoints.forEach(wp => {
       const wpType = WAYPOINT_TYPES[wp.type];
       html += `
-        <div class="waypoint-item">
-          <span class="waypoint-icon" style="color: ${wpType.color}">${wpType.icon}</span>
+        <div class="waypoint-item" style="display: flex; align-items: start; gap: 0.75rem; padding: 0.75rem; background: #f9fafb; border-radius: 0.5rem; margin-bottom: 0.5rem;">
+          <span class="waypoint-icon" style="font-size: 1.5rem;">${wpType.icon}</span>
           <div>
-            <strong>${wp.name}</strong>
-            ${wp.description ? `<p>${wp.description}</p>` : ''}
+            <strong style="color: #1f2937;">${wp.name}</strong>
+            ${wp.description ? `<p style="font-size: 0.875rem; color: #6b7280; margin-top: 0.25rem;">${wp.description}</p>` : ''}
           </div>
         </div>
       `;
@@ -848,27 +986,26 @@ function showRegionDetail(parkId, regionId) {
   content.innerHTML = html;
   
   flyToRegion(region);
-  addWaypoints(region.waypoints);
 }
 
 function renderTrailCard(trail) {
   return `
     <div class="trail-card">
-      <div class="trail-header">
-        <h4>${trail.icon} ${trail.name}</h4>
-        <span class="grade-badge grade-${trail.grade.toLowerCase()}">${trail.grade}</span>
+      <div class="trail-header" style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
+        <h4 style="color: #1f2937; font-weight: bold;">${trail.icon} ${trail.name}</h4>
+        <span class="grade-badge grade-${trail.grade.toLowerCase()}" style="padding: 0.25rem 0.75rem; border-radius: 1rem; font-size: 0.875rem; font-weight: 600;">${trail.grade}</span>
       </div>
-      <div class="trail-stats">
+      <div class="trail-stats" style="display: flex; gap: 1rem; font-size: 0.875rem; color: #6b7280; margin-bottom: 0.5rem; flex-wrap: wrap;">
         <span>📅 ${trail.days} day${trail.days > 1 ? 's' : ''}</span>
         <span>📏 ${trail.distance}km</span>
         <span>⛰️ ${trail.elevation}m</span>
       </div>
-      <p>${trail.description}</p>
+      <p style="font-size: 0.875rem; color: #4b5563;">${trail.description}</p>
       ${trail.routeOptions ? `
-        <details>
-          <summary>Route Options</summary>
-          <ul>
-            ${trail.routeOptions.map(opt => `<li>${opt}</li>`).join('')}
+        <details style="margin-top: 0.75rem;">
+          <summary style="cursor: pointer; color: #047857; font-weight: 600;">Route Options</summary>
+          <ul style="margin-top: 0.5rem; margin-left: 1.5rem; font-size: 0.875rem; color: #4b5563;">
+            ${trail.routeOptions.map(opt => `<li style="margin-bottom: 0.25rem;">${opt}</li>`).join('')}
           </ul>
         </details>
       ` : ''}
@@ -878,23 +1015,23 @@ function renderTrailCard(trail) {
 
 function renderThruHikeCard(hike) {
   return `
-    <div class="thruhike-card">
-      <h4>${hike.icon} ${hike.name}</h4>
-      <div class="trail-stats">
+    <div class="thruhike-card" style="background: #f0fdf4; border-left: 4px solid #047857; padding: 1rem; margin-bottom: 1rem; border-radius: 0.5rem;">
+      <h4 style="color: #1f2937; font-weight: bold; margin-bottom: 0.5rem;">${hike.icon} ${hike.name}</h4>
+      <div class="trail-stats" style="display: flex; gap: 1rem; font-size: 0.875rem; color: #6b7280; margin-bottom: 0.5rem; flex-wrap: wrap;">
         <span>📅 ${hike.days} days</span>
         <span>📏 ${hike.distance}km</span>
-        <span class="grade-badge grade-${hike.grade.toLowerCase()}">${hike.grade}</span>
+        <span class="grade-badge grade-${hike.grade.toLowerCase()}" style="padding: 0.25rem 0.75rem; border-radius: 1rem; font-weight: 600;">${hike.grade}</span>
       </div>
-      <p>${hike.description}</p>
+      <p style="font-size: 0.875rem; color: #4b5563; margin-bottom: 0.75rem;">${hike.description}</p>
       ${hike.highlights ? `
-        <details>
-          <summary>Highlights</summary>
-          <ul>
-            ${hike.highlights.map(h => `<li>${h}</li>`).join('')}
+        <details style="margin-top: 0.75rem;">
+          <summary style="cursor: pointer; color: #047857; font-weight: 600;">Highlights</summary>
+          <ul style="margin-top: 0.5rem; margin-left: 1.5rem; font-size: 0.875rem; color: #4b5563;">
+            ${hike.highlights.map(h => `<li style="margin-bottom: 0.25rem;">${h}</li>`).join('')}
           </ul>
         </details>
       ` : ''}
-      ${hike.routeNotes ? `<p class="route-notes"><strong>Route Notes:</strong> ${hike.routeNotes}</p>` : ''}
+      ${hike.routeNotes ? `<p style="margin-top: 0.75rem; font-size: 0.875rem; color: #4b5563;"><strong>Route Notes:</strong> ${hike.routeNotes}</p>` : ''}
     </div>
   `;
 }
@@ -983,32 +1120,27 @@ function addWaypoints(waypoints) {
 // ============ VIEW CONTROLS ============
 function toggle3D() {
   is3D = !is3D;
-  const btn = document.getElementById('btn3D');
   
   if (is3D) {
     map.setTerrain({ source: 'mapbox-dem', exaggeration: 1.5 });
     map.easeTo({ pitch: 60, duration: 1000 });
-    btn.classList.add('active');
   } else {
     map.setTerrain(null);
     map.easeTo({ pitch: 0, duration: 1000 });
-    btn.classList.remove('active');
   }
 }
 
 function toggleSatellite() {
   isSatellite = !isSatellite;
-  const btn = document.getElementById('btnSatellite');
   
   if (isSatellite) {
     map.setStyle('mapbox://styles/mapbox/satellite-streets-v12');
-    btn.classList.add('active');
   } else {
     map.setStyle('mapbox://styles/mapbox/outdoors-v12');
-    btn.classList.remove('active');
   }
   
-  map.once('styledata', () => {
+  // Wait for style to load, then re-add markers and terrain
+  map.once('style.load', () => {
     map.addSource('mapbox-dem', {
       type: 'raster-dem',
       url: 'mapbox://mapbox.mapbox-terrain-dem-v1',
@@ -1020,10 +1152,20 @@ function toggleSatellite() {
       map.setTerrain({ source: 'mapbox-dem', exaggeration: 1.5 });
     }
     
-    addParkPolygons();
+    // Re-add park markers
+    addParkMarkers();
     
-    if (selectedRegion && selectedRegion.waypoints) {
-      addWaypoints(selectedRegion.waypoints);
+    // Restore view-specific markers based on current view
+    if (currentView === 'park') {
+      const activePark = PARKS.find(p => !parkMarkers.find(pm => pm.parkId === p.id)?.marker.getElement().style.display);
+      // We need to find which park is active - simpler to just keep state
+      // For now, park markers will show, user can click again
+      hideAllParkMarkers();
+    } else if (currentView === 'region' && selectedRegion) {
+      hideAllParkMarkers();
+      if (selectedRegion.waypoints) {
+        addWaypointMarkers(selectedRegion.waypoints);
+      }
     }
   });
 }
@@ -1038,9 +1180,4 @@ function resetView() {
   });
   
   closeSidebar();
-  
-  if (map.getLayer('waypoints')) {
-    map.removeLayer('waypoints');
-    map.removeSource('waypoints');
-  }
 }

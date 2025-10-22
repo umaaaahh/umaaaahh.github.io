@@ -240,6 +240,167 @@ h1 {
   height: 100%;
 }
 
+/* ============ GLOWING DOT MARKERS ============ */
+.park-marker {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #047857;
+  border: 3px solid white;
+  box-shadow: 
+    0 0 0 rgba(4, 120, 87, 0.4),
+    0 2px 8px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  animation: pulse-glow 2s infinite;
+}
+
+.park-marker:hover {
+  transform: scale(1.3);
+  background: #059669;
+  box-shadow: 
+    0 0 20px rgba(4, 120, 87, 0.8),
+    0 0 40px rgba(4, 120, 87, 0.4),
+    0 4px 12px rgba(0, 0, 0, 0.4);
+  animation: none;
+}
+
+/* Region markers - smaller, different color */
+.region-marker {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #0891b2; /* Cyan for regions */
+  border: 2px solid white;
+  box-shadow: 
+    0 0 0 rgba(8, 145, 178, 0.4),
+    0 2px 6px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  animation: pulse-glow-cyan 2s infinite;
+}
+
+.region-marker:hover {
+  transform: scale(1.4);
+  background: #06b6d4;
+  box-shadow: 
+    0 0 18px rgba(8, 145, 178, 0.8),
+    0 0 35px rgba(8, 145, 178, 0.4),
+    0 4px 10px rgba(0, 0, 0, 0.4);
+  animation: none;
+}
+
+/* Waypoint markers - emoji icons */
+.waypoint-marker {
+  width: auto;
+  height: auto;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  transition: transform 0.2s ease;
+}
+
+.waypoint-marker:hover {
+  transform: scale(1.2);
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+}
+
+@keyframes pulse-glow {
+  0% {
+    box-shadow: 
+      0 0 0 rgba(4, 120, 87, 0.4),
+      0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+  50% {
+    box-shadow: 
+      0 0 15px rgba(4, 120, 87, 0.6),
+      0 0 30px rgba(4, 120, 87, 0.3),
+      0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+  100% {
+    box-shadow: 
+      0 0 0 rgba(4, 120, 87, 0.4),
+      0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+}
+
+@keyframes pulse-glow-cyan {
+  0% {
+    box-shadow: 
+      0 0 0 rgba(8, 145, 178, 0.4),
+      0 2px 6px rgba(0, 0, 0, 0.3);
+  }
+  50% {
+    box-shadow: 
+      0 0 12px rgba(8, 145, 178, 0.6),
+      0 0 24px rgba(8, 145, 178, 0.3),
+      0 2px 6px rgba(0, 0, 0, 0.3);
+  }
+  100% {
+    box-shadow: 
+      0 0 0 rgba(8, 145, 178, 0.4),
+      0 2px 6px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* Mapbox Popup Styling */
+.mapboxgl-popup-content {
+  padding: 12px 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.mapboxgl-popup-content strong {
+  color: #047857;
+  font-size: 1rem;
+}
+
+.mapboxgl-popup-tip {
+  border-top-color: white;
+}
+
+/* Waypoint Popup Styling */
+.waypoint-popup {
+  min-width: 200px;
+}
+
+.waypoint-popup strong {
+  display: block;
+  font-size: 1.1rem;
+  color: #1f2937;
+  margin-bottom: 0.25rem;
+}
+
+.waypoint-type {
+  font-size: 0.875rem;
+  color: #047857;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.waypoint-desc {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+.waypoint-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.875rem;
+  color: #047857;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.waypoint-link:hover {
+  color: #059669;
+  text-decoration: underline;
+}
+
+/* ============ SIDEBAR ============ */
 .park-sidebar {
   position: absolute;
   top: 0;
@@ -300,6 +461,43 @@ h1 {
   margin-bottom: 1rem;
 }
 
+/* Region Cards */
+.region-card {
+  background: #f9fafb;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 2px solid transparent;
+}
+
+.region-card:hover {
+  background: #f0fdf4;
+  border-color: #047857;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(4, 120, 87, 0.15);
+}
+
+.region-card h4 {
+  color: #1f2937;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.region-card p {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-bottom: 0.5rem;
+}
+
+.trail-count {
+  font-size: 0.75rem;
+  color: #047857;
+  font-weight: 600;
+}
+
+/* Trail Cards */
 .trail-card {
   background: #f9fafb;
   border-radius: 0.5rem;
@@ -331,15 +529,27 @@ h1 {
   font-weight: 600;
 }
 
-.grade-easy { color: #059669; }
-.grade-moderate { color: #d97706; }
-.grade-hard { color: #dc2626; }
+.grade-easy { 
+  color: #059669;
+  background: #d1fae5;
+}
+
+.grade-moderate { 
+  color: #d97706;
+  background: #fef3c7;
+}
+
+.grade-hard { 
+  color: #dc2626;
+  background: #fee2e2;
+}
 
 .trail-desc {
   font-size: 0.875rem;
   color: #4b5563;
 }
 
+/* Map Controls */
 .map-controls {
   position: absolute;
   bottom: 2rem;
@@ -362,6 +572,7 @@ h1 {
   border-radius: 0.375rem;
   cursor: pointer;
   font-size: 0.875rem;
+  transition: background 0.2s;
 }
 
 .control-btn:hover {
@@ -372,6 +583,12 @@ h1 {
   margin-bottom: 0;
 }
 
+.control-btn.active {
+  background: #10b981;
+  font-weight: bold;
+}
+
+/* Utility */
 .hidden {
   display: none !important;
 }
