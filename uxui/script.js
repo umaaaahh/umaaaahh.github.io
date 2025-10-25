@@ -162,6 +162,6 @@ function showBookingLinks() {
 // ============ INITIALIZE ============
 document.addEventListener('DOMContentLoaded', () => {
   // Map will be initialized when user clicks "Explore Map"
-  console.log('Victorian Multi-Day Hiking Hub loaded!');
+  console.log('Victorian TrailMate loaded!');
   console.log(`${TRAILS.length} trails available`);
 });
