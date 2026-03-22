@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uma Bridges — CV</title>
+    <link rel="stylesheet" href="https://unpkg.com/98.css@0.1.20/dist/98.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=block" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .cv-standalone {
+            position: fixed;
+            inset: 0;
+            background: url('https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/windows.jfif') center center / cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            font-family: var(--font-mono);
+        }
+
+        .cv-standalone .window {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            box-shadow: none;
+        }
+
+        .cv-standalone .title-bar {
+            background: linear-gradient(90deg, var(--title-blue-dark), var(--title-blue-light)) !important;
+            padding: 3px 4px !important;
+            flex-shrink: 0;
+        }
+
+        .cv-standalone .title-bar-text {
+            color: #fff !important;
+            font-family: var(--font-mono) !important;
+            font-size: 12px !important;
+            font-weight: 600 !important;
+            text-shadow: 1px 1px 0 rgba(0,0,0,0.4);
+        }
+
+        .cv-standalone .window-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 0 !important;
+            overflow: hidden;
+        }
+
+        .cv-toolbar {
+            background: var(--win-grey);
+            border-bottom: 1px solid var(--win-grey-dark);
+            padding: 6px 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: #000;
+        }
+
+        .cv-toolbar a {
+            text-decoration: none;
+            color: #000;
+        }
+
+        .cv-iframe {
+            flex: 1;
+            width: 100%;
+            border: none;
+            min-height: 0;
+        }
+
+        @media (max-width: 480px) {
+            .cv-toolbar {
+                flex-wrap: wrap;
+                gap: 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cv-standalone">
+        <div class="window">
+            <div class="title-bar">
+                <div class="title-bar-text">📄 Uma_Bridges_CV_2026.pdf</div>
+                <div class="title-bar-controls">
+                    <button aria-label="Close" onclick="window.location.href='index.html'"></button>
+                </div>
+            </div>
+            <div class="window-body">
+                <div class="cv-toolbar">
+                    <span>Uma_Bridges_CV_2026.pdf</span>
+                    <a href="Uma_Bridges_CV_2026 (8).pdf" download="Uma_Bridges_CV_2026.pdf">
+                        <button style="font-family:var(--font-mono)!important; font-size:11px!important; padding:2px 10px!important;">⬇ Download</button>
+                    </a>
+                    <a href="index.html">
+                        <button style="font-family:var(--font-mono)!important; font-size:11px!important; padding:2px 10px!important;">← Portfolio</button>
+                    </a>
+                </div>
+                <iframe
+                    src="Uma_Bridges_CV_2026 (8).pdf"
+                    class="cv-iframe"
+                    title="Uma Bridges CV">
+                </iframe>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
