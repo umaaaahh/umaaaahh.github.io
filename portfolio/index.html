@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Squ1d 1nc — Where Analog Meets Code</title>
+    <link rel="stylesheet" href="https://unpkg.com/98.css@0.1.20/dist/98.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=block" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ BOOT SCREEN ============ -->
+<div id="loading-screen">
+    <div class="boot-logo">SQU1D_1NC</div>
+    <div class="boot-text">&gt; INITIALIZING SQU1D_1NC.exe...</div>
+    <div class="progress-bar">
+        <div class="progress-fill"></div>
+    </div>
+    <div class="boot-messages">
+        <div>&gt; Loading creative systems...</div>
+        <div>&gt; Initializing glitch protocols...</div>
+        <div>&gt; Syncing analog and digital...</div>
+        <div>&gt; Compiling project data...</div>
+        <div>&gt; Establishing desktop environment...</div>
+        <div>&gt; Boot sequence complete. Welcome.</div>
+    </div>
+</div>
+
+<!-- ============ DESKTOP ============ -->
+<div id="desktop">
+
+    <!-- Scan line overlay -->
+    <div class="scanlines"></div>
+
+    <!-- Desktop icons -->
+    <div class="desktop-icons">
+        <div class="desktop-icon" onclick="openWindow('about-window')" id="icon-about">
+            <div class="icon-img">👤</div>
+            <div class="icon-label">ABOUT.exe</div>
+        </div>
+        <div class="desktop-icon" onclick="openWindow('work-window')" id="icon-work">
+            <div class="icon-img">📁</div>
+            <div class="icon-label">WORK</div>
+        </div>
+        <div class="desktop-icon" onclick="openWindow('cv-window')" id="icon-cv">
+            <div class="icon-img">📄</div>
+            <div class="icon-label">CV_2026.pdf</div>
+        </div>
+    </div>
+
+    <!-- ============ ABOUT WINDOW ============ -->
+    <div class="os-window" id="about-window" style="display:none; top: 80px; left: 120px; width: 560px;">
+        <div class="title-bar">
+            <div class="title-bar-text">👤 ABOUT.exe</div>
+            <div class="title-bar-controls">
+                <button aria-label="Minimize" onclick="closeWindow('about-window')"></button>
+                <button aria-label="Maximize" onclick="toggleMaximize('about-window')"></button>
+                <button aria-label="Close" onclick="closeWindow('about-window')"></button>
+            </div>
+        </div>
+        <div class="window-body os-window-body">
+            <div class="file-browser">
+                <div class="file-item selected" onclick="togglePreview('about-preview', this)">
+                    <span class="file-icon">📝</span>
+                    <span class="file-name">uma_profile.txt</span>
+                </div>
+                <div class="file-item" onclick="togglePreview('manifesto-preview', this)">
+                    <span class="file-icon">📜</span>
+                    <span class="file-name">manifesto.txt</span>
+                </div>
+            </div>
+            <div class="preview-pane" id="about-preview">
+                <div class="preview-header">uma_profile.txt</div>
+                <div class="preview-content">
+                    <p class="preview-name">Uma</p>
+                    <p class="preview-handle">Squ1d_1nc</p>
+                    <p class="preview-bio">
+                        Final-year Bachelor of Design (Digital Media) student at RMIT University, Melbourne. I build interactive experiences that sit at the intersection of UX/UI, frontend development, and systems thinking — using the interface itself as the medium.
+                    </p>
+                    <p class="preview-bio">
+                        My work spans game design, cultural commemoration, dystopian fiction, and interactive narrative. I design for constraint, not around it.
+                    </p>
+                    <div class="preview-tags">
+                        <span class="tag">UX/UI</span>
+                        <span class="tag">Frontend Dev</span>
+                        <span class="tag">Game Design</span>
+                        <span class="tag">Interactive Narrative</span>
+                        <span class="tag">Systems Design</span>
+                    </div>
+                </div>
+            </div>
+            <div class="preview-pane hidden" id="manifesto-preview">
+                <div class="preview-header">manifesto.txt</div>
+                <div class="preview-content">
+                    <p class="preview-bio">
+                        Squ1d 1nc is a playground for creative systems — where game mechanics, storytelling, and digital craft collide. We prototype fast, think tactile, and build experiences that feel human, messy, and alive.
+                    </p>
+                    <p class="preview-bio">
+                        Limitations are exciting. Friction is a design tool. The interface is never neutral.
+                    </p>
+                    <p class="preview-bio">
+                        Everything starts physical — cards, boards, paper prototypes — then evolves digitally. Systems built around emotion, humour, and creative friction, not just polish.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ WORK WINDOW ============ -->
+    <div class="os-window" id="work-window" style="display:none; top: 60px; left: 200px; width: 720px;">
+        <div class="title-bar">
+            <div class="title-bar-text">📁 WORK</div>
+            <div class="title-bar-controls">
+                <button aria-label="Minimize" onclick="closeWindow('work-window')"></button>
+                <button aria-label="Maximize" onclick="toggleMaximize('work-window')"></button>
+                <button aria-label="Close" onclick="closeWindow('work-window')"></button>
+            </div>
+        </div>
+        <div class="window-body os-window-body" id="work-window-body">
+
+            <!-- File browser view (default) -->
+            <div id="work-file-browser">
+                <div class="file-browser file-browser-grid">
+                    <div class="file-item-large" onclick="showProjectPreview('lifework')">
+                        <div class="file-icon-large">💬</div>
+                        <div class="file-name">LifeWork_Internal<br>Messages</div>
+                    </div>
+                    <div class="file-item-large" onclick="showProjectPreview('hiking')">
+                        <div class="file-icon-large">🗺️</div>
+                        <div class="file-name">Victorian_Hiking<br>Hub</div>
+                    </div>
+                    <div class="file-item-large" onclick="showProjectPreview('rabi')">
+                        <div class="file-icon-large">🏝️</div>
+                        <div class="file-name">Rabi_Island_Sports<br>Tournament</div>
+                    </div>
+                    <div class="file-item-large" onclick="showProjectPreview('patchwork')">
+                        <div class="file-icon-large">🤖</div>
+                        <div class="file-name">Patchwork_Cyborg</div>
+                    </div>
+                    <div class="file-item-large" onclick="showProjectPreview('wedding')">
+                        <div class="file-icon-large">💍</div>
+                        <div class="file-name">Wedding_Site<br>Client_Work</div>
+                    </div>
+                </div>
+
+                <!-- Preview pane — hidden until file clicked -->
+                <div class="project-preview-pane hidden" id="project-preview-pane">
+                    <div class="preview-header" id="preview-project-title">Project</div>
+                    <div class="preview-content">
+                        <div class="preview-project-tags" id="preview-project-tags"></div>
+                        <p class="preview-bio" id="preview-project-desc"></p>
+                        <div class="preview-actions">
+                            <button class="preview-open-btn" id="preview-open-btn" onclick="openCaseStudy()">Open →</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Case study view (shown when Open → clicked) -->
+            <div id="work-case-study" class="hidden">
+                <div class="case-study-nav">
+                    <button onclick="backToFileView()">← Back</button>
+                    <span id="case-study-title"></span>
+                </div>
+                <div class="case-study-body" id="case-study-body">
+                    <!-- Content injected by JS -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ============ CV WINDOW ============ -->
+    <div class="os-window" id="cv-window" style="display:none; top: 100px; left: 160px; width: 600px;">
+        <div class="title-bar">
+            <div class="title-bar-text">📄 CV_2026.pdf</div>
+            <div class="title-bar-controls">
+                <button aria-label="Minimize" onclick="closeWindow('cv-window')"></button>
+                <button aria-label="Maximize" onclick="toggleMaximize('cv-window')"></button>
+                <button aria-label="Close" onclick="closeWindow('cv-window')"></button>
+            </div>
+        </div>
+        <div class="window-body os-window-body">
+            <div class="file-browser">
+                <div class="file-item selected">
+                    <span class="file-icon">📄</span>
+                    <span class="file-name">Uma_Bridges_CV_2026.pdf</span>
+                </div>
+                <div style="padding: 8px 6px;">
+                    <a class="download-btn" href="Uma_Bridges_CV_2026 (8).pdf" download="Uma_Bridges_CV_2026.pdf">⬇ Download</a>
+                </div>
+            </div>
+            <div class="preview-pane" id="cv-preview" style="padding: 0; display: flex; flex-direction: column;">
+                <div class="preview-header" style="padding: 8px 12px; margin: 0; flex-shrink: 0;">Uma_Bridges_CV_2026.pdf</div>
+                <iframe src="Uma_Bridges_CV_2026 (8).pdf" style="flex: 1; width: 100%; border: none; min-height: 500px;"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ MOBILE SHELL ============ -->
+    <div id="mobile-shell">
+        <!-- Persistent title bar -->
+        <div class="mobile-titlebar">
+            <div class="mobile-titlebar-text">SQU1D_1NC.exe</div>
+            <div class="mobile-titlebar-controls">
+                <button aria-label="Minimize">_</button>
+                <button aria-label="Maximize">□</button>
+                <button aria-label="Close">✕</button>
+            </div>
+        </div>
+
+        <!-- Home screen -->
+        <div class="mobile-home" id="mobile-home">
+            <button class="mobile-app-btn" onclick="openMobilePanel('mobile-about')">
+                <span class="mobile-app-icon">👤</span>
+                <div class="mobile-app-label">
+                    <span class="mobile-app-title">ABOUT.exe</span>
+                    <span class="mobile-app-subtitle">uma_profile.txt</span>
+                </div>
+            </button>
+            <button class="mobile-app-btn" onclick="openMobilePanel('mobile-work')">
+                <span class="mobile-app-icon">📁</span>
+                <div class="mobile-app-label">
+                    <span class="mobile-app-title">WORK</span>
+                    <span class="mobile-app-subtitle">5 files</span>
+                </div>
+            </button>
+            <button class="mobile-app-btn" onclick="openMobilePanel('mobile-cv')">
+                <span class="mobile-app-icon">📄</span>
+                <div class="mobile-app-label">
+                    <span class="mobile-app-title">CV_2026.pdf</span>
+                    <span class="mobile-app-subtitle">Download resume</span>
+                </div>
+            </button>
+            <button class="mobile-app-btn" onclick="openMobilePanel('mobile-contact')">
+                <span class="mobile-app-icon">💬</span>
+                <div class="mobile-app-label">
+                    <span class="mobile-app-title">get_in_touch.exe</span>
+                    <span class="mobile-app-subtitle">Open to work &amp; collabs</span>
+                </div>
+            </button>
+        </div>
+
+        <!-- Bottom nav -->
+        <div class="mobile-nav">
+            <div class="mobile-nav-socials">
+                <button class="mobile-nav-btn" onclick="window.open('https://instagram.com','_blank')">IG</button>
+                <button class="mobile-nav-btn" onclick="window.open('https://linkedin.com','_blank')">in</button>
+                <button class="mobile-nav-btn" onclick="window.open('https://github.com/umaaaahh','_blank')">GH</button>
+            </div>
+            <div class="mobile-nav-clock" id="mobile-clock">00:00</div>
+        </div>
+
+        <!-- ABOUT panel -->
+        <div class="mobile-panel" id="mobile-about">
+            <div class="mobile-panel-titlebar">
+                <div class="mobile-panel-titlebar-text">👤 ABOUT.exe</div>
+                <button class="mobile-panel-close" onclick="closeMobilePanel('mobile-about')">✕ Close</button>
+            </div>
+            <div class="mobile-panel-body">
+                <div class="mobile-file-row" onclick="toggleMobileFile('file-profile', this)">
+                    <span>📝</span> uma_profile.txt
+                </div>
+                <div class="mobile-file-content" id="file-profile">
+                    <p style="font-size:16px; font-weight:700; margin-bottom:4px; color:#000;">Uma</p>
+                    <p style="font-size:11px; color:var(--title-blue-dark); margin-bottom:12px;">Squ1d_1nc</p>
+                    <p style="margin-bottom:10px;">Final-year Bachelor of Design (Digital Media) student at RMIT University, Melbourne. I build interactive experiences at the intersection of UX/UI, frontend development, and systems thinking.</p>
+                    <p style="margin-bottom:12px;">My work spans game design, cultural commemoration, dystopian fiction, and interactive narrative. I design for constraint, not around it.</p>
+                    <div class="preview-tags">
+                        <span class="tag">UX/UI</span>
+                        <span class="tag">Frontend Dev</span>
+                        <span class="tag">Game Design</span>
+                        <span class="tag">Interactive Narrative</span>
+                        <span class="tag">Systems Design</span>
+                    </div>
+                </div>
+
+                <div class="mobile-file-row" onclick="toggleMobileFile('file-manifesto', this)">
+                    <span>📜</span> manifesto.txt
+                </div>
+                <div class="mobile-file-content" id="file-manifesto">
+                    <p style="margin-bottom:10px;">Squ1d 1nc is a playground for creative systems — where game mechanics, storytelling, and digital craft collide. We prototype fast, think tactile, and build experiences that feel human, messy, and alive.</p>
+                    <p style="margin-bottom:10px;">Limitations are exciting. Friction is a design tool. The interface is never neutral.</p>
+                    <p>Everything starts physical — cards, boards, paper prototypes — then evolves digitally. Systems built around emotion, humour, and creative friction, not just polish.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- WORK panel -->
+        <div class="mobile-panel" id="mobile-work">
+            <div class="mobile-panel-titlebar">
+                <div class="mobile-panel-titlebar-text">📁 WORK</div>
+                <button class="mobile-panel-close" onclick="closeMobilePanel('mobile-work')">✕ Close</button>
+            </div>
+            <div class="mobile-panel-body">
+                <div class="mobile-project-card">
+                    <div class="mobile-project-header">💬 LifeWork Internal Messages</div>
+                    <div class="mobile-project-body">
+                        <div class="mobile-project-title">LifeWork Internal Messages</div>
+                        <div class="mobile-project-tags">
+                            <span class="tag">UX/UI</span><span class="tag">Frontend</span><span class="tag">Social Commentary</span>
+                        </div>
+                        <div class="mobile-project-desc">A dystopian Slack-clone interface critiquing AI surveillance and gig economy exploitation. Every message, channel, and UI element tells the story of a worker trapped in a system that watches everything.</div>
+                        <button class="mobile-project-btn">Case Study →</button>
+                    </div>
+                </div>
+                <div class="mobile-project-card">
+                    <div class="mobile-project-header">🗺️ Victorian Hiking Hub</div>
+                    <div class="mobile-project-body">
+                        <div class="mobile-project-title">Victorian Hiking Hub</div>
+                        <div class="mobile-project-tags">
+                            <span class="tag">UX Research</span><span class="tag">Mapbox</span><span class="tag">Frontend</span>
+                        </div>
+                        <div class="mobile-project-desc">A trail discovery platform built with modular JavaScript and Mapbox GL. Includes gear checklists, trip planning tools, and community-sourced route data.</div>
+                        <button class="mobile-project-btn">Case Study →</button>
+                    </div>
+                </div>
+                <div class="mobile-project-card">
+                    <div class="mobile-project-header">🏝️ Rabi Island Sports Tournament</div>
+                    <div class="mobile-project-body">
+                        <div class="mobile-project-title">Rabi Island Sports Tournament</div>
+                        <div class="mobile-project-tags">
+                            <span class="tag">Interactive Narrative</span><span class="tag">Cultural Design</span>
+                        </div>
+                        <div class="mobile-project-desc">Commemorating 80 years of Banaban history through interactive village profiles and sports rivalries. Built in collaboration with a cultural expert.</div>
+                        <button class="mobile-project-btn" onclick="window.open('rabi-island.html','_blank')">View Project →</button>
+                    </div>
+                </div>
+                <div class="mobile-project-card">
+                    <div class="mobile-project-header">🤖 Patchwork Cyborg</div>
+                    <div class="mobile-project-body">
+                        <div class="mobile-project-title">Patchwork Cyborg</div>
+                        <div class="mobile-project-tags">
+                            <span class="tag">Game Design</span><span class="tag">Systems Design</span><span class="tag">Frontend</span>
+                        </div>
+                        <div class="mobile-project-desc">A dystopian survival game where you play as a gig worker upgrading biotech body parts to outlast New Naarm's exploitative economy.</div>
+                        <button class="mobile-project-btn" onclick="window.open('patchwork-cyborg.html','_blank')">View Project →</button>
+                    </div>
+                </div>
+                <div class="mobile-project-card">
+                    <div class="mobile-project-header">💍 Wedding Site — Client Work</div>
+                    <div class="mobile-project-body">
+                        <div class="mobile-project-title">Wedding Site — Client Work</div>
+                        <div class="mobile-project-tags">
+                            <span class="tag">Client Work</span><span class="tag">Cloudflare</span><span class="tag">Real Deployment</span>
+                        </div>
+                        <div class="mobile-project-desc">Bespoke wedding website deployed to Cloudflare Pages. Solved real-world CORS issues and implemented secure form handling.</div>
+                        <button class="mobile-project-btn">Case Study →</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CV panel -->
+        <div class="mobile-panel" id="mobile-cv">
+            <div class="mobile-panel-titlebar">
+                <div class="mobile-panel-titlebar-text">📄 CV_2026.pdf</div>
+                <button class="mobile-panel-close" onclick="closeMobilePanel('mobile-cv')">✕ Close</button>
+            </div>
+            <div class="mobile-panel-body">
+                <div class="mobile-cv-placeholder">
+                    <p>📄 Uma_Bridges_CV_2026.pdf</p>
+                    <a class="mobile-cv-download" href="Uma_Bridges_CV_2026 (8).pdf" download="Uma_Bridges_CV_2026.pdf">⬇ Download CV</a>
+                    <iframe src="Uma_Bridges_CV_2026 (8).pdf" style="width:100%; height:500px; border:none; margin-top:12px;"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact panel -->
+        <div class="mobile-panel" id="mobile-contact">
+            <div class="mobile-panel-titlebar">
+                <div class="mobile-panel-titlebar-text">💬 get_in_touch.exe</div>
+                <button class="mobile-panel-close" onclick="closeMobilePanel('mobile-contact')">✕ Close</button>
+            </div>
+            <div class="mobile-panel-body">
+                <p style="margin-bottom:16px; font-size:13px; color:#000;">Open to junior roles, freelance work, and interesting collaborations.</p>
+                <div style="display:flex; flex-direction:column; gap:10px;">
+                    <button style="font-family:var(--font-mono)!important; font-size:13px!important; padding:12px!important;" onclick="window.location.href='mailto:hello@squ1dinc.com'">📧 Email me</button>
+                    <button style="font-family:var(--font-mono)!important; font-size:13px!important; padding:12px!important;" onclick="window.open('https://linkedin.com','_blank')">🔗 LinkedIn</button>
+                    <button style="font-family:var(--font-mono)!important; font-size:13px!important; padding:12px!important;" onclick="window.open('https://instagram.com','_blank')">📷 Instagram</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ TASKBAR ============ -->
+    <div id="taskbar">
+        <div class="taskbar-left">
+            <div class="taskbar-logo" onclick="minimizeAll()">SQU1D_1NC</div>
+            <div class="taskbar-sep"></div>
+            <button class="taskbar-btn" onclick="openWindow('about-window')">👤 ABOUT</button>
+            <button class="taskbar-btn" onclick="openWindow('work-window')">📁 WORK</button>
+            <button class="taskbar-btn" onclick="openWindow('cv-window')">📄 CV</button>
+        </div>
+        <div class="taskbar-right">
+            <button class="taskbar-icon-btn" onclick="window.open('https://instagram.com', '_blank')" title="Instagram">IG</button>
+            <button class="taskbar-icon-btn" onclick="window.open('https://linkedin.com', '_blank')" title="LinkedIn">in</button>
+            <button class="taskbar-icon-btn" onclick="window.open('https://github.com/umaaaahh', '_blank')" title="GitHub">GH</button>
+            <div class="taskbar-sep"></div>
+            <div class="taskbar-clock" id="taskbar-clock">00:00</div>
+        </div>
+    </div>
+
+</div><!-- end desktop -->
+
+<script>
+// ============ PROJECT DATA ============
+const projects = {
+    lifework: {
+        title: 'LifeWork Internal Messages',
+        tags: ['UX/UI', 'Frontend', 'Social Commentary', 'RMIT'],
+        desc: 'A dystopian Slack-clone interface critiquing AI surveillance and gig economy exploitation. Built as an immersive fiction — every message, channel, and UI element tells the story of a worker trapped in a corporate system that watches everything.',
+        url: null
+    },
+    hiking: {
+        title: 'Victorian Hiking Hub',
+        tags: ['UX Research', 'Mapbox', 'Frontend', 'Information Architecture'],
+        desc: 'A trail discovery platform built with modular JavaScript and Mapbox GL. Includes gear checklists, trip planning tools, and community-sourced route data. Grounded in UX research with Australian hiking communities.',
+        url: null
+    },
+    rabi: {
+        title: 'Rabi Island Sports Tournament',
+        tags: ['Interactive Narrative', 'Cultural Design', 'Scroll-driven', 'Collaboration'],
+        desc: "Commemorating 80 years of Banaban history through interactive village profiles and sports rivalries. Built in collaboration with a cultural expert — every design decision was made in service of the community's story.",
+        url: 'rabi-island.html'
+    },
+    patchwork: {
+        title: 'Patchwork Cyborg',
+        tags: ['Game Design', 'Systems Design', 'Frontend', 'Interactive Fiction'],
+        desc: "A dystopian survival game where you play as a gig worker upgrading biotech body parts to outlast New Naarm's exploitative economy. Evolved from idle game to dice-based card system through iterative prototyping.",
+        url: 'patchwork-cyborg.html'
+    },
+    wedding: {
+        title: 'Wedding Site — Client Work',
+        tags: ['Client Work', 'Frontend', 'Cloudflare', 'Real Deployment'],
+        desc: 'A bespoke wedding website for Maggie & Harrison (July 2026, Camp Jungai). Custom-built, password-protected, deployed to Cloudflare Pages. Solved real-world CORS issues and implemented secure form handling.',
+        url: 'maggieandharrisonwedd/index.html'
+    }
+};
+
+let currentProject = null;
+
+// ============ MOBILE PANEL FUNCTIONS ============
+function openMobilePanel(id) {
+    document.getElementById(id).classList.add('open');
+}
+
+function closeMobilePanel(id) {
+    document.getElementById(id).classList.remove('open');
+}
+
+function toggleMobileFile(id, el) {
+    const content = document.getElementById(id);
+    const isOpen = content.classList.contains('open');
+    document.querySelectorAll('.mobile-file-content').forEach(f => f.classList.remove('open'));
+    document.querySelectorAll('.mobile-file-row').forEach(f => f.classList.remove('selected'));
+    if (!isOpen) {
+        content.classList.add('open');
+        el.classList.add('selected');
+    }
+}
+
+// ============ BOOT SEQUENCE ============
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        document.getElementById('loading-screen').style.display = 'none';
+        document.getElementById('desktop').style.opacity = '1';
+    }, 5200);
+
+    updateClock();
+    setInterval(updateClock, 1000);
+});
+
+function updateClock() {
+    const now = new Date();
+    const h = String(now.getHours()).padStart(2, '0');
+    const m = String(now.getMinutes()).padStart(2, '0');
+    const time = `${h}:${m}`;
+    const desktop = document.getElementById('taskbar-clock');
+    const mobile = document.getElementById('mobile-clock');
+    if (desktop) desktop.textContent = time;
+    if (mobile) mobile.textContent = time;
+}
+
+// ============ WINDOW MANAGEMENT ============
+function openWindow(id) {
+    const win = document.getElementById(id);
+    win.style.display = 'block';
+    win.classList.add('maximized'); // open full-screen by default
+    bringToFront(win);
+}
+
+function closeWindow(id) {
+    const win = document.getElementById(id);
+    win.style.display = 'none';
+    win.classList.remove('maximized');
+}
+
+function toggleMaximize(id) {
+    const win = document.getElementById(id);
+    win.classList.toggle('maximized');
+    bringToFront(win);
+}
+
+function bringToFront(win) {
+    const allWindows = document.querySelectorAll('.os-window');
+    let maxZ = 10;
+    allWindows.forEach(w => {
+        const z = parseInt(w.style.zIndex) || 10;
+        if (z > maxZ) maxZ = z;
+    });
+    win.style.zIndex = maxZ + 1;
+}
+
+function minimizeAll() {
+    document.querySelectorAll('.os-window').forEach(w => {
+        w.style.display = 'none';
+        w.classList.remove('maximized');
+    });
+}
+
+// Make windows clickable to bring forward
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.os-window').forEach(win => {
+        win.addEventListener('mousedown', () => bringToFront(win));
+    });
+});
+
+// ============ ABOUT — FILE TOGGLE ============
+function togglePreview(id, el) {
+    document.querySelectorAll('#about-window .preview-pane').forEach(p => p.classList.add('hidden'));
+    document.querySelectorAll('#about-window .file-item').forEach(f => f.classList.remove('selected'));
+    document.getElementById(id).classList.remove('hidden');
+    el.classList.add('selected');
+}
+
+// ============ WORK — PROJECT PREVIEW ============
+function showProjectPreview(key) {
+    const project = projects[key];
+    currentProject = key;
+
+    document.querySelectorAll('.file-item-large').forEach(f => f.classList.remove('selected'));
+    event.currentTarget.classList.add('selected');
+
+    document.getElementById('preview-project-title').textContent = project.title;
+    document.getElementById('preview-project-desc').textContent = project.desc;
+
+    const tagsEl = document.getElementById('preview-project-tags');
+    tagsEl.innerHTML = project.tags.map(t => `<span class="tag">${t}</span>`).join('');
+
+    const openBtn = document.getElementById('preview-open-btn');
+    openBtn.textContent = project.url ? 'Open →' : 'Case Study →';
+
+    document.getElementById('project-preview-pane').classList.remove('hidden');
+}
+
+function openCaseStudy() {
+    const project = projects[currentProject];
+
+    if (project.url && project.url.endsWith('.html') && !project.url.includes('case')) {
+        window.open(project.url, '_blank');
+        return;
+    }
+
+    document.getElementById('work-file-browser').classList.add('hidden');
+    document.getElementById('work-case-study').classList.remove('hidden');
+    document.getElementById('case-study-title').textContent = project.title;
+
+    document.getElementById('case-study-body').innerHTML = `
+        <div class="case-study-tags">${project.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+        <p class="case-study-desc">${project.desc}</p>
+        <div class="case-study-placeholder">
+            <p>[ Full case study coming soon ]</p>
+            <p style="font-size: 11px; margin-top: 8px; color: var(--win-grey-dark);">Screenshots, process work, and write-up in progress.</p>
+        </div>
+    `;
+}
+
+function backToFileView() {
+    document.getElementById('work-file-browser').classList.remove('hidden');
+    document.getElementById('work-case-study').classList.add('hidden');
+}
+</script>
+
+</body>
+</html>

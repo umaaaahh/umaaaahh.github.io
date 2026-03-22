@@ -24,12 +24,12 @@ html, body {
   justify-content: center;
   align-items: center;
   text-align: center;
-  background-color: #fefcf8;
+  background: linear-gradient(rgba(254, 252, 248, 0.85), rgba(254, 252, 248, 0.85)),
+    url('images/password-background.jpg') center/cover no-repeat;
   padding: 2rem;
   font-family: 'Quicksand', sans-serif;
   overflow: hidden;
 }
-
 #password-screen input {
   padding: 0.5rem 1rem;
   font-size: 1rem;
