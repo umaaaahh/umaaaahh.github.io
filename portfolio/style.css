@@ -235,19 +235,34 @@ html, body {
     line-height: 1.3;
 }
 
-/* ============ OS WINDOWS ============ */
+/* ============ WINDOW TRANSITIONS ============ */
 .os-window {
     position: absolute;
     min-width: 320px;
     box-shadow: 4px 4px 0 rgba(0,0,0,0.5);
     z-index: 10;
     font-family: var(--font-mono);
-    /* KEY FIX: use flex so title bar + body stack with zero gap */
-    display: flex;
+    display: none;
     flex-direction: column;
+
+    /* open/close transition */
+    opacity: 0;
+    transform: scale(0.96) translateY(6px);
+    transition: opacity 0.18s ease, transform 0.18s ease;
 }
 
-/* Maximized window */
+.os-window.window-open {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+.os-window.window-closing {
+    opacity: 0;
+    transform: scale(0.96) translateY(6px);
+    pointer-events: none;
+}
+
+/* ============ MAXIMIZED STATE ============ */
 .os-window.maximized {
     position: fixed !important;
     top: 0 !important;
@@ -273,13 +288,18 @@ html, body {
     height: 100%;
 }
 
+/* Work window maximized: grid stays 50%, preview takes rest */
 .os-window.maximized .file-browser-grid {
     max-height: none;
     height: 100%;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 16px;
-    padding: 20px;
+    width: 50%;
+    min-width: 0;
+    max-width: 50%;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    padding: 16px;
     align-content: start;
+    overflow-y: auto;
 }
 
 .os-window.maximized .file-item-large {
@@ -305,33 +325,56 @@ html, body {
 .os-window.maximized #cv-preview { flex: 1; overflow: hidden; border-left: none; }
 .os-window.maximized #cv-preview iframe { min-height: 0; flex: 1; }
 
-/* ============ TITLE BAR — OVERRIDE 98.css ============ */
-/* 98.css adds margin/padding that creates the gap — kill it */
+/* ============ TITLE BAR ============ */
 .os-window .title-bar {
     background: linear-gradient(90deg, var(--title-blue-dark), var(--title-blue-light)) !important;
-    padding: 3px 4px !important;
+    padding: 4px 6px !important;
     margin: 0 !important;
     cursor: default;
     flex-shrink: 0;
-    /* Remove any border-radius or extra spacing from 98.css */
     border-radius: 0 !important;
+    min-height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .os-window .title-bar-text {
     color: #fff !important;
     font-family: var(--font-mono) !important;
-    font-size: 12px !important;
-    font-weight: 600 !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
     text-shadow: 1px 1px 0 rgba(0,0,0,0.4);
-    letter-spacing: 0.3px;
+    letter-spacing: 0.5px;
 }
 
-/* KEY GAP FIX: 98.css .window-body has padding & margin — override both */
+/* ============ TITLE BAR BUTTONS — BIGGER ============ */
+.os-window .title-bar-controls {
+    display: flex;
+    gap: 2px;
+    align-items: center;
+}
+
+.os-window .title-bar-controls button {
+    width: 22px !important;
+    height: 22px !important;
+    min-width: 22px !important;
+    min-height: 22px !important;
+    padding: 0 !important;
+    font-size: 11px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+/* ============ WINDOW BODY ============ */
 .os-window .window-body {
     font-family: var(--font-mono) !important;
     font-size: 12px;
-    margin: 0 !important;        /* kills the 98.css margin that creates the gap */
-    border-top: none !important; /* kills any top border 98.css adds */
+    margin: 0 !important;
+    border-top: none !important;
 }
 
 .os-window-body {
@@ -377,23 +420,25 @@ html, body {
 }
 
 .file-item.selected .file-icon { filter: brightness(10); }
-
 .file-icon { font-size: 16px; flex-shrink: 0; line-height: 1; }
 .file-name { font-size: 11px; line-height: 1.3; }
 
-/* ============ FILE BROWSER (large icons grid) ============ */
+/* ============ FILE BROWSER (large icons grid) — 50/50 FIXED ============ */
 .file-browser-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 8px;
     padding: 10px;
-    width: auto;
-    border-right: none;
+    /* FIX: use flex basis so it truly takes 50% */
+    flex: 0 0 50%;
+    width: 50%;
     min-width: 0;
-    flex: 1;
+    max-width: 50%;
+    border-right: 1px solid var(--win-grey-dark);
     align-content: start;
-    max-height: 500px;
+    height: 100%;
     overflow-y: auto;
+    box-sizing: border-box;
 }
 
 .file-item-large {
@@ -433,6 +478,7 @@ html, body {
 .preview-pane,
 .project-preview-pane {
     flex: 1;
+    min-width: 0;
     padding: 12px;
     background: #fff;
     overflow-y: auto;
@@ -483,11 +529,26 @@ html, body {
     font-size: 11px !important;
 }
 
-/* ============ WORK LAYOUT ============ */
+/* ============ WORK LAYOUT — 50/50 FIXED ============ */
 #work-file-browser {
     display: flex;
     width: 100%;
+    height: 100%;
     min-height: 280px;
+    overflow: hidden;
+}
+
+#work-file-browser .project-preview-pane {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+#work-file-browser .preview-content {
+    flex-shrink: 0;
+    padding: 10px 12px;
 }
 
 #work-file-browser.hidden { display: none; }
@@ -844,3 +905,123 @@ html, body {
     0%, 50%, 100% { opacity: 1; }
     25%, 75% { opacity: 0; }
 }
+
+/* ============ PROJECT PREVIEW GIFS ============ */
+.preview-gif-area {
+    width: 100%;
+    background: #000;
+    border-bottom: 1px solid var(--win-grey-dark);
+    display: flex;
+    overflow: hidden;
+    flex: 1;
+    min-height: 0;
+}
+
+.preview-gif-area.hidden { display: none; }
+
+.preview-gif {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    flex: 1;
+    background: #000;
+}
+
+.preview-gif-area .preview-gif + .preview-gif {
+    border-left: 1px solid #333;
+}
+
+.preview-embed {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+    flex: 1;
+    background: #000;
+}
+
+.preview-no-media {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: #444;
+    background: #111;
+}
+
+/* Project preview pane — stacks header, gif, then content */
+.project-preview-pane {
+    display: flex !important;
+    flex-direction: column;
+    padding: 0 !important;
+    overflow: hidden;
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+}
+
+.project-preview-pane .preview-header {
+    flex-shrink: 0;
+    padding: 6px 12px;
+    margin: 0;
+    border-bottom: 1px solid var(--win-grey);
+}
+
+.project-preview-pane .preview-content {
+    flex-shrink: 0;
+    padding: 10px 12px;
+}
+
+/* ============ CONTACT WINDOW ============ */
+#contact-window .window-body.os-window-body {
+    display: block;
+    padding: 20px !important;
+    background: #fff;
+    min-height: 240px;
+    max-height: 320px;
+}
+
+.contact-intro {
+    font-size: 12px;
+    color: #333;
+    line-height: 1.7;
+    margin-bottom: 16px;
+    font-family: var(--font-mono);
+}
+
+.contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.contact-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    background: var(--win-grey);
+    border: 2px solid;
+    border-color: #fff var(--win-grey-dark) var(--win-grey-dark) #fff;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: #000;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.1s;
+}
+
+.contact-row:hover {
+    background: var(--accent-4);
+}
+
+.contact-row:active {
+    border-color: var(--win-grey-dark) #fff #fff var(--win-grey-dark);
+}
+
+.contact-icon { font-size: 16px; flex-shrink: 0; }
+.contact-label { font-weight: 700; }
+.contact-value { color: var(--title-blue-dark); font-size: 11px; }

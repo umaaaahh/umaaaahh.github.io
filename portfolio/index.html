@@ -15,17 +15,10 @@
 <!-- ============ BOOT SCREEN ============ -->
 <div id="loading-screen">
     <div class="boot-container">
-
         <div class="boot-logo-area">
-            <img
-                src="https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/Squ1d1nc%20logo.png"
-                alt="Squ1d 1nc"
-                class="boot-logo-img"
-            />
+            <img src="https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/Squ1d1nc%20logo.png" alt="Squ1d 1nc" class="boot-logo-img"/>
         </div>
-
         <div class="boot-divider"></div>
-
         <div class="boot-bar-wrap">
             <div class="boot-bar-label">LOADING</div>
             <div class="boot-bar-track">
@@ -33,17 +26,15 @@
             </div>
             <div class="boot-bar-pct" id="boot-bar-pct">0%</div>
         </div>
-
         <div class="boot-text-area">
-            <div class="boot-line" id="bl1">&gt; INITIALIZING SQU1D_1NC.EXE...</div>
-            <div class="boot-line" id="bl2">&gt; Loading creative systems........<span class="boot-ok">OK</span></div>
-            <div class="boot-line" id="bl3">&gt; Initializing glitch protocols...<span class="boot-ok">OK</span></div>
-            <div class="boot-line" id="bl4">&gt; Syncing analog and digital.....<span class="boot-ok">OK</span></div>
-            <div class="boot-line" id="bl5">&gt; Compiling project data..........<span class="boot-ok">OK</span></div>
-            <div class="boot-line" id="bl6">&gt; Establishing desktop env........<span class="boot-ok">OK</span></div>
-            <div class="boot-line" id="bl7">&gt; Boot sequence complete. <span class="blink">_</span></div>
+            <div class="boot-line">&gt; INITIALIZING SQU1D_1NC.EXE...</div>
+            <div class="boot-line">&gt; Loading creative systems........<span class="boot-ok">OK</span></div>
+            <div class="boot-line">&gt; Initializing glitch protocols...<span class="boot-ok">OK</span></div>
+            <div class="boot-line">&gt; Syncing analog and digital.....<span class="boot-ok">OK</span></div>
+            <div class="boot-line">&gt; Compiling project data..........<span class="boot-ok">OK</span></div>
+            <div class="boot-line">&gt; Establishing desktop env........<span class="boot-ok">OK</span></div>
+            <div class="boot-line">&gt; Boot sequence complete. <span class="blink">_</span></div>
         </div>
-
         <div class="boot-footer">
             <span>SQU1D_1NC PORTFOLIO OS v2.6</span>
             <span>COPYRIGHT 2026 SQU1D_1NC</span>
@@ -55,13 +46,10 @@
 <!-- ============ DESKTOP ============ -->
 <div id="desktop">
 
-    <div class="scanlines"></div>
-
     <!-- Desktop icons -->
     <div class="desktop-icons">
         <div class="desktop-icon" onclick="openWindow('about-window')" tabindex="0" onkeydown="if(event.key==='Enter')openWindow('about-window')">
             <div class="icon-img">
-                <!-- Person / About icon -->
                 <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" width="48" height="48">
                     <rect x="4" y="2" width="24" height="28" fill="#c0c0c0" stroke="#808080" stroke-width="1"/>
                     <rect x="5" y="3" width="22" height="26" fill="#fff"/>
@@ -73,8 +61,6 @@
                     <rect x="7" y="19" width="14" height="1" fill="#c0c0c0"/>
                     <rect x="7" y="22" width="16" height="1" fill="#c0c0c0"/>
                     <rect x="7" y="25" width="10" height="1" fill="#c0c0c0"/>
-                    <!-- W98-style dog-ear -->
-                    <polygon points="26,2 30,6 26,6" fill="#808080"/>
                     <polygon points="26,2 30,6 26,6" fill="#c0c0c0" stroke="#808080" stroke-width="1"/>
                 </svg>
             </div>
@@ -83,18 +69,12 @@
 
         <div class="desktop-icon" onclick="openWindow('work-window')" tabindex="0" onkeydown="if(event.key==='Enter')openWindow('work-window')">
             <div class="icon-img">
-                <!-- Folder icon -->
                 <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" width="48" height="48">
                     <rect x="2" y="10" width="28" height="18" fill="#f2c4a0" stroke="#808080" stroke-width="1"/>
-                    <rect x="3" y="11" width="26" height="16" fill="#f2c4a0"/>
                     <polygon points="2,10 2,8 10,8 13,10" fill="#f2c4a0" stroke="#808080" stroke-width="1"/>
-                    <rect x="3" y="10" width="26" height="1" fill="#fff" opacity="0.5"/>
-                    <!-- file lines inside -->
                     <rect x="6" y="16" width="8" height="1" fill="#808080" opacity="0.6"/>
                     <rect x="6" y="19" width="12" height="1" fill="#808080" opacity="0.6"/>
-                    <rect x="6" y="22" width="6" height="1" fill="#808080" opacity="0.6"/>
                     <rect x="18" y="16" width="8" height="1" fill="#808080" opacity="0.6"/>
-                    <rect x="18" y="19" width="5" height="1" fill="#808080" opacity="0.6"/>
                 </svg>
             </div>
             <div class="icon-label">WORK</div>
@@ -102,18 +82,11 @@
 
         <div class="desktop-icon" onclick="openWindow('cv-window')" tabindex="0" onkeydown="if(event.key==='Enter')openWindow('cv-window')">
             <div class="icon-img">
-                <!-- PDF / CV icon -->
                 <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" width="48" height="48">
                     <rect x="4" y="2" width="20" height="26" fill="#fff" stroke="#808080" stroke-width="1"/>
-                    <rect x="5" y="3" width="18" height="24" fill="#fff"/>
-                    <!-- dog-ear -->
-                    <polygon points="20,2 24,6 20,6" fill="#808080"/>
-                    <polygon points="20,2 24,6 20,6" fill="#e8e8e8"/>
-                    <!-- red PDF stripe -->
+                    <polygon points="20,2 24,6 20,6" fill="#e8e8e8" stroke="#808080" stroke-width="1"/>
                     <rect x="4" y="18" width="20" height="8" fill="#d46a6a"/>
                     <rect x="6" y="20" width="10" height="2" fill="#fff" opacity="0.9"/>
-                    <rect x="6" y="23" width="7" height="1" fill="#fff" opacity="0.6"/>
-                    <!-- text lines on top -->
                     <rect x="7" y="7" width="10" height="1" fill="#808080"/>
                     <rect x="7" y="10" width="14" height="1" fill="#c0c0c0"/>
                     <rect x="7" y="13" width="12" height="1" fill="#c0c0c0"/>
@@ -121,10 +94,24 @@
             </div>
             <div class="icon-label">CV_2026.pdf</div>
         </div>
+
+        <!-- CONTACT icon -->
+        <div class="desktop-icon" onclick="openWindow('contact-window')" tabindex="0" onkeydown="if(event.key==='Enter')openWindow('contact-window')">
+            <div class="icon-img">
+                <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" width="48" height="48">
+                    <rect x="2" y="6" width="28" height="20" fill="#c0c0c0" stroke="#808080" stroke-width="1"/>
+                    <rect x="3" y="7" width="26" height="18" fill="#fff"/>
+                    <polyline points="2,6 16,18 30,6" fill="none" stroke="#808080" stroke-width="1"/>
+                    <line x1="2" y1="26" x2="12" y2="16" stroke="#808080" stroke-width="1"/>
+                    <line x1="30" y1="26" x2="20" y2="16" stroke="#808080" stroke-width="1"/>
+                </svg>
+            </div>
+            <div class="icon-label">get_in_touch.exe</div>
+        </div>
     </div>
 
     <!-- ============ ABOUT WINDOW ============ -->
-    <div class="os-window" id="about-window" style="display:none; top: 80px; left: 120px; width: 560px;">
+    <div class="os-window" id="about-window" style="top:80px;left:120px;width:560px;">
         <div class="title-bar">
             <div class="title-bar-text">ABOUT.exe</div>
             <div class="title-bar-controls">
@@ -136,15 +123,11 @@
         <div class="window-body os-window-body">
             <div class="file-browser">
                 <div class="file-item selected" onclick="togglePreview('about-preview', this)">
-                    <span class="file-icon">
-                        <svg viewBox="0 0 16 16" width="14" height="14"><rect x="1" y="1" width="10" height="13" fill="#fff" stroke="#808080"/><rect x="2" y="2" width="8" height="11" fill="#fff"/><polygon points="9,1 11,3 9,3" fill="#808080"/><rect x="3" y="4" width="5" height="1" fill="#808080"/><rect x="3" y="6" width="7" height="1" fill="#c0c0c0"/><rect x="3" y="8" width="6" height="1" fill="#c0c0c0"/></svg>
-                    </span>
+                    <span class="file-icon"><svg viewBox="0 0 16 16" width="14" height="14"><rect x="1" y="1" width="10" height="13" fill="#fff" stroke="#808080"/><polygon points="9,1 11,3 9,3" fill="#808080"/><rect x="3" y="4" width="5" height="1" fill="#808080"/><rect x="3" y="6" width="7" height="1" fill="#c0c0c0"/></svg></span>
                     <span class="file-name">uma_profile.txt</span>
                 </div>
                 <div class="file-item" onclick="togglePreview('manifesto-preview', this)">
-                    <span class="file-icon">
-                        <svg viewBox="0 0 16 16" width="14" height="14"><rect x="1" y="1" width="10" height="13" fill="#fff" stroke="#808080"/><polygon points="9,1 11,3 9,3" fill="#808080"/><rect x="3" y="4" width="5" height="1" fill="#a8d8b9"/><rect x="3" y="6" width="7" height="1" fill="#a8d8b9"/><rect x="3" y="8" width="4" height="1" fill="#a8d8b9"/><rect x="3" y="10" width="6" height="1" fill="#c0c0c0"/></svg>
-                    </span>
+                    <span class="file-icon"><svg viewBox="0 0 16 16" width="14" height="14"><rect x="1" y="1" width="10" height="13" fill="#fff" stroke="#808080"/><polygon points="9,1 11,3 9,3" fill="#808080"/><rect x="3" y="4" width="5" height="1" fill="#a8d8b9"/><rect x="3" y="6" width="7" height="1" fill="#a8d8b9"/></svg></span>
                     <span class="file-name">manifesto.txt</span>
                 </div>
             </div>
@@ -156,11 +139,7 @@
                     <p class="preview-bio">Final-year Bachelor of Design (Digital Media) student at RMIT University, Melbourne. I build interactive experiences that sit at the intersection of UX/UI, frontend development, and systems thinking — using the interface itself as the medium.</p>
                     <p class="preview-bio">My work spans game design, cultural commemoration, dystopian fiction, and interactive narrative. I design for constraint, not around it.</p>
                     <div class="preview-tags">
-                        <span class="tag">UX/UI</span>
-                        <span class="tag">Frontend Dev</span>
-                        <span class="tag">Game Design</span>
-                        <span class="tag">Interactive Narrative</span>
-                        <span class="tag">Systems Design</span>
+                        <span class="tag">UX/UI</span><span class="tag">Frontend Dev</span><span class="tag">Game Design</span><span class="tag">Interactive Narrative</span><span class="tag">Systems Design</span>
                     </div>
                 </div>
             </div>
@@ -176,7 +155,7 @@
     </div>
 
     <!-- ============ WORK WINDOW ============ -->
-    <div class="os-window" id="work-window" style="display:none; top: 60px; left: 200px; width: 720px;">
+    <div class="os-window" id="work-window" style="top:60px;left:200px;width:720px;">
         <div class="title-bar">
             <div class="title-bar-text">WORK</div>
             <div class="title-bar-controls">
@@ -187,24 +166,16 @@
         </div>
         <div class="window-body os-window-body" id="work-window-body">
             <div id="work-file-browser">
-                <div class="file-browser file-browser-grid">
+                <div class="file-browser-grid">
                     <div class="file-item-large" onclick="showProjectPreview('lifework', this)">
                         <div class="file-icon-large">
-                            <!-- Terminal/chat icon for LifeWork -->
                             <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" width="40" height="40">
                                 <rect x="2" y="4" width="28" height="20" fill="#1a1a2e" stroke="#808080" stroke-width="1"/>
                                 <rect x="3" y="5" width="26" height="3" fill="#1359c2"/>
-                                <rect x="4" y="6" width="2" height="1" fill="#fff" opacity="0.5"/>
                                 <rect x="3" y="8" width="26" height="15" fill="#1a1a2e"/>
-                                <rect x="5" y="10" width="1" height="1" fill="#a8d8b9"/>
-                                <rect x="7" y="10" width="8" height="1" fill="#a8d8b9"/>
-                                <rect x="5" y="13" width="1" height="1" fill="#f2c4a0"/>
-                                <rect x="7" y="13" width="12" height="1" fill="#f2c4a0"/>
-                                <rect x="5" y="16" width="1" height="1" fill="#a8d8b9"/>
-                                <rect x="7" y="16" width="6" height="1" fill="#a8d8b9"/>
-                                <rect x="5" y="19" width="6" height="1" fill="#e8e8e8"/>
-                                <rect x="12" y="19" width="1" height="1" fill="#e8e8e8" class="blink"/>
-                                <!-- base shadow -->
+                                <rect x="5" y="10" width="1" height="1" fill="#a8d8b9"/><rect x="7" y="10" width="8" height="1" fill="#a8d8b9"/>
+                                <rect x="5" y="13" width="1" height="1" fill="#f2c4a0"/><rect x="7" y="13" width="12" height="1" fill="#f2c4a0"/>
+                                <rect x="5" y="16" width="1" height="1" fill="#a8d8b9"/><rect x="7" y="16" width="6" height="1" fill="#a8d8b9"/>
                                 <rect x="4" y="24" width="24" height="3" fill="#c0c0c0" stroke="#808080" stroke-width="1"/>
                                 <rect x="10" y="24" width="12" height="3" fill="#808080"/>
                                 <rect x="6" y="27" width="20" height="2" fill="#808080"/>
@@ -212,139 +183,104 @@
                         </div>
                         <div class="file-name">LifeWork_Internal<br>Messages</div>
                     </div>
-
-                    <div class="file-item-large" onclick="showProjectPreview('hiking', this)">
-                        <div class="file-icon-large">
-                            <!-- Map/compass icon for Hiking Hub -->
-                            <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" width="40" height="40">
-                                <rect x="3" y="3" width="26" height="26" fill="#b8d4f0" stroke="#808080" stroke-width="1"/>
-                                <rect x="4" y="4" width="24" height="24" fill="#b8d4f0"/>
-                                <!-- map grid lines -->
-                                <rect x="4" y="12" width="24" height="1" fill="#1359c2" opacity="0.3"/>
-                                <rect x="4" y="20" width="24" height="1" fill="#1359c2" opacity="0.3"/>
-                                <rect x="12" y="4" width="1" height="24" fill="#1359c2" opacity="0.3"/>
-                                <rect x="20" y="4" width="1" height="24" fill="#1359c2" opacity="0.3"/>
-                                <!-- mountain -->
-                                <polygon points="16,7 22,19 10,19" fill="#a8d8b9" stroke="#808080" stroke-width="0.5"/>
-                                <polygon points="12,13 16,7 20,13" fill="#fff" opacity="0.5"/>
-                                <!-- path -->
-                                <rect x="8" y="20" width="3" height="1" fill="#d46a6a"/>
-                                <rect x="11" y="21" width="3" height="1" fill="#d46a6a"/>
-                                <rect x="14" y="20" width="3" height="1" fill="#d46a6a"/>
-                                <rect x="17" y="21" width="3" height="1" fill="#d46a6a"/>
-                                <rect x="20" y="20" width="4" height="1" fill="#d46a6a"/>
-                                <!-- pin -->
-                                <rect x="22" y="8" width="3" height="4" fill="#d46a6a"/>
-                                <rect x="22" y="12" width="3" height="2" fill="#d46a6a"/>
-                                <rect x="23" y="14" width="1" height="2" fill="#d46a6a"/>
-                            </svg>
-                        </div>
-                        <div class="file-name">Victorian_Hiking<br>Hub</div>
-                    </div>
-
-                    <div class="file-item-large" onclick="showProjectPreview('rabi', this)">
-                        <div class="file-icon-large">
-                            <!-- Island / cultural icon for Rabi -->
-                            <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" width="40" height="40">
-                                <!-- sky -->
-                                <rect x="2" y="2" width="28" height="28" fill="#b8d4f0" stroke="#808080" stroke-width="1"/>
-                                <!-- water -->
-                                <rect x="2" y="20" width="28" height="10" fill="#1359c2" opacity="0.7"/>
-                                <rect x="2" y="19" width="28" height="3" fill="#4a7fd4" opacity="0.5"/>
-                                <!-- island -->
-                                <ellipse cx="16" cy="21" rx="10" ry="3" fill="#f2c4a0"/>
-                                <!-- trunk -->
-                                <rect x="15" y="10" width="2" height="10" fill="#808080"/>
-                                <!-- palm leaves -->
-                                <polygon points="16,10 8,8 12,13" fill="#a8d8b9"/>
-                                <polygon points="16,10 24,8 20,13" fill="#a8d8b9"/>
-                                <polygon points="16,10 13,5 18,10" fill="#a8d8b9"/>
-                                <!-- sun -->
-                                <rect x="23" y="5" width="4" height="4" fill="#f2c4a0"/>
-                                <rect x="24" y="4" width="2" height="1" fill="#f2c4a0"/>
-                                <rect x="24" y="9" width="2" height="1" fill="#f2c4a0"/>
-                                <rect x="22" y="6" width="1" height="2" fill="#f2c4a0"/>
-                                <rect x="27" y="6" width="1" height="2" fill="#f2c4a0"/>
-                            </svg>
-                        </div>
-                        <div class="file-name">Rabi_Island_Sports<br>Tournament</div>
-                    </div>
-
                     <div class="file-item-large" onclick="showProjectPreview('patchwork', this)">
                         <div class="file-icon-large">
-                            <!-- Robot/game icon for Patchwork Cyborg -->
                             <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" width="40" height="40">
-                                <!-- robot head -->
                                 <rect x="8" y="4" width="16" height="14" fill="#c0c0c0" stroke="#808080" stroke-width="1"/>
-                                <rect x="9" y="5" width="14" height="12" fill="#c0c0c0"/>
-                                <!-- antenna -->
-                                <rect x="15" y="1" width="2" height="3" fill="#808080"/>
                                 <rect x="14" y="0" width="4" height="2" fill="#d46a6a"/>
-                                <!-- eyes -->
-                                <rect x="10" y="8" width="4" height="4" fill="#1a1a2e" stroke="#808080" stroke-width="0.5"/>
-                                <rect x="11" y="9" width="2" height="2" fill="#a8d8b9"/>
-                                <rect x="11" y="9" width="1" height="1" fill="#fff" opacity="0.8"/>
-                                <rect x="18" y="8" width="4" height="4" fill="#1a1a2e" stroke="#808080" stroke-width="0.5"/>
-                                <rect x="19" y="9" width="2" height="2" fill="#a8d8b9"/>
-                                <rect x="19" y="9" width="1" height="1" fill="#fff" opacity="0.8"/>
-                                <!-- mouth -->
+                                <rect x="10" y="8" width="4" height="4" fill="#1a1a2e"/><rect x="11" y="9" width="2" height="2" fill="#a8d8b9"/>
+                                <rect x="18" y="8" width="4" height="4" fill="#1a1a2e"/><rect x="19" y="9" width="2" height="2" fill="#a8d8b9"/>
                                 <rect x="11" y="14" width="10" height="2" fill="#808080"/>
-                                <rect x="12" y="14" width="2" height="2" fill="#a8d8b9"/>
-                                <rect x="16" y="14" width="2" height="2" fill="#a8d8b9"/>
-                                <!-- body -->
-                                <rect x="10" y="18" width="12" height="10" fill="#808080" stroke="#808080" stroke-width="1"/>
+                                <rect x="10" y="18" width="12" height="10" fill="#808080"/>
                                 <rect x="11" y="19" width="10" height="8" fill="#c0c0c0"/>
                                 <rect x="13" y="21" width="6" height="4" fill="#1a1a2e"/>
-                                <rect x="14" y="22" width="2" height="2" fill="#d46a6a"/>
-                                <rect x="17" y="22" width="2" height="2" fill="#b8d4f0"/>
-                                <!-- arms -->
-                                <rect x="4" y="18" width="6" height="3" fill="#808080"/>
-                                <rect x="22" y="18" width="6" height="3" fill="#808080"/>
+                                <rect x="14" y="22" width="2" height="2" fill="#d46a6a"/><rect x="17" y="22" width="2" height="2" fill="#b8d4f0"/>
+                                <rect x="4" y="18" width="6" height="3" fill="#808080"/><rect x="22" y="18" width="6" height="3" fill="#808080"/>
                             </svg>
                         </div>
                         <div class="file-name">Patchwork_Cyborg</div>
                     </div>
-
-                    <div class="file-item-large" onclick="showProjectPreview('wedding', this)">
+                    <div class="file-item-large" onclick="showProjectPreview('rabi', this)">
                         <div class="file-icon-large">
-                            <!-- Web/cloud deploy icon for Wedding -->
                             <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" width="40" height="40">
-                                <!-- browser window -->
-                                <rect x="2" y="4" width="28" height="22" fill="#fff" stroke="#808080" stroke-width="1"/>
-                                <rect x="3" y="5" width="26" height="4" fill="#c0c0c0"/>
-                                <!-- browser buttons -->
-                                <rect x="4" y="6" width="3" height="2" fill="#808080"/>
-                                <rect x="8" y="6" width="3" height="2" fill="#808080"/>
-                                <rect x="12" y="6" width="3" height="2" fill="#808080"/>
-                                <!-- url bar -->
-                                <rect x="16" y="6" width="12" height="2" fill="#fff" stroke="#808080" stroke-width="0.5"/>
-                                <!-- content -->
-                                <rect x="4" y="11" width="24" height="1" fill="#f2c4a0"/>
-                                <!-- decorative heart pixels -->
-                                <rect x="13" y="14" width="2" height="2" fill="#d46a6a"/>
-                                <rect x="17" y="14" width="2" height="2" fill="#d46a6a"/>
-                                <rect x="12" y="15" width="8" height="2" fill="#d46a6a"/>
-                                <rect x="13" y="17" width="6" height="2" fill="#d46a6a"/>
-                                <rect x="14" y="19" width="4" height="2" fill="#d46a6a"/>
-                                <rect x="15" y="21" width="2" height="1" fill="#d46a6a"/>
-                                <!-- deployment badge -->
-                                <rect x="22" y="22" width="8" height="5" fill="#a8d8b9" stroke="#808080" stroke-width="0.5"/>
-                                <rect x="23" y="23" width="6" height="1" fill="#1359c2"/>
-                                <rect x="23" y="25" width="4" height="1" fill="#808080"/>
+                                <rect x="2" y="2" width="28" height="28" fill="#b8d4f0" stroke="#808080" stroke-width="1"/>
+                                <rect x="2" y="20" width="28" height="10" fill="#1359c2" opacity="0.7"/>
+                                <ellipse cx="16" cy="21" rx="10" ry="3" fill="#f2c4a0"/>
+                                <rect x="15" y="10" width="2" height="10" fill="#808080"/>
+                                <polygon points="16,10 8,8 12,13" fill="#a8d8b9"/>
+                                <polygon points="16,10 24,8 20,13" fill="#a8d8b9"/>
                             </svg>
                         </div>
-                        <div class="file-name">Wedding_Site<br>Client_Work</div>
+                        <div class="file-name">Rabi_Island_Sports<br>Tournament</div>
+                    </div>
+                    <div class="file-item-large" onclick="showProjectPreview('hiking', this)">
+                        <div class="file-icon-large">
+                            <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" width="40" height="40">
+                                <rect x="3" y="3" width="26" height="26" fill="#b8d4f0" stroke="#808080" stroke-width="1"/>
+                                <rect x="4" y="12" width="24" height="1" fill="#1359c2" opacity="0.3"/>
+                                <rect x="12" y="4" width="1" height="24" fill="#1359c2" opacity="0.3"/>
+                                <rect x="20" y="4" width="1" height="24" fill="#1359c2" opacity="0.3"/>
+                                <polygon points="16,7 22,19 10,19" fill="#a8d8b9" stroke="#808080" stroke-width="0.5"/>
+                                <rect x="8" y="20" width="16" height="1" fill="#d46a6a"/>
+                            </svg>
+                        </div>
+                        <div class="file-name">Victorian_Hiking<br>Hub</div>
+                    </div>
+                    <div class="file-item-large" onclick="showProjectPreview('overthinker', this)">
+                        <div class="file-icon-large">
+                            <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" width="40" height="40">
+                                <rect x="4" y="2" width="22" height="28" fill="#fff" stroke="#808080" stroke-width="1"/>
+                                <rect x="7" y="7" width="14" height="1" fill="#333"/>
+                                <rect x="7" y="10" width="10" height="1" fill="#333"/>
+                                <rect x="7" y="13" width="16" height="1" fill="#d46a6a" opacity="0.7"/>
+                                <rect x="7" y="16" width="8" height="1" fill="#333"/>
+                                <rect x="7" y="19" width="12" height="1" fill="#333"/>
+                                <rect x="24" y="2" width="3" height="12" fill="#f2c4a0" stroke="#808080" stroke-width="0.5"/>
+                                <polygon points="24,14 27,14 25.5,17" fill="#808080"/>
+                                <rect x="24" y="2" width="3" height="2" fill="#d46a6a"/>
+                            </svg>
+                        </div>
+                        <div class="file-name">Overthinkers<br>Typing_Pad</div>
+                    </div>
+                    <div class="file-item-large" onclick="showProjectPreview('scrollpoem', this)">
+                        <div class="file-icon-large">
+                            <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" width="40" height="40">
+                                <rect x="8" y="4" width="18" height="24" fill="#f2c4a0" stroke="#808080" stroke-width="1"/>
+                                <rect x="6" y="2" width="4" height="28" rx="2" fill="#808080"/>
+                                <rect x="24" y="2" width="4" height="28" rx="2" fill="#808080"/>
+                                <rect x="11" y="8" width="12" height="1" fill="#808080"/>
+                                <rect x="12" y="11" width="8" height="1" fill="#808080"/>
+                                <rect x="11" y="14" width="11" height="1" fill="#808080"/>
+                                <rect x="15" y="23" width="2" height="2" fill="#1359c2"/>
+                            </svg>
+                        </div>
+                        <div class="file-name">Annabel_Lee<br>Scroll_Poem</div>
+                    </div>
+                    <div class="file-item-large" onclick="showProjectPreview('bagmap', this)">
+                        <div class="file-icon-large">
+                            <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" width="40" height="40">
+                                <rect x="6" y="12" width="20" height="16" fill="#a8d8b9" stroke="#808080" stroke-width="1"/>
+                                <rect x="10" y="8" width="2" height="6" fill="#808080"/>
+                                <rect x="20" y="8" width="2" height="6" fill="#808080"/>
+                                <rect x="10" y="8" width="12" height="2" fill="#808080"/>
+                                <rect x="9" y="16" width="6" height="1" fill="#1359c2" opacity="0.6"/>
+                                <rect x="9" y="19" width="9" height="1" fill="#1359c2" opacity="0.6"/>
+                                <rect x="20" y="17" width="2" height="3" fill="#d46a6a"/>
+                                <rect x="14" y="12" width="4" height="3" fill="#808080"/>
+                            </svg>
+                        </div>
+                        <div class="file-name">Bag_Map</div>
                     </div>
                 </div>
 
                 <!-- Preview pane -->
                 <div class="project-preview-pane hidden" id="project-preview-pane">
                     <div class="preview-header" id="preview-project-title">Project</div>
-                    <div class="preview-content" style="padding: 10px 12px;">
+                    <div id="preview-project-gifs" class="preview-gif-area hidden"></div>
+                    <div class="preview-content" style="padding:10px 12px;">
                         <div class="preview-project-tags" id="preview-project-tags"></div>
                         <p class="preview-bio" id="preview-project-desc"></p>
-                        <div class="preview-actions" style="display:flex; gap:6px; flex-wrap:wrap;">
-                            <button class="preview-open-btn" id="preview-open-btn">Case Study →</button>
+                        <div class="preview-actions" style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;">
                             <button class="preview-live-btn hidden" id="preview-live-btn">View Live ↗</button>
                         </div>
                     </div>
@@ -354,7 +290,7 @@
     </div>
 
     <!-- ============ CV WINDOW ============ -->
-    <div class="os-window" id="cv-window" style="display:none; top: 100px; left: 160px; width: 600px;">
+    <div class="os-window" id="cv-window" style="top:100px;left:160px;width:600px;">
         <div class="title-bar">
             <div class="title-bar-text">CV_2026.pdf</div>
             <div class="title-bar-controls">
@@ -366,20 +302,53 @@
         <div class="window-body os-window-body">
             <div class="file-browser">
                 <div class="file-item selected">
-                    <span class="file-icon">
-                        <svg viewBox="0 0 16 16" width="14" height="14"><rect x="1" y="1" width="10" height="13" fill="#fff" stroke="#808080"/><polygon points="9,1 11,3 9,3" fill="#808080"/><rect x="1" y="9" width="10" height="5" fill="#d46a6a"/><rect x="2" y="10" width="5" height="1" fill="#fff" opacity="0.9"/></svg>
-                    </span>
+                    <span class="file-icon"><svg viewBox="0 0 16 16" width="14" height="14"><rect x="1" y="1" width="10" height="13" fill="#fff" stroke="#808080"/><polygon points="9,1 11,3 9,3" fill="#808080"/><rect x="1" y="9" width="10" height="5" fill="#d46a6a"/><rect x="2" y="10" width="5" height="1" fill="#fff" opacity="0.9"/></svg></span>
                     <span class="file-name">Uma_Bridges_CV_2026.pdf</span>
                 </div>
-                <div style="padding: 8px 6px;">
+                <div style="padding:8px 6px;">
                     <a class="download-btn" href="https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/Uma_Bridges_CV_2026%20(8).pdf" download="Uma_Bridges_CV_2026.pdf">⬇ Download</a>
                 </div>
             </div>
-            <div class="preview-pane" id="cv-preview" style="padding: 0; display: flex; flex-direction: column;">
-                <div class="preview-header" style="padding: 8px 12px; margin: 0; flex-shrink: 0;">Uma_Bridges_CV_2026.pdf</div>
-                <div id="cv-iframe-container" style="flex: 1; display: flex; flex-direction: column; min-height: 500px;">
-                    <!-- iframe injected on first open — keeps VS Code from loading PDF on startup -->
-                </div>
+            <div class="preview-pane" id="cv-preview" style="padding:0;display:flex;flex-direction:column;">
+                <div class="preview-header" style="padding:8px 12px;margin:0;flex-shrink:0;">Uma_Bridges_CV_2026.pdf</div>
+                <div id="cv-iframe-container" style="flex:1;display:flex;flex-direction:column;min-height:500px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ CONTACT WINDOW ============ -->
+    <div class="os-window" id="contact-window" style="top:120px;left:180px;width:400px;">
+        <div class="title-bar">
+            <div class="title-bar-text">get_in_touch.exe</div>
+            <div class="title-bar-controls">
+                <button aria-label="Minimize" onclick="closeWindow('contact-window')"></button>
+                <button aria-label="Maximize" onclick="toggleMaximize('contact-window')"></button>
+                <button aria-label="Close" onclick="closeWindow('contact-window')"></button>
+            </div>
+        </div>
+        <div class="window-body os-window-body" style="display:block;padding:20px!important;background:#fff;min-height:220px;max-height:300px;">
+            <p class="contact-intro">Open to junior roles, freelance work, and interesting collaborations.</p>
+            <div class="contact-links">
+                <a class="contact-row" href="mailto:uma@squ1d1nc.com">
+                    <span class="contact-icon">📧</span>
+                    <span class="contact-label">Email</span>
+                    <span class="contact-value">uma@squ1d1nc.com</span>
+                </a>
+                <a class="contact-row" href="https://linkedin.com" target="_blank" rel="noopener">
+                    <span class="contact-icon">🔗</span>
+                    <span class="contact-label">LinkedIn</span>
+                    <span class="contact-value">/in/uma-bridges</span>
+                </a>
+                <a class="contact-row" href="https://instagram.com" target="_blank" rel="noopener">
+                    <span class="contact-icon">📷</span>
+                    <span class="contact-label">Instagram</span>
+                    <span class="contact-value">@squ1d_1nc</span>
+                </a>
+                <a class="contact-row" href="https://github.com/umaaaahh" target="_blank" rel="noopener">
+                    <span class="contact-icon">🐙</span>
+                    <span class="contact-label">GitHub</span>
+                    <span class="contact-value">umaaaahh</span>
+                </a>
             </div>
         </div>
     </div>
@@ -396,36 +365,28 @@
         </div>
         <div class="mobile-home" id="mobile-home">
             <button class="mobile-app-btn" onclick="openMobilePanel('mobile-about')">
-                <span class="mobile-app-icon">
-                    <svg viewBox="0 0 24 24" width="28" height="28"><rect x="3" y="1" width="14" height="20" fill="#c0c0c0" stroke="#808080"/><polygon points="14,1 17,4 14,4" fill="#808080"/><rect x="5" y="5" width="6" height="5" fill="#b8d4f0"/><rect x="5" y="12" width="9" height="1" fill="#808080"/><rect x="5" y="14" width="7" height="1" fill="#c0c0c0"/><rect x="5" y="16" width="8" height="1" fill="#c0c0c0"/></svg>
-                </span>
+                <span class="mobile-app-icon"><svg viewBox="0 0 24 24" width="28" height="28"><rect x="3" y="1" width="14" height="20" fill="#c0c0c0" stroke="#808080"/><polygon points="14,1 17,4 14,4" fill="#808080"/><rect x="5" y="5" width="6" height="5" fill="#b8d4f0"/></svg></span>
                 <div class="mobile-app-label">
                     <span class="mobile-app-title">ABOUT.exe</span>
                     <span class="mobile-app-subtitle">uma_profile.txt</span>
                 </div>
             </button>
             <button class="mobile-app-btn" onclick="openMobilePanel('mobile-work')">
-                <span class="mobile-app-icon">
-                    <svg viewBox="0 0 24 24" width="28" height="28"><rect x="2" y="7" width="20" height="15" fill="#f2c4a0" stroke="#808080"/><polygon points="2,7 2,5 8,5 10,7" fill="#f2c4a0" stroke="#808080"/><rect x="4" y="12" width="6" height="1" fill="#808080" opacity="0.5"/><rect x="4" y="15" width="9" height="1" fill="#808080" opacity="0.5"/></svg>
-                </span>
+                <span class="mobile-app-icon"><svg viewBox="0 0 24 24" width="28" height="28"><rect x="2" y="7" width="20" height="15" fill="#f2c4a0" stroke="#808080"/><polygon points="2,7 2,5 8,5 10,7" fill="#f2c4a0" stroke="#808080"/></svg></span>
                 <div class="mobile-app-label">
                     <span class="mobile-app-title">WORK</span>
-                    <span class="mobile-app-subtitle">5 files</span>
+                    <span class="mobile-app-subtitle">7 projects</span>
                 </div>
             </button>
             <button class="mobile-app-btn" onclick="openMobilePanel('mobile-cv')">
-                <span class="mobile-app-icon">
-                    <svg viewBox="0 0 24 24" width="28" height="28"><rect x="3" y="1" width="15" height="20" fill="#fff" stroke="#808080"/><polygon points="15,1 18,4 15,4" fill="#808080"/><rect x="3" y="13" width="15" height="8" fill="#d46a6a"/><rect x="5" y="15" width="7" height="1" fill="#fff" opacity="0.9"/><rect x="5" y="17" width="5" height="1" fill="#fff" opacity="0.6"/></svg>
-                </span>
+                <span class="mobile-app-icon"><svg viewBox="0 0 24 24" width="28" height="28"><rect x="3" y="1" width="15" height="20" fill="#fff" stroke="#808080"/><polygon points="15,1 18,4 15,4" fill="#808080"/><rect x="3" y="13" width="15" height="8" fill="#d46a6a"/></svg></span>
                 <div class="mobile-app-label">
                     <span class="mobile-app-title">CV_2026.pdf</span>
                     <span class="mobile-app-subtitle">Download resume</span>
                 </div>
             </button>
             <button class="mobile-app-btn" onclick="openMobilePanel('mobile-contact')">
-                <span class="mobile-app-icon">
-                    <svg viewBox="0 0 24 24" width="28" height="28"><rect x="2" y="4" width="20" height="14" fill="#c0c0c0" stroke="#808080"/><polygon points="2,4 12,12 22,4" fill="none" stroke="#808080" stroke-width="1"/><rect x="3" y="5" width="18" height="12" fill="#fff" opacity="0.3"/></svg>
-                </span>
+                <span class="mobile-app-icon"><svg viewBox="0 0 24 24" width="28" height="28"><rect x="2" y="4" width="20" height="14" fill="#c0c0c0" stroke="#808080"/><polyline points="2,4 12,12 22,4" fill="none" stroke="#808080" stroke-width="1"/></svg></span>
                 <div class="mobile-app-label">
                     <span class="mobile-app-title">get_in_touch.exe</span>
                     <span class="mobile-app-subtitle">Open to work &amp; collabs</span>
@@ -448,25 +409,19 @@
                 <button class="mobile-panel-close" onclick="closeMobilePanel('mobile-about')">✕ Close</button>
             </div>
             <div class="mobile-panel-body">
-                <div class="mobile-file-row" onclick="toggleMobileFile('file-profile', this)">
-                    <span>📝</span> uma_profile.txt
-                </div>
+                <div class="mobile-file-row" onclick="toggleMobileFile('file-profile', this)"><span>📝</span> uma_profile.txt</div>
                 <div class="mobile-file-content" id="file-profile">
-                    <p style="font-size:16px; font-weight:700; margin-bottom:4px; color:#000;">Uma</p>
-                    <p style="font-size:11px; color:var(--title-blue-dark); margin-bottom:12px;">Squ1d_1nc</p>
+                    <p style="font-size:16px;font-weight:700;margin-bottom:4px;color:#000;">Uma</p>
+                    <p style="font-size:11px;color:var(--title-blue-dark);margin-bottom:12px;">Squ1d_1nc</p>
                     <p style="margin-bottom:10px;">Final-year Bachelor of Design (Digital Media) student at RMIT University, Melbourne. I build interactive experiences at the intersection of UX/UI, frontend development, and systems thinking.</p>
                     <p style="margin-bottom:12px;">My work spans game design, cultural commemoration, dystopian fiction, and interactive narrative. I design for constraint, not around it.</p>
-                    <div class="preview-tags">
-                        <span class="tag">UX/UI</span><span class="tag">Frontend Dev</span><span class="tag">Game Design</span><span class="tag">Interactive Narrative</span><span class="tag">Systems Design</span>
-                    </div>
+                    <div class="preview-tags"><span class="tag">UX/UI</span><span class="tag">Frontend Dev</span><span class="tag">Game Design</span><span class="tag">Interactive Narrative</span><span class="tag">Systems Design</span></div>
                 </div>
-                <div class="mobile-file-row" onclick="toggleMobileFile('file-manifesto', this)">
-                    <span>📜</span> manifesto.txt
-                </div>
+                <div class="mobile-file-row" onclick="toggleMobileFile('file-manifesto', this)"><span>📜</span> manifesto.txt</div>
                 <div class="mobile-file-content" id="file-manifesto">
-                    <p style="margin-bottom:10px;">Squ1d 1nc is a playground for creative systems — where game mechanics, storytelling, and digital craft collide. We prototype fast, think tactile, and build experiences that feel human, messy, and alive.</p>
+                    <p style="margin-bottom:10px;">Squ1d 1nc is a playground for creative systems — where game mechanics, storytelling, and digital craft collide.</p>
                     <p style="margin-bottom:10px;">Limitations are exciting. Friction is a design tool. The interface is never neutral.</p>
-                    <p>Everything starts physical — cards, boards, paper prototypes — then evolves digitally. Systems built around emotion, humour, and creative friction, not just polish.</p>
+                    <p>Everything starts physical, then evolves digitally. Systems built around emotion, humour, and creative friction.</p>
                 </div>
             </div>
         </div>
@@ -478,44 +433,60 @@
                 <button class="mobile-panel-close" onclick="closeMobilePanel('mobile-work')">✕ Close</button>
             </div>
             <div class="mobile-panel-body">
-                <div class="mobile-project-card" onclick="window.location.href='lifework.html'">
+                <div class="mobile-project-card" onclick="window.open('https://umaaaahh.github.io/emerging/assignment3/slack.html','_blank')">
                     <div class="mobile-project-header">LifeWork Internal Messages</div>
                     <div class="mobile-project-body">
                         <div class="mobile-project-tags"><span class="tag">UX/UI</span><span class="tag">Frontend</span><span class="tag">Social Commentary</span></div>
                         <div class="mobile-project-desc">A dystopian Slack-clone interface critiquing AI surveillance and gig economy exploitation.</div>
-                        <button class="mobile-project-btn">Case Study →</button>
+                        <button class="mobile-project-btn">View Live →</button>
                     </div>
                 </div>
-                <div class="mobile-project-card" onclick="window.location.href='hiking.html'">
-                    <div class="mobile-project-header">Victorian Hiking Hub</div>
-                    <div class="mobile-project-body">
-                        <div class="mobile-project-tags"><span class="tag">UX Research</span><span class="tag">Mapbox</span><span class="tag">Frontend</span></div>
-                        <div class="mobile-project-desc">A trail discovery platform built with modular JavaScript and Mapbox GL.</div>
-                        <button class="mobile-project-btn">Case Study →</button>
-                    </div>
-                </div>
-                <div class="mobile-project-card" onclick="window.location.href='rabi-island.html'">
-                    <div class="mobile-project-header">Rabi Island Sports Tournament</div>
-                    <div class="mobile-project-body">
-                        <div class="mobile-project-tags"><span class="tag">Interactive Narrative</span><span class="tag">Cultural Design</span></div>
-                        <div class="mobile-project-desc">Commemorating 80 years of Banaban history through interactive village profiles.</div>
-                        <button class="mobile-project-btn">View Project →</button>
-                    </div>
-                </div>
-                <div class="mobile-project-card" onclick="window.location.href='patchwork-cyborg.html'">
+                <div class="mobile-project-card" onclick="window.open('https://umaaaahh.github.io/emerging/index','_blank')">
                     <div class="mobile-project-header">Patchwork Cyborg</div>
                     <div class="mobile-project-body">
                         <div class="mobile-project-tags"><span class="tag">Game Design</span><span class="tag">Systems Design</span><span class="tag">Frontend</span></div>
                         <div class="mobile-project-desc">A dystopian survival game where you play as a gig worker in New Naarm.</div>
-                        <button class="mobile-project-btn">View Project →</button>
+                        <button class="mobile-project-btn">View Live →</button>
                     </div>
                 </div>
-                <div class="mobile-project-card" onclick="window.location.href='wedding.html'">
-                    <div class="mobile-project-header">Wedding Site — Client Work</div>
+                <div class="mobile-project-card" onclick="window.open('https://umaaaahh.github.io/narrative/index.html','_blank')">
+                    <div class="mobile-project-header">Rabi Island Sports Tournament</div>
                     <div class="mobile-project-body">
-                        <div class="mobile-project-tags"><span class="tag">Client Work</span><span class="tag">Cloudflare</span><span class="tag">Real Deployment</span></div>
-                        <div class="mobile-project-desc">Bespoke wedding website deployed to Cloudflare Pages with secure form handling.</div>
-                        <button class="mobile-project-btn">Case Study →</button>
+                        <div class="mobile-project-tags"><span class="tag">Interactive Narrative</span><span class="tag">Cultural Design</span></div>
+                        <div class="mobile-project-desc">Commemorating 80 years of Banaban history through interactive village profiles.</div>
+                        <button class="mobile-project-btn">View Live →</button>
+                    </div>
+                </div>
+                <div class="mobile-project-card" onclick="window.open('https://umaaaahh.github.io/uxui/index','_blank')">
+                    <div class="mobile-project-header">Victorian Hiking Hub</div>
+                    <div class="mobile-project-body">
+                        <div class="mobile-project-tags"><span class="tag">UX Research</span><span class="tag">Mapbox</span><span class="tag">Frontend</span></div>
+                        <div class="mobile-project-desc">A trail discovery platform built with modular JavaScript and Mapbox GL.</div>
+                        <button class="mobile-project-btn">View Live →</button>
+                    </div>
+                </div>
+                <div class="mobile-project-card" onclick="window.open('https://umaaaahh.github.io/interactivemedia/Annabel%20Lee/index.html','_blank')">
+                    <div class="mobile-project-header">Annabel Lee — Scroll Poem</div>
+                    <div class="mobile-project-body">
+                        <div class="mobile-project-tags"><span class="tag">Kinetic Typography</span><span class="tag">Scroll-driven</span></div>
+                        <div class="mobile-project-desc">Edgar Allan Poe reimagined with shadow-puppet aesthetics and parallax animation.</div>
+                        <button class="mobile-project-btn">View Live →</button>
+                    </div>
+                </div>
+                <div class="mobile-project-card" onclick="window.open('https://umaaaahh.github.io/Studio/assignment3/index.html','_blank')">
+                    <div class="mobile-project-header">The Overthinker's Typing Pad</div>
+                    <div class="mobile-project-body">
+                        <div class="mobile-project-tags"><span class="tag">Expressive Tool</span><span class="tag">Interaction Design</span></div>
+                        <div class="mobile-project-desc">A browser writing tool that visualises anxiety — text fades, glitches, and unravels as you type.</div>
+                        <button class="mobile-project-btn">View Live →</button>
+                    </div>
+                </div>
+                <div class="mobile-project-card" onclick="window.open('https://umaaaahh.github.io/interactivemedia/assignment2/','_blank')">
+                    <div class="mobile-project-header">Bag Map</div>
+                    <div class="mobile-project-body">
+                        <div class="mobile-project-tags"><span class="tag">Interactive Media</span><span class="tag">Spatial Design</span></div>
+                        <div class="mobile-project-desc">An interactive mapping experience exploring everyday objects and place.</div>
+                        <button class="mobile-project-btn">View Live →</button>
                     </div>
                 </div>
             </div>
@@ -531,7 +502,7 @@
                 <div class="mobile-cv-placeholder">
                     <p>Uma_Bridges_CV_2026.pdf</p>
                     <a class="mobile-cv-download" href="https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/Uma_Bridges_CV_2026%20(8).pdf" download="Uma_Bridges_CV_2026.pdf">⬇ Download CV</a>
-                    <iframe src="https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/Uma_Bridges_CV_2026%20(8).pdf" style="width:100%; height:500px; border:none; margin-top:12px;"></iframe>
+                    <iframe src="https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/Uma_Bridges_CV_2026%20(8).pdf" style="width:100%;height:500px;border:none;margin-top:12px;"></iframe>
                 </div>
             </div>
         </div>
@@ -543,11 +514,11 @@
                 <button class="mobile-panel-close" onclick="closeMobilePanel('mobile-contact')">✕ Close</button>
             </div>
             <div class="mobile-panel-body">
-                <p style="margin-bottom:16px; font-size:13px; color:#000;">Open to junior roles, freelance work, and interesting collaborations.</p>
-                <div style="display:flex; flex-direction:column; gap:10px;">
-                    <button style="font-family:var(--font-mono)!important; font-size:13px!important; padding:12px!important;" onclick="window.location.href='mailto:uma@squ1d1nc.com'">📧 Email me</button>
-                    <button style="font-family:var(--font-mono)!important; font-size:13px!important; padding:12px!important;" onclick="window.open('https://linkedin.com','_blank')">🔗 LinkedIn</button>
-                    <button style="font-family:var(--font-mono)!important; font-size:13px!important; padding:12px!important;" onclick="window.open('https://instagram.com','_blank')">📷 Instagram</button>
+                <p style="margin-bottom:16px;font-size:13px;color:#000;">Open to junior roles, freelance work, and interesting collaborations.</p>
+                <div style="display:flex;flex-direction:column;gap:10px;">
+                    <a href="mailto:uma@squ1d1nc.com" style="font-family:var(--font-mono);font-size:13px;padding:12px;background:var(--win-grey);border:2px solid;border-color:#fff var(--win-grey-dark) var(--win-grey-dark) #fff;text-decoration:none;color:#000;display:block;">📧 uma@squ1d1nc.com</a>
+                    <a href="https://linkedin.com" target="_blank" style="font-family:var(--font-mono);font-size:13px;padding:12px;background:var(--win-grey);border:2px solid;border-color:#fff var(--win-grey-dark) var(--win-grey-dark) #fff;text-decoration:none;color:#000;display:block;">🔗 LinkedIn</a>
+                    <a href="https://instagram.com" target="_blank" style="font-family:var(--font-mono);font-size:13px;padding:12px;background:var(--win-grey);border:2px solid;border-color:#fff var(--win-grey-dark) var(--win-grey-dark) #fff;text-decoration:none;color:#000;display:block;">📷 Instagram @squ1d_1nc</a>
                 </div>
             </div>
         </div>
@@ -556,16 +527,19 @@
     <!-- ============ TASKBAR ============ -->
     <div id="taskbar">
         <div class="taskbar-left">
-            <div class="taskbar-logo" onclick="minimizeAll()"><img src="https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/Gemini_Generated_Image_3tmo9t3tmo9t3tmo.png" alt="Squ1d 1nc" class="taskbar-logo-img"></div>
+            <div class="taskbar-logo" onclick="minimizeAll()">
+                <img src="https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/Gemini_Generated_Image_3tmo9t3tmo9t3tmo.png" alt="Squ1d 1nc" class="taskbar-logo-img">
+            </div>
             <div class="taskbar-sep"></div>
             <button class="taskbar-btn" onclick="openWindow('about-window')">ABOUT</button>
             <button class="taskbar-btn" onclick="openWindow('work-window')">WORK</button>
             <button class="taskbar-btn" onclick="openWindow('cv-window')">CV</button>
+            <button class="taskbar-btn" onclick="openWindow('contact-window')">CONTACT</button>
         </div>
         <div class="taskbar-right">
-            <button class="taskbar-icon-btn" onclick="window.open('https://instagram.com', '_blank')" title="Instagram">IG</button>
-            <button class="taskbar-icon-btn" onclick="window.open('https://linkedin.com', '_blank')" title="LinkedIn">in</button>
-            <button class="taskbar-icon-btn" onclick="window.open('https://github.com/umaaaahh', '_blank')" title="GitHub">GH</button>
+            <button class="taskbar-icon-btn" onclick="window.open('https://instagram.com','_blank')" title="Instagram">IG</button>
+            <button class="taskbar-icon-btn" onclick="window.open('https://linkedin.com','_blank')" title="LinkedIn">in</button>
+            <button class="taskbar-icon-btn" onclick="window.open('https://github.com/umaaaahh','_blank')" title="GitHub">GH</button>
             <div class="taskbar-sep"></div>
             <div class="taskbar-clock" id="taskbar-clock">00:00</div>
         </div>
@@ -574,48 +548,62 @@
 </div><!-- end desktop -->
 
 <script>
-// ============ PROJECT DATA ============
+const R2 = 'https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/';
+const BASE = 'https://umaaaahh.github.io/';
+
 const projects = {
     lifework: {
-        title: 'LifeWork Internal Messages',
-        tags: ['UX/UI', 'Frontend', 'Social Commentary', 'RMIT'],
-        desc: 'A dystopian Slack-clone interface critiquing AI surveillance and gig economy exploitation. Every message, channel, and UI element tells the story of a worker trapped in a system that watches everything.',
-        casePage: 'lifework.html',
-        liveUrl: null
+        title: 'LifeWork — Internal Messages',
+        tags: ['Social Commentary', 'Frontend', 'Immersive Fiction', 'Emerging Digital Cultures'],
+        desc: 'A dystopian Slack-clone interface critiquing AI surveillance and corporate control. Every message, channel, and UI element tells the story of a worker trapped in a system that watches everything.',
+        gifs: [R2 + 'lifework-slackchat.gif'],
+        liveUrl: BASE + 'emerging/assignment3/slack.html'
+    },
+    patchwork: {
+        title: 'Patchwork Cyborg',
+        tags: ['Game Design', 'Systems Design', 'Interactive Fiction', 'Emerging Digital Cultures'],
+        desc: "A dystopian survival game where you play as a gig worker upgrading biotech body parts to outlast New Naarm's exploitative economy.",
+        gifs: [R2 + 'lifework-game.gif'],
+        liveUrl: BASE + 'emerging/index'
+    },
+    rabi: {
+        title: 'Rabi Island Sports Tournament',
+        tags: ['Interactive Narrative', 'Cultural Design', 'Collaboration', 'Scroll-driven'],
+        desc: "Commemorating 80 years of Banaban displacement and resilience through interactive village profiles and sports rivalries. Every design decision made in service of the community's story.",
+        gifs: [R2 + 'rabi-island-tournament.gif'],
+        liveUrl: BASE + 'narrative/index.html'
     },
     hiking: {
         title: 'Victorian Hiking Hub',
         tags: ['UX Research', 'Mapbox', 'Frontend', 'Information Architecture'],
         desc: 'A trail discovery platform built with modular JavaScript and Mapbox GL. Includes gear checklists, trip planning tools, and community-sourced route data.',
-        casePage: 'hiking.html',
-        liveUrl: null
+        gifs: [],
+        liveUrl: BASE + 'uxui/index'
     },
-    rabi: {
-        title: 'Rabi Island Sports Tournament',
-        tags: ['Interactive Narrative', 'Cultural Design', 'Collaboration'],
-        desc: "Commemorating 80 years of Banaban history through interactive village profiles and sports rivalries. Built in collaboration with a cultural expert — every design decision made in service of the community's story.",
-        casePage: 'rabi-island.html',
-        liveUrl: 'https://umaaaahh.github.io/rabi-island/index.html'
+    overthinker: {
+        title: "The Overthinker's Typing Pad",
+        tags: ['Expressive Tool', 'Frontend', 'Interaction Design', 'Studio'],
+        desc: "A browser-based writing tool that visualises anxiety through interaction. As you type, the interface resists — text fades, glitches, and unravels.",
+        gifs: [],
+        liveUrl: BASE + 'Studio/assignment3/index.html'
     },
-    patchwork: {
-        title: 'Patchwork Cyborg',
-        tags: ['Game Design', 'Systems Design', 'Frontend', 'Interactive Fiction'],
-        desc: "A dystopian survival game where you play as a gig worker upgrading biotech body parts to outlast New Naarm's exploitative economy. Evolved from idle game to dice-based card system through iterative prototyping.",
-        casePage: 'patchwork-cyborg.html',
-        liveUrl: null
+    scrollpoem: {
+        title: 'Annabel Lee — Scroll Poem',
+        tags: ['Interactive Narrative', 'Kinetic Typography', 'Scroll-driven'],
+        desc: "Edgar Allan Poe's Annabel Lee reimagined with shadow-puppet aesthetics and scroll-driven parallax animation.",
+        gifs: [R2 + 'scroll-poem.gif'],
+        liveUrl: BASE + 'interactivemedia/Annabel%20Lee/index.html'
     },
-    wedding: {
-        title: 'Wedding Site — Client Work',
-        tags: ['Client Work', 'Frontend', 'Cloudflare', 'Real Deployment'],
-        desc: 'A bespoke wedding website for Maggie & Harrison. Custom-built, password-protected, deployed to Cloudflare Pages. Solved real-world CORS issues and implemented secure form handling.',
-        casePage: 'wedding.html',
-        liveUrl: null
+    bagmap: {
+        title: 'Bag Map',
+        tags: ['Interactive Media', 'Spatial Design', 'Frontend'],
+        desc: 'An interactive mapping experience exploring the relationship between everyday objects and place.',
+        gifs: [],
+        liveUrl: BASE + 'interactivemedia/assignment2/'
     }
 };
 
-let currentProject = null;
-
-// ============ MOBILE FUNCTIONS ============
+// ============ MOBILE ============
 function openMobilePanel(id) { document.getElementById(id).classList.add('open'); }
 function closeMobilePanel(id) { document.getElementById(id).classList.remove('open'); }
 function toggleMobileFile(id, el) {
@@ -626,68 +614,52 @@ function toggleMobileFile(id, el) {
     if (!isOpen) { content.classList.add('open'); el.classList.add('selected'); }
 }
 
-// ============ BOOT SEQUENCE ============
+// ============ BOOT ============
 window.addEventListener('load', () => {
     const fill = document.getElementById('boot-bar-fill');
     const pct = document.getElementById('boot-bar-pct');
-    const steps = [
-        { p: 15, t: 400 }, { p: 30, t: 900 }, { p: 48, t: 1400 },
-        { p: 65, t: 1900 }, { p: 82, t: 2400 }, { p: 100, t: 3200 }
-    ];
-    steps.forEach(s => {
-        setTimeout(() => {
-            fill.style.width = s.p + '%';
-            pct.textContent = s.p + '%';
-        }, s.t);
-    });
+    [{ p:15,t:400 },{ p:30,t:900 },{ p:48,t:1400 },{ p:65,t:1900 },{ p:82,t:2400 },{ p:100,t:3200 }]
+        .forEach(s => setTimeout(() => { fill.style.width=s.p+'%'; pct.textContent=s.p+'%'; }, s.t));
 
-    // Dismiss on keypress or click after boot messages appear
     setTimeout(() => {
         document.addEventListener('keydown', dismissBoot, { once: true });
         document.getElementById('loading-screen').addEventListener('click', dismissBoot, { once: true });
     }, 3400);
-
-    // Auto-dismiss after 5.5s
     setTimeout(dismissBoot, 5500);
-
     updateClock();
     setInterval(updateClock, 1000);
 });
 
 function dismissBoot() {
     const screen = document.getElementById('loading-screen');
-    if (!screen) return;
+    if (!screen || screen.style.display === 'none') return;
     screen.style.transition = 'opacity 0.4s ease';
     screen.style.opacity = '0';
-    setTimeout(() => {
-        screen.style.display = 'none';
-        document.getElementById('desktop').style.opacity = '1';
-    }, 400);
+    setTimeout(() => { screen.style.display = 'none'; document.getElementById('desktop').style.opacity = '1'; }, 400);
 }
 
 function updateClock() {
     const now = new Date();
-    const time = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
-    const d = document.getElementById('taskbar-clock');
-    const m = document.getElementById('mobile-clock');
-    if (d) d.textContent = time;
-    if (m) m.textContent = time;
+    const t = String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
+    const d = document.getElementById('taskbar-clock'); if (d) d.textContent = t;
+    const m = document.getElementById('mobile-clock'); if (m) m.textContent = t;
 }
 
 // ============ WINDOW MANAGEMENT ============
 function openWindow(id) {
     const win = document.getElementById(id);
+    win.classList.remove('window-closing');
     win.style.display = 'flex';
-    win.classList.add('maximized');
+    void win.offsetWidth; // force reflow for transition
+    win.classList.add('window-open', 'maximized');
     bringToFront(win);
 
-    // Lazy-load CV iframe on first open — prevents VS Code from crashing on page load
     if (id === 'cv-window') {
         const container = document.getElementById('cv-iframe-container');
         if (container && !container.querySelector('iframe')) {
             const iframe = document.createElement('iframe');
-            iframe.src = 'https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/Uma_Bridges_CV_2026%20(8).pdf';
-            iframe.style.cssText = 'flex:1; width:100%; border:none; min-height:500px;';
+            iframe.src = R2 + 'Uma_Bridges_CV_2026%20(8).pdf';
+            iframe.style.cssText = 'flex:1;width:100%;border:none;min-height:500px;';
             container.appendChild(iframe);
         }
     }
@@ -695,8 +667,12 @@ function openWindow(id) {
 
 function closeWindow(id) {
     const win = document.getElementById(id);
-    win.style.display = 'none';
-    win.classList.remove('maximized');
+    win.classList.remove('window-open');
+    win.classList.add('window-closing');
+    setTimeout(() => {
+        win.style.display = 'none';
+        win.classList.remove('window-closing', 'maximized');
+    }, 180);
 }
 
 function toggleMaximize(id) {
@@ -715,8 +691,7 @@ function bringToFront(win) {
 
 function minimizeAll() {
     document.querySelectorAll('.os-window').forEach(w => {
-        w.style.display = 'none';
-        w.classList.remove('maximized');
+        if (w.style.display !== 'none') closeWindow(w.id);
     });
 }
 
@@ -737,19 +712,23 @@ function togglePreview(id, el) {
 // ============ WORK — PROJECT PREVIEW ============
 function showProjectPreview(key, el) {
     const project = projects[key];
-    currentProject = key;
-
     document.querySelectorAll('.file-item-large').forEach(f => f.classList.remove('selected'));
     el.classList.add('selected');
 
     document.getElementById('preview-project-title').textContent = project.title;
     document.getElementById('preview-project-desc').textContent = project.desc;
+    document.getElementById('preview-project-tags').innerHTML = project.tags.map(t => `<span class="tag">${t}</span>`).join('');
 
-    const tagsEl = document.getElementById('preview-project-tags');
-    tagsEl.innerHTML = project.tags.map(t => `<span class="tag">${t}</span>`).join('');
-
-    const openBtn = document.getElementById('preview-open-btn');
-    openBtn.onclick = () => window.location.href = project.casePage;
+    const gifEl = document.getElementById('preview-project-gifs');
+    gifEl.innerHTML = '';
+    if (project.gifs && project.gifs.length > 0) {
+        gifEl.innerHTML = project.gifs.map(url => `<img src="${url}" alt="${project.title}" class="preview-gif">`).join('');
+    } else if (project.liveUrl) {
+        gifEl.innerHTML = `<iframe src="${project.liveUrl}" class="preview-embed" title="${project.title}" sandbox="allow-scripts allow-same-origin"></iframe>`;
+    } else {
+        gifEl.innerHTML = '<div class="preview-no-media">[ no preview available ]</div>';
+    }
+    gifEl.classList.remove('hidden');
 
     const liveBtn = document.getElementById('preview-live-btn');
     if (project.liveUrl) {
