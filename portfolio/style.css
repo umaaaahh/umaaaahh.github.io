@@ -8,7 +8,7 @@
     --accent-3: #f2c4a0;
     --accent-4: #b8d4f0;
     --static: #e8e8e8;
-    --bg-dark: #1a1a2e;
+    --bg-dark: #0a0a14;
     --win-grey: #c0c0c0;
     --win-grey-dark: #808080;
     --title-blue-dark: #1359c2;
@@ -31,100 +31,130 @@ html, body {
 #loading-screen {
     position: fixed;
     inset: 0;
-    background: var(--bg-dark);
+    background: #000;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     z-index: 9999;
-    font-family: var(--font-mono) !important;
+    font-family: var(--font-mono);
+    cursor: default;
 }
 
-#loading-screen * {
-    font-family: var(--font-mono) !important;
+.boot-container {
+    width: 480px;
+    max-width: 90vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.boot-logo {
-    font-size: 56px;
-    font-weight: 700;
-    color: var(--static);
-    margin-bottom: 28px;
-    letter-spacing: 8px;
-    animation: glitch-boot 2.5s infinite;
-    font-family: var(--font-mono) !important;
+.boot-logo-area {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 24px;
 }
 
-@keyframes glitch-boot {
-    0%, 88%, 100% {
-        text-shadow: 0 0 20px var(--accent-1), 0 0 40px var(--accent-4);
-        color: var(--static);
-    }
-    90% {
-        text-shadow: 3px 0 var(--accent-2), -3px 0 var(--accent-4);
-        transform: translate(-3px, 0);
-        color: var(--accent-1);
-    }
-    91% {
-        text-shadow: -2px 0 var(--accent-4), 2px 0 var(--accent-1);
-        transform: translate(2px, 0);
-        color: var(--static);
-    }
+.boot-logo-img {
+    width: 200px;
+    height: 200px;
+    image-rendering: pixelated;
+    object-fit: contain;
 }
 
-.boot-text {
-    font-size: 14px;
-    color: var(--accent-1);
+.boot-divider {
+    width: 100%;
+    height: 1px;
+    background: #222;
+    margin-bottom: 18px;
+}
+
+.boot-text-area {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
     margin-bottom: 20px;
-    animation: blink 1s infinite;
+    font-family: var(--font-mono);
 }
 
-.progress-bar {
-    width: 280px;
-    height: 18px;
-    border: 2px solid var(--win-grey-dark);
-    padding: 2px;
-    margin-top: 16px;
-    background: #000;
-}
-
-.progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--title-blue-dark), var(--accent-1), var(--accent-3));
-    width: 0%;
-    animation: loading 4.5s ease forwards;
-    box-shadow: 0 0 8px var(--accent-1);
-}
-
-@keyframes loading {
-    0% { width: 0%; }
-    20% { width: 25%; }
-    40% { width: 45%; }
-    60% { width: 68%; }
-    80% { width: 88%; }
-    100% { width: 100%; }
-}
-
-.boot-messages {
-    margin-top: 24px;
-    text-align: left;
-    color: var(--accent-1);
+.boot-line {
     font-size: 11px;
-    line-height: 1.8;
-}
-
-.boot-messages div {
+    color: var(--accent-1);
+    line-height: 1.9;
     opacity: 0;
-    animation: fadeInText 0.3s forwards;
+    animation: fadeInText 0.2s forwards;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
 }
 
-.boot-messages div:nth-child(1) { animation-delay: 0.4s; }
-.boot-messages div:nth-child(2) { animation-delay: 0.9s; }
-.boot-messages div:nth-child(3) { animation-delay: 1.4s; }
-.boot-messages div:nth-child(4) { animation-delay: 1.9s; }
-.boot-messages div:nth-child(5) { animation-delay: 2.4s; }
-.boot-messages div:nth-child(6) { animation-delay: 3.2s; }
+.boot-line:nth-child(1) { animation-delay: 0.3s; }
+.boot-line:nth-child(2) { animation-delay: 0.8s; }
+.boot-line:nth-child(3) { animation-delay: 1.3s; }
+.boot-line:nth-child(4) { animation-delay: 1.8s; }
+.boot-line:nth-child(5) { animation-delay: 2.3s; }
+.boot-line:nth-child(6) { animation-delay: 3.0s; }
+.boot-line:nth-child(7) { animation-delay: 3.5s; color: #fff; }
+
+.boot-ok {
+    color: var(--accent-1);
+    font-weight: 700;
+}
 
 @keyframes fadeInText { to { opacity: 1; } }
+
+.boot-bar-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.boot-bar-label {
+    font-size: 9px;
+    color: #444;
+    font-family: var(--font-mono);
+    letter-spacing: 1.5px;
+    flex-shrink: 0;
+}
+
+.boot-bar-track {
+    flex: 1;
+    height: 12px;
+    border: 1px solid #333;
+    background: #000;
+    padding: 2px;
+}
+
+.boot-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--title-blue-dark), var(--accent-1));
+    width: 0%;
+    transition: width 0.5s ease;
+    box-shadow: 0 0 6px var(--accent-1);
+}
+
+.boot-bar-pct {
+    font-size: 9px;
+    color: #444;
+    font-family: var(--font-mono);
+    width: 32px;
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.boot-footer {
+    display: flex;
+    gap: 20px;
+    font-size: 9px;
+    color: #333;
+    font-family: var(--font-mono);
+    letter-spacing: 0.5px;
+    padding-top: 12px;
+    border-top: 1px solid #1a1a1a;
+    width: 100%;
+}
 
 /* ============ DESKTOP ============ */
 #desktop {
@@ -133,7 +163,7 @@ html, body {
     background: url('https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/windows.jfif') center center / cover no-repeat;
     opacity: 0;
     transition: opacity 0.5s ease;
-    padding-bottom: 40px;
+    padding-bottom: 60px;
 }
 
 #desktop::before {
@@ -171,7 +201,7 @@ html, body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 72px;
+    width: 90px;
     cursor: pointer;
     padding: 6px 4px;
     border: 1px solid transparent;
@@ -190,8 +220,8 @@ html, body {
 }
 
 .icon-img {
-    font-size: 36px;
     margin-bottom: 4px;
+    image-rendering: pixelated;
     filter: drop-shadow(1px 1px 0 rgba(0,0,0,0.6));
 }
 
@@ -212,15 +242,18 @@ html, body {
     box-shadow: 4px 4px 0 rgba(0,0,0,0.5);
     z-index: 10;
     font-family: var(--font-mono);
+    /* KEY FIX: use flex so title bar + body stack with zero gap */
+    display: flex;
+    flex-direction: column;
 }
 
-/* Maximized window — fills the desktop area above taskbar */
+/* Maximized window */
 .os-window.maximized {
     position: fixed !important;
     top: 0 !important;
     left: 0 !important;
     right: 0 !important;
-    bottom: 40px !important;
+    bottom: 60px !important;
     width: auto !important;
     height: auto !important;
     display: flex !important;
@@ -240,7 +273,6 @@ html, body {
     height: 100%;
 }
 
-/* Work: spread icons across full width, bigger */
 .os-window.maximized .file-browser-grid {
     max-height: none;
     height: 100%;
@@ -255,11 +287,6 @@ html, body {
     font-size: 12px;
 }
 
-.os-window.maximized .file-icon-large {
-    font-size: 52px;
-}
-
-/* About: give preview content more breathing room */
 .os-window.maximized .file-browser {
     width: 240px;
 }
@@ -269,50 +296,25 @@ html, body {
     max-width: 760px;
 }
 
-.os-window.maximized .preview-name {
-    font-size: 28px;
-    margin-bottom: 4px;
-}
+.os-window.maximized .preview-name { font-size: 28px; margin-bottom: 4px; }
+.os-window.maximized .preview-handle { font-size: 14px; margin-bottom: 20px; }
+.os-window.maximized .preview-bio { font-size: 13px; line-height: 1.8; margin-bottom: 14px; max-width: 620px; }
+.os-window.maximized .tag { font-size: 10px; padding: 3px 8px; }
 
-.os-window.maximized .preview-handle {
-    font-size: 14px;
-    margin-bottom: 20px;
-}
+#cv-window.maximized .file-browser { display: none; }
+.os-window.maximized #cv-preview { flex: 1; overflow: hidden; border-left: none; }
+.os-window.maximized #cv-preview iframe { min-height: 0; flex: 1; }
 
-.os-window.maximized .preview-bio {
-    font-size: 13px;
-    line-height: 1.8;
-    margin-bottom: 14px;
-    max-width: 620px;
-}
-
-.os-window.maximized .tag {
-    font-size: 10px;
-    padding: 3px 8px;
-}
-
-/* CV: hide sidebar so PDF gets full width */
-#cv-window.maximized .file-browser {
-    display: none;
-}
-
-.os-window.maximized #cv-preview {
-    flex: 1;
-    overflow: hidden;
-    border-left: none;
-}
-
-.os-window.maximized #cv-preview iframe {
-    min-height: 0;
-    flex: 1;
-}
-
-/* Override 98.css title bar */
+/* ============ TITLE BAR — OVERRIDE 98.css ============ */
+/* 98.css adds margin/padding that creates the gap — kill it */
 .os-window .title-bar {
     background: linear-gradient(90deg, var(--title-blue-dark), var(--title-blue-light)) !important;
     padding: 3px 4px !important;
+    margin: 0 !important;
     cursor: default;
     flex-shrink: 0;
+    /* Remove any border-radius or extra spacing from 98.css */
+    border-radius: 0 !important;
 }
 
 .os-window .title-bar-text {
@@ -324,17 +326,20 @@ html, body {
     letter-spacing: 0.3px;
 }
 
+/* KEY GAP FIX: 98.css .window-body has padding & margin — override both */
 .os-window .window-body {
     font-family: var(--font-mono) !important;
     font-size: 12px;
+    margin: 0 !important;        /* kills the 98.css margin that creates the gap */
+    border-top: none !important; /* kills any top border 98.css adds */
 }
 
-/* Window body layout: file browser + preview side by side */
 .os-window-body {
     display: flex;
     min-height: 280px;
     max-height: 500px;
     padding: 0 !important;
+    margin: 0 !important;
 }
 
 /* ============ FILE BROWSER (list) ============ */
@@ -355,7 +360,6 @@ html, body {
     padding: 5px 6px;
     cursor: pointer;
     border: 1px solid transparent;
-    border-radius: 0;
     color: #000;
     font-family: var(--font-mono);
     font-size: 11px;
@@ -374,7 +378,7 @@ html, body {
 
 .file-item.selected .file-icon { filter: brightness(10); }
 
-.file-icon { font-size: 16px; flex-shrink: 0; }
+.file-icon { font-size: 16px; flex-shrink: 0; line-height: 1; }
 .file-name { font-size: 11px; line-height: 1.3; }
 
 /* ============ FILE BROWSER (large icons grid) ============ */
@@ -396,7 +400,7 @@ html, body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
+    gap: 6px;
     padding: 10px 6px;
     cursor: pointer;
     border: 1px solid transparent;
@@ -404,7 +408,6 @@ html, body {
     font-family: var(--font-mono);
     font-size: 10px;
     text-align: center;
-    border-radius: 0;
     line-height: 1.3;
     word-break: break-word;
 }
@@ -421,7 +424,10 @@ html, body {
     outline: 1px dotted var(--title-blue-dark);
 }
 
-.file-icon-large { font-size: 32px; }
+.file-icon-large {
+    image-rendering: pixelated;
+    line-height: 1;
+}
 
 /* ============ PREVIEW PANE ============ */
 .preview-pane,
@@ -435,9 +441,7 @@ html, body {
 }
 
 .preview-pane.hidden,
-.project-preview-pane.hidden {
-    display: none;
-}
+.project-preview-pane.hidden { display: none; }
 
 .preview-header {
     font-size: 11px;
@@ -446,38 +450,14 @@ html, body {
     border-bottom: 1px solid var(--win-grey);
     padding-bottom: 6px;
     margin-bottom: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     font-family: var(--font-mono);
 }
 
-.preview-name {
-    font-size: 18px;
-    font-weight: 700;
-    color: #000;
-    margin-bottom: 2px;
-    font-family: var(--font-mono);
-}
+.preview-name { font-size: 18px; font-weight: 700; color: #000; margin-bottom: 2px; font-family: var(--font-mono); }
+.preview-handle { font-size: 12px; color: var(--title-blue-dark); margin-bottom: 12px; font-family: var(--font-mono); }
+.preview-bio { font-size: 11px; line-height: 1.7; color: #333; margin-bottom: 10px; font-family: var(--font-mono); }
 
-.preview-handle {
-    font-size: 12px;
-    color: var(--title-blue-dark);
-    margin-bottom: 12px;
-    font-family: var(--font-mono);
-}
-
-.preview-bio {
-    font-size: 11px;
-    line-height: 1.7;
-    color: #333;
-    margin-bottom: 10px;
-    font-family: var(--font-mono);
-}
-
-.preview-tags,
-.preview-project-tags,
-.case-study-tags {
+.preview-tags, .preview-project-tags {
     display: flex;
     flex-wrap: wrap;
     gap: 4px;
@@ -496,14 +476,14 @@ html, body {
     letter-spacing: 0.3px;
 }
 
-.preview-actions { margin-top: 12px; }
+.preview-actions { margin-top: 12px; display: flex; gap: 6px; flex-wrap: wrap; }
 
-.preview-open-btn {
+.preview-open-btn, .preview-live-btn {
     font-family: var(--font-mono) !important;
     font-size: 11px !important;
 }
 
-/* ============ WORK: FILE BROWSER LAYOUT ============ */
+/* ============ WORK LAYOUT ============ */
 #work-file-browser {
     display: flex;
     width: 100%;
@@ -512,59 +492,7 @@ html, body {
 
 #work-file-browser.hidden { display: none; }
 
-/* ============ CASE STUDY VIEW ============ */
-#work-case-study {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-#work-case-study.hidden { display: none; }
-
-.case-study-nav {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 8px 12px;
-    background: var(--win-grey);
-    border-bottom: 1px solid var(--win-grey-dark);
-    font-family: var(--font-mono);
-    font-size: 11px;
-    font-weight: 600;
-    color: #000;
-}
-
-.case-study-nav button {
-    font-family: var(--font-mono) !important;
-    font-size: 11px !important;
-}
-
-.case-study-body {
-    padding: 16px;
-    background: #fff;
-    overflow-y: auto;
-    flex: 1;
-    font-family: var(--font-mono);
-}
-
-.case-study-desc {
-    font-size: 12px;
-    line-height: 1.7;
-    color: #333;
-    margin: 12px 0;
-}
-
-.case-study-placeholder {
-    margin-top: 20px;
-    padding: 16px;
-    background: var(--win-grey);
-    border: 1px solid var(--win-grey-dark);
-    font-size: 11px;
-    color: #555;
-    text-align: center;
-}
-
-/* ============ CV WINDOW ============ */
+/* ============ CV ============ */
 .download-btn {
     font-family: var(--font-mono) !important;
     font-size: 10px !important;
@@ -576,39 +504,28 @@ html, body {
 /* ============ TASKBAR ============ */
 #taskbar {
     position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 40px;
+    bottom: 0; left: 0; right: 0;
+    height: 60px;
     background: var(--win-grey);
     border-top: 2px solid #fff;
     box-shadow: 0 -1px 0 var(--win-grey-dark);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 6px;
+    padding: 0 10px;
     z-index: 9000;
     font-family: var(--font-mono);
 }
 
-.taskbar-left {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
-.taskbar-right {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
+.taskbar-left { display: flex; align-items: center; gap: 6px; }
+.taskbar-right { display: flex; align-items: center; gap: 6px; }
 
 .taskbar-logo {
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 15px;
     font-weight: 700;
     color: #000;
-    padding: 4px 10px;
+    padding: 8px 16px;
     background: var(--win-grey);
     border: 2px solid;
     border-color: #fff var(--win-grey-dark) var(--win-grey-dark) #fff;
@@ -618,60 +535,47 @@ html, body {
     user-select: none;
 }
 
-.taskbar-logo:hover {
-    background: var(--accent-4);
-}
+.taskbar-logo:hover { background: var(--accent-4); }
 
-.taskbar-sep {
-    width: 1px;
-    height: 24px;
-    background: var(--win-grey-dark);
-    margin: 0 4px;
-}
+.taskbar-sep { width: 1px; height: 36px; background: var(--win-grey-dark); margin: 0 6px; }
 
 .taskbar-btn {
     font-family: var(--font-mono) !important;
-    font-size: 10px !important;
-    padding: 3px 8px !important;
+    font-size: 14px !important;
+    padding: 6px 14px !important;
     white-space: nowrap;
     color: #000;
 }
 
 .taskbar-icon-btn {
     font-family: var(--font-mono) !important;
-    font-size: 10px !important;
+    font-size: 14px !important;
     font-weight: 700 !important;
-    padding: 3px 6px !important;
-    min-width: 28px;
+    padding: 6px 10px !important;
+    min-width: 40px;
     text-align: center;
     color: #000;
 }
 
 .taskbar-clock {
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 15px;
     font-weight: 600;
     color: #000;
-    padding: 4px 8px;
+    padding: 6px 12px;
     border: 1px solid var(--win-grey-dark);
     background: var(--win-grey);
-    min-width: 44px;
+    min-width: 60px;
     text-align: center;
 }
 
-/* ============ MOBILE LAYOUT ============ */
+/* ============ MOBILE ============ */
+#mobile-shell { display: none; }
+
 @media (max-width: 480px) {
-
-    .desktop-icons { display: none; }
-    .os-window { display: none !important; }
-
+    .desktop-icons, .os-window { display: none !important; }
     #taskbar { display: none; }
-
-    #desktop {
-        opacity: 1 !important;
-        padding-bottom: 0;
-        overflow: hidden;
-    }
+    #desktop { opacity: 1 !important; padding-bottom: 0; overflow: hidden; }
 
     #mobile-shell {
         display: flex;
@@ -692,46 +596,27 @@ html, body {
     }
 
     .mobile-titlebar-text {
-        color: #fff;
-        font-size: 13px;
-        font-weight: 700;
-        letter-spacing: 1px;
-        text-shadow: 1px 1px 0 rgba(0,0,0,0.4);
+        color: #fff; font-size: 13px; font-weight: 700;
+        letter-spacing: 1px; text-shadow: 1px 1px 0 rgba(0,0,0,0.4);
         font-family: var(--font-mono);
     }
 
-    .mobile-titlebar-controls {
-        display: flex;
-        gap: 4px;
-    }
-
+    .mobile-titlebar-controls { display: flex; gap: 4px; }
     .mobile-titlebar-controls button {
-        width: 22px;
-        height: 22px;
-        font-size: 10px;
-        padding: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        width: 22px; height: 22px; font-size: 10px; padding: 0;
+        display: flex; align-items: center; justify-content: center;
         font-family: var(--font-mono) !important;
     }
 
     .mobile-home {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 16px;
-        padding: 24px 20px;
+        flex: 1; display: flex; flex-direction: column;
+        align-items: center; justify-content: center;
+        gap: 16px; padding: 24px 20px;
     }
 
     .mobile-app-btn {
-        width: 100%;
-        max-width: 320px;
-        display: flex;
-        align-items: center;
-        gap: 14px;
+        width: 100%; max-width: 320px;
+        display: flex; align-items: center; gap: 14px;
         padding: 14px 16px;
         background: var(--win-grey);
         border: 2px solid;
@@ -739,9 +624,7 @@ html, body {
         cursor: pointer;
         font-family: var(--font-mono) !important;
         font-size: 14px !important;
-        font-weight: 600;
-        color: #000;
-        text-align: left;
+        font-weight: 600; color: #000; text-align: left;
         box-shadow: 2px 2px 0 rgba(0,0,0,0.3);
         transition: transform 0.1s ease;
     }
@@ -752,191 +635,105 @@ html, body {
         box-shadow: 1px 1px 0 rgba(0,0,0,0.3);
     }
 
-    .mobile-app-icon {
-        font-size: 28px;
-        flex-shrink: 0;
-    }
-
-    .mobile-app-label {
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-    }
-
-    .mobile-app-title {
-        font-size: 13px;
-        font-weight: 700;
-        color: #000;
-    }
-
-    .mobile-app-subtitle {
-        font-size: 10px;
-        color: var(--win-grey-dark);
-        font-weight: 400;
-    }
+    .mobile-app-icon { font-size: 28px; flex-shrink: 0; image-rendering: pixelated; }
+    .mobile-app-label { display: flex; flex-direction: column; gap: 2px; }
+    .mobile-app-title { font-size: 13px; font-weight: 700; color: #000; }
+    .mobile-app-subtitle { font-size: 10px; color: var(--win-grey-dark); font-weight: 400; }
 
     .mobile-panel {
-        position: fixed;
-        inset: 0;
-        background: var(--win-grey);
-        z-index: 500;
-        display: flex;
-        flex-direction: column;
+        position: fixed; inset: 0;
+        background: var(--win-grey); z-index: 500;
+        display: flex; flex-direction: column;
         transform: translateY(100%);
         transition: transform 0.3s ease;
         font-family: var(--font-mono);
     }
 
-    .mobile-panel.open {
-        transform: translateY(0);
-    }
+    .mobile-panel.open { transform: translateY(0); }
 
     .mobile-panel-titlebar {
         background: linear-gradient(90deg, var(--title-blue-dark), var(--title-blue-light));
         padding: 6px 8px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+        display: flex; align-items: center; justify-content: space-between;
         flex-shrink: 0;
         border-bottom: 2px solid rgba(255,255,255,0.3);
     }
 
     .mobile-panel-titlebar-text {
-        color: #fff;
-        font-size: 12px;
-        font-weight: 700;
-        letter-spacing: 0.5px;
-        text-shadow: 1px 1px 0 rgba(0,0,0,0.4);
+        color: #fff; font-size: 12px; font-weight: 700;
+        letter-spacing: 0.5px; text-shadow: 1px 1px 0 rgba(0,0,0,0.4);
         font-family: var(--font-mono);
     }
 
     .mobile-panel-close {
-        color: #fff !important;
-        font-size: 11px !important;
-        padding: 2px 6px !important;
-        font-family: var(--font-mono) !important;
+        color: #fff !important; font-size: 11px !important;
+        padding: 2px 6px !important; font-family: var(--font-mono) !important;
     }
 
     .mobile-panel-body {
-        flex: 1;
-        overflow-y: auto;
-        padding: 16px;
-        background: #fff;
-        font-family: var(--font-mono);
+        flex: 1; overflow-y: auto; padding: 16px;
+        background: #fff; font-family: var(--font-mono);
     }
 
     .mobile-file-row {
-        display: flex;
-        align-items: center;
-        gap: 10px;
+        display: flex; align-items: center; gap: 10px;
         padding: 10px 8px;
         border: 1px solid transparent;
         border-bottom: 1px solid var(--win-grey);
         cursor: pointer;
         background: var(--win-grey);
         margin-bottom: 6px;
-        font-family: var(--font-mono);
-        font-size: 12px;
-        color: #000;
+        font-family: var(--font-mono); font-size: 12px; color: #000;
     }
 
-    .mobile-file-row:active,
-    .mobile-file-row.selected {
+    .mobile-file-row:active, .mobile-file-row.selected {
         background: var(--title-blue-dark);
-        color: #fff;
-        border-color: var(--title-blue-dark);
+        color: #fff; border-color: var(--title-blue-dark);
     }
 
     .mobile-file-content {
-        display: none;
-        padding: 12px;
-        background: #fff;
+        display: none; padding: 12px; background: #fff;
         border: 2px solid;
         border-color: var(--win-grey-dark) #fff #fff var(--win-grey-dark);
         margin-bottom: 12px;
-        font-size: 12px;
-        line-height: 1.7;
-        color: #333;
+        font-size: 12px; line-height: 1.7; color: #333;
         font-family: var(--font-mono);
     }
 
-    .mobile-file-content.open {
-        display: block;
-    }
+    .mobile-file-content.open { display: block; }
 
     .mobile-project-card {
         background: var(--win-grey);
         border: 2px solid;
         border-color: #fff var(--win-grey-dark) var(--win-grey-dark) #fff;
         margin-bottom: 10px;
-        cursor: pointer;
-        font-family: var(--font-mono);
+        cursor: pointer; font-family: var(--font-mono);
     }
 
     .mobile-project-header {
         background: linear-gradient(90deg, var(--title-blue-dark), var(--title-blue-light));
-        padding: 6px 10px;
-        color: #fff;
-        font-size: 11px;
-        font-weight: 700;
-        display: flex;
-        align-items: center;
-        gap: 8px;
+        padding: 6px 10px; color: #fff; font-size: 11px; font-weight: 700;
         font-family: var(--font-mono);
     }
 
-    .mobile-project-body {
-        padding: 10px 12px;
-        background: var(--win-grey);
-    }
-
-    .mobile-project-title {
-        font-size: 12px;
-        font-weight: 700;
-        color: #000;
-        margin-bottom: 6px;
-        font-family: var(--font-mono);
-    }
-
-    .mobile-project-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 4px;
-        margin-bottom: 8px;
-    }
-
-    .mobile-project-desc {
-        font-size: 11px;
-        line-height: 1.6;
-        color: #333;
-        margin-bottom: 10px;
-        font-family: var(--font-mono);
-    }
-
-    .mobile-project-btn {
-        font-family: var(--font-mono) !important;
-        font-size: 11px !important;
-    }
+    .mobile-project-body { padding: 10px 12px; background: var(--win-grey); }
+    .mobile-project-title { font-size: 12px; font-weight: 700; color: #000; margin-bottom: 6px; font-family: var(--font-mono); }
+    .mobile-project-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; }
+    .mobile-project-desc { font-size: 11px; line-height: 1.6; color: #333; margin-bottom: 10px; font-family: var(--font-mono); }
+    .mobile-project-btn { font-family: var(--font-mono) !important; font-size: 11px !important; }
 
     .mobile-cv-placeholder {
-        text-align: center;
-        padding: 20px;
-        font-size: 13px;
-        color: #555;
-        line-height: 1.8;
+        text-align: center; padding: 20px;
+        font-size: 13px; color: #555; line-height: 1.8;
         font-family: var(--font-mono);
     }
 
     .mobile-cv-download {
-        display: block;
-        width: 100%;
-        max-width: 240px;
+        display: block; width: 100%; max-width: 240px;
         margin: 16px auto 0;
         font-family: var(--font-mono) !important;
-        font-size: 13px !important;
-        padding: 10px !important;
-        text-decoration: none;
-        color: #000;
+        font-size: 13px !important; padding: 10px !important;
+        text-decoration: none; color: #000;
         background: var(--win-grey);
         border: 2px solid;
         border-color: #fff var(--win-grey-dark) var(--win-grey-dark) #fff;
@@ -947,69 +744,33 @@ html, body {
         background: var(--win-grey);
         border-top: 2px solid #fff;
         box-shadow: 0 -1px 0 var(--win-grey-dark);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 8px;
-        height: 44px;
-        flex-shrink: 0;
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 0 8px; height: 44px; flex-shrink: 0;
     }
 
-    .mobile-nav-socials {
-        display: flex;
-        gap: 4px;
-    }
-
-    .mobile-nav-btn {
-        font-family: var(--font-mono) !important;
-        font-size: 10px !important;
-        font-weight: 700 !important;
-        padding: 3px 6px !important;
-        min-width: 28px;
-        text-align: center;
-        color: #000;
-    }
-
-    .mobile-nav-clock {
-        font-family: var(--font-mono);
-        font-size: 11px;
-        font-weight: 600;
-        color: #000;
-        padding: 4px 8px;
-        border: 1px solid var(--win-grey-dark);
-        background: var(--win-grey);
-    }
-
+    .mobile-nav-socials { display: flex; gap: 4px; }
+    .mobile-nav-btn { font-family: var(--font-mono) !important; font-size: 10px !important; font-weight: 700 !important; padding: 3px 6px !important; min-width: 28px; color: #000; }
+    .mobile-nav-clock { font-family: var(--font-mono); font-size: 11px; font-weight: 600; color: #000; padding: 4px 8px; border: 1px solid var(--win-grey-dark); background: var(--win-grey); }
 }
-
-/* Hide mobile shell on desktop */
-#mobile-shell { display: none; }
 
 /* ============ PROJECT PAGES ============ */
 .project-detail {
-    position: fixed;
-    inset: 0;
+    position: fixed; inset: 0;
     background: url('https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/windows.jfif') center center / cover no-repeat;
     font-family: var(--font-mono);
 }
 
 .project-detail .window {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    flex-direction: column;
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    display: flex; flex-direction: column;
     font-family: var(--font-mono);
-    overflow: hidden;
-    box-shadow: none;
-    margin: 0;
+    overflow: hidden; box-shadow: none; margin: 0;
 }
 
 .project-detail .title-bar {
     background: linear-gradient(90deg, var(--title-blue-dark), var(--title-blue-light)) !important;
     padding: 3px 4px !important;
+    margin: 0 !important;
     flex-shrink: 0;
 }
 
@@ -1022,19 +783,15 @@ html, body {
 }
 
 .project-detail-body {
-    flex: 1;
-    overflow-y: auto;
-    padding: 28px 36px;
-    background: #fff;
+    flex: 1; overflow-y: auto;
+    padding: 28px 36px; background: #fff;
     font-family: var(--font-mono);
 }
 
 .section-title {
-    font-size: 13px;
-    font-weight: 700;
+    font-size: 13px; font-weight: 700;
     color: var(--title-blue-dark);
-    letter-spacing: 1px;
-    margin-bottom: 20px;
+    letter-spacing: 1px; margin-bottom: 20px;
     font-family: var(--font-mono);
 }
 
@@ -1044,69 +801,38 @@ html, body {
     96% { text-shadow: -2px 0 var(--accent-2), 2px 0 var(--accent-1); transform: translate(1px, 0); }
 }
 
-.glitch {
-    animation: glitch-text 5s infinite;
-}
+.glitch { animation: glitch-text 5s infinite; }
 
 .project-embed-full {
-    width: 100%;
-    height: 600px;
+    width: 100%; height: 600px;
     border: 2px solid var(--win-grey-dark);
-    background: #000;
-    display: block;
-    margin-bottom: 24px;
+    background: #000; display: block; margin-bottom: 24px;
 }
 
 .project-detail-description {
-    font-size: 13px;
-    line-height: 1.8;
-    color: #333;
-    max-width: 720px;
-    margin-bottom: 24px;
-    font-family: var(--font-mono);
+    font-size: 13px; line-height: 1.8; color: #333;
+    max-width: 720px; margin-bottom: 24px; font-family: var(--font-mono);
 }
 
-.project-detail-description strong {
-    color: #000;
-}
+.project-detail-description strong { color: #000; }
 
-.project-links {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
-}
+.project-links { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+.project-link { text-decoration: none; }
 
-.project-link {
-    text-decoration: none;
-}
-
-.project-link button,
-.back-button button {
+.project-link button, .back-button button {
     font-family: var(--font-mono) !important;
-    font-size: 12px !important;
-    padding: 5px 12px !important;
+    font-size: 12px !important; padding: 5px 12px !important;
 }
 
-.back-button {
-    margin-top: 16px;
-    padding-top: 16px;
-    border-top: 1px solid var(--win-grey);
-}
+.back-button { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--win-grey); }
 
 @media (max-width: 480px) {
-    .project-detail-body {
-        padding: 16px;
-    }
-
-    .project-embed-full {
-        height: 300px;
-    }
+    .project-detail-body { padding: 16px; }
+    .project-embed-full { height: 300px; }
 }
 
 /* ============ UTILITIES ============ */
 .hidden { display: none !important; }
-
 .blink { animation: blink 1s infinite; }
 
 @keyframes blink {
