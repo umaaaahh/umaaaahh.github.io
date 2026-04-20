@@ -26,6 +26,14 @@
 
         <div class="boot-divider"></div>
 
+        <div class="boot-bar-wrap">
+            <div class="boot-bar-label">LOADING</div>
+            <div class="boot-bar-track">
+                <div class="boot-bar-fill" id="boot-bar-fill"></div>
+            </div>
+            <div class="boot-bar-pct" id="boot-bar-pct">0%</div>
+        </div>
+
         <div class="boot-text-area">
             <div class="boot-line" id="bl1">&gt; INITIALIZING SQU1D_1NC.EXE...</div>
             <div class="boot-line" id="bl2">&gt; Loading creative systems........<span class="boot-ok">OK</span></div>
@@ -34,14 +42,6 @@
             <div class="boot-line" id="bl5">&gt; Compiling project data..........<span class="boot-ok">OK</span></div>
             <div class="boot-line" id="bl6">&gt; Establishing desktop env........<span class="boot-ok">OK</span></div>
             <div class="boot-line" id="bl7">&gt; Boot sequence complete. <span class="blink">_</span></div>
-        </div>
-
-        <div class="boot-bar-wrap">
-            <div class="boot-bar-label">LOADING</div>
-            <div class="boot-bar-track">
-                <div class="boot-bar-fill" id="boot-bar-fill"></div>
-            </div>
-            <div class="boot-bar-pct" id="boot-bar-pct">0%</div>
         </div>
 
         <div class="boot-footer">
@@ -377,7 +377,9 @@
             </div>
             <div class="preview-pane" id="cv-preview" style="padding: 0; display: flex; flex-direction: column;">
                 <div class="preview-header" style="padding: 8px 12px; margin: 0; flex-shrink: 0;">Uma_Bridges_CV_2026.pdf</div>
-                <iframe src="https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/Uma_Bridges_CV_2026%20(8).pdf" style="flex: 1; width: 100%; border: none; min-height: 500px;"></iframe>
+                <div id="cv-iframe-container" style="flex: 1; display: flex; flex-direction: column; min-height: 500px;">
+                    <!-- iframe injected on first open — keeps VS Code from loading PDF on startup -->
+                </div>
             </div>
         </div>
     </div>
@@ -554,7 +556,7 @@
     <!-- ============ TASKBAR ============ -->
     <div id="taskbar">
         <div class="taskbar-left">
-            <div class="taskbar-logo" onclick="minimizeAll()">SQU1D_1NC</div>
+            <div class="taskbar-logo" onclick="minimizeAll()"><img src="https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/Gemini_Generated_Image_3tmo9t3tmo9t3tmo.png" alt="Squ1d 1nc" class="taskbar-logo-img"></div>
             <div class="taskbar-sep"></div>
             <button class="taskbar-btn" onclick="openWindow('about-window')">ABOUT</button>
             <button class="taskbar-btn" onclick="openWindow('work-window')">WORK</button>
@@ -678,6 +680,17 @@ function openWindow(id) {
     win.style.display = 'flex';
     win.classList.add('maximized');
     bringToFront(win);
+
+    // Lazy-load CV iframe on first open — prevents VS Code from crashing on page load
+    if (id === 'cv-window') {
+        const container = document.getElementById('cv-iframe-container');
+        if (container && !container.querySelector('iframe')) {
+            const iframe = document.createElement('iframe');
+            iframe.src = 'https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/Uma_Bridges_CV_2026%20(8).pdf';
+            iframe.style.cssText = 'flex:1; width:100%; border:none; min-height:500px;';
+            container.appendChild(iframe);
+        }
+    }
 }
 
 function closeWindow(id) {
