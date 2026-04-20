@@ -649,7 +649,6 @@ function updateClock() {
 function openWindow(id) {
     const win = document.getElementById(id);
     win.classList.remove('window-closing');
-    win.style.display = 'flex';
     void win.offsetWidth; // force reflow for transition
     win.classList.add('window-open', 'maximized');
     bringToFront(win);
@@ -670,7 +669,6 @@ function closeWindow(id) {
     win.classList.remove('window-open');
     win.classList.add('window-closing');
     setTimeout(() => {
-        win.style.display = 'none';
         win.classList.remove('window-closing', 'maximized');
     }, 180);
 }
@@ -691,7 +689,7 @@ function bringToFront(win) {
 
 function minimizeAll() {
     document.querySelectorAll('.os-window').forEach(w => {
-        if (w.style.display !== 'none') closeWindow(w.id);
+        if (w.classList.contains('window-open')) closeWindow(w.id);
     });
 }
 
