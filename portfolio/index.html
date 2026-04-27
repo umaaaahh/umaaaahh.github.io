@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=block" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -49,10 +50,10 @@
             <div class="boot-bar-pct" id="boot-bar-pct">0%</div>
         </div>
         <div class="boot-text-area">
-            <div class="boot-line">&gt; INITIALIZING SQU1D_1NC.EXE...</div>
+            <div class="boot-line">&gt; INITIALIZING SQU1D_1NC.EXE......<span class="boot-ok">OK</span></div>
             <div class="boot-line">&gt; Loading creative systems........<span class="boot-ok">OK</span></div>
             <div class="boot-line">&gt; Initializing glitch protocols...<span class="boot-ok">OK</span></div>
-            <div class="boot-line">&gt; Syncing analog and digital.....<span class="boot-ok">OK</span></div>
+            <div class="boot-line">&gt; Syncing analog and digital......<span class="boot-ok">OK</span></div>
             <div class="boot-line">&gt; Compiling project data..........<span class="boot-ok">OK</span></div>
             <div class="boot-line">&gt; Establishing desktop env........<span class="boot-ok">OK</span></div>
             <div class="boot-line">&gt; Boot sequence complete. <span class="blink">_</span></div>
@@ -159,32 +160,41 @@
                 <div class="bebo-heart-label bebo-hero-label">Squ1d_1nc</div>
             </div>
 
-            <!-- GLITTER DIVIDER -->
-            <div class="bebo-divider">✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧ ✦</div>
 
-            <!-- SQU1D BIO -->
-            <div class="bebo-section">
-                <p class="bebo-text">Squ1d 1nc is a digital creative practice dreamt up by artist Uma Bridges. It serves both as a portfolio of work as well as a creative manifesto for the professional work Uma Bridges intends to do. Media, UXUI and Art are the intersections of creative communication and through Squ1d 1nc, Bridges intends to bridge the gap between the 3.</p>
-            </div>
+
 
             <!-- GLITTER DIVIDER -->
             <div class="bebo-divider">⭐ ★ ⭐ ★ ⭐ ★ ⭐ ★ ⭐ ★ ⭐ ★ ⭐</div>
 
             <!-- UMA BIO -->
-            <div class="bebo-section">
-                <div class="bebo-uma-row">
-                    <div class="bebo-uma-tag">
-                        <div class="bebo-heart-border bebo-tagged-circle">
-                            <img src="https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/Uma-Bridges-profile-pic.png" alt="Uma Bridges" class="bebo-heart-img"/>
-                        </div>
-                        <div class="bebo-heart-label">Uma Bridges</div>
-                    </div>
-                    <div class="bebo-section-title">💖 uma bridges 💖</div>
-                </div>
-                <p class="bebo-text">Uma Bridges is an artist — though she finds that word too clean, too settled. She prefers <em>creative</em>: deliberately vague, slightly exhausting, and entirely accurate. Based in Melbourne and finishing her degree at RMIT, she moves between UX/UI, interactive narrative, frontend development, and whatever else refuses to stay in its lane.</p>
-                <p class="bebo-text">Her work has a habit of being about something — power, labour, memory, the Pacific, the algorithm — without announcing it. She designs systems that feel human, builds interfaces that have opinions, and tells stories that start with a mechanic and end somewhere unexpected.</p>
-                <p class="bebo-text">She is Banaban. She is from Melbourne. She is figuring it out. Aren't we all.</p>
+           
+<!-- 1. REPLACE the existing SQU1D BIO .bebo-section with this -->
+<div class="bebo-section">
+    <p class="bebo-text">Welcome to Squ1d 1nc — a creative practice I built for myself to showcase my work and share my personal style and sensibilities. It lives at the intersection of media, UX/UI, and art, and it's always growing.</p>
+</div>
+ 
+ 
+<!-- 2. REPLACE the existing UMA BIO .bebo-section with this -->
+<div class="bebo-section">
+    <div class="bebo-uma-row">
+        <div class="bebo-uma-tag">
+            <div class="bebo-heart-border bebo-tagged-circle">
+                <img src="https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/Uma-Bridges-profile-pic.png" alt="Uma Bridges" class="bebo-heart-img"/>
             </div>
+            <div class="bebo-heart-label">💖 UMA BRIDGES 💖</div>
+        </div>
+    </div>
+  <!-- GLITTER DIVIDER -->
+            <div class="bebo-divider">⭐ ★ ⭐ ★ ⭐ ★ ⭐ ★ ⭐ ★ ⭐ ★ ⭐</div>
+
+    <!-- TAGLINE in cursive -->
+    <p class="bebo-tagline">Uma Bridges is my name and designing cool websites is my game.</p>
+ 
+    <p class="bebo-text">I got my first taste of the creative world interning at <a href="https://vastyonder.com" target="_blank" rel="noopener" class="bebo-link">Vast Yonder</a>, assisting with site design for events from Yonder Festival to Brisbane Street Art Festival. From there I developed the rough concept for Squ1d 1nc while an artist in residence at <a href="https://superordinary.com.au" target="_blank" rel="noopener" class="bebo-link">Superordinary</a> Brisbane.</p>
+ 
+    <p class="bebo-text">Finally making my way to RMIT Melbourne, I applied the creative skills I'd picked up along the way as I learnt new ones in UX/UI — which have transformed the scope of what Squ1d 1nc can be. But 1nc stands for Incorporated, and these skills have indeed been incorporated into my practice.</p>
+</div>
+
 
             <!-- GLITTER DIVIDER -->
             <div class="bebo-divider">💎 ◇ 💎 ◇ 💎 ◇ 💎 ◇ 💎 ◇ 💎 ◇ 💎</div>
@@ -244,10 +254,10 @@
         </div>
     </div>
 
-    <!-- OVERTHINKER: fills the remaining width of the layout row -->
+    <!-- FEATURED PROJECT: randomly picked on each load -->
     <div class="showcase-window" id="showcase-overthinker">
         <div class="title-bar">
-            <div class="title-bar-text">Overthinkers_Typing_Pad</div>
+            <div class="title-bar-text" id="showcase-proj-title">Loading...</div>
             <div class="title-bar-controls">
                 <button aria-label="Close" data-action="dismiss-showcase" data-target="showcase-overthinker"></button>
             </div>
@@ -255,17 +265,18 @@
         <div class="showcase-iframe-body">
             <div class="showcase-iframe-wrap">
                 <iframe
-                    src="https://umaaaahh.github.io/Studio/assignment3/index.html"
-                    title="Overthinker's Typing Pad"
+                    id="showcase-proj-iframe"
+                    src="about:blank"
+                    title="Featured project"
                     sandbox="allow-scripts allow-same-origin allow-forms"
                 ></iframe>
             </div>
+            <div class="showcase-desc-bar">
+                <p id="showcase-proj-desc"></p>
+            </div>
             <div class="showcase-footer">
-                <div class="preview-tags">
-                    <span class="tag">Expressive Tool</span>
-                    <span class="tag">Interaction Design</span>
-                </div>
-                <a href="https://umaaaahh.github.io/Studio/assignment3/index.html" target="_blank" rel="noopener" class="showcase-open-btn">Open ↗</a>
+                <div class="preview-tags" id="showcase-proj-tags"></div>
+                <a id="showcase-proj-link" href="#" target="_blank" rel="noopener" class="showcase-open-btn">Open ↗</a>
             </div>
         </div>
     </div>
@@ -495,29 +506,58 @@
             </div>
         </div>
         <div class="window-body os-window-body">
-            <p class="contact-intro">Open to junior roles, freelance work, and interesting collaborations.</p>
-            <div class="contact-links">
-                <a class="contact-row" href="mailto:uma@squ1d1nc.com">
-                    <span class="contact-icon">📧</span>
-                    <span class="contact-label">Email</span>
-                    <span class="contact-value">uma@squ1d1nc.com</span>
+
+            <!-- SIDEBAR — visible only when maximized, CSS handles show/hide -->
+            <div class="contact-sidebar">
+                <div class="contact-tree-folder">
+                    <span>📁</span> contacts
+                </div>
+                <a class="contact-tree-item selected" href="mailto:uma@squ1d1nc.com">
+                    <span class="contact-tree-icon">📧</span> email.txt
                 </a>
-                <a class="contact-row" href="https://linkedin.com" target="_blank" rel="noopener">
-                    <span class="contact-icon">🔗</span>
-                    <span class="contact-label">LinkedIn</span>
-                    <span class="contact-value">/in/uma-bridges</span>
+                <a class="contact-tree-item" href="https://www.linkedin.com/in/uma-bridges" target="_blank" rel="noopener">
+                    <span class="contact-tree-icon">🔗</span> linkedin.url
                 </a>
-                <a class="contact-row" href="https://instagram.com" target="_blank" rel="noopener">
-                    <span class="contact-icon">📷</span>
-                    <span class="contact-label">Instagram</span>
-                    <span class="contact-value">@squ1d_1nc</span>
+                <a class="contact-tree-item" href="https://www.instagram.com/squ1d_1nc/" target="_blank" rel="noopener">
+                    <span class="contact-tree-icon">📷</span> instagram.url
                 </a>
-                <a class="contact-row" href="https://github.com/umaaaahh" target="_blank" rel="noopener">
-                    <span class="contact-icon">🐙</span>
-                    <span class="contact-label">GitHub</span>
-                    <span class="contact-value">umaaaahh</span>
+                <a class="contact-tree-item" href="https://github.com/umaaaahh" target="_blank" rel="noopener">
+                    <span class="contact-tree-icon">🐙</span> github.url
                 </a>
+                <div class="contact-tree-folder" style="margin-top: 12px;">
+               
             </div>
+            </div>
+
+            <!-- MAIN CONTENT -->
+            <div class="contact-main">
+                <div class="contact-main-inner">
+                    <p class="contact-intro">Open to junior roles, freelance work, and interesting collaborations.</p>
+                    <div class="contact-links">
+                        <a class="contact-row" href="mailto:uma@squ1d1nc.com">
+                            <span class="contact-icon">📧</span>
+                            <span class="contact-label">Email</span>
+                            <span class="contact-value">uma@squ1d1nc.com</span>
+                        </a>
+                        <a class="contact-row" href="https://www.linkedin.com/in/uma-bridges" target="_blank" rel="noopener">
+                            <span class="contact-icon">🔗</span>
+                            <span class="contact-label">LinkedIn</span>
+                            <span class="contact-value">/in/uma-bridges</span>
+                        </a>
+                        <a class="contact-row" href="https://www.instagram.com/squ1d_1nc/" target="_blank" rel="noopener">
+                            <span class="contact-icon">📷</span>
+                            <span class="contact-label">Instagram</span>
+                            <span class="contact-value">@squ1d_1nc</span>
+                        </a>
+                        <a class="contact-row" href="https://github.com/umaaaahh" target="_blank" rel="noopener">
+                            <span class="contact-icon">🐙</span>
+                            <span class="contact-label">GitHub</span>
+                            <span class="contact-value">umaaaahh</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -563,8 +603,8 @@
         </div>
         <div class="mobile-nav">
             <div class="mobile-nav-socials">
-                <a href="https://instagram.com" target="_blank" rel="noopener" class="mobile-nav-btn">IG</a>
-                <a href="https://linkedin.com" target="_blank" rel="noopener" class="mobile-nav-btn">in</a>
+                <a href="https://www.instagram.com/squ1d_1nc/" target="_blank" rel="noopener" class="mobile-nav-btn">IG</a>
+                <a href="https://www.linkedin.com/in/uma-bridges" target="_blank" rel="noopener" class="mobile-nav-btn">in</a>
                 <a href="https://github.com/umaaaahh" target="_blank" rel="noopener" class="mobile-nav-btn">GH</a>
             </div>
             <div class="mobile-nav-clock" id="mobile-clock">00:00</div>
@@ -687,8 +727,8 @@
                 <p class="mobile-contact-intro">Open to junior roles, freelance work, and interesting collaborations.</p>
                 <div class="mobile-contact-links">
                     <a href="mailto:uma@squ1d1nc.com" class="mobile-contact-link">📧 uma@squ1d1nc.com</a>
-                    <a href="https://linkedin.com" target="_blank" rel="noopener" class="mobile-contact-link">🔗 LinkedIn</a>
-                    <a href="https://instagram.com" target="_blank" rel="noopener" class="mobile-contact-link">📷 Instagram @squ1d_1nc</a>
+                    <a href="https://www.linkedin.com/in/uma-bridges" target="_blank" rel="noopener" class="mobile-contact-link">🔗 LinkedIn</a>
+                    <a href="https://www.instagram.com/squ1d_1nc/" target="_blank" rel="noopener" class="mobile-contact-link">📷 Instagram @squ1d_1nc</a>
                 </div>
             </div>
         </div>
@@ -707,8 +747,8 @@
             <button class="taskbar-btn" data-action="open-window" data-target="contact-window">CONTACT</button>
         </div>
         <div class="taskbar-right">
-            <a href="https://instagram.com" target="_blank" rel="noopener" class="taskbar-icon-btn" title="Instagram">IG</a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener" class="taskbar-icon-btn" title="LinkedIn">in</a>
+            <a href="https://www.instagram.com/squ1d_1nc/" target="_blank" rel="noopener" class="taskbar-icon-btn" title="Instagram">IG</a>
+            <a href="https://www.linkedin.com/in/uma-bridges" target="_blank" rel="noopener" class="taskbar-icon-btn" title="LinkedIn">in</a>
             <a href="https://github.com/umaaaahh" target="_blank" rel="noopener" class="taskbar-icon-btn" title="GitHub">GH</a>
             <div class="taskbar-sep"></div>
             <div class="taskbar-clock" id="taskbar-clock">00:00</div>

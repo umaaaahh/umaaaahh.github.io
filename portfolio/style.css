@@ -338,7 +338,7 @@ html, body {
     opacity: 0; /* revealed by JS after boot */
     transition: opacity 0.5s ease;
     padding-bottom: 60px; /* leaves room for the taskbar */
-    animation: wallpaper-glitch 8s steps(1) infinite;
+    animation: wallpaper-glitch 25s steps(1) infinite;
 }
 
 /* Horizontal scanlines + occasional green/red flash — runs on the desktop layer */
@@ -353,7 +353,7 @@ html, body {
     );
     pointer-events: none;
     z-index: 0;
-    animation: scan 14s linear infinite, glitch-flash 7s steps(1) infinite;
+    animation: scan 14s linear infinite, glitch-flash 25s steps(1) infinite;
 }
 
 /* Scanline drift — moves the line pattern slowly downward */
@@ -364,11 +364,11 @@ html, body {
 
 /* Occasional full-screen tint flashes — simulates CRT signal noise */
 @keyframes glitch-flash {
-    0%, 94%, 100% { opacity: 1; background: none; }
-    95% { opacity: 0.94; background: rgba(168,216,185,0.06); }
-    96% { opacity: 1; background: none; }
-    97% { opacity: 0.96; background: rgba(212,106,106,0.04); }
-    98% { opacity: 1; background: none; }
+    0%, 97%, 100% { opacity: 1; background: none; }
+    97.5% { opacity: 0.94; background: rgba(168,216,185,0.06); }
+    98%   { opacity: 1; background: none; }
+    98.5% { opacity: 0.96; background: rgba(212,106,106,0.04); }
+    99%   { opacity: 1; background: none; }
 }
 
 /* CRT grain/noise overlay — sits above everything on z-index 8999
@@ -403,37 +403,32 @@ html, body {
     100% { mask-position: 0px 0px;    -webkit-mask-position: 0px 0px; }
 }
 
-/* Wallpaper glitch — slices the background image into offset strips
-   on a slow 8s loop, simulating a bad video signal */
+/* Wallpaper glitch — shifts and recolours the background on a slow 25s loop.
+   clip-path is intentionally omitted so children (taskbar etc.) are not clipped. */
 @keyframes wallpaper-glitch {
-    0%, 89%, 100% {
-        clip-path: none;
+    0%, 96%, 100% {
         transform: translate(0, 0);
         filter: none;
     }
-    90% {
-        clip-path: polygon(0 15%, 100% 15%, 100% 22%, 0 22%);
+    96.5% {
         transform: translate(-6px, 0);
         filter: hue-rotate(90deg) saturate(2);
     }
-    91% { clip-path: none; transform: translate(0, 0); filter: none; }
-    93% {
-        clip-path: polygon(0 55%, 100% 55%, 100% 60%, 0 60%);
+    97%   { transform: translate(0, 0); filter: none; }
+    97.5% {
         transform: translate(8px, 0);
         filter: hue-rotate(200deg) saturate(3);
     }
-    94% {
-        clip-path: polygon(0 55%, 100% 55%, 100% 58%, 0 58%);
+    98% {
         transform: translate(-4px, 0);
         filter: hue-rotate(200deg) saturate(3);
     }
-    95% { clip-path: none; transform: translate(0, 0); filter: none; }
-    97% {
-        clip-path: none;
+    98.5% { transform: translate(0, 0); filter: none; }
+    99% {
         transform: translate(3px, 0);
         filter: brightness(1.4) hue-rotate(300deg) saturate(2);
     }
-    98% { transform: translate(0, 0); filter: none; }
+    99.5% { transform: translate(0, 0); filter: none; }
 }
 
 
@@ -1802,6 +1797,24 @@ html, body {
     overflow: hidden;
 }
 
+/* Description bar — sits between iframe and footer */
+.showcase-desc-bar {
+    flex-shrink: 0;
+    padding: 6px 10px;
+    background: #fff;
+    border-top: 1px solid var(--win-grey-dark);
+    max-height: 72px;
+    overflow-y: auto;
+}
+
+.showcase-desc-bar p {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    line-height: 1.6;
+    color: #333;
+    margin: 0;
+}
+
 /* Footer bar below the iframe — shows tags + open link */
 .showcase-footer {
     padding: 6px 10px;
@@ -1867,7 +1880,7 @@ html, body {
 .bebo-hero-wrap { position: relative; display: inline-block; margin: 0 auto; }
 
 /* Large Squ1d logo circle */
-.bebo-hero-circle { width: 110px; height: 110px; display: block; }
+.bebo-hero-circle { width: 75px; height: 75px; display: block; }
 
 /* Username label under the hero logo — slightly smaller than default */
 .bebo-hero-label { font-size: 11px; margin-top: 6px; }
@@ -1891,7 +1904,7 @@ html, body {
 }
 
 /* Small circular photo frame */
-.bebo-tagged-circle { width: 54px; height: 54px; }
+.bebo-tagged-circle { width: 75px; height: 75px; }
 
 /* Pink gradient border on profile pictures */
 .bebo-heart-border {
@@ -2374,3 +2387,158 @@ html, body {
 #work-window     { top: 60px; left: 200px; width: 720px; height: 520px; }
 #cv-window       { top: 100px; left: 160px; width: 600px; height: 520px; }
 #contact-window  { top: 120px; left: 180px; width: 400px; height: 360px; }
+
+
+/* ============================================
+   MAXIMIZED LAYOUT — CENTRED CONTENT COLUMN
+   Applies to About (fullscreen) and Contact
+   (maximized). Keeps content in a readable
+   centred band with ~20% breathing room each side.
+   Add these rules to the END of style.css.
+   ============================================ */
+
+
+/* ---- ABOUT: fullscreen centred column ---- */
+
+#showcase-about.about-fullscreen .bebo-body {
+    padding: 0 !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    height: 100%;
+}
+
+/* Every direct child gets constrained to the centre column */
+#showcase-about.about-fullscreen .bebo-body > * {
+    width: 100%;
+    max-width: 700px;
+    box-sizing: border-box;
+    padding-left: 18px;
+    padding-right: 18px;
+}
+
+/* Sparkle canvas breaks out of the column — stays full-bleed behind everything */
+#showcase-about.about-fullscreen #sparkle-canvas {
+    position: fixed;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
+    padding: 0;
+    max-width: none;
+    pointer-events: none;
+    z-index: 0;
+}
+
+#showcase-about.about-fullscreen .bebo-body > *:first-child { margin-top: 28px; }
+#showcase-about.about-fullscreen .bebo-body > *:last-child  { margin-bottom: 28px; }
+
+
+/* ---- CONTACT: maximized layout — sidebar + centred content ---- */
+
+#contact-window.maximized .window-body {
+    display: flex !important;
+    flex-direction: row;
+    padding: 0 !important;
+    max-height: none !important;
+    min-height: 0;
+    flex: 1;
+    overflow: hidden;
+}
+
+/* Left file-tree sidebar — only visible when maximized */
+.contact-sidebar { display: none; }
+
+#contact-window.maximized .contact-sidebar {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    min-width: 160px;
+    flex-shrink: 0;
+    background: var(--win-grey);
+    border-right: 2px solid;
+    border-color: var(--win-grey-dark) #fff #fff var(--win-grey-dark);
+    overflow-y: auto;
+    padding: 6px 4px;
+}
+
+.contact-tree-folder {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 6px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    color: #000;
+    user-select: none;
+}
+
+.contact-tree-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 6px 5px 20px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: #000;
+    cursor: pointer;
+    border: 1px solid transparent;
+    text-decoration: none;
+}
+
+.contact-tree-item:hover {
+    background: var(--accent-4);
+    border-color: var(--title-blue-dark);
+}
+
+.contact-tree-item.selected {
+    background: var(--title-blue-dark);
+    color: #fff;
+    border-color: var(--title-blue-dark);
+}
+
+.contact-tree-icon { flex-shrink: 0; font-size: 13px; }
+
+/* Main content area — centred column */
+.contact-main {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    background: #fff;
+    padding: 40px 0;
+}
+
+.contact-main-inner {
+    width: 100%;
+    max-width: 560px;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+/* Non-maximized: revert to original simple layout */
+#contact-window:not(.maximized) .contact-main {
+    display: block;
+    padding: 20px;
+}
+
+#contact-window:not(.maximized) .contact-main-inner {
+    max-width: none;
+    padding: 0;
+}
+
+.contact-main-heading {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--title-blue-dark);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--win-grey);
+    padding-bottom: 6px;
+    margin-bottom: 16px;
+}
+

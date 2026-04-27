@@ -39,8 +39,8 @@ const projects = {
     },
     scrollpoem: {
         title: 'Annabel Lee — Scroll Poem',
-        tags: ['Interactive Narrative', 'Kinetic Typography', 'Scroll-driven'],
-        desc: "Edgar Allan Poe's Annabel Lee reimagined with shadow-puppet aesthetics and scroll-driven parallax animation.",
+        tags: ['Scroll Animation', 'Interactive Narrative', 'Illustration', 'JS'],
+        desc: "A linear scroll-story bringing Edgar Allan Poe's gothic classic to life. Built as my first foray into interaction design, it uses scroll-driven JavaScript and stark silhouette illustrations to drive the narrative.",
         gifs: [R2 + 'scroll-poem.gif'],
         liveUrl: BASE + 'interactivemedia/Annabel%20Lee/index.html'
     },
@@ -356,8 +356,29 @@ const SHOWCASE_ORDER   = ['showcase-about', 'showcase-overthinker'];
 const SHOWCASE_STAGGER = 380;
 const SHOWCASE_DELAY   = 3000;
 
+function populateFeaturedProject() {
+    const keys    = Object.keys(projects);
+    const key     = keys[Math.floor(Math.random() * keys.length)];
+    const project = projects[key];
+
+    const titleEl = document.getElementById('showcase-proj-title');
+    const iframeEl = document.getElementById('showcase-proj-iframe');
+    const tagsEl  = document.getElementById('showcase-proj-tags');
+    const linkEl  = document.getElementById('showcase-proj-link');
+
+    const descEl = document.getElementById('showcase-proj-desc');
+
+    if (titleEl) titleEl.textContent = project.title;
+    if (iframeEl) iframeEl.src = project.liveUrl;
+    if (tagsEl)  tagsEl.innerHTML = project.tags.map(t => `<span class="tag">${t}</span>`).join('');
+    if (linkEl)  { linkEl.href = project.liveUrl; }
+    if (descEl)  descEl.textContent = project.desc;
+}
+
 function scheduleShowcase() {
     if (window.innerWidth <= 480) return;
+
+    populateFeaturedProject();
 
     SHOWCASE_ORDER.forEach((id, i) => {
         setTimeout(() => {
