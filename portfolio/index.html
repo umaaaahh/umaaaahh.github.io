@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,6 +11,28 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+<!-- ============ SPLASH / ENTRY SCREEN ============ -->
+<div id="splash-screen">
+    <div class="boot-container">
+        <div class="boot-logo-area">
+            <img src="https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/Squ1d1nc%20logo.png" alt="Squ1d 1nc" class="boot-logo-img"/>
+        </div>
+        <div class="boot-divider"></div>
+        <p class="splash-subtitle">SQU1D_1NC PORTFOLIO OS v2.6</p>
+        <button class="splash-enter-btn" data-action="start-boot">[ ENTER ]</button>
+        <div class="boot-footer">
+            <span>COPYRIGHT 2026 SQU1D_1NC</span>
+            <span>ALL RIGHTS RESERVED</span>
+        </div>
+    </div>
+</div>
+
+<!-- GIF FLASH OVERLAY -->
+<div id="gif-flash">
+    <div class="gif-glow"></div>
+    <img src="https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/output-onlinegiftools.gif" class="gif-flash-img" alt="">
+</div>
 
 <!-- ============ BOOT SCREEN ============ -->
 <div id="loading-screen">
@@ -46,9 +68,12 @@
 <!-- ============ DESKTOP ============ -->
 <div id="desktop">
 
+    <!-- Desktop layout — flex row: icons | about panel | overthinker -->
+    <div id="desktop-layout">
+
     <!-- Desktop icons -->
     <div class="desktop-icons">
-        <div class="desktop-icon" onclick="openWindow('about-window')" tabindex="0" onkeydown="if(event.key==='Enter')openWindow('about-window')">
+        <div class="desktop-icon" id="icon-about" data-action="expand-about" tabindex="0">
             <div class="icon-img">
                 <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" width="48" height="48">
                     <rect x="4" y="2" width="24" height="28" fill="#c0c0c0" stroke="#808080" stroke-width="1"/>
@@ -64,10 +89,10 @@
                     <polygon points="26,2 30,6 26,6" fill="#c0c0c0" stroke="#808080" stroke-width="1"/>
                 </svg>
             </div>
-            <div class="icon-label">ABOUT.exe</div>
+            <div class="icon-label">About</div>
         </div>
 
-        <div class="desktop-icon" onclick="openWindow('work-window')" tabindex="0" onkeydown="if(event.key==='Enter')openWindow('work-window')">
+        <div class="desktop-icon" id="icon-work" data-action="open-window" data-target="work-window" tabindex="0">
             <div class="icon-img">
                 <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" width="48" height="48">
                     <rect x="2" y="10" width="28" height="18" fill="#f2c4a0" stroke="#808080" stroke-width="1"/>
@@ -77,10 +102,10 @@
                     <rect x="18" y="16" width="8" height="1" fill="#808080" opacity="0.6"/>
                 </svg>
             </div>
-            <div class="icon-label">WORK</div>
+            <div class="icon-label">Projects</div>
         </div>
 
-        <div class="desktop-icon" onclick="openWindow('cv-window')" tabindex="0" onkeydown="if(event.key==='Enter')openWindow('cv-window')">
+        <div class="desktop-icon" id="icon-cv" data-action="open-window" data-target="cv-window" tabindex="0">
             <div class="icon-img">
                 <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" width="48" height="48">
                     <rect x="4" y="2" width="20" height="26" fill="#fff" stroke="#808080" stroke-width="1"/>
@@ -92,11 +117,10 @@
                     <rect x="7" y="13" width="12" height="1" fill="#c0c0c0"/>
                 </svg>
             </div>
-            <div class="icon-label">CV_2026.pdf</div>
+            <div class="icon-label">Resume</div>
         </div>
 
-        <!-- CONTACT icon -->
-        <div class="desktop-icon" onclick="openWindow('contact-window')" tabindex="0" onkeydown="if(event.key==='Enter')openWindow('contact-window')">
+        <div class="desktop-icon" id="icon-contact" data-action="open-window" data-target="contact-window" tabindex="0">
             <div class="icon-img">
                 <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" width="48" height="48">
                     <rect x="2" y="6" width="28" height="20" fill="#c0c0c0" stroke="#808080" stroke-width="1"/>
@@ -106,68 +130,210 @@
                     <line x1="30" y1="26" x2="20" y2="16" stroke="#808080" stroke-width="1"/>
                 </svg>
             </div>
-            <div class="icon-label">get_in_touch.exe</div>
+            <div class="icon-label">Contact</div>
         </div>
     </div>
 
-    <!-- ============ ABOUT WINDOW ============ -->
-    <div class="os-window" id="about-window" style="top:80px;left:120px;width:560px;">
+    <!-- ============ SHOWCASE WINDOWS ============ -->
+
+    <!-- ABOUT: tall narrow column, animates to fullscreen when clicked -->
+    <div class="showcase-window" id="showcase-about">
         <div class="title-bar">
-            <div class="title-bar-text">ABOUT.exe</div>
+            <div class="title-bar-text">✨ ABOUT.exe ✨</div>
             <div class="title-bar-controls">
-                <button aria-label="Minimize" onclick="closeWindow('about-window')"></button>
-                <button aria-label="Maximize" onclick="toggleMaximize('about-window')"></button>
-                <button aria-label="Close" onclick="closeWindow('about-window')"></button>
+                <button aria-label="Restore" id="about-restore-btn" data-action="restore-about" title="Restore">🗗</button>
+                <button aria-label="Maximise" id="about-expand-btn" data-action="expand-about" title="Maximise">□</button>
+                <button aria-label="Close" data-action="dismiss-showcase" data-target="showcase-about"></button>
             </div>
         </div>
-        <div class="window-body os-window-body">
-            <div class="file-browser">
-                <div class="file-item selected" onclick="togglePreview('about-preview', this)">
-                    <span class="file-icon"><svg viewBox="0 0 16 16" width="14" height="14"><rect x="1" y="1" width="10" height="13" fill="#fff" stroke="#808080"/><polygon points="9,1 11,3 9,3" fill="#808080"/><rect x="3" y="4" width="5" height="1" fill="#808080"/><rect x="3" y="6" width="7" height="1" fill="#c0c0c0"/></svg></span>
-                    <span class="file-name">uma_profile.txt</span>
+        <div class="bebo-body">
+
+            <!-- SPARKLE CANVAS -->
+            <canvas id="sparkle-canvas"></canvas>
+
+            <!-- HEADER: centered Squ1d logo -->
+            <div class="bebo-header">
+                <div class="bebo-heart-border bebo-hero-circle">
+                    <img src="https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/Squ1d1nc%20logo.png" alt="Squ1d 1nc" class="bebo-heart-img"/>
                 </div>
-                <div class="file-item" onclick="togglePreview('manifesto-preview', this)">
-                    <span class="file-icon"><svg viewBox="0 0 16 16" width="14" height="14"><rect x="1" y="1" width="10" height="13" fill="#fff" stroke="#808080"/><polygon points="9,1 11,3 9,3" fill="#808080"/><rect x="3" y="4" width="5" height="1" fill="#a8d8b9"/><rect x="3" y="6" width="7" height="1" fill="#a8d8b9"/></svg></span>
-                    <span class="file-name">manifesto.txt</span>
+                <div class="bebo-heart-label bebo-hero-label">Squ1d_1nc</div>
+            </div>
+
+            <!-- GLITTER DIVIDER -->
+            <div class="bebo-divider">✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧ ✦</div>
+
+            <!-- SQU1D BIO -->
+            <div class="bebo-section">
+                <p class="bebo-text">Squ1d 1nc is a digital creative practice dreamt up by artist Uma Bridges. It serves both as a portfolio of work as well as a creative manifesto for the professional work Uma Bridges intends to do. Media, UXUI and Art are the intersections of creative communication and through Squ1d 1nc, Bridges intends to bridge the gap between the 3.</p>
+            </div>
+
+            <!-- GLITTER DIVIDER -->
+            <div class="bebo-divider">⭐ ★ ⭐ ★ ⭐ ★ ⭐ ★ ⭐ ★ ⭐ ★ ⭐</div>
+
+            <!-- UMA BIO -->
+            <div class="bebo-section">
+                <div class="bebo-uma-row">
+                    <div class="bebo-uma-tag">
+                        <div class="bebo-heart-border bebo-tagged-circle">
+                            <img src="https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/Uma-Bridges-profile-pic.png" alt="Uma Bridges" class="bebo-heart-img"/>
+                        </div>
+                        <div class="bebo-heart-label">Uma Bridges</div>
+                    </div>
+                    <div class="bebo-section-title">💖 uma bridges 💖</div>
+                </div>
+                <p class="bebo-text">Uma Bridges is an artist — though she finds that word too clean, too settled. She prefers <em>creative</em>: deliberately vague, slightly exhausting, and entirely accurate. Based in Melbourne and finishing her degree at RMIT, she moves between UX/UI, interactive narrative, frontend development, and whatever else refuses to stay in its lane.</p>
+                <p class="bebo-text">Her work has a habit of being about something — power, labour, memory, the Pacific, the algorithm — without announcing it. She designs systems that feel human, builds interfaces that have opinions, and tells stories that start with a mechanic and end somewhere unexpected.</p>
+                <p class="bebo-text">She is Banaban. She is from Melbourne. She is figuring it out. Aren't we all.</p>
+            </div>
+
+            <!-- GLITTER DIVIDER -->
+            <div class="bebo-divider">💎 ◇ 💎 ◇ 💎 ◇ 💎 ◇ 💎 ◇ 💎 ◇ 💎</div>
+
+            <!-- TOP 8 SKILLS -->
+            <div class="bebo-section">
+                <div class="bebo-section-title">🔥 top skills 🔥</div>
+                <div class="bebo-top8">
+                    <div class="bebo-skill">🎨<br>UX/UI</div>
+                    <div class="bebo-skill">💻<br>Frontend</div>
+                    <div class="bebo-skill">🎮<br>Game Design</div>
+                    <div class="bebo-skill">📖<br>Narrative</div>
+                    <div class="bebo-skill">🔧<br>Systems</div>
+                    <div class="bebo-skill">🌊<br>Cultural</div>
+                    <div class="bebo-skill">✍️<br>Writing</div>
+                    <div class="bebo-skill">🎵<br>Audio</div>
                 </div>
             </div>
-            <div class="preview-pane" id="about-preview">
-                <div class="preview-header">uma_profile.txt</div>
-                <div class="preview-content">
-                    <p class="preview-name">Uma</p>
-                    <p class="preview-handle">Squ1d_1nc</p>
-                    <p class="preview-bio">Final-year Bachelor of Design (Digital Media) student at RMIT University, Melbourne. I build interactive experiences that sit at the intersection of UX/UI, frontend development, and systems thinking — using the interface itself as the medium.</p>
-                    <p class="preview-bio">My work spans game design, cultural commemoration, dystopian fiction, and interactive narrative. I design for constraint, not around it.</p>
-                    <div class="preview-tags">
-                        <span class="tag">UX/UI</span><span class="tag">Frontend Dev</span><span class="tag">Game Design</span><span class="tag">Interactive Narrative</span><span class="tag">Systems Design</span>
+
+            <!-- GLITTER DIVIDER -->
+            <div class="bebo-divider">✨ · · · · · · · · · · · · · · ✨</div>
+
+            <!-- EMBEDDED PLAYER -->
+            <div class="bebo-player">
+                <div class="bebo-player-screen">
+                    <div class="bebo-player-marquee-wrap">
+                        <span class="bebo-player-marquee">♪ Economies a Little Bit Sh*t — Uma Bridges (umagatilla) ♪</span>
+                    </div>
+                    <div class="bebo-player-bars" id="bebo-bars">
+                        <div class="bebo-player-bar"></div><div class="bebo-player-bar"></div>
+                        <div class="bebo-player-bar"></div><div class="bebo-player-bar"></div>
+                        <div class="bebo-player-bar"></div><div class="bebo-player-bar"></div>
+                        <div class="bebo-player-bar"></div><div class="bebo-player-bar"></div>
+                        <div class="bebo-player-bar"></div><div class="bebo-player-bar"></div>
+                        <div class="bebo-player-bar"></div><div class="bebo-player-bar"></div>
                     </div>
                 </div>
-            </div>
-            <div class="preview-pane hidden" id="manifesto-preview">
-                <div class="preview-header">manifesto.txt</div>
-                <div class="preview-content">
-                    <p class="preview-bio">Squ1d 1nc is a playground for creative systems — where game mechanics, storytelling, and digital craft collide. We prototype fast, think tactile, and build experiences that feel human, messy, and alive.</p>
-                    <p class="preview-bio">Limitations are exciting. Friction is a design tool. The interface is never neutral.</p>
-                    <p class="preview-bio">Everything starts physical — cards, boards, paper prototypes — then evolves digitally. Systems built around emotion, humour, and creative friction, not just polish.</p>
+                <div class="bebo-player-controls">
+                    <button class="bebo-player-btn" data-action="bebo-seek" data-secs="-10">⏮</button>
+                    <button class="bebo-player-btn" id="bebo-play-btn" data-action="bebo-toggle">▶</button>
+                    <button class="bebo-player-btn" data-action="bebo-seek" data-secs="10">⏭</button>
                 </div>
+                <div class="bebo-player-vol">
+                    <span class="bebo-player-vol-label">VOL</span>
+                    <input type="range" class="bebo-player-vol-slider" id="bebo-vol" min="0" max="100" value="80">
+                </div>
+                <div class="bebo-player-sc-link">
+                    <a href="https://soundcloud.com/umagatilla/economies-a-little-bit-sh-t" target="_blank">▸ open on soundcloud</a>
+                </div>
+            </div>
+
+            <!-- Hidden SoundCloud iframe -->
+            <iframe id="sc-iframe"
+                src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/umagatilla/economies-a-little-bit-sh-t&color=%23a8d8b9&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false"
+                allow="autoplay"></iframe>
+
+        </div>
+    </div>
+
+    <!-- OVERTHINKER: fills the remaining width of the layout row -->
+    <div class="showcase-window" id="showcase-overthinker">
+        <div class="title-bar">
+            <div class="title-bar-text">Overthinkers_Typing_Pad</div>
+            <div class="title-bar-controls">
+                <button aria-label="Close" data-action="dismiss-showcase" data-target="showcase-overthinker"></button>
+            </div>
+        </div>
+        <div class="showcase-iframe-body">
+            <div class="showcase-iframe-wrap">
+                <iframe
+                    src="https://umaaaahh.github.io/Studio/assignment3/index.html"
+                    title="Overthinker's Typing Pad"
+                    sandbox="allow-scripts allow-same-origin allow-forms"
+                ></iframe>
+            </div>
+            <div class="showcase-footer">
+                <div class="preview-tags">
+                    <span class="tag">Expressive Tool</span>
+                    <span class="tag">Interaction Design</span>
+                </div>
+                <a href="https://umaaaahh.github.io/Studio/assignment3/index.html" target="_blank" rel="noopener" class="showcase-open-btn">Open ↗</a>
+            </div>
+        </div>
+    </div>
+
+    </div><!-- #desktop-layout -->
+
+    <!-- MSN TOAST — LifeWork notification -->
+    <div id="msn-toast">
+        <div class="msn-toast-bar">
+            <div class="msn-toast-left">
+                <div class="msn-flame">🔥</div>
+                <div class="msn-toast-text">
+                    <div class="msn-toast-name">Compliance.ai</div>
+                    <div class="msn-toast-msg">has responded. Click to open.</div>
+                </div>
+            </div>
+            <div class="msn-toast-actions">
+                <button class="msn-btn" data-action="open-lifework">Open</button>
+                <button class="msn-btn msn-btn-close" data-action="dismiss-msn">✕</button>
+            </div>
+        </div>
+        <div class="msn-toast-footer">
+            <span class="msn-toast-app">💬 MSN Messenger — LifeWork Corp</span>
+        </div>
+    </div>
+
+    <!-- LIFEWORK WINDOW -->
+    <div class="os-window" id="lifework-window">
+        <div class="title-bar">
+            <div class="title-bar-text">LifeWork — Internal Messages</div>
+            <div class="title-bar-controls">
+                <button aria-label="Minimize" data-action="close-window" data-target="lifework-window"></button>
+                <button aria-label="Maximize" data-action="maximize-window" data-target="lifework-window"></button>
+                <button aria-label="Close" data-action="close-window" data-target="lifework-window"></button>
+            </div>
+        </div>
+        <div class="window-body os-window-body window-body-iframe">
+            <iframe
+                src="https://umaaaahh.github.io/emerging/assignment3/slack.html"
+                class="iframe-fill"
+                title="LifeWork Internal Messages"
+                sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+            ></iframe>
+            <div class="showcase-footer">
+                <div class="window-tag-row">
+                    <span class="tag">Social Commentary</span>
+                    <span class="tag">Immersive Fiction</span>
+                    <span class="tag">Frontend</span>
+                </div>
+                <a href="https://umaaaahh.github.io/emerging/assignment3/slack.html" target="_blank" rel="noopener" class="showcase-open-btn">Open ↗</a>
             </div>
         </div>
     </div>
 
     <!-- ============ WORK WINDOW ============ -->
-    <div class="os-window" id="work-window" style="top:60px;left:200px;width:720px;">
+    <div class="os-window" id="work-window">
         <div class="title-bar">
             <div class="title-bar-text">WORK</div>
             <div class="title-bar-controls">
-                <button aria-label="Minimize" onclick="closeWindow('work-window')"></button>
-                <button aria-label="Maximize" onclick="toggleMaximize('work-window')"></button>
-                <button aria-label="Close" onclick="closeWindow('work-window')"></button>
+                <button aria-label="Minimize" data-action="close-window" data-target="work-window"></button>
+                <button aria-label="Maximize" data-action="maximize-window" data-target="work-window"></button>
+                <button aria-label="Close" data-action="close-window" data-target="work-window"></button>
             </div>
         </div>
         <div class="window-body os-window-body" id="work-window-body">
             <div id="work-file-browser">
                 <div class="file-browser-grid">
-                    <div class="file-item-large" onclick="showProjectPreview('lifework', this)">
+                    <div class="file-item-large" data-action="show-project" data-project="lifework">
                         <div class="file-icon-large">
                             <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" width="40" height="40">
                                 <rect x="2" y="4" width="28" height="20" fill="#1a1a2e" stroke="#808080" stroke-width="1"/>
@@ -183,7 +349,7 @@
                         </div>
                         <div class="file-name">LifeWork_Internal<br>Messages</div>
                     </div>
-                    <div class="file-item-large" onclick="showProjectPreview('patchwork', this)">
+                    <div class="file-item-large" data-action="show-project" data-project="patchwork">
                         <div class="file-icon-large">
                             <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" width="40" height="40">
                                 <rect x="8" y="4" width="16" height="14" fill="#c0c0c0" stroke="#808080" stroke-width="1"/>
@@ -200,7 +366,7 @@
                         </div>
                         <div class="file-name">Patchwork_Cyborg</div>
                     </div>
-                    <div class="file-item-large" onclick="showProjectPreview('rabi', this)">
+                    <div class="file-item-large" data-action="show-project" data-project="rabi">
                         <div class="file-icon-large">
                             <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" width="40" height="40">
                                 <rect x="2" y="2" width="28" height="28" fill="#b8d4f0" stroke="#808080" stroke-width="1"/>
@@ -213,7 +379,7 @@
                         </div>
                         <div class="file-name">Rabi_Island_Sports<br>Tournament</div>
                     </div>
-                    <div class="file-item-large" onclick="showProjectPreview('hiking', this)">
+                    <div class="file-item-large" data-action="show-project" data-project="hiking">
                         <div class="file-icon-large">
                             <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" width="40" height="40">
                                 <rect x="3" y="3" width="26" height="26" fill="#b8d4f0" stroke="#808080" stroke-width="1"/>
@@ -226,7 +392,7 @@
                         </div>
                         <div class="file-name">Victorian_Hiking<br>Hub</div>
                     </div>
-                    <div class="file-item-large" onclick="showProjectPreview('overthinker', this)">
+                    <div class="file-item-large" data-action="show-project" data-project="overthinker">
                         <div class="file-icon-large">
                             <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" width="40" height="40">
                                 <rect x="4" y="2" width="22" height="28" fill="#fff" stroke="#808080" stroke-width="1"/>
@@ -242,7 +408,7 @@
                         </div>
                         <div class="file-name">Overthinkers<br>Typing_Pad</div>
                     </div>
-                    <div class="file-item-large" onclick="showProjectPreview('scrollpoem', this)">
+                    <div class="file-item-large" data-action="show-project" data-project="scrollpoem">
                         <div class="file-icon-large">
                             <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" width="40" height="40">
                                 <rect x="8" y="4" width="18" height="24" fill="#f2c4a0" stroke="#808080" stroke-width="1"/>
@@ -256,7 +422,7 @@
                         </div>
                         <div class="file-name">Annabel_Lee<br>Scroll_Poem</div>
                     </div>
-                    <div class="file-item-large" onclick="showProjectPreview('bagmap', this)">
+                    <div class="file-item-large" data-action="show-project" data-project="bagmap">
                         <div class="file-icon-large">
                             <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" width="40" height="40">
                                 <rect x="6" y="12" width="20" height="16" fill="#a8d8b9" stroke="#808080" stroke-width="1"/>
@@ -277,10 +443,10 @@
                 <div class="project-preview-pane hidden" id="project-preview-pane">
                     <div class="preview-header" id="preview-project-title">Project</div>
                     <div id="preview-project-gifs" class="preview-gif-area hidden"></div>
-                    <div class="preview-content" style="padding:10px 12px;">
+                    <div class="preview-content">
                         <div class="preview-project-tags" id="preview-project-tags"></div>
                         <p class="preview-bio" id="preview-project-desc"></p>
-                        <div class="preview-actions" style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;">
+                        <div class="preview-actions">
                             <button class="preview-live-btn hidden" id="preview-live-btn">View Live ↗</button>
                         </div>
                     </div>
@@ -290,43 +456,45 @@
     </div>
 
     <!-- ============ CV WINDOW ============ -->
-    <div class="os-window" id="cv-window" style="top:100px;left:160px;width:600px;">
+    <div class="os-window" id="cv-window">
         <div class="title-bar">
-            <div class="title-bar-text">CV_2026.pdf</div>
+            <div class="title-bar-text">Resume_2026.pdf</div>
             <div class="title-bar-controls">
-                <button aria-label="Minimize" onclick="closeWindow('cv-window')"></button>
-                <button aria-label="Maximize" onclick="toggleMaximize('cv-window')"></button>
-                <button aria-label="Close" onclick="closeWindow('cv-window')"></button>
+                <button aria-label="Minimize" data-action="close-window" data-target="cv-window"></button>
+                <button aria-label="Maximize" data-action="maximize-window" data-target="cv-window"></button>
+                <button aria-label="Close" data-action="close-window" data-target="cv-window"></button>
             </div>
         </div>
         <div class="window-body os-window-body">
             <div class="file-browser">
                 <div class="file-item selected">
                     <span class="file-icon"><svg viewBox="0 0 16 16" width="14" height="14"><rect x="1" y="1" width="10" height="13" fill="#fff" stroke="#808080"/><polygon points="9,1 11,3 9,3" fill="#808080"/><rect x="1" y="9" width="10" height="5" fill="#d46a6a"/><rect x="2" y="10" width="5" height="1" fill="#fff" opacity="0.9"/></svg></span>
-                    <span class="file-name">Uma_Bridges_CV_2026.pdf</span>
+                    <span class="file-name">Uma_Bridges_Resume_2026.pdf</span>
                 </div>
-                <div style="padding:8px 6px;">
-                    <a class="download-btn" href="https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/Uma_Bridges_CV_2026%20(8).pdf" download="Uma_Bridges_CV_2026.pdf">⬇ Download</a>
+                <div class="cv-download-area">
+                    <!-- CV DOWNLOAD — uncomment when ready:
+                    <a class="download-btn" href="https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/Uma_Bridges_CV_2026%20(8).pdf" download="Uma_Bridges_Resume_2026.pdf">⬇ Download</a>
+                    -->
                 </div>
             </div>
-            <div class="preview-pane" id="cv-preview" style="padding:0;display:flex;flex-direction:column;">
-                <div class="preview-header" style="padding:8px 12px;margin:0;flex-shrink:0;">Uma_Bridges_CV_2026.pdf</div>
-                <div id="cv-iframe-container" style="flex:1;display:flex;flex-direction:column;min-height:500px;"></div>
+            <div class="preview-pane" id="cv-preview">
+                <div class="preview-header">Uma_Bridges_Resume_2026.pdf</div>
+                <div id="cv-iframe-container"></div>
             </div>
         </div>
     </div>
 
     <!-- ============ CONTACT WINDOW ============ -->
-    <div class="os-window" id="contact-window" style="top:120px;left:180px;width:400px;">
+    <div class="os-window" id="contact-window">
         <div class="title-bar">
             <div class="title-bar-text">get_in_touch.exe</div>
             <div class="title-bar-controls">
-                <button aria-label="Minimize" onclick="closeWindow('contact-window')"></button>
-                <button aria-label="Maximize" onclick="toggleMaximize('contact-window')"></button>
-                <button aria-label="Close" onclick="closeWindow('contact-window')"></button>
+                <button aria-label="Minimize" data-action="close-window" data-target="contact-window"></button>
+                <button aria-label="Maximize" data-action="maximize-window" data-target="contact-window"></button>
+                <button aria-label="Close" data-action="close-window" data-target="contact-window"></button>
             </div>
         </div>
-        <div class="window-body os-window-body" style="display:block;padding:20px!important;background:#fff;min-height:220px;max-height:300px;">
+        <div class="window-body os-window-body">
             <p class="contact-intro">Open to junior roles, freelance work, and interesting collaborations.</p>
             <div class="contact-links">
                 <a class="contact-row" href="mailto:uma@squ1d1nc.com">
@@ -364,28 +532,28 @@
             </div>
         </div>
         <div class="mobile-home" id="mobile-home">
-            <button class="mobile-app-btn" onclick="openMobilePanel('mobile-about')">
+            <button class="mobile-app-btn" data-action="open-panel" data-target="mobile-about">
                 <span class="mobile-app-icon"><svg viewBox="0 0 24 24" width="28" height="28"><rect x="3" y="1" width="14" height="20" fill="#c0c0c0" stroke="#808080"/><polygon points="14,1 17,4 14,4" fill="#808080"/><rect x="5" y="5" width="6" height="5" fill="#b8d4f0"/></svg></span>
                 <div class="mobile-app-label">
                     <span class="mobile-app-title">ABOUT.exe</span>
                     <span class="mobile-app-subtitle">uma_profile.txt</span>
                 </div>
             </button>
-            <button class="mobile-app-btn" onclick="openMobilePanel('mobile-work')">
+            <button class="mobile-app-btn" data-action="open-panel" data-target="mobile-work">
                 <span class="mobile-app-icon"><svg viewBox="0 0 24 24" width="28" height="28"><rect x="2" y="7" width="20" height="15" fill="#f2c4a0" stroke="#808080"/><polygon points="2,7 2,5 8,5 10,7" fill="#f2c4a0" stroke="#808080"/></svg></span>
                 <div class="mobile-app-label">
                     <span class="mobile-app-title">WORK</span>
                     <span class="mobile-app-subtitle">7 projects</span>
                 </div>
             </button>
-            <button class="mobile-app-btn" onclick="openMobilePanel('mobile-cv')">
+            <button class="mobile-app-btn" data-action="open-panel" data-target="mobile-cv">
                 <span class="mobile-app-icon"><svg viewBox="0 0 24 24" width="28" height="28"><rect x="3" y="1" width="15" height="20" fill="#fff" stroke="#808080"/><polygon points="15,1 18,4 15,4" fill="#808080"/><rect x="3" y="13" width="15" height="8" fill="#d46a6a"/></svg></span>
                 <div class="mobile-app-label">
-                    <span class="mobile-app-title">CV_2026.pdf</span>
+                    <span class="mobile-app-title">Resume</span>
                     <span class="mobile-app-subtitle">Download resume</span>
                 </div>
             </button>
-            <button class="mobile-app-btn" onclick="openMobilePanel('mobile-contact')">
+            <button class="mobile-app-btn" data-action="open-panel" data-target="mobile-contact">
                 <span class="mobile-app-icon"><svg viewBox="0 0 24 24" width="28" height="28"><rect x="2" y="4" width="20" height="14" fill="#c0c0c0" stroke="#808080"/><polyline points="2,4 12,12 22,4" fill="none" stroke="#808080" stroke-width="1"/></svg></span>
                 <div class="mobile-app-label">
                     <span class="mobile-app-title">get_in_touch.exe</span>
@@ -395,9 +563,9 @@
         </div>
         <div class="mobile-nav">
             <div class="mobile-nav-socials">
-                <button class="mobile-nav-btn" onclick="window.open('https://instagram.com','_blank')">IG</button>
-                <button class="mobile-nav-btn" onclick="window.open('https://linkedin.com','_blank')">in</button>
-                <button class="mobile-nav-btn" onclick="window.open('https://github.com/umaaaahh','_blank')">GH</button>
+                <a href="https://instagram.com" target="_blank" rel="noopener" class="mobile-nav-btn">IG</a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener" class="mobile-nav-btn">in</a>
+                <a href="https://github.com/umaaaahh" target="_blank" rel="noopener" class="mobile-nav-btn">GH</a>
             </div>
             <div class="mobile-nav-clock" id="mobile-clock">00:00</div>
         </div>
@@ -406,21 +574,21 @@
         <div class="mobile-panel" id="mobile-about">
             <div class="mobile-panel-titlebar">
                 <div class="mobile-panel-titlebar-text">ABOUT.exe</div>
-                <button class="mobile-panel-close" onclick="closeMobilePanel('mobile-about')">✕ Close</button>
+                <button class="mobile-panel-close" data-action="close-panel" data-target="mobile-about">✕ Close</button>
             </div>
             <div class="mobile-panel-body">
-                <div class="mobile-file-row" onclick="toggleMobileFile('file-profile', this)"><span>📝</span> uma_profile.txt</div>
+                <div class="mobile-file-row" data-action="toggle-file" data-target="file-profile"><span>📝</span> uma_profile.txt</div>
                 <div class="mobile-file-content" id="file-profile">
-                    <p style="font-size:16px;font-weight:700;margin-bottom:4px;color:#000;">Uma</p>
-                    <p style="font-size:11px;color:var(--title-blue-dark);margin-bottom:12px;">Squ1d_1nc</p>
-                    <p style="margin-bottom:10px;">Final-year Bachelor of Design (Digital Media) student at RMIT University, Melbourne. I build interactive experiences at the intersection of UX/UI, frontend development, and systems thinking.</p>
-                    <p style="margin-bottom:12px;">My work spans game design, cultural commemoration, dystopian fiction, and interactive narrative. I design for constraint, not around it.</p>
+                    <p class="mobile-about-name">Uma</p>
+                    <p class="mobile-about-handle">Squ1d_1nc</p>
+                    <p class="mobile-about-para">Final-year Bachelor of Design (Digital Media) student at RMIT University, Melbourne. I build interactive experiences at the intersection of UX/UI, frontend development, and systems thinking.</p>
+                    <p class="mobile-about-para--lg">My work spans game design, cultural commemoration, dystopian fiction, and interactive narrative. I design for constraint, not around it.</p>
                     <div class="preview-tags"><span class="tag">UX/UI</span><span class="tag">Frontend Dev</span><span class="tag">Game Design</span><span class="tag">Interactive Narrative</span><span class="tag">Systems Design</span></div>
                 </div>
-                <div class="mobile-file-row" onclick="toggleMobileFile('file-manifesto', this)"><span>📜</span> manifesto.txt</div>
+                <div class="mobile-file-row" data-action="toggle-file" data-target="file-manifesto"><span>📜</span> manifesto.txt</div>
                 <div class="mobile-file-content" id="file-manifesto">
-                    <p style="margin-bottom:10px;">Squ1d 1nc is a playground for creative systems — where game mechanics, storytelling, and digital craft collide.</p>
-                    <p style="margin-bottom:10px;">Limitations are exciting. Friction is a design tool. The interface is never neutral.</p>
+                    <p class="mobile-about-para">Squ1d 1nc is a playground for creative systems — where game mechanics, storytelling, and digital craft collide.</p>
+                    <p class="mobile-about-para">Limitations are exciting. Friction is a design tool. The interface is never neutral.</p>
                     <p>Everything starts physical, then evolves digitally. Systems built around emotion, humour, and creative friction.</p>
                 </div>
             </div>
@@ -430,10 +598,10 @@
         <div class="mobile-panel" id="mobile-work">
             <div class="mobile-panel-titlebar">
                 <div class="mobile-panel-titlebar-text">WORK</div>
-                <button class="mobile-panel-close" onclick="closeMobilePanel('mobile-work')">✕ Close</button>
+                <button class="mobile-panel-close" data-action="close-panel" data-target="mobile-work">✕ Close</button>
             </div>
             <div class="mobile-panel-body">
-                <div class="mobile-project-card" onclick="window.open('https://umaaaahh.github.io/emerging/assignment3/slack.html','_blank')">
+                <div class="mobile-project-card" data-action="open-url" data-url="https://umaaaahh.github.io/emerging/assignment3/slack.html">
                     <div class="mobile-project-header">LifeWork Internal Messages</div>
                     <div class="mobile-project-body">
                         <div class="mobile-project-tags"><span class="tag">UX/UI</span><span class="tag">Frontend</span><span class="tag">Social Commentary</span></div>
@@ -441,7 +609,7 @@
                         <button class="mobile-project-btn">View Live →</button>
                     </div>
                 </div>
-                <div class="mobile-project-card" onclick="window.open('https://umaaaahh.github.io/emerging/index','_blank')">
+                <div class="mobile-project-card" data-action="open-url" data-url="https://umaaaahh.github.io/emerging/index">
                     <div class="mobile-project-header">Patchwork Cyborg</div>
                     <div class="mobile-project-body">
                         <div class="mobile-project-tags"><span class="tag">Game Design</span><span class="tag">Systems Design</span><span class="tag">Frontend</span></div>
@@ -449,7 +617,7 @@
                         <button class="mobile-project-btn">View Live →</button>
                     </div>
                 </div>
-                <div class="mobile-project-card" onclick="window.open('https://umaaaahh.github.io/narrative/index.html','_blank')">
+                <div class="mobile-project-card" data-action="open-url" data-url="https://umaaaahh.github.io/narrative/index.html">
                     <div class="mobile-project-header">Rabi Island Sports Tournament</div>
                     <div class="mobile-project-body">
                         <div class="mobile-project-tags"><span class="tag">Interactive Narrative</span><span class="tag">Cultural Design</span></div>
@@ -457,7 +625,7 @@
                         <button class="mobile-project-btn">View Live →</button>
                     </div>
                 </div>
-                <div class="mobile-project-card" onclick="window.open('https://umaaaahh.github.io/uxui/index','_blank')">
+                <div class="mobile-project-card" data-action="open-url" data-url="https://umaaaahh.github.io/uxui/index">
                     <div class="mobile-project-header">Victorian Hiking Hub</div>
                     <div class="mobile-project-body">
                         <div class="mobile-project-tags"><span class="tag">UX Research</span><span class="tag">Mapbox</span><span class="tag">Frontend</span></div>
@@ -465,7 +633,7 @@
                         <button class="mobile-project-btn">View Live →</button>
                     </div>
                 </div>
-                <div class="mobile-project-card" onclick="window.open('https://umaaaahh.github.io/interactivemedia/Annabel%20Lee/index.html','_blank')">
+                <div class="mobile-project-card" data-action="open-url" data-url="https://umaaaahh.github.io/interactivemedia/Annabel%20Lee/index.html">
                     <div class="mobile-project-header">Annabel Lee — Scroll Poem</div>
                     <div class="mobile-project-body">
                         <div class="mobile-project-tags"><span class="tag">Kinetic Typography</span><span class="tag">Scroll-driven</span></div>
@@ -473,7 +641,7 @@
                         <button class="mobile-project-btn">View Live →</button>
                     </div>
                 </div>
-                <div class="mobile-project-card" onclick="window.open('https://umaaaahh.github.io/Studio/assignment3/index.html','_blank')">
+                <div class="mobile-project-card" data-action="open-url" data-url="https://umaaaahh.github.io/Studio/assignment3/index.html">
                     <div class="mobile-project-header">The Overthinker's Typing Pad</div>
                     <div class="mobile-project-body">
                         <div class="mobile-project-tags"><span class="tag">Expressive Tool</span><span class="tag">Interaction Design</span></div>
@@ -481,7 +649,7 @@
                         <button class="mobile-project-btn">View Live →</button>
                     </div>
                 </div>
-                <div class="mobile-project-card" onclick="window.open('https://umaaaahh.github.io/interactivemedia/assignment2/','_blank')">
+                <div class="mobile-project-card" data-action="open-url" data-url="https://umaaaahh.github.io/interactivemedia/assignment2/">
                     <div class="mobile-project-header">Bag Map</div>
                     <div class="mobile-project-body">
                         <div class="mobile-project-tags"><span class="tag">Interactive Media</span><span class="tag">Spatial Design</span></div>
@@ -495,14 +663,16 @@
         <!-- CV panel -->
         <div class="mobile-panel" id="mobile-cv">
             <div class="mobile-panel-titlebar">
-                <div class="mobile-panel-titlebar-text">CV_2026.pdf</div>
-                <button class="mobile-panel-close" onclick="closeMobilePanel('mobile-cv')">✕ Close</button>
+                <div class="mobile-panel-titlebar-text">Resume_2026.pdf</div>
+                <button class="mobile-panel-close" data-action="close-panel" data-target="mobile-cv">✕ Close</button>
             </div>
             <div class="mobile-panel-body">
                 <div class="mobile-cv-placeholder">
-                    <p>Uma_Bridges_CV_2026.pdf</p>
-                    <a class="mobile-cv-download" href="https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/Uma_Bridges_CV_2026%20(8).pdf" download="Uma_Bridges_CV_2026.pdf">⬇ Download CV</a>
-                    <iframe src="https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/Uma_Bridges_CV_2026%20(8).pdf" style="width:100%;height:500px;border:none;margin-top:12px;"></iframe>
+                    <p>Uma_Bridges_Resume_2026.pdf</p>
+                    <!-- CV DOWNLOAD — uncomment when ready:
+                    <a class="mobile-cv-download" href="https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/Uma_Bridges_CV_2026%20(8).pdf" download="Uma_Bridges_Resume_2026.pdf">⬇ Download CV</a>
+                    <iframe src="https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/Uma_Bridges_CV_2026%20(8).pdf" class="mobile-cv-iframe"></iframe>
+                    -->
                 </div>
             </div>
         </div>
@@ -511,14 +681,14 @@
         <div class="mobile-panel" id="mobile-contact">
             <div class="mobile-panel-titlebar">
                 <div class="mobile-panel-titlebar-text">get_in_touch.exe</div>
-                <button class="mobile-panel-close" onclick="closeMobilePanel('mobile-contact')">✕ Close</button>
+                <button class="mobile-panel-close" data-action="close-panel" data-target="mobile-contact">✕ Close</button>
             </div>
             <div class="mobile-panel-body">
-                <p style="margin-bottom:16px;font-size:13px;color:#000;">Open to junior roles, freelance work, and interesting collaborations.</p>
-                <div style="display:flex;flex-direction:column;gap:10px;">
-                    <a href="mailto:uma@squ1d1nc.com" style="font-family:var(--font-mono);font-size:13px;padding:12px;background:var(--win-grey);border:2px solid;border-color:#fff var(--win-grey-dark) var(--win-grey-dark) #fff;text-decoration:none;color:#000;display:block;">📧 uma@squ1d1nc.com</a>
-                    <a href="https://linkedin.com" target="_blank" style="font-family:var(--font-mono);font-size:13px;padding:12px;background:var(--win-grey);border:2px solid;border-color:#fff var(--win-grey-dark) var(--win-grey-dark) #fff;text-decoration:none;color:#000;display:block;">🔗 LinkedIn</a>
-                    <a href="https://instagram.com" target="_blank" style="font-family:var(--font-mono);font-size:13px;padding:12px;background:var(--win-grey);border:2px solid;border-color:#fff var(--win-grey-dark) var(--win-grey-dark) #fff;text-decoration:none;color:#000;display:block;">📷 Instagram @squ1d_1nc</a>
+                <p class="mobile-contact-intro">Open to junior roles, freelance work, and interesting collaborations.</p>
+                <div class="mobile-contact-links">
+                    <a href="mailto:uma@squ1d1nc.com" class="mobile-contact-link">📧 uma@squ1d1nc.com</a>
+                    <a href="https://linkedin.com" target="_blank" rel="noopener" class="mobile-contact-link">🔗 LinkedIn</a>
+                    <a href="https://instagram.com" target="_blank" rel="noopener" class="mobile-contact-link">📷 Instagram @squ1d_1nc</a>
                 </div>
             </div>
         </div>
@@ -527,19 +697,19 @@
     <!-- ============ TASKBAR ============ -->
     <div id="taskbar">
         <div class="taskbar-left">
-            <div class="taskbar-logo" onclick="minimizeAll()">
+            <div class="taskbar-logo" data-action="minimize-all">
                 <img src="https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/Gemini_Generated_Image_3tmo9t3tmo9t3tmo.png" alt="Squ1d 1nc" class="taskbar-logo-img">
             </div>
             <div class="taskbar-sep"></div>
-            <button class="taskbar-btn" onclick="openWindow('about-window')">ABOUT</button>
-            <button class="taskbar-btn" onclick="openWindow('work-window')">WORK</button>
-            <button class="taskbar-btn" onclick="openWindow('cv-window')">CV</button>
-            <button class="taskbar-btn" onclick="openWindow('contact-window')">CONTACT</button>
+            <button class="taskbar-btn" data-action="expand-about">ABOUT</button>
+            <button class="taskbar-btn" data-action="open-window" data-target="work-window">WORK</button>
+            <button class="taskbar-btn" data-action="open-window" data-target="cv-window">RESUME</button>
+            <button class="taskbar-btn" data-action="open-window" data-target="contact-window">CONTACT</button>
         </div>
         <div class="taskbar-right">
-            <button class="taskbar-icon-btn" onclick="window.open('https://instagram.com','_blank')" title="Instagram">IG</button>
-            <button class="taskbar-icon-btn" onclick="window.open('https://linkedin.com','_blank')" title="LinkedIn">in</button>
-            <button class="taskbar-icon-btn" onclick="window.open('https://github.com/umaaaahh','_blank')" title="GitHub">GH</button>
+            <a href="https://instagram.com" target="_blank" rel="noopener" class="taskbar-icon-btn" title="Instagram">IG</a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener" class="taskbar-icon-btn" title="LinkedIn">in</a>
+            <a href="https://github.com/umaaaahh" target="_blank" rel="noopener" class="taskbar-icon-btn" title="GitHub">GH</a>
             <div class="taskbar-sep"></div>
             <div class="taskbar-clock" id="taskbar-clock">00:00</div>
         </div>
@@ -547,198 +717,10 @@
 
 </div><!-- end desktop -->
 
-<script>
-const R2 = 'https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/';
-const BASE = 'https://umaaaahh.github.io/';
+<!-- Boot complete sound -->
+<audio id="boot-sound" src="https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/Loadinpage2.m4a" preload="auto"></audio>
 
-const projects = {
-    lifework: {
-        title: 'LifeWork — Internal Messages',
-        tags: ['Social Commentary', 'Frontend', 'Immersive Fiction', 'Emerging Digital Cultures'],
-        desc: 'A dystopian Slack-clone interface critiquing AI surveillance and corporate control. Every message, channel, and UI element tells the story of a worker trapped in a system that watches everything.',
-        gifs: [R2 + 'lifework-slackchat.gif'],
-        liveUrl: BASE + 'emerging/assignment3/slack.html'
-    },
-    patchwork: {
-        title: 'Patchwork Cyborg',
-        tags: ['Game Design', 'Systems Design', 'Interactive Fiction', 'Emerging Digital Cultures'],
-        desc: "A dystopian survival game where you play as a gig worker upgrading biotech body parts to outlast New Naarm's exploitative economy.",
-        gifs: [R2 + 'lifework-game.gif'],
-        liveUrl: BASE + 'emerging/index'
-    },
-    rabi: {
-        title: 'Rabi Island Sports Tournament',
-        tags: ['Interactive Narrative', 'Cultural Design', 'Collaboration', 'Scroll-driven'],
-        desc: "Commemorating 80 years of Banaban displacement and resilience through interactive village profiles and sports rivalries. Every design decision made in service of the community's story.",
-        gifs: [R2 + 'rabi-island-tournament.gif'],
-        liveUrl: BASE + 'narrative/index.html'
-    },
-    hiking: {
-        title: 'Victorian Hiking Hub',
-        tags: ['UX Research', 'Mapbox', 'Frontend', 'Information Architecture'],
-        desc: 'A trail discovery platform built with modular JavaScript and Mapbox GL. Includes gear checklists, trip planning tools, and community-sourced route data.',
-        gifs: [],
-        liveUrl: BASE + 'uxui/index'
-    },
-    overthinker: {
-        title: "The Overthinker's Typing Pad",
-        tags: ['Expressive Tool', 'Frontend', 'Interaction Design', 'Studio'],
-        desc: "A browser-based writing tool that visualises anxiety through interaction. As you type, the interface resists — text fades, glitches, and unravels.",
-        gifs: [],
-        liveUrl: BASE + 'Studio/assignment3/index.html'
-    },
-    scrollpoem: {
-        title: 'Annabel Lee — Scroll Poem',
-        tags: ['Interactive Narrative', 'Kinetic Typography', 'Scroll-driven'],
-        desc: "Edgar Allan Poe's Annabel Lee reimagined with shadow-puppet aesthetics and scroll-driven parallax animation.",
-        gifs: [R2 + 'scroll-poem.gif'],
-        liveUrl: BASE + 'interactivemedia/Annabel%20Lee/index.html'
-    },
-    bagmap: {
-        title: 'Bag Map',
-        tags: ['Interactive Media', 'Spatial Design', 'Frontend'],
-        desc: 'An interactive mapping experience exploring the relationship between everyday objects and place.',
-        gifs: [],
-        liveUrl: BASE + 'interactivemedia/assignment2/'
-    }
-};
-
-// ============ MOBILE ============
-function openMobilePanel(id) { document.getElementById(id).classList.add('open'); }
-function closeMobilePanel(id) { document.getElementById(id).classList.remove('open'); }
-function toggleMobileFile(id, el) {
-    const content = document.getElementById(id);
-    const isOpen = content.classList.contains('open');
-    document.querySelectorAll('.mobile-file-content').forEach(f => f.classList.remove('open'));
-    document.querySelectorAll('.mobile-file-row').forEach(f => f.classList.remove('selected'));
-    if (!isOpen) { content.classList.add('open'); el.classList.add('selected'); }
-}
-
-// ============ BOOT ============
-window.addEventListener('load', () => {
-    const fill = document.getElementById('boot-bar-fill');
-    const pct = document.getElementById('boot-bar-pct');
-    [{ p:15,t:400 },{ p:30,t:900 },{ p:48,t:1400 },{ p:65,t:1900 },{ p:82,t:2400 },{ p:100,t:3200 }]
-        .forEach(s => setTimeout(() => { fill.style.width=s.p+'%'; pct.textContent=s.p+'%'; }, s.t));
-
-    setTimeout(() => {
-        document.addEventListener('keydown', dismissBoot, { once: true });
-        document.getElementById('loading-screen').addEventListener('click', dismissBoot, { once: true });
-    }, 3400);
-    setTimeout(dismissBoot, 5500);
-    updateClock();
-    setInterval(updateClock, 1000);
-});
-
-function dismissBoot() {
-    const screen = document.getElementById('loading-screen');
-    if (!screen || screen.style.display === 'none') return;
-    screen.style.transition = 'opacity 0.4s ease';
-    screen.style.opacity = '0';
-    setTimeout(() => { screen.style.display = 'none'; document.getElementById('desktop').style.opacity = '1'; }, 400);
-}
-
-function updateClock() {
-    const now = new Date();
-    const t = String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
-    const d = document.getElementById('taskbar-clock'); if (d) d.textContent = t;
-    const m = document.getElementById('mobile-clock'); if (m) m.textContent = t;
-}
-
-// ============ WINDOW MANAGEMENT ============
-function openWindow(id) {
-    const win = document.getElementById(id);
-    win.classList.remove('window-closing');
-    void win.offsetWidth; // force reflow for transition
-    win.classList.add('window-open', 'maximized');
-    bringToFront(win);
-
-    if (id === 'cv-window') {
-        const container = document.getElementById('cv-iframe-container');
-        if (container && !container.querySelector('iframe')) {
-            const iframe = document.createElement('iframe');
-            iframe.src = R2 + 'Uma_Bridges_CV_2026%20(8).pdf';
-            iframe.style.cssText = 'flex:1;width:100%;border:none;min-height:500px;';
-            container.appendChild(iframe);
-        }
-    }
-}
-
-function closeWindow(id) {
-    const win = document.getElementById(id);
-    win.classList.remove('window-open');
-    win.classList.add('window-closing');
-    setTimeout(() => {
-        win.classList.remove('window-closing', 'maximized');
-    }, 180);
-}
-
-function toggleMaximize(id) {
-    document.getElementById(id).classList.toggle('maximized');
-    bringToFront(document.getElementById(id));
-}
-
-function bringToFront(win) {
-    let maxZ = 10;
-    document.querySelectorAll('.os-window').forEach(w => {
-        const z = parseInt(w.style.zIndex) || 10;
-        if (z > maxZ) maxZ = z;
-    });
-    win.style.zIndex = maxZ + 1;
-}
-
-function minimizeAll() {
-    document.querySelectorAll('.os-window').forEach(w => {
-        if (w.classList.contains('window-open')) closeWindow(w.id);
-    });
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.os-window').forEach(win => {
-        win.addEventListener('mousedown', () => bringToFront(win));
-    });
-});
-
-// ============ ABOUT — FILE TOGGLE ============
-function togglePreview(id, el) {
-    document.querySelectorAll('#about-window .preview-pane').forEach(p => p.classList.add('hidden'));
-    document.querySelectorAll('#about-window .file-item').forEach(f => f.classList.remove('selected'));
-    document.getElementById(id).classList.remove('hidden');
-    el.classList.add('selected');
-}
-
-// ============ WORK — PROJECT PREVIEW ============
-function showProjectPreview(key, el) {
-    const project = projects[key];
-    document.querySelectorAll('.file-item-large').forEach(f => f.classList.remove('selected'));
-    el.classList.add('selected');
-
-    document.getElementById('preview-project-title').textContent = project.title;
-    document.getElementById('preview-project-desc').textContent = project.desc;
-    document.getElementById('preview-project-tags').innerHTML = project.tags.map(t => `<span class="tag">${t}</span>`).join('');
-
-    const gifEl = document.getElementById('preview-project-gifs');
-    gifEl.innerHTML = '';
-    if (project.gifs && project.gifs.length > 0) {
-        gifEl.innerHTML = project.gifs.map(url => `<img src="${url}" alt="${project.title}" class="preview-gif">`).join('');
-    } else if (project.liveUrl) {
-        gifEl.innerHTML = `<iframe src="${project.liveUrl}" class="preview-embed" title="${project.title}" sandbox="allow-scripts allow-same-origin"></iframe>`;
-    } else {
-        gifEl.innerHTML = '<div class="preview-no-media">[ no preview available ]</div>';
-    }
-    gifEl.classList.remove('hidden');
-
-    const liveBtn = document.getElementById('preview-live-btn');
-    if (project.liveUrl) {
-        liveBtn.classList.remove('hidden');
-        liveBtn.onclick = () => window.open(project.liveUrl, '_blank');
-    } else {
-        liveBtn.classList.add('hidden');
-    }
-
-    document.getElementById('project-preview-pane').classList.remove('hidden');
-}
-</script>
+<script src="script.js"></script>
 
 </body>
 </html>
