@@ -89,20 +89,37 @@ function startBoot() {
     const splash = document.getElementById('splash-screen');
     const snd    = document.getElementById('boot-sound');
     if (snd) snd.load();
+
+    // Play PC boot-up ambience immediately on ENTER, stop it when the loading sound kicks in
+    const bootAmbience = new Audio('https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/freesound_community-dell-dimension-workstation-booting-up-24817.mp3');
+    bootAmbience.volume = 0.7;
+    bootAmbience.play().catch(() => {});
+
     splash.style.opacity = '0';
     setTimeout(() => {
         splash.style.display = 'none';
         document.getElementById('loading-screen').style.display = 'flex';
-        runBootSequence(snd);
+        runBootSequence(snd, bootAmbience);
     }, 400);
 }
 
-function runBootSequence(snd) {
+function runBootSequence(snd, bootAmbience) {
     const fill = document.getElementById('boot-bar-fill');
     const pct  = document.getElementById('boot-bar-pct');
     [{ p:15,t:400 },{ p:30,t:900 },{ p:48,t:1400 },{ p:65,t:1900 },{ p:82,t:2400 },{ p:100,t:3200 }]
         .forEach(s => setTimeout(() => { fill.style.width = s.p + '%'; pct.textContent = s.p + '%'; }, s.t));
     setTimeout(() => {
+        // Fade out the ambience before the loading sound plays
+        if (bootAmbience) {
+            const fadeOut = setInterval(() => {
+                if (bootAmbience.volume > 0.05) {
+                    bootAmbience.volume = Math.max(0, bootAmbience.volume - 0.05);
+                } else {
+                    bootAmbience.pause();
+                    clearInterval(fadeOut);
+                }
+            }, 40);
+        }
         if (snd) { snd.currentTime = 0; snd.play().catch(() => {}); }
         showGifFlash();
     }, 3200);
