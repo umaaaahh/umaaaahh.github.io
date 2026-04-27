@@ -891,7 +891,7 @@ html, body {
 }
 
 .file-item-large.selected .file-name { color: #ffffff; }
-.file-icon-large { image-rendering: pixelated; line-height: 1; }
+.file-icon-large { image-rendering: pixelated; line-height: 1; font-size: 38px; display: flex; align-items: center; justify-content: center; }
 
 .window-body-iframe {
     padding: 0 !important;
@@ -928,7 +928,7 @@ html, body {
 .project-preview-pane.hidden { display: none; }
 
 .preview-header {
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 700;
     color: var(--title-blue-dark);
     border-bottom: 1px solid var(--win-grey);
@@ -939,14 +939,14 @@ html, body {
 
 .preview-name   { font-size: 18px; font-weight: 700; color: #000; margin-bottom: 2px; font-family: var(--font-mono); }
 .preview-handle { font-size: 12px; color: var(--title-blue-dark); margin-bottom: 12px; font-family: var(--font-mono); }
-.preview-bio    { font-size: 11px; line-height: 1.7; color: #333; margin-bottom: 10px; font-family: var(--font-mono); }
+.preview-bio    { font-size: 13px; line-height: 1.8; color: #222; margin-bottom: 10px; font-family: var(--font-mono); }
 
 .preview-tags,
 .preview-project-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px; }
 
 .tag {
-    font-size: 9px;
-    padding: 2px 6px;
+    font-size: 10px;
+    padding: 3px 7px;
     background: var(--accent-4);
     color: var(--title-blue-dark);
     border: 1px solid var(--title-blue-dark);
@@ -1067,7 +1067,7 @@ html, body {
 
 .contact-icon  { font-size: 16px; flex-shrink: 0; }
 .contact-label { font-weight: 700; }
-.contact-value { color: var(--title-blue-dark); font-size: 11px; }
+.contact-value { color: var(--title-blue-dark); font-size: 12px; }
 
 
 /* ============================================
@@ -1675,9 +1675,9 @@ html, body {
 
 .showcase-desc-bar p {
     font-family: var(--font-mono);
-    font-size: 10px;
-    line-height: 1.6;
-    color: #333;
+    font-size: 12px;
+    line-height: 1.65;
+    color: #222;
     margin: 0;
 }
 
@@ -1776,7 +1776,7 @@ html, body {
 
 .bebo-heart-label {
     font-family: var(--font-mono);
-    font-size: 9px;
+    font-size: 11px;
     color: #c71585;
     text-align: center;
     font-weight: 700;
@@ -1785,7 +1785,7 @@ html, body {
 
 .bebo-divider {
     text-align: center;
-    font-size: 9px;
+    font-size: 11px;
     color: #ffb6c1;
     letter-spacing: 2px;
     margin: 8px 0;
@@ -1806,7 +1806,7 @@ html, body {
 
 .bebo-section-title {
     font-family: var(--font-mono);
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 700;
     color: #c71585;
     text-shadow: 1px 1px 0 #fff, 0 0 6px #ffb6c1;
@@ -1827,16 +1827,28 @@ html, body {
 
 .bebo-text {
     font-family: var(--font-mono);
-    font-size: 10px;
-    line-height: 1.65;
-    color: #333;
-    background: rgba(255,255,255,0.55);
+    font-size: 12px;
+    line-height: 1.75;
+    color: #222;
+    background: rgba(255,255,255,0.65);
     border: 1px solid rgba(255,105,180,0.3);
     border-radius: 2px;
-    padding: 6px 8px;
+    padding: 8px 10px;
 }
 
 .bebo-text + .bebo-text { margin-top: 8px; }
+
+.bebo-tagline {
+    font-family: 'Dancing Script', cursive;
+    font-size: 16px;
+    color: #c71585;
+    text-align: center;
+    margin: 10px 0;
+    line-height: 1.5;
+    text-shadow: 0 0 6px #ffb6c1;
+    position: relative;
+    z-index: 1;
+}
 
 .bebo-top8 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
 
@@ -1844,9 +1856,10 @@ html, body {
     background: rgba(255,255,255,0.7);
     border: 1px solid #ffb6c1;
     font-family: var(--font-mono);
-    font-size: 8px;
+    font-size: 11px;
+    font-weight: 600;
     text-align: center;
-    padding: 5px 2px;
+    padding: 7px 4px;
     color: #c71585;
     line-height: 1.4;
     box-shadow: 0 0 4px rgba(255,105,180,0.2);
@@ -1858,7 +1871,7 @@ html, body {
 .bebo-footer-msg {
     text-align: center;
     font-family: var(--font-mono);
-    font-size: 9px;
+    font-size: 11px;
     color: #9b59b6;
     margin-top: 4px;
     padding: 4px;
