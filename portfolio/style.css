@@ -1904,7 +1904,7 @@ html, body {
 }
 
 /* Small circular photo frame */
-.bebo-tagged-circle { width: 75px; height: 75px; }
+.bebo-tagged-circle { width: 75px; height: px; }
 
 /* Pink gradient border on profile pictures */
 .bebo-heart-border {
@@ -2540,5 +2540,56 @@ html, body {
     border-bottom: 1px solid var(--win-grey);
     padding-bottom: 6px;
     margin-bottom: 16px;
+}
+
+
+
+/* ============================================
+   SOCIAL ICON IMAGES
+   Replaces text labels in taskbar + contact
+   with custom PNG icons from R2.
+   ============================================ */
+
+/* Taskbar social icon images */
+.taskbar-social-img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    display: block;
+    image-rendering: auto;
+}
+
+/* Contact window + mobile contact icon images */
+.social-icon-img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+/* Mobile nav icon images */
+.mobile-nav-icon-img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    display: block;
+}
+
+/* Remove text padding from taskbar icon buttons that now use images */
+.taskbar-icon-btn:has(.taskbar-social-img) {
+    padding: 4px 6px !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Mobile nav btn with image — adjust sizing */
+.mobile-nav-btn:has(.mobile-nav-icon-img) {
+    padding: 3px 4px !important;
+    min-width: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 

@@ -1,6 +1,19 @@
 const R2   = 'https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/';
 const BASE = 'https://umaaaahh.github.io/';
 
+// ============ POP SOUND ============
+function playBubblePopSound() {
+    const snd = new Audio('https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/dragon-studio-bubble-pop-406640.mp3');
+    snd.volume = 0.55;
+    snd.play().catch(() => {});
+}
+
+function playPopSound() {
+    const snd = new Audio('https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/dragon-studio-pop-402324.mp3');
+    snd.volume = 0.55;
+    snd.play().catch(() => {});
+}
+
 const projects = {
     lifework: {
         title: 'LifeWork — Internal Messages',
@@ -43,19 +56,12 @@ const projects = {
         desc: "A linear scroll-story bringing Edgar Allan Poe's gothic classic to life. Built as my first foray into interaction design, it uses scroll-driven JavaScript and stark silhouette illustrations to drive the narrative.",
         gifs: [R2 + 'scroll-poem.gif'],
         liveUrl: BASE + 'interactivemedia/Annabel%20Lee/index.html'
-    },
-    bagmap: {
-        title: 'Bag Map',
-        tags: ['Interactive Media', 'Spatial Design', 'Frontend'],
-        desc: 'An interactive mapping experience exploring the relationship between everyday objects and place.',
-        gifs: [],
-        liveUrl: BASE + 'interactivemedia/assignment2/'
     }
 };
 
 // ============ MOBILE ============
 function openMobilePanel(id)  { document.getElementById(id).classList.add('open'); }
-function closeMobilePanel(id) { document.getElementById(id).classList.remove('open'); }
+function closeMobilePanel(id) { playBubblePopSound(); document.getElementById(id).classList.remove('open'); }
 
 function toggleMobileFile(id, el) {
     const content = document.getElementById(id);
@@ -130,10 +136,12 @@ function openWindow(id) {
     win.classList.remove('window-closing');
     void win.offsetWidth;
     win.classList.add('window-open', 'maximized');
+    playPopSound();
     bringToFront(win);
 }
 
 function closeWindow(id) {
+    playBubblePopSound();
     const win = document.getElementById(id);
     win.classList.remove('window-open');
     win.classList.add('window-closing');
@@ -162,6 +170,7 @@ function bringToFront(win) {
 }
 
 function minimizeAll() {
+    playBubblePopSound();
     document.querySelectorAll('.os-window').forEach(w => {
         if (w.classList.contains('window-open')) closeWindow(w.id);
     });
@@ -385,11 +394,11 @@ function scheduleShowcase() {
             const el = document.getElementById(id);
             if (!el) return;
             el.style.display = 'block';
-            requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('showcase-visible')));
+            requestAnimationFrame(() => requestAnimationFrame(() => { el.classList.add('showcase-visible'); playPopSound(); }));
         }, SHOWCASE_DELAY + i * SHOWCASE_STAGGER);
     });
 
-    setTimeout(showMsnToast,                                   SHOWCASE_DELAY + SHOWCASE_STAGGER + 800);
+    setTimeout(showMsnToast,                                   SHOWCASE_DELAY + SHOWCASE_STAGGER + 4800);
     setTimeout(() => { if (window.autoplayBebo)  window.autoplayBebo(); },  SHOWCASE_DELAY + 600);
     setTimeout(() => { if (window._initSparkles) window._initSparkles(); }, SHOWCASE_DELAY + 400);
 }
@@ -412,6 +421,7 @@ function openLifeWork() {
 }
 
 function dismissShowcase(id) {
+    playBubblePopSound();
     const el = document.getElementById(id);
     if (!el) return;
     if (id === 'showcase-about' && el.classList.contains('about-fullscreen')) restoreAbout();
