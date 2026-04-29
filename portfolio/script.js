@@ -46,7 +46,7 @@ const projects = {
     overthinker: {
         title: "The Overthinker's Typing Pad",
         tags: ['Expressive Tool', 'Frontend', 'Interaction Design', 'Studio'],
-        desc: "A browser-based writing tool that visualises anxiety through interaction. As you type, the interface resists — text fades, glitches, and unravels.",
+        desc: "A tool built to reflect friction — anxiety and burnout made tangible through interaction. What makes it special is the custom-designed span box randomizer: a text input that creates a beautiful, chaotic typing effect I'm genuinely proud of.",
         gifs: [],
         liveUrl: BASE + 'Studio/assignment3/index.html'
     },
@@ -58,6 +58,27 @@ const projects = {
         liveUrl: BASE + 'interactivemedia/Annabel%20Lee/index.html'
     }
 };
+
+// ============ SHOWCASE HIDE / SHOW ============
+function hideShowcases() {
+    ['showcase-about', 'showcase-overthinker'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el && el.classList.contains('showcase-visible')) {
+            el.style.opacity = '0';
+            el.style.pointerEvents = 'none';
+        }
+    });
+}
+
+function showShowcases() {
+    ['showcase-about', 'showcase-overthinker'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el && el.classList.contains('showcase-visible')) {
+            el.style.opacity = '1';
+            el.style.pointerEvents = 'auto';
+        }
+    });
+}
 
 // ============ MOBILE ============
 function openMobilePanel(id)  { document.getElementById(id).classList.add('open'); }
@@ -90,7 +111,6 @@ function startBoot() {
     const snd    = document.getElementById('boot-sound');
     if (snd) snd.load();
 
-    // Play PC boot-up ambience immediately on ENTER, stop it when the loading sound kicks in
     const bootAmbience = new Audio('https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/freesound_community-dell-dimension-workstation-booting-up-24817.mp3');
     bootAmbience.volume = 0.7;
     bootAmbience.play().catch(() => {});
@@ -109,7 +129,6 @@ function runBootSequence(snd, bootAmbience) {
     [{ p:15,t:400 },{ p:30,t:900 },{ p:48,t:1400 },{ p:65,t:1900 },{ p:82,t:2400 },{ p:100,t:3200 }]
         .forEach(s => setTimeout(() => { fill.style.width = s.p + '%'; pct.textContent = s.p + '%'; }, s.t));
     setTimeout(() => {
-        // Fade out the ambience before the loading sound plays
         if (bootAmbience) {
             const fadeOut = setInterval(() => {
                 if (bootAmbience.volume > 0.05) {
@@ -155,6 +174,15 @@ function openWindow(id) {
     win.classList.add('window-open', 'maximized');
     playPopSound();
     bringToFront(win);
+    hideShowcases();
+
+    // Auto-select a random project when WORK opens so preview pane isn't blank
+    if (id === 'work-window') {
+        const keys = Object.keys(projects);
+        const randomKey = keys[Math.floor(Math.random() * keys.length)];
+        const randomEl = document.querySelector(`[data-project="${randomKey}"]`);
+        if (randomEl) showProjectPreview(randomKey, randomEl);
+    }
 }
 
 function closeWindow(id) {
@@ -166,13 +194,16 @@ function closeWindow(id) {
         win.classList.remove('window-closing', 'maximized');
         const btn = win.querySelector('[data-action="maximize-window"]');
         if (btn) btn.setAttribute('aria-label', 'Maximize');
+        // If no windows remain open, restore the showcases
+        const anyOpen = [...document.querySelectorAll('.os-window')].some(w => w.classList.contains('window-open'));
+        if (!anyOpen) showShowcases();
     }, 180);
 }
 
 function toggleMaximize(id) {
-    const win           = document.getElementById(id);
+    const win            = document.getElementById(id);
     const isNowMaximized = win.classList.toggle('maximized');
-    const btn           = win.querySelector('[data-action="maximize-window"]');
+    const btn            = win.querySelector('[data-action="maximize-window"]');
     if (btn) btn.setAttribute('aria-label', isNowMaximized ? 'Restore' : 'Maximize');
     bringToFront(win);
 }
@@ -235,7 +266,7 @@ function showProjectPreview(key, el) {
     document.getElementById('preview-project-desc').textContent  = project.desc;
     document.getElementById('preview-project-tags').innerHTML    = project.tags.map(t => `<span class="tag">${t}</span>`).join('');
 
-    const gifEl    = document.getElementById('preview-project-gifs');
+    const gifEl     = document.getElementById('preview-project-gifs');
     gifEl.innerHTML = '';
     if (project.gifs && project.gifs.length > 0) {
         gifEl.innerHTML = project.gifs.map(url => `<img src="${url}" alt="${project.title}" class="preview-gif">`).join('');
@@ -387,18 +418,17 @@ function populateFeaturedProject() {
     const key     = keys[Math.floor(Math.random() * keys.length)];
     const project = projects[key];
 
-    const titleEl = document.getElementById('showcase-proj-title');
+    const titleEl  = document.getElementById('showcase-proj-title');
     const iframeEl = document.getElementById('showcase-proj-iframe');
-    const tagsEl  = document.getElementById('showcase-proj-tags');
-    const linkEl  = document.getElementById('showcase-proj-link');
+    const tagsEl   = document.getElementById('showcase-proj-tags');
+    const linkEl   = document.getElementById('showcase-proj-link');
+    const descEl   = document.getElementById('showcase-proj-desc');
 
-    const descEl = document.getElementById('showcase-proj-desc');
-
-    if (titleEl) titleEl.textContent = project.title;
-    if (iframeEl) iframeEl.src = project.liveUrl;
-    if (tagsEl)  tagsEl.innerHTML = project.tags.map(t => `<span class="tag">${t}</span>`).join('');
-    if (linkEl)  { linkEl.href = project.liveUrl; }
-    if (descEl)  descEl.textContent = project.desc;
+    if (titleEl)  titleEl.textContent = project.title;
+    if (iframeEl) iframeEl.src        = project.liveUrl;
+    if (tagsEl)   tagsEl.innerHTML    = project.tags.map(t => `<span class="tag">${t}</span>`).join('');
+    if (linkEl)   linkEl.href         = project.liveUrl;
+    if (descEl)   descEl.textContent  = project.desc;
 }
 
 function scheduleShowcase() {
@@ -415,7 +445,7 @@ function scheduleShowcase() {
         }, SHOWCASE_DELAY + i * SHOWCASE_STAGGER);
     });
 
-    setTimeout(showMsnToast,                                   SHOWCASE_DELAY + SHOWCASE_STAGGER + 4800);
+    setTimeout(showMsnToast,                                                 SHOWCASE_DELAY + SHOWCASE_STAGGER + 4800);
     setTimeout(() => { if (window.autoplayBebo)  window.autoplayBebo(); },  SHOWCASE_DELAY + 600);
     setTimeout(() => { if (window._initSparkles) window._initSparkles(); }, SHOWCASE_DELAY + 400);
 }
@@ -471,23 +501,23 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!el) return;
         const { action, target, project, secs, url } = el.dataset;
         switch (action) {
-            case 'start-boot':       startBoot();                   break;
-            case 'expand-about':     expandAbout();                 break;
-            case 'restore-about':    restoreAbout();                break;
-            case 'dismiss-showcase': dismissShowcase(target);       break;
-            case 'open-window':      openWindow(target);            break;
-            case 'close-window':     closeWindow(target);           break;
-            case 'maximize-window':  toggleMaximize(target);        break;
-            case 'minimize-all':     minimizeAll();                 break;
-            case 'bebo-toggle':      beboToggle();                  break;
-            case 'bebo-seek':        beboSeek(parseInt(secs));      break;
-            case 'open-lifework':    openLifeWork();                break;
-            case 'dismiss-msn':      dismissMsn();                  break;
-            case 'open-panel':       openMobilePanel(target);       break;
-            case 'close-panel':      closeMobilePanel(target);      break;
-            case 'toggle-file':      toggleMobileFile(target, el);  break;
+            case 'start-boot':       startBoot();                     break;
+            case 'expand-about':     expandAbout();                   break;
+            case 'restore-about':    restoreAbout();                  break;
+            case 'dismiss-showcase': dismissShowcase(target);         break;
+            case 'open-window':      openWindow(target);              break;
+            case 'close-window':     closeWindow(target);             break;
+            case 'maximize-window':  toggleMaximize(target);          break;
+            case 'minimize-all':     minimizeAll();                   break;
+            case 'bebo-toggle':      beboToggle();                    break;
+            case 'bebo-seek':        beboSeek(parseInt(secs));        break;
+            case 'open-lifework':    openLifeWork();                  break;
+            case 'dismiss-msn':      dismissMsn();                    break;
+            case 'open-panel':       openMobilePanel(target);         break;
+            case 'close-panel':      closeMobilePanel(target);        break;
+            case 'toggle-file':      toggleMobileFile(target, el);    break;
             case 'show-project':     showProjectPreview(project, el); break;
-            case 'open-url':         window.open(url, '_blank');    break;
+            case 'open-url':         window.open(url, '_blank');      break;
         }
     });
 });
