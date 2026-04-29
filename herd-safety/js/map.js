@@ -23,7 +23,7 @@ class HerdMap {
   }
 
   initMap() {
-    mapboxgl.accessToken = CONFIG.MAPBOX_TOKEN;
+    mapboxgl.accessToken = SECRET.MAPBOX_TOKEN;
 
     this.map = new mapboxgl.Map({
       container: 'map',
@@ -95,14 +95,19 @@ class HerdMap {
 
     // Re-add layers after style reload (Mapbox wipes layers on style change)
     this.map.once('style.load', async () => {
-      this.pedestrianLayer = new PedestrianLayer(this.map);
-      this.lightingLayer = new LightingLayer(this.map);
+      try {
+        this.pedestrianLayer = new PedestrianLayer(this.map);
+        this.lightingLayer = new LightingLayer(this.map);
 
-      await this.lightingLayer.init();
-      await this.pedestrianLayer.fetch();
-      this.pedestrianLayer.setMode(this.mode);
-      this.pedestrianLayer.addToMap();
-      this.lightingLayer.setVisible(this.mode === 'night');
+        await this.lightingLayer.init();
+        await this.pedestrianLayer.fetch();
+        this.pedestrianLayer.setMode(this.mode);
+        this.pedestrianLayer.addToMap();
+        this.lightingLayer.setVisible(this.mode === 'night');
+        this.updateStatus('live', this.getRefreshLabel());
+      } catch(e) {
+        console.error('[HerdMap] Style reload failed:', e);
+      }
     });
 
     this.updateModeUI();

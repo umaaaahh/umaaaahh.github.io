@@ -25,48 +25,70 @@ class PedestrianLayer {
 
   async fetch() {
     try {
-      const [dataRes, locRes] = await Promise.all([
-        fetch(CONFIG.PEDESTRIAN_API),
-        fetch(CONFIG.SENSOR_LOCATIONS_API),
-      ]);
-      const [dataJson, locJson] = await Promise.all([dataRes.json(), locRes.json()]);
-
-      const records = dataJson.results || [];
-
-      // Build coordinate lookup from sensor locations dataset (canonical source)
-      const locationLookup = {};
-      for (const loc of (locJson.results || [])) {
-        const id = loc.sensor_id ?? loc.location_id;
-        if (id && loc.geo_point_2d) {
-          locationLookup[id] = { lon: loc.geo_point_2d.lon, lat: loc.geo_point_2d.lat };
-        }
+      // Step 1: fetch sensor locations (has the coords)
+      const locRes = await fetch(CONFIG.SENSOR_LOCATIONS_API);
+      const locJson = await locRes.json();
+      const locations = {};
+      for (const r of (locJson.results || [])) {
+        // Coerce ID to string so numeric keys always match
+        const id = String(r.sensor_id ?? r.location_id ?? r.id ?? '');
+        if (!id) continue;
+        locations[id] = {
+          // Try every possible coord field name
+          lon: r.longitude ?? r.location?.lon ?? r.geo_point_2d?.lon ?? r.long ?? r.lon,
+          lat: r.latitude  ?? r.location?.lat ?? r.geo_point_2d?.lat ?? r.lat,
+          sensor_name: r.sensor_description ?? r.sensor_name ?? r.name ?? `Sensor ${id}`,
+        };
       }
 
-      // Aggregate per location_id — sum counts across all minutes in the hour
+      console.log('[PedestrianLayer] Sensor locations loaded:', Object.keys(locations).length);
+      const sampleLoc = Object.values(locations)[0];
+      console.log('[PedestrianLayer] Sample location entry:', sampleLoc);
+      console.log('[PedestrianLayer] Sample location keys:', Object.keys(locJson.results?.[0] || {}));
+
+      // Step 2: fetch past-hour counts
+      const countRes = await fetch(CONFIG.PEDESTRIAN_API);
+      const countJson = await countRes.json();
+      const records = countJson.results || [];
+
+      console.log('[PedestrianLayer] Count records returned:', records.length);
+      if (records.length > 0) console.log('[PedestrianLayer] Sample count record:', records[0]);
+
+      // Step 3: aggregate per sensor, joining on string-coerced ID
       const byLocation = {};
       for (const r of records) {
-        const id = r.location_id;
+        const id = String(r.sensor_id ?? r.location_id ?? r.id ?? '');
         if (!id) continue;
+
+        const loc = locations[id] || {};
+
         if (!byLocation[id]) {
-          const coords = locationLookup[id] || {};
           byLocation[id] = {
             location_id: id,
-            sensor_name: r.sensor_name,
-            lon: r.location?.lon ?? coords.lon,
-            lat: r.location?.lat ?? coords.lat,
+            sensor_name: loc.sensor_name ?? r.sensor_name ?? `Sensor ${id}`,
+            lon: loc.lon,
+            lat: loc.lat,
             total_count: 0,
             direction_1: 0,
             direction_2: 0,
             readings: 0,
           };
         }
-        byLocation[id].total_count += (r.direction_1 || 0) + (r.direction_2 || 0);
-        byLocation[id].direction_1 += r.direction_1 || 0;
-        byLocation[id].direction_2 += r.direction_2 || 0;
+        // API returns total_of_directions OR direction_1+direction_2
+        const d1 = r.direction_1 || 0;
+        const d2 = r.direction_2 || 0;
+        const total = r.total_of_directions ?? (d1 + d2);
+        byLocation[id].total_count += total;
+        byLocation[id].direction_1 += d1;
+        byLocation[id].direction_2 += d2;
         byLocation[id].readings++;
       }
 
       this.data = Object.values(byLocation).filter(d => d.lat && d.lon);
+      console.log('[PedestrianLayer] Sensors with coords after join:', this.data.length);
+      if (this.data.length === 0) {
+        console.warn('[PedestrianLayer] Zero coords matched — location ID mismatch likely. Location keys sample:', Object.keys(locations).slice(0, 5), '| Count IDs sample:', records.slice(0, 5).map(r => String(r.sensor_id ?? r.location_id ?? r.id)));
+      }
       return this.data;
     } catch (err) {
       console.error('[PedestrianLayer] Fetch failed:', err);
