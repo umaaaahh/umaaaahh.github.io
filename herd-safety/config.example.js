@@ -5,6 +5,8 @@
 // ─────────────────────────────────────────────
 
 const CONFIG = {
+  MAPBOX_TOKEN: 'YOUR_MAPBOX_TOKEN',
+
   // Melbourne CBD centre
   MAP_CENTER: [144.9631, -37.8136],
   MAP_ZOOM: 14.5,

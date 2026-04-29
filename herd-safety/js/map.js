@@ -23,7 +23,7 @@ class HerdMap {
   }
 
   initMap() {
-    mapboxgl.accessToken = SECRET.MAPBOX_TOKEN;
+    mapboxgl.accessToken = CONFIG.MAPBOX_TOKEN;
 
     this.map = new mapboxgl.Map({
       container: 'map',

@@ -22,10 +22,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Create secret.js and config.js
-        run: |
-          echo "const SECRET = { MAPBOX_TOKEN: '${{ secrets.MAPBOX_TOKEN }}' };" > herd-safety/secret.js
-          cp herd-safety/config.example.js herd-safety/config.js
+      - name: Create config.js with Mapbox token
+        run: sed 's/YOUR_MAPBOX_TOKEN/${{ secrets.MAPBOX_TOKEN }}/' herd-safety/config.example.js > herd-safety/config.js
 
       - uses: actions/configure-pages@v5
 
