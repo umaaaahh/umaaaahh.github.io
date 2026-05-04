@@ -106,6 +106,7 @@
             <div class="icon-label">Projects</div>
         </div>
 
+        <!-- CV ICON — commented out temporarily
         <div class="desktop-icon" id="icon-cv" data-action="open-window" data-target="cv-window" tabindex="0">
             <div class="icon-img">
                 <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" width="48" height="48">
@@ -120,6 +121,7 @@
             </div>
             <div class="icon-label">Resume</div>
         </div>
+        -->
 
         <div class="desktop-icon" id="icon-contact" data-action="open-window" data-target="contact-window" tabindex="0">
             <div class="icon-img">
@@ -133,11 +135,28 @@
             </div>
             <div class="icon-label">Contact</div>
         </div>
+
+        <div class="desktop-icon" id="icon-archive" data-action="open-archive" tabindex="0">
+            <div class="icon-img">
+                <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" width="48" height="48">
+                    <rect x="2" y="8" width="28" height="20" fill="#c0c0c0" stroke="#808080" stroke-width="1"/>
+                    <rect x="3" y="9" width="26" height="18" fill="#1a1a2e"/>
+                    <circle cx="16" cy="18" r="6" fill="none" stroke="#a0a0a0" stroke-width="1"/>
+                    <circle cx="16" cy="18" r="4" fill="#2a3a5a"/>
+                    <rect x="4" y="4" width="8" height="5" fill="#c0c0c0" stroke="#808080" stroke-width="1"/>
+                    <rect x="23" y="10" width="4" height="3" fill="#808080" opacity="0.5"/>
+                </svg>
+            </div>
+            <div class="icon-label">Archive</div>
+        </div>
     </div>
 
     <!-- ============ SHOWCASE WINDOWS ============ -->
 
-    <!-- ABOUT: tall narrow column, animates to fullscreen when clicked -->
+    <!-- LEFT COLUMN: bio + gallery -->
+    <div id="left-showcase-col">
+
+    <!-- ABOUT: bio at top -->
     <div class="showcase-window" id="showcase-about">
         <div class="title-bar">
             <div class="title-bar-text">✨ ABOUT.exe ✨</div>
@@ -249,6 +268,36 @@
         </div>
     </div>
 
+    <!-- ============ ARCHIVE WINDOW ============ -->
+    <div class="os-window" id="archive-window">
+        <div class="title-bar">
+            <div class="title-bar-text">archive/</div>
+            <div class="title-bar-controls">
+                <button aria-label="Minimize" data-action="close-window" data-target="archive-window"></button>
+                <button aria-label="Maximize" data-action="maximize-window" data-target="archive-window"></button>
+                <button aria-label="Close" data-action="close-window" data-target="archive-window"></button>
+            </div>
+        </div>
+        <div class="window-body os-window-body archive-carousel-body">
+            <div class="archive-slides-wrap" id="archive-slides-wrap">
+                <button class="archive-nav archive-prev" data-action="archive-prev">&#8249;</button>
+                <button class="archive-nav archive-next" data-action="archive-next">&#8250;</button>
+            </div>
+            <div class="archive-footer">
+                <div class="archive-label-row">
+                    <span class="archive-label-title" id="archive-label-title"></span>
+                    <span class="archive-label-desc" id="archive-label-desc"></span>
+                </div>
+                <div class="archive-dots" id="archive-dots"></div>
+            </div>
+        </div>
+    </div>
+
+    </div><!-- #left-showcase-col -->
+
+    <!-- FEATURED PROJECT: standalone preview -->
+    <div id="showcase-col">
+
     <!-- FEATURED PROJECT: randomly picked on each load -->
     <div class="showcase-window" id="showcase-overthinker">
         <div class="title-bar">
@@ -266,16 +315,17 @@
                     sandbox="allow-scripts allow-same-origin allow-forms"
                 ></iframe>
             </div>
-            <div class="showcase-desc-bar">
-                <p id="showcase-proj-desc"></p>
-            </div>
             <div class="showcase-footer">
                 <div class="preview-tags" id="showcase-proj-tags"></div>
-                <a id="showcase-proj-link" href="#" target="_blank" rel="noopener" class="showcase-open-btn">Open ↗</a>
+                <div class="showcase-footer-actions">
+                    <a id="showcase-proj-detail" href="#" class="showcase-open-btn">Learn More</a>
+                    <a id="showcase-proj-link" href="#" target="_blank" rel="noopener" class="showcase-open-btn">Open ↗</a>
+                </div>
             </div>
         </div>
     </div>
 
+    </div><!-- #showcase-col -->
     </div><!-- #desktop-layout -->
 
     <!-- MSN TOAST — LifeWork notification -->
@@ -373,6 +423,7 @@
                         <div class="preview-project-tags" id="preview-project-tags"></div>
                         <p class="preview-bio" id="preview-project-desc"></p>
                         <div class="preview-actions">
+                            <button class="preview-detail-btn hidden" id="preview-detail-btn">Learn More</button>
                             <button class="preview-live-btn hidden" id="preview-live-btn">View Live ↗</button>
                         </div>
                     </div>
@@ -381,7 +432,7 @@
         </div>
     </div>
 
-    <!-- ============ CV WINDOW ============ -->
+    <!-- ============ CV WINDOW — commented out temporarily ============
     <div class="os-window" id="cv-window">
         <div class="title-bar">
             <div class="title-bar-text">Resume_2026.pdf</div>
@@ -413,6 +464,7 @@
             </div>
         </div>
     </div>
+    ============================================================ -->
 
     <!-- ============ CONTACT WINDOW ============ -->
     <div class="os-window" id="contact-window">
@@ -503,6 +555,7 @@
                     <span class="mobile-app-subtitle">6 projects</span>
                 </div>
             </button>
+            <!-- MOBILE CV BUTTON — commented out temporarily
             <button class="mobile-app-btn" data-action="open-panel" data-target="mobile-cv">
                 <span class="mobile-app-icon"><svg viewBox="0 0 24 24" width="28" height="28"><rect x="3" y="1" width="15" height="20" fill="#fff" stroke="#808080"/><polygon points="15,1 18,4 15,4" fill="#808080"/><rect x="3" y="13" width="15" height="8" fill="#d46a6a"/></svg></span>
                 <div class="mobile-app-label">
@@ -510,6 +563,7 @@
                     <span class="mobile-app-subtitle">Download resume</span>
                 </div>
             </button>
+            -->
             <button class="mobile-app-btn" data-action="open-panel" data-target="mobile-contact">
                 <span class="mobile-app-icon"><svg viewBox="0 0 24 24" width="28" height="28"><rect x="2" y="4" width="20" height="14" fill="#c0c0c0" stroke="#808080"/><polyline points="2,4 12,12 22,4" fill="none" stroke="#808080" stroke-width="1"/></svg></span>
                 <div class="mobile-app-label">
@@ -558,58 +612,58 @@
                 <button class="mobile-panel-close" data-action="close-panel" data-target="mobile-work">✕ Close</button>
             </div>
             <div class="mobile-panel-body">
-                <div class="mobile-project-card" data-action="open-url" data-url="https://umaaaahh.github.io/emerging/assignment3/slack.html">
+                <div class="mobile-project-card" data-action="open-url" data-url="lifework.html">
                     <div class="mobile-project-header">LifeWork Internal Messages</div>
                     <div class="mobile-project-body">
                         <div class="mobile-project-tags"><span class="tag">UX/UI</span><span class="tag">Frontend</span><span class="tag">Social Commentary</span></div>
                         <div class="mobile-project-desc">A dystopian Slack-clone interface critiquing AI surveillance and gig economy exploitation.</div>
-                        <button class="mobile-project-btn">View Live →</button>
+                        <button class="mobile-project-btn">Learn More →</button>
                     </div>
                 </div>
-                <div class="mobile-project-card" data-action="open-url" data-url="https://umaaaahh.github.io/emerging/index">
+                <div class="mobile-project-card" data-action="open-url" data-url="patchwork-cyborg.html">
                     <div class="mobile-project-header">Patchwork Cyborg</div>
                     <div class="mobile-project-body">
                         <div class="mobile-project-tags"><span class="tag">Game Design</span><span class="tag">Systems Design</span><span class="tag">Frontend</span></div>
                         <div class="mobile-project-desc">A dystopian survival game where you play as a gig worker in New Naarm.</div>
-                        <button class="mobile-project-btn">View Live →</button>
+                        <button class="mobile-project-btn">Learn More →</button>
                     </div>
                 </div>
-                <div class="mobile-project-card" data-action="open-url" data-url="https://umaaaahh.github.io/narrative/index.html">
+                <div class="mobile-project-card" data-action="open-url" data-url="rabi-island.html">
                     <div class="mobile-project-header">Rabi Island Sports Tournament</div>
                     <div class="mobile-project-body">
                         <div class="mobile-project-tags"><span class="tag">Interactive Narrative</span><span class="tag">Cultural Design</span></div>
                         <div class="mobile-project-desc">Commemorating 80 years of Banaban history through interactive village profiles.</div>
-                        <button class="mobile-project-btn">View Live →</button>
+                        <button class="mobile-project-btn">Learn More →</button>
                     </div>
                 </div>
-                <div class="mobile-project-card" data-action="open-url" data-url="https://umaaaahh.github.io/uxui/index">
+                <div class="mobile-project-card" data-action="open-url" data-url="hiking.html">
                     <div class="mobile-project-header">Victorian Hiking Hub</div>
                     <div class="mobile-project-body">
                         <div class="mobile-project-tags"><span class="tag">UX Research</span><span class="tag">Mapbox</span><span class="tag">Frontend</span></div>
                         <div class="mobile-project-desc">A trail discovery platform built with modular JavaScript and Mapbox GL.</div>
-                        <button class="mobile-project-btn">View Live →</button>
+                        <button class="mobile-project-btn">Learn More →</button>
                     </div>
                 </div>
-                <div class="mobile-project-card" data-action="open-url" data-url="https://umaaaahh.github.io/interactivemedia/Annabel%20Lee/index.html">
+                <div class="mobile-project-card" data-action="open-url" data-url="annabel-lee.html">
                     <div class="mobile-project-header">Annabel Lee — Scroll Poem</div>
                     <div class="mobile-project-body">
                         <div class="mobile-project-tags"><span class="tag">Kinetic Typography</span><span class="tag">Scroll-driven</span></div>
                         <div class="mobile-project-desc">Edgar Allan Poe reimagined with shadow-puppet aesthetics and parallax animation.</div>
-                        <button class="mobile-project-btn">View Live →</button>
+                        <button class="mobile-project-btn">Learn More →</button>
                     </div>
                 </div>
-                <div class="mobile-project-card" data-action="open-url" data-url="https://umaaaahh.github.io/Studio/assignment3/index.html">
+                <div class="mobile-project-card" data-action="open-url" data-url="overthinkers-pad.html">
                     <div class="mobile-project-header">The Overthinker's Typing Pad</div>
                     <div class="mobile-project-body">
                         <div class="mobile-project-tags"><span class="tag">Expressive Tool</span><span class="tag">Interaction Design</span></div>
                         <div class="mobile-project-desc">A tool built to reflect friction — anxiety and burnout made tangible. Features a custom span box randomizer that creates a beautiful, chaotic typing effect.</div>
-                        <button class="mobile-project-btn">View Live →</button>
+                        <button class="mobile-project-btn">Learn More →</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- CV panel -->
+        <!-- CV panel — commented out temporarily
         <div class="mobile-panel" id="mobile-cv">
             <div class="mobile-panel-titlebar">
                 <div class="mobile-panel-titlebar-text">Resume_2026.pdf</div>
@@ -623,6 +677,7 @@
                 </div>
             </div>
         </div>
+        -->
 
         <!-- Contact panel -->
         <div class="mobile-panel" id="mobile-contact">
@@ -641,6 +696,34 @@
         </div>
     </div>
 
+    <!-- ============ ARCHIVE FULL WINDOW ============ -->
+    <div class="os-window" id="archive-full-window">
+        <div class="title-bar">
+            <div class="title-bar-text">archive/</div>
+            <div class="title-bar-controls">
+                <button aria-label="Minimize" data-action="close-window" data-target="archive-full-window"></button>
+                <button aria-label="Maximize" data-action="maximize-window" data-target="archive-full-window"></button>
+                <button aria-label="Close" data-action="close-window" data-target="archive-full-window"></button>
+            </div>
+        </div>
+        <div class="window-body os-window-body">
+            <div class="archive-file-list" id="archive-full-file-list"></div>
+            <div class="archive-viewer">
+                <div class="archive-slides-wrap" id="archive-full-slides-wrap">
+                    <button class="archive-nav archive-prev" data-action="archive-full-prev">&#8249;</button>
+                    <button class="archive-nav archive-next" data-action="archive-full-next">&#8250;</button>
+                </div>
+                <div class="archive-footer">
+                    <div class="archive-label-row">
+                        <span class="archive-label-title" id="archive-full-label-title"></span>
+                        <span class="archive-label-desc" id="archive-full-label-desc"></span>
+                    </div>
+                    <div class="archive-dots" id="archive-full-dots"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- ============ TASKBAR ============ -->
     <div id="taskbar">
         <div class="taskbar-left">
@@ -650,7 +733,9 @@
             <div class="taskbar-sep"></div>
             <button class="taskbar-btn" data-action="expand-about">ABOUT</button>
             <button class="taskbar-btn" data-action="open-window" data-target="work-window">WORK</button>
+            <!-- TASKBAR RESUME — commented out temporarily
             <button class="taskbar-btn" data-action="open-window" data-target="cv-window">RESUME</button>
+            -->
             <button class="taskbar-btn" data-action="open-window" data-target="contact-window">CONTACT</button>
         </div>
         <div class="taskbar-right">

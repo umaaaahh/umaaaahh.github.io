@@ -20,44 +20,263 @@ const projects = {
         tags: ['Social Commentary', 'Frontend', 'Immersive Fiction', 'Emerging Digital Cultures'],
         desc: 'A dystopian Slack-clone interface critiquing AI surveillance and corporate control. Every message, channel, and UI element tells the story of a worker trapped in a system that watches everything.',
         gifs: [R2 + 'lifework-slackchat.gif'],
-        liveUrl: BASE + 'emerging/assignment3/slack.html'
+        liveUrl: BASE + 'emerging/assignment3/slack.html',
+        detailUrl: 'lifework.html'
     },
     patchwork: {
         title: 'Patchwork Cyborg',
         tags: ['Game Design', 'Systems Design', 'Interactive Fiction', 'Emerging Digital Cultures'],
         desc: "A dystopian survival game where you play as a gig worker upgrading biotech body parts to outlast New Naarm's exploitative economy.",
         gifs: [R2 + 'lifework-game.gif'],
-        liveUrl: BASE + 'emerging/index'
+        liveUrl: BASE + 'emerging/index',
+        detailUrl: 'patchwork-cyborg.html'
     },
     rabi: {
         title: 'Rabi Island Sports Tournament',
         tags: ['Interactive Narrative', 'Cultural Design', 'Collaboration', 'Scroll-driven'],
         desc: "Commemorating 80 years of Banaban displacement and resilience through interactive village profiles and sports rivalries. Every design decision made in service of the community's story.",
         gifs: [R2 + 'rabi-island-tournament.gif'],
-        liveUrl: BASE + 'narrative/index.html'
+        liveUrl: BASE + 'narrative/index.html',
+        detailUrl: 'rabi-island.html'
     },
     hiking: {
         title: 'Victorian Hiking Hub',
         tags: ['UX Research', 'Mapbox', 'Frontend', 'Information Architecture'],
         desc: 'A trail discovery platform built with modular JavaScript and Mapbox GL. Includes gear checklists, trip planning tools, and community-sourced route data.',
         gifs: [],
-        liveUrl: BASE + 'uxui/index'
+        liveUrl: BASE + 'uxui/index',
+        detailUrl: 'hiking.html'
     },
     overthinker: {
         title: "The Overthinker's Typing Pad",
         tags: ['Expressive Tool', 'Frontend', 'Interaction Design', 'Studio'],
         desc: "A tool built to reflect friction — anxiety and burnout made tangible through interaction. What makes it special is the custom-designed span box randomizer: a text input that creates a beautiful, chaotic typing effect I'm genuinely proud of.",
         gifs: [],
-        liveUrl: BASE + 'Studio/assignment3/index.html'
+        liveUrl: BASE + 'Studio/assignment3/index.html',
+        detailUrl: 'overthinkers-pad.html'
     },
     scrollpoem: {
         title: 'Annabel Lee — Scroll Poem',
         tags: ['Scroll Animation', 'Interactive Narrative', 'Illustration', 'JS'],
         desc: "A linear scroll-story bringing Edgar Allan Poe's gothic classic to life. Built as my first foray into interaction design, it uses scroll-driven JavaScript and stark silhouette illustrations to drive the narrative.",
         gifs: [R2 + 'scroll-poem.gif'],
-        liveUrl: BASE + 'interactivemedia/Annabel%20Lee/index.html'
+        liveUrl: BASE + 'interactivemedia/Annabel%20Lee/index.html',
+        detailUrl: 'annabel-lee.html'
     }
 };
+
+// ============ ARCHIVE CAROUSEL ============
+const archiveSlides = [
+    { src: 'https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/1.%20Portfolio/Story%20archive/VID_20260503_211124_683.mp4', type: 'video', title: 'Site Design Internship', desc: 'Story archive' },
+    { src: 'https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/1.%20Portfolio/Story%20archive/VID_20260503_211208_399.mp4', type: 'video', title: 'Site Design Internship', desc: 'Story archive' },
+    { src: 'https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/1.%20Portfolio/Story%20archive/VID_20260503_212311_682.mp4', type: 'video', title: 'Site Design Internship', desc: 'Story archive' },
+    { src: 'https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/1.%20Portfolio/Story%20archive/IMG_20260504_141135_247.jpg', type: 'image', title: 'Site Design Internship', desc: 'Story archive' },
+    { src: 'https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/1.%20Portfolio/Story%20archive/VID_20260503_211217_804.mp4', type: 'video', title: 'Site Design Internship', desc: 'Story archive' },
+    { src: 'https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/1.%20Portfolio/Story%20archive/VID_20260503_212315_486.mp4', type: 'video', title: 'Site Design Internship', desc: 'Story archive' },
+    { src: 'https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/1.%20Portfolio/Story%20archive/VID_20260503_212321_646.mp4', type: 'video', title: 'Site Design Internship', desc: 'Story archive' },
+    { src: 'https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/1.%20Portfolio/Story%20archive/VID_20260503_212325_384.mp4', type: 'video', title: 'Site Design Internship', desc: 'Story archive' },
+];
+
+let archiveIndex = 0;
+let archiveTimer = null;
+
+function initArchiveCarousel() {
+    const wrap   = document.getElementById('archive-slides-wrap');
+    const dotsEl = document.getElementById('archive-dots');
+    if (!wrap || !dotsEl) return;
+
+    const prevBtn = wrap.querySelector('.archive-prev');
+    archiveSlides.forEach((s, i) => {
+        const slide   = document.createElement('div');
+        slide.className = 'archive-slide' + (i === 0 ? ' active' : '');
+        let inner;
+        if (s.src && s.type === 'video') {
+            inner = `<video src="${s.src}" class="archive-slide-img" muted playsinline loop></video>`;
+        } else if (s.src) {
+            inner = `<img src="${s.src}" alt="${s.title}" class="archive-slide-img">`;
+        } else {
+            inner = `<div class="archive-slide-bg" style="background:${s.bg}"><span class="archive-placeholder-label">[ ${s.title} ]</span></div>`;
+        }
+        slide.innerHTML = inner;
+        wrap.insertBefore(slide, prevBtn);
+    });
+
+    archiveSlides.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.className        = 'archive-dot' + (i === 0 ? ' active' : '');
+        dot.dataset.action   = 'archive-goto';
+        dot.dataset.index    = i;
+        dotsEl.appendChild(dot);
+    });
+
+    updateArchiveLabel();
+    startArchiveTimer();
+}
+
+// ============ ARCHIVE FULL WINDOW ============
+let archiveFullIndex = 0;
+let archiveFullTimer = null;
+let archiveFullInited = false;
+
+function initArchiveFullCarousel() {
+    if (archiveFullInited) return;
+    archiveFullInited = true;
+
+    const wrap   = document.getElementById('archive-full-slides-wrap');
+    const dotsEl = document.getElementById('archive-full-dots');
+    const list   = document.getElementById('archive-full-file-list');
+    if (!wrap || !dotsEl) return;
+
+    const prevBtn = wrap.querySelector('.archive-prev');
+    archiveSlides.forEach((s, i) => {
+        const slide = document.createElement('div');
+        slide.className = 'archive-slide' + (i === 0 ? ' active' : '');
+        let inner;
+        if (s.src && s.type === 'video') {
+            inner = `<video src="${s.src}" class="archive-slide-img" muted playsinline loop></video>`;
+        } else if (s.src) {
+            inner = `<img src="${s.src}" alt="${s.title}" class="archive-slide-img">`;
+        } else {
+            inner = `<div class="archive-slide-bg" style="background:${s.bg}"><span class="archive-placeholder-label">[ ${s.title} ]</span></div>`;
+        }
+        slide.innerHTML = inner;
+        wrap.insertBefore(slide, prevBtn);
+
+        if (list) {
+            const num  = String(i + 1).padStart(2, '0');
+            const icon = s.type === 'video' ? '📹' : '🖼️';
+            const entry = document.createElement('div');
+            entry.className      = 'archive-file-entry' + (i === 0 ? ' selected' : '');
+            entry.dataset.action = 'archive-full-goto';
+            entry.dataset.index  = i;
+            entry.innerHTML = `<span class="archive-file-entry-icon">${icon}</span><span class="archive-file-entry-info"><span class="archive-file-entry-name">${s.title} — #${num}</span><span class="archive-file-entry-sub">${s.desc}</span></span>`;
+            list.appendChild(entry);
+        }
+    });
+
+    archiveSlides.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.className      = 'archive-dot' + (i === 0 ? ' active' : '');
+        dot.dataset.action = 'archive-full-goto';
+        dot.dataset.index  = i;
+        dotsEl.appendChild(dot);
+    });
+
+    updateArchiveFullLabel();
+    startArchiveFullTimer();
+}
+
+function goToFullSlide(n) {
+    const wrap    = document.getElementById('archive-full-slides-wrap');
+    if (!wrap) return;
+    const slides  = wrap.querySelectorAll('.archive-slide');
+    const dots    = document.getElementById('archive-full-dots').querySelectorAll('.archive-dot');
+    const entries = document.getElementById('archive-full-file-list').querySelectorAll('.archive-file-entry');
+    if (!slides.length) return;
+    const prevVid = slides[archiveFullIndex].querySelector('video');
+    if (prevVid) prevVid.pause();
+    slides[archiveFullIndex].classList.remove('active');
+    if (dots[archiveFullIndex])    dots[archiveFullIndex].classList.remove('active');
+    if (entries[archiveFullIndex]) entries[archiveFullIndex].classList.remove('selected');
+    archiveFullIndex = ((n % archiveSlides.length) + archiveSlides.length) % archiveSlides.length;
+    slides[archiveFullIndex].classList.add('active');
+    if (dots[archiveFullIndex])    dots[archiveFullIndex].classList.add('active');
+    if (entries[archiveFullIndex]) {
+        entries[archiveFullIndex].classList.add('selected');
+        entries[archiveFullIndex].scrollIntoView({ block: 'nearest' });
+    }
+    const nextVid = slides[archiveFullIndex].querySelector('video');
+    if (nextVid) nextVid.play();
+    updateArchiveFullLabel();
+}
+
+function updateArchiveFullLabel() {
+    const s = archiveSlides[archiveFullIndex];
+    const t = document.getElementById('archive-full-label-title');
+    const d = document.getElementById('archive-full-label-desc');
+    if (t) t.textContent = s.title;
+    if (d) d.textContent = s.desc;
+}
+
+function startArchiveFullTimer() {
+    stopArchiveFullTimer();
+    archiveFullTimer = setInterval(() => goToFullSlide(archiveFullIndex + 1), 4000);
+}
+
+function stopArchiveFullTimer() {
+    if (archiveFullTimer) { clearInterval(archiveFullTimer); archiveFullTimer = null; }
+}
+
+function openArchiveFullWindow() {
+    const win = document.getElementById('archive-full-window');
+    if (!win) return;
+    initArchiveFullCarousel();
+    if (win.classList.contains('window-open')) {
+        win.classList.remove('window-jiggling');
+        void win.offsetWidth;
+        win.classList.add('window-jiggling');
+        setTimeout(() => win.classList.remove('window-jiggling'), 400);
+        bringToFront(win);
+        return;
+    }
+    win.classList.remove('window-closing');
+    void win.offsetWidth;
+    win.classList.add('window-open', 'maximized');
+    playPopSound();
+    bringToFront(win);
+    hideShowcases();
+}
+
+function goToSlide(n) {
+    const slides = document.querySelectorAll('#archive-slides-wrap .archive-slide');
+    const dots   = document.querySelectorAll('#archive-dots .archive-dot');
+    if (!slides.length) return;
+    const prevVid = slides[archiveIndex].querySelector('video');
+    if (prevVid) prevVid.pause();
+    slides[archiveIndex].classList.remove('active');
+    dots[archiveIndex].classList.remove('active');
+    archiveIndex = ((n % archiveSlides.length) + archiveSlides.length) % archiveSlides.length;
+    slides[archiveIndex].classList.add('active');
+    dots[archiveIndex].classList.add('active');
+    const nextVid = slides[archiveIndex].querySelector('video');
+    if (nextVid) nextVid.play();
+    updateArchiveLabel();
+}
+
+function updateArchiveLabel() {
+    const s = archiveSlides[archiveIndex];
+    const t = document.getElementById('archive-label-title');
+    const d = document.getElementById('archive-label-desc');
+    if (t) t.textContent = s.title;
+    if (d) d.textContent = s.desc;
+}
+
+function startArchiveTimer() {
+    stopArchiveTimer();
+    archiveTimer = setInterval(() => goToSlide(archiveIndex + 1), 4000);
+}
+
+function stopArchiveTimer() {
+    if (archiveTimer) { clearInterval(archiveTimer); archiveTimer = null; }
+}
+
+function openArchiveWindow() {
+    const win = document.getElementById('archive-window');
+    if (!win) return;
+    if (win.classList.contains('window-open')) {
+        win.classList.remove('window-jiggling');
+        void win.offsetWidth;
+        win.classList.add('window-jiggling');
+        setTimeout(() => win.classList.remove('window-jiggling'), 400);
+        bringToFront(win);
+        return;
+    }
+    win.classList.remove('window-closing');
+    void win.offsetWidth;
+    win.classList.add('window-open');
+    playPopSound();
+    bringToFront(win);
+}
 
 // ============ SHOWCASE HIDE / SHOW ============
 function hideShowcases() {
@@ -277,6 +496,14 @@ function showProjectPreview(key, el) {
     }
     gifEl.classList.remove('hidden');
 
+    const detailBtn = document.getElementById('preview-detail-btn');
+    if (project.detailUrl) {
+        detailBtn.classList.remove('hidden');
+        detailBtn.onclick = () => window.location.href = project.detailUrl;
+    } else {
+        detailBtn.classList.add('hidden');
+    }
+
     const liveBtn = document.getElementById('preview-live-btn');
     if (project.liveUrl) {
         liveBtn.classList.remove('hidden');
@@ -418,17 +645,17 @@ function populateFeaturedProject() {
     const key     = keys[Math.floor(Math.random() * keys.length)];
     const project = projects[key];
 
-    const titleEl  = document.getElementById('showcase-proj-title');
-    const iframeEl = document.getElementById('showcase-proj-iframe');
-    const tagsEl   = document.getElementById('showcase-proj-tags');
-    const linkEl   = document.getElementById('showcase-proj-link');
-    const descEl   = document.getElementById('showcase-proj-desc');
+    const titleEl    = document.getElementById('showcase-proj-title');
+    const iframeEl   = document.getElementById('showcase-proj-iframe');
+    const tagsEl     = document.getElementById('showcase-proj-tags');
+    const linkEl     = document.getElementById('showcase-proj-link');
+    const detailEl   = document.getElementById('showcase-proj-detail');
 
-    if (titleEl)  titleEl.textContent = project.title;
-    if (iframeEl) iframeEl.src        = project.liveUrl;
-    if (tagsEl)   tagsEl.innerHTML    = project.tags.map(t => `<span class="tag">${t}</span>`).join('');
-    if (linkEl)   linkEl.href         = project.liveUrl;
-    if (descEl)   descEl.textContent  = project.desc;
+    if (titleEl)    titleEl.textContent = project.title;
+    if (iframeEl)   iframeEl.src        = project.liveUrl;
+    if (tagsEl)     tagsEl.innerHTML    = project.tags.map(t => `<span class="tag">${t}</span>`).join('');
+    if (linkEl)     linkEl.href         = project.liveUrl;
+    if (detailEl)   detailEl.href       = project.detailUrl || '#';
 }
 
 function scheduleShowcase() {
@@ -445,6 +672,7 @@ function scheduleShowcase() {
         }, SHOWCASE_DELAY + i * SHOWCASE_STAGGER);
     });
 
+    setTimeout(() => { initArchiveCarousel(); openArchiveWindow(); },         SHOWCASE_DELAY + 2 * SHOWCASE_STAGGER);
     setTimeout(showMsnToast,                                                 SHOWCASE_DELAY + SHOWCASE_STAGGER + 4800);
     setTimeout(() => { if (window.autoplayBebo)  window.autoplayBebo(); },  SHOWCASE_DELAY + 600);
     setTimeout(() => { if (window._initSparkles) window._initSparkles(); }, SHOWCASE_DELAY + 400);
@@ -493,6 +721,18 @@ document.addEventListener('DOMContentLoaded', () => {
         icon.addEventListener('keydown', e => { if (e.key === 'Enter') icon.click(); });
     });
 
+    const archiveWin = document.getElementById('archive-window');
+    if (archiveWin) {
+        archiveWin.addEventListener('mouseenter', stopArchiveTimer);
+        archiveWin.addEventListener('mouseleave', startArchiveTimer);
+    }
+
+    const archiveFullWin = document.getElementById('archive-full-window');
+    if (archiveFullWin) {
+        archiveFullWin.addEventListener('mouseenter', stopArchiveFullTimer);
+        archiveFullWin.addEventListener('mouseleave', startArchiveFullTimer);
+    }
+
     const volSlider = document.getElementById('bebo-vol');
     if (volSlider) volSlider.addEventListener('input', e => beboVolume(e.target.value));
 
@@ -517,7 +757,14 @@ document.addEventListener('DOMContentLoaded', () => {
             case 'close-panel':      closeMobilePanel(target);        break;
             case 'toggle-file':      toggleMobileFile(target, el);    break;
             case 'show-project':     showProjectPreview(project, el); break;
-            case 'open-url':         window.open(url, '_blank');      break;
+            case 'open-url':         window.location.href = url;      break;
+            case 'open-archive':        openArchiveFullWindow();                              break;
+            case 'archive-prev':        goToSlide(archiveIndex - 1);                          break;
+            case 'archive-next':        goToSlide(archiveIndex + 1);                          break;
+            case 'archive-goto':        goToSlide(parseInt(el.dataset.index));                break;
+            case 'archive-full-prev':   goToFullSlide(archiveFullIndex - 1);                  break;
+            case 'archive-full-next':   goToFullSlide(archiveFullIndex + 1);                  break;
+            case 'archive-full-goto':   goToFullSlide(parseInt(el.dataset.index));            break;
         }
     });
 });

@@ -572,10 +572,10 @@ html, body {
 .os-window.maximized .file-browser-grid {
     max-height: none;
     height: 100%;
-    width: 50%;
+    width: 38%;
     min-width: 0;
-    max-width: 50%;
-    grid-template-columns: repeat(3,1fr);
+    max-width: 38%;
+    grid-template-columns: repeat(2,1fr);
     gap: 12px;
     padding: 16px;
     align-content: start;
@@ -845,13 +845,13 @@ html, body {
 .file-browser-grid {
     background: #ffffff;
     display: grid;
-    grid-template-columns: repeat(3,1fr);
+    grid-template-columns: repeat(2,1fr);
     gap: 8px;
     padding: 10px;
-    flex: 0 0 50%;
-    width: 50%;
+    flex: 0 0 38%;
+    width: 38%;
     min-width: 0;
-    max-width: 50%;
+    max-width: 38%;
     border-right: 1px solid var(--win-grey-dark);
     align-content: start;
     height: 100%;
@@ -965,7 +965,7 @@ html, body {
     margin-top: 10px;
 }
 
-.preview-open-btn, .preview-live-btn { font-family: var(--font-mono) !important; font-size: 11px !important; }
+.preview-open-btn, .preview-live-btn, .preview-detail-btn { font-family: var(--font-mono) !important; font-size: 11px !important; }
 
 
 /* ============================================
@@ -1591,17 +1591,40 @@ html, body {
    21. ABOUT SHOWCASE — BEBO PANEL
    ============================================ */
 
-#showcase-about {
+#left-showcase-col {
     width: min(320px, 28vw);
     flex-shrink: 0;
     align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-height: 0;
+    overflow: hidden;
+}
+
+#showcase-col {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 8px;
+    min-height: 0;
+    align-self: stretch;
+    overflow: hidden;
+}
+
+#showcase-about {
+    width: 100%;
+    flex: 1 1 0;
+    min-height: 0;
     transform-origin: top left;
     display: none;
     overflow: hidden;
-    transition: width 0.35s cubic-bezier(0.34,1.2,0.64,1), border-radius 0.2s ease;
+    transition: border-radius 0.2s ease;
 }
 
-#desktop-layout .showcase-window { position: relative; }
+#desktop-layout .showcase-window,
+#left-showcase-col .showcase-window,
+#showcase-col .showcase-window { position: relative; }
 
 #showcase-about.about-fullscreen {
     position: fixed !important;
@@ -1629,9 +1652,10 @@ html, body {
 #showcase-about.about-fullscreen .bebo-body { height: 100%; padding: 16px 20px; }
 
 #showcase-overthinker {
-    flex: 1;
+    flex: 2;
     align-self: stretch;
     min-width: 0;
+    min-height: 0;
     transform-origin: top left;
     display: none;
     overflow: hidden;
@@ -1694,6 +1718,13 @@ html, body {
 }
 
 .showcase-footer .preview-tags { margin: 0; }
+
+.showcase-footer-actions {
+    display: flex;
+    gap: 4px;
+    flex-shrink: 0;
+    align-items: center;
+}
 
 .showcase-open-btn {
     font-family: var(--font-mono) !important;
@@ -1998,17 +2029,14 @@ html, body {
 }
 
 @keyframes showcase-pop {
-    0%   { opacity: 0; transform: scale(0); }
-    55%  { opacity: 1; transform: scale(1.06); }
-    72%  { transform: scale(0.96); }
-    86%  { transform: scale(1.02); }
+    0%   { opacity: 0; transform: scale(0.9); }
     100% { opacity: 1; transform: scale(1); }
 }
 
 .showcase-window.showcase-visible {
     display: flex;
     flex-direction: column;
-    animation: showcase-pop 0.44s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    animation: showcase-pop 0.28s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 
@@ -2092,10 +2120,12 @@ html, body {
    25. WINDOW STARTING POSITIONS
    ============================================ */
 
-#lifework-window { top: 60px;  left: 200px; width: 680px; height: 520px; }
-#work-window     { top: 60px;  left: 200px; width: 720px; height: 520px; }
-#cv-window       { top: 100px; left: 160px; width: 600px; height: 520px; }
-#contact-window  { top: 120px; left: 180px; width: 400px; height: 360px; }
+#lifework-window    { top: 60px;  left: 200px; width: 680px; height: 520px; }
+#work-window        { top: 60px;  left: 200px; width: 720px; height: 520px; }
+#archive-full-window { top: 60px; left: 200px; width: 720px; height: 520px; }
+#cv-window          { top: 100px; left: 160px; width: 600px; height: 520px; }
+#contact-window     { top: 120px; left: 180px; width: 400px; height: 360px; }
+/* #archive-window position handled by #showcase-col flex flow — see section 28 */
 
 
 /* ============================================
@@ -2249,4 +2279,244 @@ html, body {
     height: 22px;
     object-fit: contain;
     display: block;
+}
+
+
+/* ============================================
+   28. ARCHIVE CAROUSEL WIDGET
+   ============================================ */
+
+#archive-window .os-window-body {
+    flex: 1;
+    min-height: 0 !important;
+    max-height: none !important;
+    flex-direction: column !important;
+}
+
+.archive-carousel-body {
+    overflow: hidden;
+}
+
+/* Full-page archive window */
+#archive-full-window .os-window-body {
+    flex: 1;
+    min-height: 0 !important;
+    max-height: none !important;
+    flex-direction: row !important;
+    overflow: hidden;
+}
+
+.archive-file-list {
+    flex: 0 0 38%;
+    width: 38%;
+    max-width: 38%;
+    background: var(--win-grey);
+    border-right: 1px solid var(--win-grey-dark);
+    overflow-y: auto;
+    padding: 6px 4px;
+}
+
+.archive-file-entry {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 7px 8px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: #000;
+    line-height: 1.3;
+}
+
+.archive-file-entry:not(.selected):hover {
+    background: var(--accent-4);
+    border-color: var(--title-blue-dark);
+}
+
+.archive-file-entry.selected {
+    background: var(--title-blue-dark);
+    color: #fff;
+    border-color: var(--title-blue-dark);
+}
+
+.archive-file-entry-icon { font-size: 18px; flex-shrink: 0; line-height: 1.2; }
+
+.archive-file-entry-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.archive-file-entry-name { font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.archive-file-entry-sub  { font-size: 10px; color: var(--win-grey-dark); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.archive-file-entry.selected .archive-file-entry-sub { color: rgba(255,255,255,0.7); }
+
+.archive-viewer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.archive-slides-wrap {
+    flex: 1;
+    position: relative;
+    background: #111;
+    overflow: hidden;
+    min-height: 0;
+}
+
+.archive-slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.archive-slide.active { opacity: 1; }
+
+.archive-slide-bg {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+img.archive-slide-img,
+video.archive-slide-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.archive-placeholder-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 1px;
+    user-select: none;
+}
+
+button.archive-nav {
+    position: absolute !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    z-index: 10;
+    background: rgba(0,0,0,0.55) !important;
+    color: #fff !important;
+    border: 1px solid rgba(255,255,255,0.22) !important;
+    box-shadow: none !important;
+    font-family: var(--font-mono) !important;
+    font-size: 22px !important;
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer;
+    line-height: 1;
+}
+
+button.archive-nav::after { display: none !important; }
+button.archive-nav::before { display: none !important; }
+
+.archive-prev { left: 6px !important; }
+.archive-next { right: 6px !important; }
+
+button.archive-nav:hover {
+    background: rgba(0,0,0,0.82) !important;
+    border-color: rgba(255,255,255,0.5) !important;
+}
+
+button.archive-nav:active {
+    transform: translateY(-50%) scale(0.92) !important;
+}
+
+.archive-footer {
+    flex-shrink: 0;
+    background: var(--win-grey);
+    border-top: 1px solid var(--win-grey-dark);
+}
+
+.archive-label-row {
+    padding: 5px 8px 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.archive-label-title {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    color: #000;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.archive-label-desc {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--win-grey-dark);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.archive-dots {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    padding: 4px 8px 5px;
+}
+
+button.archive-dot {
+    width: 7px !important;
+    height: 7px !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    background: #999 !important;
+    border: 1px solid #666 !important;
+    box-shadow: none !important;
+    cursor: pointer;
+    display: block;
+    flex-shrink: 0;
+}
+
+button.archive-dot::after  { display: none !important; }
+button.archive-dot::before { display: none !important; }
+
+button.archive-dot.active {
+    background: var(--title-blue-dark) !important;
+    border-color: var(--title-blue-dark) !important;
+}
+
+button.archive-dot:hover {
+    background: var(--win-grey-dark) !important;
+}
+
+/* Archive window in left-showcase-col — always visible, fills remaining space */
+#left-showcase-col #archive-window {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    width: 100% !important;
+    flex: 1 1 0;
+    min-height: 0;
+    align-self: stretch;
+    display: flex !important;
+    flex-direction: column;
 }
