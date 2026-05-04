@@ -31,6 +31,20 @@
 
 <!-- GIF FLASH OVERLAY -->
 <div id="gif-flash">
+    <!-- SVG wave filter — animates continuously while the screen is visible -->
+    <svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
+        <defs>
+            <filter id="gif-wave" x="-8%" y="-8%" width="116%" height="116%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.018 0.065" numOctaves="2" result="noise">
+                    <animate attributeName="baseFrequency"
+                        values="0.010 0.040; 0.038 0.110; 0.022 0.070; 0.048 0.055; 0.010 0.040"
+                        dur="5s" repeatCount="indefinite"/>
+                </feTurbulence>
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="14"
+                    xChannelSelector="R" yChannelSelector="G"/>
+            </filter>
+        </defs>
+    </svg>
     <div class="gif-glow"></div>
     <img src="https://pub-b866534d27f44635ab85ddab56429f50.r2.dev/output-onlinegiftools.gif" class="gif-flash-img" alt="">
 </div>
@@ -65,6 +79,9 @@
         </div>
     </div>
 </div>
+
+<!-- CRT monitor vignette overlay — fixed, covers all screens -->
+<div id="crt-vignette"></div>
 
 <!-- ============ DESKTOP ============ -->
 <div id="desktop">
@@ -328,53 +345,6 @@
     </div><!-- #showcase-col -->
     </div><!-- #desktop-layout -->
 
-    <!-- MSN TOAST — LifeWork notification -->
-    <div id="msn-toast">
-        <div class="msn-toast-bar">
-            <div class="msn-toast-left">
-                <div class="msn-flame">🔥</div>
-                <div class="msn-toast-text">
-                    <div class="msn-toast-name">Compliance.ai</div>
-                    <div class="msn-toast-msg">has responded. Click to open.</div>
-                </div>
-            </div>
-            <div class="msn-toast-actions">
-                <button class="msn-btn" data-action="open-lifework">Open</button>
-                <button class="msn-btn msn-btn-close" data-action="dismiss-msn">✕</button>
-            </div>
-        </div>
-        <div class="msn-toast-footer">
-            <span class="msn-toast-app">💬 MSN Messenger — LifeWork Corp</span>
-        </div>
-    </div>
-
-    <!-- LIFEWORK WINDOW -->
-    <div class="os-window" id="lifework-window">
-        <div class="title-bar">
-            <div class="title-bar-text">LifeWork — Internal Messages</div>
-            <div class="title-bar-controls">
-                <button aria-label="Minimize" data-action="close-window" data-target="lifework-window"></button>
-                <button aria-label="Maximize" data-action="maximize-window" data-target="lifework-window"></button>
-                <button aria-label="Close" data-action="close-window" data-target="lifework-window"></button>
-            </div>
-        </div>
-        <div class="window-body os-window-body window-body-iframe">
-            <iframe
-                src="https://umaaaahh.github.io/emerging/assignment3/slack.html"
-                class="iframe-fill"
-                title="LifeWork Internal Messages"
-                sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
-            ></iframe>
-            <div class="showcase-footer">
-                <div class="window-tag-row">
-                    <span class="tag">Social Commentary</span>
-                    <span class="tag">Immersive Fiction</span>
-                    <span class="tag">Frontend</span>
-                </div>
-                <a href="https://umaaaahh.github.io/emerging/assignment3/slack.html" target="_blank" rel="noopener" class="showcase-open-btn">Open ↗</a>
-            </div>
-        </div>
-    </div>
 
     <!-- ============ WORK WINDOW ============ -->
     <div class="os-window" id="work-window">

@@ -673,27 +673,10 @@ function scheduleShowcase() {
     });
 
     setTimeout(() => { initArchiveCarousel(); openArchiveWindow(); },         SHOWCASE_DELAY + 2 * SHOWCASE_STAGGER);
-    setTimeout(showMsnToast,                                                 SHOWCASE_DELAY + SHOWCASE_STAGGER + 4800);
     setTimeout(() => { if (window.autoplayBebo)  window.autoplayBebo(); },  SHOWCASE_DELAY + 600);
     setTimeout(() => { if (window._initSparkles) window._initSparkles(); }, SHOWCASE_DELAY + 400);
 }
 
-function showMsnToast() {
-    const toast = document.getElementById('msn-toast');
-    if (!toast) return;
-    toast.classList.add('msn-toast-visible');
-    setTimeout(() => { if (toast.classList.contains('msn-toast-visible')) dismissMsn(); }, 8000);
-}
-
-function dismissMsn() {
-    const toast = document.getElementById('msn-toast');
-    if (toast) toast.classList.remove('msn-toast-visible');
-}
-
-function openLifeWork() {
-    dismissMsn();
-    openWindow('lifework-window');
-}
 
 function dismissShowcase(id) {
     playBubblePopSound();
@@ -751,8 +734,6 @@ document.addEventListener('DOMContentLoaded', () => {
             case 'minimize-all':     minimizeAll();                   break;
             case 'bebo-toggle':      beboToggle();                    break;
             case 'bebo-seek':        beboSeek(parseInt(secs));        break;
-            case 'open-lifework':    openLifeWork();                  break;
-            case 'dismiss-msn':      dismissMsn();                    break;
             case 'open-panel':       openMobilePanel(target);         break;
             case 'close-panel':      closeMobilePanel(target);        break;
             case 'toggle-file':      toggleMobileFile(target, el);    break;
