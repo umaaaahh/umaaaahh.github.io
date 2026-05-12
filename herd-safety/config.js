@@ -5,7 +5,7 @@
 // ─────────────────────────────────────────────
 
 const CONFIG = {
-  MAPBOX_TOKEN: 'pk.eyJ1IjoidW1hYnJpZGdlcyIsImEiOiJjbWdlbHM5YTkwdjRnMm1vN2M5MHI4ZWU4In0.VSHdE_aN47-FgZXo2-AsNg', // local only — gitignored
+  // MAPBOX_TOKEN: 'pk.eyJ1IjoidW1hYnJpZGdlcyIsImEiOiJjbWdlbHM5YTkwdjRnMm1vN2M5MHI4ZWU4In0.VSHdE_aN47-FgZXo2-AsNg', // local only — gitignored
 
   // Melbourne CBD centre
   MAP_CENTER: [144.9631, -37.8136],
