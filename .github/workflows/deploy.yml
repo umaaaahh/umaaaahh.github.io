@@ -22,9 +22,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Create config.js with Mapbox token
-        run: sed 's/YOUR_MAPBOX_TOKEN/${{ secrets.MAPBOX_TOKEN }}/' herd-safety/config.example.js > herd-safety/config.js
-
       - uses: actions/configure-pages@v5
 
       - uses: actions/upload-pages-artifact@v3
