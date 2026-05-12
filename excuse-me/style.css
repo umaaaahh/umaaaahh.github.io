@@ -1,0 +1,472 @@
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap');
+
+/* ── Reset & base ──────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:     #FAF7F2;
+  --ink:    #2C2C2C;
+  --muted:  #888;
+  --subtle: #C8BFB5;
+  --accent: #D4A5A5;
+  --green:  #A8B5A0;
+  --border: rgba(0,0,0,0.08);
+  --font:   'Atkinson Hyperlegible', sans-serif;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  font-family: var(--font);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+button { font-family: var(--font); }
+
+
+/* ── Screens ──────────────────────────────────────── */
+.screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--bg);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.38s ease;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.screen.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.screen.leaving {
+  opacity: 0;
+  pointer-events: none;
+}
+
+
+/* ── Splash ───────────────────────────────────────── */
+#screen-splash {
+  justify-content: center;
+  padding: 3rem 2rem;
+  overflow: hidden;
+  text-align: center;
+}
+
+.leaf-deco {
+  position: absolute;
+  opacity: 0.07;
+  pointer-events: none;
+}
+
+.splash-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1.5px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+  animation: pulse-ring 2.5s ease-in-out infinite;
+}
+
+@keyframes pulse-ring {
+  0%   { box-shadow: 0 0 0 0    rgba(212,165,165,0.35); }
+  50%  { box-shadow: 0 0 0 12px rgba(212,165,165,0);    }
+  100% { box-shadow: 0 0 0 0    rgba(212,165,165,0);    }
+}
+
+.splash-title {
+  font-size: 24px;
+  font-weight: 700;
+  font-style: italic;
+  line-height: 1.4;
+  margin-bottom: 1.5rem;
+}
+
+.splash-subtext {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.75;
+  margin-bottom: 2.5rem;
+  max-width: 240px;
+}
+
+.btn-primary {
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--ink);
+  font-size: 15px;
+  padding: 12px 44px;
+  border-radius: 100px;
+  cursor: pointer;
+  letter-spacing: 0.03em;
+  transition: background 0.2s, color 0.2s;
+}
+
+.btn-primary:active {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.splash-footer {
+  position: absolute;
+  bottom: 1.5rem;
+  font-size: 11px;
+  color: var(--subtle);
+  letter-spacing: 0.05em;
+}
+
+
+/* ── Map screen ───────────────────────────────────── */
+#screen-map {
+  justify-content: flex-start;
+  align-items: stretch;
+  padding: 0;
+}
+
+.map-header {
+  padding: 2.75rem 1.5rem 0.9rem;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.map-heading {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.map-subtext {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* Map + pins wrapper */
+.map-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  flex-shrink: 0;
+}
+
+/* ── INSERT YOUR MAP HERE ─────────────────────────────
+   Replace the contents of #map-image-slot with:
+     <img src="map.jpg" alt="Garden map">
+   or mount Leaflet into a child div.
+   Images should fill the slot:
+     img { width:100%; height:100%; object-fit:cover; display:block; }
+   ───────────────────────────────────────────────── */
+.map-image-slot {
+  position: absolute;
+  inset: 0;
+  background: #DDE5D8;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.map-image-slot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.map-placeholder-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 13px;
+  color: var(--muted);
+  text-align: center;
+  border: 1.5px dashed rgba(0,0,0,0.18);
+  padding: 1.25rem 2rem;
+  border-radius: 10px;
+  pointer-events: none;
+  user-select: none;
+}
+
+.map-placeholder-label small {
+  font-size: 11px;
+  opacity: 0.65;
+}
+
+/* Pins layer — sits over the map image */
+.map-pins {
+  position: absolute;
+  inset: 0;
+}
+
+.map-pin {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2.5px solid rgba(255,255,255,0.85);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  cursor: pointer;
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.map-pin:active {
+  transform: translate(-50%, -50%) scale(1.2);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.22);
+}
+
+.map-pin.visited {
+  background: var(--green);
+}
+
+/* Parts list */
+.parts-list {
+  padding: 0.75rem 1rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  width: 100%;
+}
+
+.part-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem 1.1rem;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  transition: background 0.12s, opacity 0.2s;
+  opacity: 0.35;
+}
+
+.part-card.visited {
+  opacity: 1;
+}
+
+.part-card:active { background: #F0EDE8; }
+
+.part-card-loc {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.part-card-arrow {
+  font-size: 14px;
+  color: var(--subtle);
+}
+
+
+/* Yes / No choice buttons (shown after intro speech ends) */
+.choice-buttons {
+  display: none; /* shown by JS */
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0 1.5rem 0.5rem;
+  width: 100%;
+  animation: fade-up 0.35s ease both;
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0);   }
+}
+
+.btn-choice {
+  width: 100%;
+  max-width: 300px;
+  padding: 13px 20px;
+  border-radius: 100px;
+  font-family: var(--font);
+  font-size: 15px;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.btn-yes {
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  color: #FAF7F2;
+}
+
+.btn-yes:active {
+  background: #C49595;
+  border-color: #C49595;
+}
+
+.btn-no {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+}
+
+.btn-no:active {
+  background: rgba(0,0,0,0.04);
+}
+
+
+/* ── Closing screen ───────────────────────────────── */
+#screen-closing {
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.closing-text {
+  font-size: 22px;
+  font-style: italic;
+  color: var(--muted);
+  line-height: 1.6;
+  animation: fade-up 0.6s ease both;
+}
+
+
+/* ── Player screen ────────────────────────────────── */
+#screen-player {
+  justify-content: flex-start;
+  padding: 0;
+}
+
+.player-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem 0.5rem;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.btn-back {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  font-size: 14px;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 4px 0;
+  transition: color 0.15s;
+}
+
+.btn-back:active { color: var(--ink); }
+
+.player-part-badge {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.player-location {
+  padding: 0 1.5rem 0.5rem;
+  font-size: 13px;
+  font-style: italic;
+  color: var(--muted);
+  width: 100%;
+  flex-shrink: 0;
+}
+
+/* Lyrics */
+.lyrics-container {
+  flex: 1;
+  width: 100%;
+  overflow-y: auto;
+  padding: 0 1.75rem;
+  scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.lyrics-container::-webkit-scrollbar { display: none; }
+
+.lyric-spacer { height: 38vh; }
+
+.lyric-line {
+  font-size: 22px;
+  line-height: 1.5;
+  padding: 0.35rem 0;
+  transition: opacity 0.3s, color 0.3s, font-weight 0.2s;
+}
+
+.lyric-line.past   { opacity: 0.22; }
+.lyric-line.active { opacity: 1; font-weight: 700; }
+.lyric-line.future { opacity: 0.32; color: var(--muted); }
+
+/* Controls */
+.player-controls {
+  width: 100%;
+  padding: 0.75rem 1.5rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  flex-shrink: 0;
+}
+
+.progress-wrap { width: 100%; }
+
+.progress-track {
+  width: 100%;
+  height: 3px;
+  background: rgba(0,0,0,0.1);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 0.45rem;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 2px;
+  width: 0%;
+  transition: width 0.25s linear;
+}
+
+.progress-times {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--subtle);
+}
+
+.btn-play {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s, background 0.15s;
+  padding-left: 2px; /* optical centre for play triangle */
+}
+
+.btn-play:active {
+  transform: scale(0.93);
+  background: #C49595;
+}

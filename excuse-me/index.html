@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#FAF7F2">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Excuse Me</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ── Splash (first visit only) ─────────────────── -->
+  <div id="screen-splash" class="screen">
+    <svg class="leaf-deco" style="top:-30px;right:-20px;width:160px;" viewBox="0 0 120 160" fill="none">
+      <path d="M60 10 C90 10 110 40 110 80 C110 120 90 150 60 150 C30 150 10 120 10 80 C10 40 30 10 60 10Z" fill="#A8B5A0"/>
+      <line x1="60" y1="10" x2="60" y2="150" stroke="#A8B5A0" stroke-width="1.5"/>
+      <line x1="60" y1="50" x2="90" y2="70" stroke="#A8B5A0" stroke-width="1"/>
+      <line x1="60" y1="70" x2="30" y2="90" stroke="#A8B5A0" stroke-width="1"/>
+    </svg>
+    <svg class="leaf-deco" style="bottom:80px;left:-30px;width:110px;transform:rotate(120deg)" viewBox="0 0 120 160" fill="none">
+      <path d="M60 10 C90 10 110 40 110 80 C110 120 90 150 60 150 C30 150 10 120 10 80 C10 40 30 10 60 10Z" fill="#A8B5A0"/>
+      <line x1="60" y1="10" x2="60" y2="150" stroke="#A8B5A0" stroke-width="1.5"/>
+    </svg>
+
+    <div class="splash-icon">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#D4A5A5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+        <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+        <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+      </svg>
+    </div>
+
+    <h1 class="splash-title">"Excuse me,<br>do you have<br>a minute?"</h1>
+
+    <p class="splash-subtext">
+      This is an audio experience.<br>
+      Works best with earphones.<br>
+      Find a quiet spot and press begin.
+    </p>
+
+    <button id="btn-begin" class="btn-primary">Begin</button>
+
+    <p class="splash-footer">A story hidden in the Royal Botanic Gardens Melbourne</p>
+  </div>
+
+
+  <!-- ── Map ───────────────────────────────────────── -->
+  <div id="screen-map" class="screen">
+    <div class="map-header">
+      <h2 class="map-heading">Where are you?</h2>
+      <p class="map-subtext">Find a marked spot in the garden, then tap to listen.</p>
+    </div>
+
+    <!--
+      MAP AREA
+      ─────────────────────────────────────────────────
+      Replace the contents of #map-image-slot with:
+
+        Static image:
+          <img src="map.jpg" alt="Garden map">
+
+        Leaflet.js (add leaflet CSS/JS to <head> first):
+          <div id="leaflet-map"></div>
+
+      Pins sit on top via #map-pins, positioned as
+      percentages of this container (pinX / pinY in STOPS).
+      ─────────────────────────────────────────────────
+    -->
+    <div class="map-container">
+      <div class="map-image-slot" id="map-image-slot">
+        <div class="map-placeholder-label">
+          Map goes here
+          <small>Replace with image or Leaflet map</small>
+        </div>
+      </div>
+      <div class="map-pins" id="map-pins"></div>
+    </div>
+
+    <div class="parts-list" id="parts-list"></div>
+  </div>
+
+
+  <!-- ── Player (intro / stops / outro) ────────────── -->
+  <div id="screen-player" class="screen">
+    <div class="player-nav">
+      <button id="btn-back" class="btn-back">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+        <span id="btn-back-label">Skip</span>
+      </button>
+      <span class="player-part-badge" id="player-part-badge"></span>
+    </div>
+
+    <p class="player-location" id="player-location"></p>
+
+    <div id="lyrics-container" class="lyrics-container" aria-live="polite"></div>
+
+    <!-- Shown after intro speech ends — Yes/No choice -->
+    <div id="choice-buttons" class="choice-buttons" style="display:none">
+      <button id="btn-yes" class="btn-choice btn-yes">Yes, of course</button>
+      <button id="btn-no"  class="btn-choice btn-no">I'm sorry, I can't</button>
+    </div>
+
+    <div class="player-controls">
+      <div class="progress-wrap">
+        <div class="progress-track">
+          <div id="progress-fill" class="progress-fill"></div>
+        </div>
+        <div class="progress-times">
+          <span id="time-current">0:00</span>
+          <span id="time-total">0:00</span>
+        </div>
+      </div>
+      <button id="btn-play" class="btn-play" aria-label="Play / Pause">
+        <svg id="icon-play" width="26" height="26" viewBox="0 0 24 24" fill="#FAF7F2">
+          <polygon points="5 3 19 12 5 21 5 3"/>
+        </svg>
+        <svg id="icon-pause" width="26" height="26" viewBox="0 0 24 24" fill="#FAF7F2" style="display:none">
+          <rect x="6" y="4" width="4" height="16" rx="1"/>
+          <rect x="14" y="4" width="4" height="16" rx="1"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+
+  <!-- ── Closing screen ────────────────────────────── -->
+  <div id="screen-closing" class="screen">
+    <svg class="leaf-deco" style="top:-20px;right:-20px;width:140px;" viewBox="0 0 120 160" fill="none">
+      <path d="M60 10 C90 10 110 40 110 80 C110 120 90 150 60 150 C30 150 10 120 10 80 C10 40 30 10 60 10Z" fill="#A8B5A0"/>
+      <line x1="60" y1="10" x2="60" y2="150" stroke="#A8B5A0" stroke-width="1.5"/>
+    </svg>
+    <p class="closing-text">Annie will keep<br>waiting for Ron.</p>
+  </div>
+
+
+  <audio id="audio" preload="auto"></audio>
+
+
+  <script>
+    // ─────────────────────────────────────────────────
+    //  STORY DATA
+    //
+    //  INTRO   — intro speech, then yes/no branches
+    //  STOPS   — 3 location-based stories (on the map)
+    //  OUTRO   — plays after stop 3 or intro /No, then → closing
+    //
+    //  audioSrc   — filename in this folder
+    //  script     — { t: seconds, text: string }
+    //               t values are placeholders — update once
+    //               real audio is recorded.
+    //
+    //  STOPS also carry GPS proximity data:
+    //    gpsNear.audioSrc  — plays when entering range of the stop
+    //    gpsFar.audioSrc   — plays when leaving range without scanning
+    //    lat / lng / radius — add real coordinates to wire up
+    //                         to the Geolocation API
+    // ─────────────────────────────────────────────────
+
+    const INTRO = {
+      speech: {
+        audioSrc: 'audio-intro.mp3',
+        script: [
+          { t: 0,    text: 'Excuse me, do you have a minute.' },
+          { t: 4,    text: 'My name is Annie,' },
+          { t: 6,    text: 'I seem to have gotten a little lost.' },
+          { t: 10,   text: 'I\'m looking for my husband.' },
+          { t: 13.5, text: 'He said he\'d be waiting for me' },
+          { t: 16,   text: 'over at the bench near the lake.' },
+          { t: 20,   text: 'But I\'m a little confused' },
+          { t: 22.5, text: 'if I\'m by the Anderson Road entrance' },
+          { t: 25.5, text: 'or if I\'m closer to St Kilda Rd.' },
+        ],
+      },
+      yes: {
+        audioSrc: 'audio-intro-yes.mp3',
+        script: [
+          { t: 0,    text: 'Thank you!' },
+          { t: 2,    text: 'I\'m looking for my husband Ron,' },
+          { t: 5.5,  text: 'we come here just to sit in the park together.' },
+          { t: 9.5,  text: 'He called me not too long ago' },
+          { t: 12,   text: 'to say he\'d be here,' },
+          { t: 14.5, text: 'but now of course I can\'t reach him.' },
+          { t: 18,   text: 'Could you help me find him?' },
+        ],
+      },
+      no: {
+        audioSrc: 'audio-intro-no.mp3',
+        script: [
+          { t: 0,   text: 'Oh of course,' },
+          { t: 2.5, text: 'I didn\'t mean to be a bother.' },
+          { t: 6,   text: 'Enjoy the rest of your day.' },
+        ],
+      },
+    };
+
+    const STOPS = [
+      {
+        id: 1,
+        label: 'Stop 1',
+        location: 'The Lawn',
+        audioSrc: 'audio-1.mp3',
+        pinX: 38,
+        pinY: 55,
+        onEnd: 'map',
+        // ── GPS proximity ─────────────────────────────
+        // Wire these to the Geolocation API once you have
+        // real garden coordinates (lat/lng below).
+        lat: null, lng: null, radius: 15,
+        gpsNear: {
+          audioSrc: 'audio-1-near.mp3',
+          text: 'Wait do you mind if we walk over to that light pole in the middle',
+        },
+        gpsFar: {
+          audioSrc: 'audio-1-far.mp3',
+          text: 'Getting further away',
+        },
+        // ─────────────────────────────────────────────
+        script: [
+          { t: 0,    text: 'This is where Ron and I had our first date.' },
+          { t: 4,    text: 'Right here on this grass.' },
+          { t: 7,    text: 'He\'d organised a picnic —' },
+          { t: 9.5,  text: 'or maybe I did,' },
+          { t: 11.5, text: 'I can\'t remember now which one of us thought of it.' },
+          { t: 15.5, text: 'Funny isn\'t it, the things that go.' },
+          { t: 19.5, text: 'He was already there when I arrived.' },
+          { t: 23,   text: 'I remember he was so nervous' },
+          { t: 26,   text: 'he wore his favourite heavy wool coat,' },
+          { t: 29,   text: 'even though it was a beautiful warm afternoon.' },
+          { t: 33,   text: 'He was absolutely boiling but he wouldn\'t take it off.' },
+          { t: 38,   text: 'He always looked so handsome in that coat.' },
+          { t: 43,   text: '...' },
+          { t: 46,   text: '...Sorry, I don\'t know why I got so sad just then.' },
+          { t: 51,   text: 'I guess thinking about beautiful memories can do that to you.' },
+          { t: 57,   text: 'Anyway... he made me laugh almost immediately.' },
+          { t: 62,   text: 'And he asked me questions —' },
+          { t: 65,   text: 'real questions, not just polite ones.' },
+          { t: 69,   text: 'Like he actually wanted to know.' },
+          { t: 73,   text: 'I think that was the moment.' },
+          { t: 77,   text: 'Right here on this grass.' },
+          { t: 80,   text: 'I think that was when I knew.' },
+        ],
+      },
+      {
+        id: 2,
+        label: 'Stop 2',
+        location: 'The Gazebo',
+        audioSrc: 'audio-2.mp3',
+        pinX: 62,
+        pinY: 30,
+        onEnd: 'map',
+        lat: null, lng: null, radius: 15,
+        gpsNear: {
+          audioSrc: 'audio-2-near.mp3',
+          text: 'Aww it\'s the gazebo! I have so many precious memories there, do you mind if we wander over, it\'ll probably help jog my memory a little?',
+        },
+        gpsFar: {
+          audioSrc: 'audio-2-far.mp3',
+          text: 'Hmm I think we\'ve gone the wrong way, let\'s head back... sometimes retracing your steps helps',
+        },
+        script: [
+          { t: 0,    text: 'Oh the gazebo.' },
+          { t: 3,    text: 'Both my children had their birthday parties here.' },
+          { t: 7,    text: 'Every year, same spot, same little faces.' },
+          { t: 11,   text: 'They\'re grown now.' },
+          { t: 13.5, text: 'Very successful, both of them.' },
+          { t: 16.5, text: 'Off living their own lives —' },
+          { t: 19,   text: 'which is what you want isn\'t it.' },
+          { t: 22,   text: 'That\'s what you work for.' },
+          { t: 25,   text: 'I just wish I got to see' },
+          { t: 27.5, text: 'or at least hear from them more.' },
+          { t: 30.5, text: 'I miss my little babies.' },
+          { t: 34.5, text: 'I keep meaning to ring them.' },
+          { t: 37.5, text: 'They worry about me since their father....' },
+          { t: 42,   text: 'Well their father likes to worry about me too' },
+          { t: 46,   text: 'so I think they\'ve just picked that habit up from him.' },
+          { t: 50.5, text: 'Haha.' },
+          { t: 52,   text: 'He says I\'d lose my head if it wasn\'t screwed on.' },
+          { t: 56.5, text: 'But this place.' },
+          { t: 59,   text: 'I always remember this place.' },
+          { t: 62,   text: 'Standing right here watching them run around' },
+          { t: 65.5, text: 'with their little friends,' },
+          { t: 67.5, text: 'Ron with the cake,' },
+          { t: 69.5, text: 'me trying to keep everyone together.' },
+          { t: 73,   text: 'We were so busy back then.' },
+          { t: 76.5, text: 'I didn\'t know how lucky we were.' },
+          { t: 80.5, text: 'I\'d give anything to be that busy again.' },
+        ],
+      },
+      {
+        id: 3,
+        label: 'Stop 3',
+        location: 'The Lake Bench',
+        audioSrc: 'audio-3.mp3',
+        pinX: 24,
+        pinY: 65,
+        onEnd: 'outro',
+        lat: null, lng: null, radius: 15,
+        gpsNear: {
+          audioSrc: 'audio-3-near.mp3',
+          text: 'Oh... is that the bench near the water? I think that\'s where Ron said he\'d meet me. Do you mind if we head over? I\'m sure it\'ll come back to me when I get there.',
+        },
+        gpsFar: {
+          audioSrc: 'audio-3-far.mp3',
+          text: 'Hmm I think we\'ve gone the wrong way, let\'s head back... sometimes retracing your steps helps',
+        },
+        script: [
+          { t: 0,    text: 'Oh I\'m so silly,' },
+          { t: 2.5,  text: 'this is the bench I was looking for.' },
+          { t: 6,    text: 'I don\'t know how I managed to confuse myself.' },
+          { t: 10,   text: 'This is where Ron always waits for me.' },
+          { t: 14,   text: 'Always this bench, always facing the water.' },
+          { t: 18,   text: 'He says I\'m slow' },
+          { t: 20,   text: 'but I think he just likes the quiet' },
+          { t: 22.5, text: 'before I arrive and talk his ear off.' },
+          { t: 27,   text: '...He\'s not here yet.' },
+          { t: 31,   text: 'That\'s alright.' },
+          { t: 34,   text: '...I did ring him.' },
+          { t: 37,   text: 'I\'m sure I did.' },
+          { t: 39.5, text: 'Or maybe that was yesterday.' },
+          { t: 43.5, text: 'It\'s so lovely here.' },
+          { t: 46.5, text: 'We\'ve sat here so many times.' },
+          { t: 49.5, text: 'In all kinds of weather.' },
+          { t: 52.5, text: 'He always brings a thermos when it\'s cold.' },
+          { t: 57,   text: 'I\'ll just wait.' },
+          { t: 59.5, text: 'He\'s never long.' },
+          { t: 63,   text: '...Thank you for helping me out today.' },
+          { t: 67,   text: 'It was very kind of you to walk with me.' },
+          { t: 71.5, text: 'You go ahead now.' },
+          { t: 74,   text: 'Enjoy the rest of your day.' },
+          { t: 77.5, text: 'I\'ll be alright here.' },
+        ],
+      },
+    ];
+
+    const OUTRO = {
+      audioSrc: 'audio-outro.mp3',
+      script: [
+        { t: 0,   text: 'Oh of course,' },
+        { t: 2.5, text: 'thank you so much for helping me out.' },
+        { t: 6.5, text: 'I\'m sure I\'ll find him soon.' },
+        { t: 10,  text: 'Have a lovely day.' },
+      ],
+    };
+
+    // ─────────────────────────────────────────────────
+    //  State
+    //  mode: 'intro' | 'intro-yes' | 'intro-no'
+    //        | 'stop' | 'outro'
+    // ─────────────────────────────────────────────────
+    const listened    = new Set();
+    let currentStopId = null;
+    let activeLine    = -1;
+    let mode          = null;
+
+    // Text-only fallback (used when audio file is missing)
+    let textTimer    = null;
+    let textLineIdx  = -1;
+    let textActive   = false;
+
+    // Tracks which stops have been tapped at least once
+    const visited = new Set();
+
+    // ─────────────────────────────────────────────────
+    //  DOM refs
+    // ─────────────────────────────────────────────────
+    const audio          = document.getElementById('audio');
+    const btnBegin       = document.getElementById('btn-begin');
+    const btnBack        = document.getElementById('btn-back');
+    const btnBackLabel   = document.getElementById('btn-back-label');
+    const btnPlay        = document.getElementById('btn-play');
+    const btnYes         = document.getElementById('btn-yes');
+    const btnNo          = document.getElementById('btn-no');
+    const choiceButtons  = document.getElementById('choice-buttons');
+    const iconPlay       = document.getElementById('icon-play');
+    const iconPause      = document.getElementById('icon-pause');
+    const screenSplash   = document.getElementById('screen-splash');
+    const screenMap      = document.getElementById('screen-map');
+    const screenPlayer   = document.getElementById('screen-player');
+    const screenClosing  = document.getElementById('screen-closing');
+    const lyricsEl       = document.getElementById('lyrics-container');
+    const progFill       = document.getElementById('progress-fill');
+    const timeCurrent    = document.getElementById('time-current');
+    const timeTotal      = document.getElementById('time-total');
+    const playerBadge    = document.getElementById('player-part-badge');
+    const playerLoc      = document.getElementById('player-location');
+    const mapPinsEl      = document.getElementById('map-pins');
+    const partsListEl    = document.getElementById('parts-list');
+
+    // ─────────────────────────────────────────────────
+    //  Initialise
+    //
+    //  QR codes link to ?stop=1, ?stop=2, ?stop=3
+    //  First visit → splash → intro → yes/no → map or closing
+    //  Returning   → skip straight to stop or map
+    // ─────────────────────────────────────────────────
+    const urlStop    = parseInt(new URLSearchParams(location.search).get('stop'), 10) || null;
+    const firstVisit = !localStorage.getItem('excuse-me-visited');
+
+    if (firstVisit) {
+      screenSplash.classList.add('active');
+    } else {
+      renderStopList();
+      if (urlStop) {
+        openStop(urlStop);
+      } else {
+        screenMap.classList.add('active');
+      }
+    }
+
+    // ─────────────────────────────────────────────────
+    //  Screen transitions
+    // ─────────────────────────────────────────────────
+    function transitionTo(next) {
+      const cur = document.querySelector('.screen.active');
+      if (cur && cur !== next) cur.classList.add('leaving');
+      setTimeout(() => {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active', 'leaving'));
+        next.classList.add('active');
+      }, cur ? 380 : 0);
+    }
+
+    // ─────────────────────────────────────────────────
+    //  Build map pins (once on load)
+    // ─────────────────────────────────────────────────
+    STOPS.forEach(stop => {
+      const pin = document.createElement('button');
+      pin.className = 'map-pin';
+      pin.id = `pin-${stop.id}`;
+      pin.style.left = stop.pinX + '%';
+      pin.style.top  = stop.pinY + '%';
+      pin.setAttribute('aria-label', stop.location);
+      pin.addEventListener('click', () => openStop(stop.id));
+      mapPinsEl.appendChild(pin);
+    });
+
+    // ─────────────────────────────────────────────────
+    //  Render stop list
+    // ─────────────────────────────────────────────────
+    function renderStopList() {
+      partsListEl.innerHTML = '';
+      STOPS.forEach(stop => {
+        const seen = visited.has(stop.id);
+        const card = document.createElement('button');
+        card.className = 'part-card' + (seen ? ' visited' : '');
+        card.innerHTML = `
+          <span class="part-card-loc">${stop.location}</span>
+          ${seen ? '' : '<span class="part-card-arrow">→</span>'}
+        `;
+        card.addEventListener('click', () => openStop(stop.id));
+        partsListEl.appendChild(card);
+      });
+    }
+
+    // ─────────────────────────────────────────────────
+    //  Player openers
+    // ─────────────────────────────────────────────────
+    function openIntro() {
+      mode          = 'intro';
+      currentStopId = null;
+      activeLine    = -1;
+      choiceButtons.style.display = 'none';
+      playerBadge.textContent  = '';
+      playerLoc.textContent    = '';
+      btnBackLabel.textContent = 'Skip';
+      loadAudio(INTRO.speech.audioSrc, INTRO.speech.script);
+      transitionTo(screenPlayer);
+      setTimeout(() => audio.play().then(() => setPlayIcon(true)).catch(() => startTextMode()), 420);
+    }
+
+    function openIntroYes() {
+      mode          = 'intro-yes';
+      activeLine    = -1;
+      choiceButtons.style.display = 'none';
+      btnBackLabel.textContent = 'Skip';
+      loadAudio(INTRO.yes.audioSrc, INTRO.yes.script);
+      setTimeout(() => audio.play().then(() => setPlayIcon(true)).catch(() => startTextMode()), 50);
+    }
+
+    function openIntroNo() {
+      mode          = 'intro-no';
+      activeLine    = -1;
+      choiceButtons.style.display = 'none';
+      btnBackLabel.textContent = '';
+      loadAudio(INTRO.no.audioSrc, INTRO.no.script);
+      setTimeout(() => audio.play().then(() => setPlayIcon(true)).catch(() => startTextMode()), 50);
+    }
+
+    function openStop(stopId) {
+      const stop = STOPS.find(s => s.id === stopId);
+      if (!stop) return;
+      visited.add(stopId);
+      mode          = 'stop';
+      currentStopId = stopId;
+      activeLine    = -1;
+      choiceButtons.style.display = 'none';
+      playerBadge.textContent  = '';
+      playerLoc.textContent    = stop.location;
+      btnBackLabel.textContent = 'Map';
+      loadAudio(stop.audioSrc, stop.script);
+      transitionTo(screenPlayer);
+      setTimeout(() => audio.play().then(() => setPlayIcon(true)).catch(() => startTextMode()), 420);
+    }
+
+    function openOutro() {
+      mode          = 'outro';
+      currentStopId = null;
+      activeLine    = -1;
+      choiceButtons.style.display = 'none';
+      playerBadge.textContent  = '';
+      playerLoc.textContent    = '';
+      btnBackLabel.textContent = '';
+      loadAudio(OUTRO.audioSrc, OUTRO.script);
+      setTimeout(() => audio.play().then(() => setPlayIcon(true)).catch(() => startTextMode()), 50);
+    }
+
+    // ─────────────────────────────────────────────────
+    //  Shared audio loader
+    // ─────────────────────────────────────────────────
+    function loadAudio(src, lines) {
+      stopTextMode();
+      textActive  = false;
+      textLineIdx = -1;
+      audio.pause();
+      audio.src         = src;
+      audio.currentTime = 0;
+      progFill.style.width    = '0%';
+      timeCurrent.textContent = '0:00';
+      timeTotal.textContent   = '0:00';
+      setPlayIcon(false);
+
+      lyricsEl.innerHTML = '';
+      const top = document.createElement('div');
+      top.className = 'lyric-spacer';
+      lyricsEl.appendChild(top);
+      lines.forEach(line => {
+        const el = document.createElement('p');
+        el.className   = 'lyric-line future';
+        el.textContent = line.text;
+        lyricsEl.appendChild(el);
+      });
+      const bot = document.createElement('div');
+      bot.className = 'lyric-spacer';
+      lyricsEl.appendChild(bot);
+    }
+
+    // ─────────────────────────────────────────────────
+    //  Text-only fallback — steps through lines on a
+    //  timer when no audio file is present.
+    //  Spacing uses the t values from the script array.
+    //  Replaced automatically once real audio is added.
+    // ─────────────────────────────────────────────────
+    function startTextMode() {
+      textActive  = true;
+      textLineIdx = -1;
+      setPlayIcon(true);
+      stepText();
+    }
+
+    function stepText() {
+      const lines   = getCurrentScript();
+      const lineEls = lyricsEl.querySelectorAll('.lyric-line');
+      textLineIdx++;
+
+      if (textLineIdx >= lines.length) {
+        stopTextMode();
+        onPlaybackEnded();
+        return;
+      }
+
+      activeLine = textLineIdx;
+      lineEls.forEach((el, i) => {
+        el.classList.remove('past', 'active', 'future');
+        if      (i < textLineIdx)  el.classList.add('past');
+        else if (i === textLineIdx) el.classList.add('active');
+        else                       el.classList.add('future');
+      });
+
+      if (lineEls[textLineIdx]) {
+        const el = lineEls[textLineIdx];
+        lyricsEl.scrollTo({
+          top:      el.offsetTop - lyricsEl.clientHeight / 2 + el.offsetHeight / 2,
+          behavior: 'smooth',
+        });
+      }
+
+      // Progress and time display
+      const total    = lines[lines.length - 1].t + 4;
+      const current  = lines[textLineIdx].t;
+      progFill.style.width    = (current / total * 100) + '%';
+      timeCurrent.textContent = formatTime(current);
+      timeTotal.textContent   = formatTime(total);
+
+      // Delay until the next line using script t spacing
+      const nextT = lines[textLineIdx + 1]?.t;
+      const delay = nextT !== undefined ? (nextT - current) * 1000 : 4000;
+      textTimer = setTimeout(stepText, Math.max(delay, 1200));
+    }
+
+    function stopTextMode() {
+      if (textTimer) { clearTimeout(textTimer); textTimer = null; }
+    }
+
+    // Fires when audio ends OR text mode finishes all lines
+    function onPlaybackEnded() {
+      setPlayIcon(false);
+      switch (mode) {
+        case 'intro':
+          choiceButtons.style.display = 'flex';
+          break;
+        case 'intro-yes':
+          renderStopList();
+          urlStop ? openStop(urlStop) : transitionTo(screenMap);
+          break;
+        case 'intro-no':
+          openOutro();
+          break;
+        case 'stop': {
+          listened.add(currentStopId);
+          document.getElementById(`pin-${currentStopId}`)?.classList.add('visited');
+          const stop = STOPS.find(s => s.id === currentStopId);
+          if (stop?.onEnd === 'outro') openOutro();
+          break;
+        }
+        case 'outro':
+          transitionTo(screenClosing);
+          break;
+      }
+    }
+
+    // ─────────────────────────────────────────────────
+    //  Play / pause
+    // ─────────────────────────────────────────────────
+    function setPlayIcon(playing) {
+      iconPlay.style.display  = playing ? 'none'  : 'block';
+      iconPause.style.display = playing ? 'block' : 'none';
+    }
+
+    btnPlay.addEventListener('click', () => {
+      if (textActive) {
+        if (textTimer) {
+          stopTextMode();
+          setPlayIcon(false);
+        } else {
+          setPlayIcon(true);
+          // Resume — step from where we are after a short beat
+          const lines = getCurrentScript();
+          const nextT = lines[textLineIdx + 1]?.t;
+          const cur   = lines[textLineIdx]?.t ?? 0;
+          const delay = nextT !== undefined ? (nextT - cur) * 1000 : 4000;
+          textTimer = setTimeout(stepText, Math.max(delay, 1200));
+        }
+        return;
+      }
+      if (audio.paused) {
+        audio.play().then(() => setPlayIcon(true)).catch(() => {});
+      } else {
+        audio.pause();
+        setPlayIcon(false);
+      }
+    });
+
+    // ─────────────────────────────────────────────────
+    //  Lyrics sync
+    // ─────────────────────────────────────────────────
+    function getCurrentScript() {
+      switch (mode) {
+        case 'intro':     return INTRO.speech.script;
+        case 'intro-yes': return INTRO.yes.script;
+        case 'intro-no':  return INTRO.no.script;
+        case 'outro':     return OUTRO.script;
+        case 'stop': {
+          const stop = STOPS.find(s => s.id === currentStopId);
+          return stop ? stop.script : [];
+        }
+        default: return [];
+      }
+    }
+
+    function updateLyrics(t) {
+      const lines   = getCurrentScript();
+      const lineEls = lyricsEl.querySelectorAll('.lyric-line');
+      if (!lineEls.length) return;
+
+      let idx = -1;
+      for (let i = 0; i < lines.length; i++) {
+        if (t >= lines[i].t) idx = i; else break;
+      }
+      if (idx === activeLine) return;
+      activeLine = idx;
+
+      lineEls.forEach((el, i) => {
+        el.classList.remove('past', 'active', 'future');
+        if      (i < idx)  el.classList.add('past');
+        else if (i === idx) el.classList.add('active');
+        else               el.classList.add('future');
+      });
+
+      if (idx >= 0) {
+        const el = lineEls[idx];
+        lyricsEl.scrollTo({
+          top:      el.offsetTop - lyricsEl.clientHeight / 2 + el.offsetHeight / 2,
+          behavior: 'smooth',
+        });
+      }
+    }
+
+    // ─────────────────────────────────────────────────
+    //  Audio events
+    // ─────────────────────────────────────────────────
+    audio.addEventListener('timeupdate', () => {
+      const t   = audio.currentTime;
+      const dur = audio.duration || 0;
+      updateLyrics(t);
+      if (dur > 0) {
+        progFill.style.width    = (t / dur * 100) + '%';
+        timeCurrent.textContent = formatTime(t);
+        timeTotal.textContent   = formatTime(dur);
+      }
+    });
+
+    audio.addEventListener('loadedmetadata', () => {
+      timeTotal.textContent = formatTime(audio.duration);
+    });
+
+    audio.addEventListener('ended', onPlaybackEnded);
+
+    // No audio file found — fall back to text-only timer
+    audio.addEventListener('error', () => {
+      if (!textActive) startTextMode();
+    });
+
+    // ─────────────────────────────────────────────────
+    //  Navigation
+    // ─────────────────────────────────────────────────
+
+    // First visit: splash → intro
+    btnBegin.addEventListener('click', () => {
+      localStorage.setItem('excuse-me-visited', '1');
+      btnBegin.disabled = true;
+      renderStopList();
+      openIntro();
+    });
+
+    // Back button — behaviour depends on mode
+    btnBack.addEventListener('click', () => {
+      audio.pause();
+      setPlayIcon(false);
+      choiceButtons.style.display = 'none';
+      if (mode === 'intro' || mode === 'intro-yes') {
+        // Skipping intro = go to map
+        renderStopList();
+        if (urlStop) {
+          openStop(urlStop);
+        } else {
+          transitionTo(screenMap);
+        }
+      } else if (mode === 'stop') {
+        renderStopList();
+        transitionTo(screenMap);
+      }
+      // intro-no and outro have no back — btnBackLabel is '' so button is invisible
+    });
+
+    // Yes / No choice (shown after intro speech ends)
+    btnYes.addEventListener('click', () => openIntroYes());
+    btnNo.addEventListener('click',  () => openIntroNo());
+
+    // ─────────────────────────────────────────────────
+    //  Helpers
+    // ─────────────────────────────────────────────────
+    function formatTime(s) {
+      if (!isFinite(s)) return '0:00';
+      return `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+    }
+
+    // ─────────────────────────────────────────────────
+    //  GPS proximity — wire up here once coordinates known
+    //
+    //  Example structure (uncomment and fill real coords):
+    //
+    //  navigator.geolocation.watchPosition(pos => {
+    //    STOPS.forEach(stop => {
+    //      if (!stop.lat || listened.has(stop.id)) return;
+    //      const dist = haversine(pos.coords, { lat: stop.lat, lng: stop.lng });
+    //      if (dist < stop.radius) {
+    //        // play stop.gpsNear.audioSrc
+    //      } else if (dist > stop.radius * 3) {
+    //        // play stop.gpsFar.audioSrc (once, if near prompt was already given)
+    //      }
+    //    });
+    //  });
+    // ─────────────────────────────────────────────────
+  </script>
+</body>
+</html>
