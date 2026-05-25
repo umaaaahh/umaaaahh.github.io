@@ -474,8 +474,11 @@
               audio.src = GPS.outOfRange;
               audio.play().catch(() => {});
             } else if (dist < stop.radius && GPS.near[stop.id]) {
-              audio.src = GPS.near[stop.id];
-              audio.play().catch(() => {});
+              const nearPrompt = GPS.near[stop.id];
+              const src    = typeof nearPrompt === 'string' ? nearPrompt : nearPrompt.audioSrc;
+              const script = typeof nearPrompt === 'object' ? nearPrompt.script : [];
+              loadTrack(src, script);
+              playTrack();
             }
           });
         }, null, { enableHighAccuracy: true, maximumAge: 5000 });
