@@ -28,6 +28,7 @@ function loadTrack(src, script) {
 
   audio.pause();
   audio.src         = src;
+  audio.load();           // reset error/stall state — required on iOS when switching src
   audio.currentTime = 0;
 
   progFill.style.width    = '0%';

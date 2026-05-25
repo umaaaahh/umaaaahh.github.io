@@ -14,7 +14,7 @@ const INTRO = {
     ],
   },
   yes: {
-    audioSrc: 'https://pub-4150616b72844a3b9af9a5aa28511c95.r2.dev/Annie%20-%20Intro-%20Yes%202.aac',
+    audioSrc: 'https://pub-4150616b72844a3b9af9a5aa28511c95.r2.dev/Annie%20-%20Intro-%20Yes.mp3',
     script: [
       { t: 0,    text: 'Thank you!' },
       { t: 2,    text: 'I\'m looking for my husband Ron,' },

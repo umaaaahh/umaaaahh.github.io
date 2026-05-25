@@ -290,14 +290,14 @@
       currentContext = { phase: 'intro-yes', stopId };
       setPlayerUI({});
       loadTrack(INTRO.yes.audioSrc, INTRO.yes.script);
-      setTimeout(playTrack, 50);
+      playTrack();   // synchronous — preserves iOS user-gesture chain
     });
 
     document.getElementById('btn-no').addEventListener('click', () => {
       currentContext = { phase: 'intro-no' };
       setPlayerUI({});
       loadTrack(INTRO.no.audioSrc, INTRO.no.script);
-      setTimeout(playTrack, 50);
+      playTrack();   // synchronous — preserves iOS user-gesture chain
     });
 
     document.getElementById('btn-skip').addEventListener('click', () => {
