@@ -1,0 +1,152 @@
+const INTRO = {
+  speech: {
+    audioSrc: 'https://pub-4150616b72844a3b9af9a5aa28511c95.r2.dev/Annie%20-%20Intro_01.aac',
+    script: [
+      { t: 0,    text: 'Excuse me, do you have a minute.' },
+      { t: 4,    text: 'My name is Annie,' },
+      { t: 6,    text: 'I seem to have gotten a little lost.' },
+      { t: 10,   text: 'I\'m looking for my husband.' },
+      { t: 13.5, text: 'He said he\'d be waiting for me' },
+      { t: 16,   text: 'over at the bench near the lake.' },
+      { t: 20,   text: 'But I\'m a little confused' },
+      { t: 22.5, text: 'if I\'m by the Anderson Road entrance' },
+      { t: 25.5, text: 'or if I\'m closer to St Kilda Rd.' },
+    ],
+  },
+  yes: {
+    audioSrc: 'https://pub-4150616b72844a3b9af9a5aa28511c95.r2.dev/Annie%20-%20Intro-%20Yes%202.aac',
+    script: [
+      { t: 0,    text: 'Thank you!' },
+      { t: 2,    text: 'I\'m looking for my husband Ron,' },
+      { t: 5.5,  text: 'we come here just to sit in the park together.' },
+      { t: 9.5,  text: 'He called me not too long ago' },
+      { t: 12,   text: 'to say he\'d be here,' },
+      { t: 14.5, text: 'but now of course I can\'t reach him.' },
+      { t: 18,   text: 'Could you help me find him?' },
+    ],
+  },
+  no: {
+    audioSrc: 'https://pub-4150616b72844a3b9af9a5aa28511c95.r2.dev/intro-no.aac',
+    script: [
+      { t: 0,   text: 'Oh of course,' },
+      { t: 2.5, text: 'I didn\'t mean to be a bother.' },
+      { t: 6,   text: 'Enjoy the rest of your day.' },
+    ],
+  },
+};
+
+const STOPS = [
+  {
+    id: 1,
+    location: 'The Gazebo',
+    audioSrc: 'audio-2.mp3',
+    pinX: 62, pinY: 30,
+    onEnd: 'map',
+    lat: -37.8315, lng: 144.9832, radius: 15, // Tecoma Pavilion area
+    script: [
+      { t: 0,    text: 'Oh the gazebo.' },
+      { t: 3,    text: 'Both my children had their birthday parties here.' },
+      { t: 7,    text: 'Every year, same spot, same little faces.' },
+      { t: 11,   text: 'They\'re grown now.' },
+      { t: 13.5, text: 'Very successful, both of them.' },
+      { t: 16.5, text: 'Off living their own lives —' },
+      { t: 19,   text: 'which is what you want isn\'t it.' },
+      { t: 22,   text: 'That\'s what you work for.' },
+      { t: 25,   text: 'I just wish I got to see' },
+      { t: 27.5, text: 'or at least hear from them more.' },
+      { t: 30.5, text: 'I miss my little babies.' },
+      { t: 34.5, text: 'I keep meaning to ring them.' },
+      { t: 37.5, text: 'They worry about me since their father....' },
+      { t: 42,   text: 'Well their father likes to worry about me too' },
+      { t: 46,   text: 'so I think they\'ve just picked that habit up from him.' },
+      { t: 50.5, text: 'Haha.' },
+      { t: 52,   text: 'He says I\'d lose my head if it wasn\'t screwed on.' },
+      { t: 56.5, text: 'But this place.' },
+      { t: 59,   text: 'I always remember this place.' },
+      { t: 62,   text: 'Standing right here watching them run around' },
+      { t: 65.5, text: 'with their little friends,' },
+      { t: 67.5, text: 'Ron with the cake,' },
+      { t: 69.5, text: 'me trying to keep everyone together.' },
+      { t: 73,   text: 'We were so busy back then.' },
+      { t: 76.5, text: 'I didn\'t know how lucky we were.' },
+      { t: 80.5, text: 'I\'d give anything to be that busy again.' },
+    ],
+  },
+  {
+    id: 2,
+    location: 'The Lawn',
+    audioSrc: 'https://pub-4150616b72844a3b9af9a5aa28511c95.r2.dev/stop%201%20-%20The%20Lawn-%20QR%20Code.aac',
+    pinX: 38, pinY: 55,
+    onEnd: 'map',
+    lat: -37.8306, lng: 144.9813, radius: 15, // Central Lawn
+    script: [
+      { t: 0,    text: 'So, this is the lawn.' },
+      { t: 2.5,  text: 'This is where Ron and I had our very first date.' },
+      { t: 7,    text: 'We had a picnic,' },
+      { t: 9,    text: 'and I can\'t quite remember whose idea it was,' },
+      { t: 12.5, text: 'but I remember arriving and seeing Ron already there.' },
+      { t: 17,   text: 'He was so nervous, bless him.' },
+      { t: 20.5, text: 'He was wearing his favourite woolen coat,' },
+      { t: 24,   text: 'and it was a really warm afternoon.' },
+      { t: 27.5, text: 'He was absolutely boiling,' },
+      { t: 30,   text: 'but he wouldn\'t take it off' },
+      { t: 32.5, text: 'because he wanted to look his best for me.' },
+      { t: 37,   text: 'I think I knew then' },
+      { t: 39.5, text: 'that he was the one.' },
+    ],
+  },
+  {
+    id: 3,
+    location: 'The Lake Bench',
+    audioSrc: 'audio-3.mp3',
+    pinX: 24, pinY: 65,
+    onEnd: 'closing',
+    lat: -37.8283, lng: 144.9831, radius: 15, // Lakeview Rest House / Ornamental Lake bench
+    script: [
+      { t: 0,    text: 'Oh I\'m so silly,' },
+      { t: 2.5,  text: 'this is the bench I was looking for.' },
+      { t: 6,    text: 'I don\'t know how I managed to confuse myself.' },
+      { t: 10,   text: 'This is where Ron always waits for me.' },
+      { t: 14,   text: 'Always this bench, always facing the water.' },
+      { t: 18,   text: 'He says I\'m slow' },
+      { t: 20,   text: 'but I think he just likes the quiet' },
+      { t: 22.5, text: 'before I arrive and talk his ear off.' },
+      { t: 27,   text: '...He\'s not here yet.' },
+      { t: 31,   text: 'That\'s alright.' },
+      { t: 34,   text: '...I did ring him.' },
+      { t: 37,   text: 'I\'m sure I did.' },
+      { t: 39.5, text: 'Or maybe that was yesterday.' },
+      { t: 43.5, text: 'It\'s so lovely here.' },
+      { t: 46.5, text: 'We\'ve sat here so many times.' },
+      { t: 49.5, text: 'In all kinds of weather.' },
+      { t: 52.5, text: 'He always brings a thermos when it\'s cold.' },
+      { t: 57,   text: 'I\'ll just wait.' },
+      { t: 59.5, text: 'He\'s never long.' },
+      { t: 63,   text: '...Thank you for helping me out today.' },
+      { t: 67,   text: 'It was very kind of you to walk with me.' },
+      { t: 71.5, text: 'You go ahead now.' },
+      { t: 74,   text: 'Enjoy the rest of your day.' },
+      { t: 77.5, text: 'I\'ll be alright here.' },
+    ],
+  },
+];
+
+const GPS = {
+  outOfRange: 'https://pub-4150616b72844a3b9af9a5aa28511c95.r2.dev/GPS%20out%20of%20range%20prompt.aac',
+  near: {
+    // per-stop near prompts — add audioSrc here when recorded
+    1: null,
+    2: null,
+    3: null,
+  },
+};
+
+const OUTRO = {
+  audioSrc: 'https://pub-4150616b72844a3b9af9a5aa28511c95.r2.dev/Outro%20-%20part%201_01.aac',
+  script: [
+    { t: 0,   text: 'Oh of course,' },
+    { t: 2.5, text: 'thank you so much for helping me out.' },
+    { t: 6.5, text: 'I\'m sure I\'ll find him soon.' },
+    { t: 10,  text: 'Have a lovely day.' },
+  ],
+};

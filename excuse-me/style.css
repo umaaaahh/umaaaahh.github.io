@@ -21,24 +21,27 @@ html, body {
   font-family: var(--font);
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent; /* no blue flash on iOS tap */
 }
 
-button { font-family: var(--font); }
+button {
+  font-family: var(--font);
+  touch-action: manipulation;        /* removes 300 ms tap delay */
+  user-select: none;                 /* no accidental text selection */
+  -webkit-user-select: none;
+}
 
 
-/* ── Screens ──────────────────────────────────────── */
+/* ── Screen system ─────────────────────────────────── */
 .screen {
   position: fixed;
   inset: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
   background: var(--bg);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.38s ease;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
 }
 
 .screen.active {
@@ -51,18 +54,34 @@ button { font-family: var(--font); }
   pointer-events: none;
 }
 
-
-/* ── Splash ───────────────────────────────────────── */
-#screen-splash {
+/* Per-screen layout overrides */
+#view-splash {
+  align-items: center;
   justify-content: center;
-  padding: 3rem 2rem;
-  overflow: hidden;
   text-align: center;
+  padding: calc(env(safe-area-inset-top, 0px) + 3rem) 2rem
+           calc(env(safe-area-inset-bottom, 0px) + 3rem);
+  overflow: hidden;
 }
 
+#view-map {
+  align-items: stretch;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+#view-closing {
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: calc(env(safe-area-inset-top, 0px) + 2rem) 2rem
+           calc(env(safe-area-inset-bottom, 0px) + 2rem);
+}
+
+
+/* ── Splash ────────────────────────────────────────── */
 .leaf-deco {
   position: absolute;
-  opacity: 0.07;
   pointer-events: none;
 }
 
@@ -119,38 +138,58 @@ button { font-family: var(--font); }
 
 .splash-footer {
   position: absolute;
-  bottom: 1.5rem;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 1.5rem);
   font-size: 11px;
   color: var(--subtle);
   letter-spacing: 0.05em;
 }
 
 
-/* ── Map screen ───────────────────────────────────── */
-#screen-map {
-  justify-content: flex-start;
-  align-items: stretch;
-  padding: 0;
-}
-
-.map-header {
-  padding: 2.75rem 1.5rem 0.9rem;
-  text-align: center;
+/* ── Map ───────────────────────────────────────────── */
+.map-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: calc(env(safe-area-inset-top, 0px) + 1.25rem) 1.25rem 0.5rem;
+  width: 100%;
   flex-shrink: 0;
 }
 
-.map-heading {
-  font-size: 20px;
-  font-weight: 700;
-  margin-bottom: 0.3rem;
+.btn-scan {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.06);
+  border: none;
+  color: var(--ink);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
 }
 
-.map-subtext {
-  font-size: 13px;
-  color: var(--muted);
+.btn-scan:active { background: rgba(0,0,0,0.12); }
+
+.btn-x {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #E8B4B4;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, transform 0.15s;
 }
 
-/* Map + pins wrapper */
+.btn-x:active {
+  background: #C49595;
+  transform: scale(0.93);
+}
+
 .map-container {
   position: relative;
   width: 100%;
@@ -158,85 +197,52 @@ button { font-family: var(--font); }
   flex-shrink: 0;
 }
 
-/* ── INSERT YOUR MAP HERE ─────────────────────────────
-   Replace the contents of #map-image-slot with:
-     <img src="map.jpg" alt="Garden map">
-   or mount Leaflet into a child div.
-   Images should fill the slot:
-     img { width:100%; height:100%; object-fit:cover; display:block; }
-   ───────────────────────────────────────────────── */
 .map-image-slot {
   position: absolute;
   inset: 0;
   background: #DDE5D8;
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
-.map-image-slot img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+/* Render base tiles in b&w so the coloured SVG overlay pops */
+.map-image-slot .leaflet-tile-pane {
+  filter: grayscale(1) contrast(1.05) brightness(1.05);
 }
 
-.map-placeholder-label {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 13px;
-  color: var(--muted);
-  text-align: center;
-  border: 1.5px dashed rgba(0,0,0,0.18);
-  padding: 1.25rem 2rem;
-  border-radius: 10px;
-  pointer-events: none;
-  user-select: none;
-}
 
-.map-placeholder-label small {
-  font-size: 11px;
-  opacity: 0.65;
-}
-
-/* Pins layer — sits over the map image */
-.map-pins {
-  position: absolute;
-  inset: 0;
-}
-
+/* ── Stop pins (Leaflet divIcon teardrop markers) ── */
 .map-pin {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: var(--accent);
-  border: 2.5px solid rgba(255,255,255,0.85);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  color: var(--subtle);          /* greyed-out until activated */
   cursor: pointer;
-  pointer-events: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.15s, box-shadow 0.15s;
-}
-
-.map-pin:active {
-  transform: translate(-50%, -50%) scale(1.2);
-  box-shadow: 0 4px 14px rgba(0,0,0,0.22);
+  line-height: 0;                /* collapse wrapper to SVG size */
+  filter: drop-shadow(0 2px 5px rgba(0,0,0,0.20));
+  transition: color 0.35s ease, filter 0.15s, transform 0.15s;
 }
 
 .map-pin.visited {
-  background: var(--green);
+  color: var(--accent);          /* dusty rose once QR is scanned */
 }
 
-/* Parts list */
+.map-pin:active { transform: scale(1.15); }
+
+/* ── User location dot ─────────────────────────────── */
+.user-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #4A90D9;
+  border: 2.5px solid #fff;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.28);
+  animation: pulse-loc 2.2s ease-in-out infinite;
+}
+
+@keyframes pulse-loc {
+  0%, 100% { box-shadow: 0 0 0 0    rgba(74,144,217,0.45), 0 1px 4px rgba(0,0,0,0.28); }
+  55%       { box-shadow: 0 0 0 10px rgba(74,144,217,0),   0 1px 4px rgba(0,0,0,0.28); }
+}
+
 .parts-list {
-  padding: 0.75rem 1rem 2.5rem;
+  padding: 0.75rem 1rem calc(env(safe-area-inset-bottom, 0px) + 2.5rem);
   display: flex;
   flex-direction: column;
   gap: 0.55rem;
@@ -254,12 +260,7 @@ button { font-family: var(--font); }
   cursor: pointer;
   text-align: left;
   width: 100%;
-  transition: background 0.12s, opacity 0.2s;
-  opacity: 0.35;
-}
-
-.part-card.visited {
-  opacity: 1;
+  transition: background 0.12s;
 }
 
 .part-card:active { background: #F0EDE8; }
@@ -275,84 +276,26 @@ button { font-family: var(--font); }
   color: var(--subtle);
 }
 
-
-/* Yes / No choice buttons (shown after intro speech ends) */
-.choice-buttons {
-  display: none; /* shown by JS */
-  flex-direction: column;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0 1.5rem 0.5rem;
-  width: 100%;
-  animation: fade-up 0.35s ease both;
-}
-
-@keyframes fade-up {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0);   }
-}
-
-.btn-choice {
-  width: 100%;
-  max-width: 300px;
-  padding: 13px 20px;
-  border-radius: 100px;
-  font-family: var(--font);
-  font-size: 15px;
-  cursor: pointer;
-  letter-spacing: 0.02em;
-  transition: background 0.2s, color 0.2s, border-color 0.2s;
-}
-
-.btn-yes {
-  background: var(--accent);
-  border: 1px solid var(--accent);
-  color: #FAF7F2;
-}
-
-.btn-yes:active {
-  background: #C49595;
-  border-color: #C49595;
-}
-
-.btn-no {
-  background: transparent;
-  border: 1px solid var(--border);
-  color: var(--muted);
-}
-
-.btn-no:active {
-  background: rgba(0,0,0,0.04);
-}
-
-
-/* ── Closing screen ───────────────────────────────── */
-#screen-closing {
+.part-card.gotta-go {
+  border-style: dashed;
+  opacity: 0.65;
   justify-content: center;
-  text-align: center;
-  overflow: hidden;
-}
-
-.closing-text {
-  font-size: 22px;
-  font-style: italic;
+  gap: 0.3rem;
+  font-size: 14px;
   color: var(--muted);
-  line-height: 1.6;
-  animation: fade-up 0.6s ease both;
+  margin-top: 0.25rem;
 }
 
+.part-card.gotta-go:active { opacity: 1; background: #F0EDE8; }
+.part-card.gotta-go em { font-style: italic; color: var(--accent); }
 
-/* ── Player screen ────────────────────────────────── */
-#screen-player {
-  justify-content: flex-start;
-  padding: 0;
-}
 
+/* ── Player ────────────────────────────────────────── */
 .player-nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 1.25rem 0.5rem;
+  padding: calc(env(safe-area-inset-top, 0px) + 1rem) 1.25rem 0.5rem;
   width: 100%;
   flex-shrink: 0;
 }
@@ -366,30 +309,18 @@ button { font-family: var(--font); }
   font-size: 14px;
   color: var(--muted);
   cursor: pointer;
-  padding: 4px 0;
+  padding: 12px 0;          /* 44 px-ish touch target */
   transition: color 0.15s;
 }
 
 .btn-back:active { color: var(--ink); }
 
-.player-part-badge {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--accent);
-}
-
-.player-location {
-  padding: 0 1.5rem 0.5rem;
+.player-title {
   font-size: 13px;
   font-style: italic;
   color: var(--muted);
-  width: 100%;
-  flex-shrink: 0;
 }
 
-/* Lyrics */
 .lyrics-container {
   flex: 1;
   width: 100%;
@@ -398,6 +329,7 @@ button { font-family: var(--font); }
   scroll-behavior: smooth;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  min-height: 0;
 }
 
 .lyrics-container::-webkit-scrollbar { display: none; }
@@ -415,10 +347,9 @@ button { font-family: var(--font); }
 .lyric-line.active { opacity: 1; font-weight: 700; }
 .lyric-line.future { opacity: 0.32; color: var(--muted); }
 
-/* Controls */
 .player-controls {
   width: 100%;
-  padding: 0.75rem 1.5rem 2.5rem;
+  padding: 0.75rem 1.5rem calc(env(safe-area-inset-bottom, 0px) + 1.5rem);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -452,6 +383,8 @@ button { font-family: var(--font); }
   color: var(--subtle);
 }
 
+.playback-row { display: flex; justify-content: center; }
+
 .btn-play {
   width: 54px;
   height: 54px;
@@ -463,10 +396,130 @@ button { font-family: var(--font); }
   align-items: center;
   justify-content: center;
   transition: transform 0.15s, background 0.15s;
-  padding-left: 2px; /* optical centre for play triangle */
+  padding-left: 2px;
 }
 
-.btn-play:active {
-  transform: scale(0.93);
-  background: #C49595;
+.btn-play:active { transform: scale(0.93); background: #C49595; }
+
+
+/* ── Intro choice buttons ──────────────────────────── */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0);   }
 }
+
+.choice-buttons {
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0 1.5rem 0.5rem;
+  width: 100%;
+  animation: fade-up 0.35s ease both;
+}
+
+.btn-choice {
+  width: 100%;
+  max-width: 300px;
+  padding: 13px 20px;
+  border-radius: 100px;
+  font-family: var(--font);
+  font-size: 15px;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.btn-yes { background: var(--accent); border: 1px solid var(--accent); color: #FAF7F2; }
+.btn-yes:active { background: #C49595; border-color: #C49595; }
+
+.btn-no { background: transparent; border: 1px solid var(--border); color: var(--muted); }
+.btn-no:active { background: rgba(0,0,0,0.04); }
+
+.skip-row { display: flex; justify-content: center; width: 100%; }
+
+.btn-skip {
+  padding: 10px 20px;
+  border-radius: 100px;
+  font-family: var(--font);
+  font-size: 13px;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  transition: background 0.15s, color 0.15s;
+}
+
+.btn-skip:active { background: rgba(0,0,0,0.05); color: var(--ink); }
+
+
+/* ── Closing ───────────────────────────────────────── */
+.closing-text {
+  font-size: 22px;
+  font-style: italic;
+  color: var(--muted);
+  line-height: 1.6;
+  text-align: center;
+  animation: fade-up 0.6s ease both;
+}
+
+
+/* ── QR overlay ────────────────────────────────────── */
+.qr-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.qr-overlay.open { opacity: 1; pointer-events: auto; }
+
+.qr-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.qr-viewfinder {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  border: 2px solid rgba(255,255,255,0.85);
+  border-radius: 14px;
+  box-shadow: 0 0 0 9999px rgba(0,0,0,0.5);
+}
+
+.qr-hint {
+  position: relative;
+  margin-top: 1.5rem;
+  font-size: 14px;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 0.02em;
+}
+
+.btn-qr-close {
+  position: absolute;
+  top: calc(env(safe-area-inset-top, 0px) + 1rem);
+  right: 1.25rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.18);
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+
+.btn-qr-close:active { background: rgba(255,255,255,0.32); }
