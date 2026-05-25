@@ -5,11 +5,13 @@
 const audio       = document.getElementById('audio');
 const lyricsEl    = document.getElementById('lyrics-container');
 const progFill    = document.getElementById('progress-fill');
+const progTrack   = progFill?.closest('[role="progressbar"]');
 const timeCurrent = document.getElementById('time-current');
 const timeTotal   = document.getElementById('time-total');
 const btnPlay     = document.getElementById('btn-play');
 const iconPlay    = document.getElementById('icon-play');
 const iconPause   = document.getElementById('icon-pause');
+const srAnnounce  = document.getElementById('sr-announce');
 
 let currentScript = [];
 let activeLine    = -1;
@@ -57,6 +59,7 @@ function playTrack() {
 function setPlayIcon(playing) {
   iconPlay.style.display  = playing ? 'none'  : 'block';
   iconPause.style.display = playing ? 'block' : 'none';
+  btnPlay.setAttribute('aria-label', playing ? 'Pause' : 'Play');
 }
 
 function handlePlayPause() {
@@ -102,6 +105,7 @@ function updateLyrics(t) {
   if (idx >= 0) {
     const el = lineEls[idx];
     lyricsEl.scrollTo({ top: el.offsetTop - lyricsEl.clientHeight / 2 + el.offsetHeight / 2, behavior: 'smooth' });
+    if (srAnnounce) srAnnounce.textContent = currentScript[idx].text;
   }
 }
 
@@ -134,6 +138,7 @@ function stepText() {
     const el = lineEls[textLineIdx];
     lyricsEl.scrollTo({ top: el.offsetTop - lyricsEl.clientHeight / 2 + el.offsetHeight / 2, behavior: 'smooth' });
   }
+  if (srAnnounce) srAnnounce.textContent = currentScript[textLineIdx].text;
 
   const current = currentScript[textLineIdx].t;
   const total   = currentScript[currentScript.length - 1].t + 4;
@@ -162,9 +167,11 @@ audio.addEventListener('timeupdate', () => {
   const dur = audio.duration || 0;
   updateLyrics(t);
   if (dur > 0) {
-    progFill.style.width    = (t / dur * 100) + '%';
+    const pct = Math.round(t / dur * 100);
+    progFill.style.width    = pct + '%';
     timeCurrent.textContent = formatTime(t);
     timeTotal.textContent   = formatTime(dur);
+    if (progTrack) progTrack.setAttribute('aria-valuenow', pct);
   }
 });
 

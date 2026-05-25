@@ -39,7 +39,7 @@ const STOPS = [
   {
     id: 1,
     location: 'The Gazebo',
-    audioSrc: 'audio-2.mp3',
+    audioSrc: 'https://pub-4150616b72844a3b9af9a5aa28511c95.r2.dev/stop%202%20-%20The%20Gazebo-%20QR%20Trigger.mp3',
     pinX: 62, pinY: 30,
     onEnd: 'map',
     lat: -37.8315, lng: 144.9832, radius: 15, // Tecoma Pavilion area
@@ -98,7 +98,7 @@ const STOPS = [
   {
     id: 3,
     location: 'The Lake Bench',
-    audioSrc: 'audio-3.mp3',
+    audioSrc: 'https://pub-4150616b72844a3b9af9a5aa28511c95.r2.dev/stop%203%20-%20The%20Bench-%20QR%20Trigger.mp3',
     pinX: 24, pinY: 65,
     onEnd: 'closing',
     lat: -37.8283, lng: 144.9831, radius: 15, // Lakeview Rest House / Ornamental Lake bench
@@ -137,7 +137,7 @@ const GPS = {
     // per-stop near prompts — add audioSrc here when recorded
     1: null,
     2: null,
-    3: null,
+    3: 'https://pub-4150616b72844a3b9af9a5aa28511c95.r2.dev/stop%203%20-%20The%20Bench-%20gps%20prompt.mp3',
   },
 };
 

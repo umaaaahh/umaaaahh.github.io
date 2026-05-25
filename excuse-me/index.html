@@ -14,16 +14,20 @@
 </head>
 <body>
 
+  <!-- Screen-reader live region — updated with each lyric line -->
+  <div id="sr-announce" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
   <!-- ── Splash ─────────────────────────────────────── -->
-  <div id="view-splash" class="screen active">
-    <svg class="leaf-deco" style="top:-20px;right:-20px;width:160px;" viewBox="0 0 120 160" fill="none">
-      <path d="M60 10 C90 10 110 40 110 80 C110 120 90 150 60 150 C30 150 10 120 10 80 C10 40 30 10 60 10Z" fill="#A8B5A0"/>
-      <line x1="60" y1="10" x2="60" y2="150" stroke="#FAF7F2" stroke-width="1.5"/>
-    </svg>
-    <div class="splash-icon">
-      <svg width="22" height="22" viewBox="0 0 120 160" fill="none">
-        <path d="M60 10 C90 10 110 40 110 80 C110 120 90 150 60 150 C30 150 10 120 10 80 C10 40 30 10 60 10Z" fill="var(--accent)" opacity="0.75"/>
+  <div id="view-splash" class="screen active" role="main" aria-label="Welcome">
+    <img class="leaf-deco leaf-deco--top" src="https://pub-4150616b72844a3b9af9a5aa28511c95.r2.dev/pepitasandpepitas-plant-8877392_1920.png" alt="" aria-hidden="true">
+    <img class="leaf-deco leaf-deco--bottom" src="https://pub-4150616b72844a3b9af9a5aa28511c95.r2.dev/pepitasandpepitas-plant-8877392_1920.png" alt="" aria-hidden="true">
+    <figure class="splash-annie" aria-hidden="true">
+      <svg viewBox="0 0 654.81 788.06" xmlns="http://www.w3.org/2000/svg">
+        <path d="M38.37,771.59l15.49-118.26c10.47-14.69,10.62-38.88,20.43-56.29,9.43-16.73,39.82-47.98,54.73-63.19,5.65-5.76,37-31.73,38.66-35.22,2.64-5.54-4.6-13.18,3.62-22.36,7.41-8.27,26.56-5.92,32.7-11.1,4.75-4.01,16.4-48,13.4-51.15-9.77,1.75-15.16,19.56-24.28,4.66l-1.29,4.72-5.06-.04c1.11-7.42-8.21-3.64-15.29-5.91-7.12-2.29-11.23-10.76-16.36-14.27-13.79-9.43-17.05-1.29-25.89-22.16-4.83-11.41-13.24-22.2-15.49-28.01-3.98-10.26-4.55-49.15,.55-58.37,2.48-4.48,14.12-13.08,16.56-18.99l9.82,1.91c2.61-7.77-5.05-6.18-6.57-11.5-1.68-5.89-3.33-18.47-3.76-24.86-.52-7.86,2.96-66.79,5.59-69.29.83-.79,4.87,1.11,7.33-1.83,6.38-7.6,8.75-26.2,12.69-32,1.9-2.8,7.14-1.38,10.14-5.31,2.75-3.59,3.57-11.62,7.98-18.03,6.9-10.04,54.07-45.76,65.84-51.04,30.7-13.79,55.73-6.02,83.17-12.01.86-.19,9.43-3.6,15.2-5.2,13.01-3.59,22.8-12.05,37.7-6.51l1.4-7.23c7.38.99,16.02-.84,23.07-.02,4.46.52,3.35,3.92,5.68,4.67,33.63,10.75,23.99,8.39,41.82,34.01,4.01,5.77,14.55,8.22,12.48,20.29l5.06-14.09-1.24,25.75c4.12,8.94,13.32,10.06,19.31,15.27,23.5,20.44,34.22,54.87,42.57,83.18,1.18,4.01,5.52,7.59,5.9,11.22.71,6.73-8.12,16.18-9.06,22.09-.35,2.18,4.68,9.31,2.72,14.07,2.64,5.5,10.36,9.41,13.51,13.42,5.33,6.79,18.4,22.63,22.04,29.14,5.16,9.21,10.09,23.05,1.6,31.8-7.71,7.96-19.8.19-24.6,19.7-2.42,9.85,1.74,17.69,.38,23.88-1.16,5.29-8.04,5.29-8.93,8.32-.98,3.33,2.82,8.7,2.34,13.63-.51,5.24-5.52,8.8-5.28,16.57.2,6.63,5.23,12.21,5.3,18.88.17,15.81-12.8,30.09-30.03,31.3-6.23.44-10.07-2.26-18.68-.87-7.26,1.17-47.11,17.61-52.95,21.73-5.16,3.63-22.8,23.45-27.44,29.06-3.37,4.07-5.13,10.03-9.04,14.03,6.17-.64,7.34,6.56,10.33,8.2,4.49,2.47,13.44.95,18.56,5.83,2.45,2.34,1.71,6.08,4.5,8.26,1.89,1.47,5.88.54,7.77,2.79,2.6,3.09,.89,9.09,7.46,13.76,7.57,5.38,27.4,11.99,35.97,18.68,2.1,1.64,11.76,15.36,12.13,17.17.87,4.24-3.63,8.14-.87,12.39,3.37,5.19,27.25,22.01,30.73,28.23,6.59,11.78,7.47,38.77,11.75,52.31,5.17,16.33,18.43,39.99,27.31,55.21,3.83,6.56,6.63,21.16,8.29,28.93H38.37Z"/>
       </svg>
+    </figure>
+    <div class="splash-icon">
+      <img src="https://pub-4150616b72844a3b9af9a5aa28511c95.r2.dev/sound-icon.svg" alt="" aria-hidden="true" width="32" height="32">
     </div>
     <h1 class="splash-title">Excuse me,<br>do you have<br>a minute?</h1>
     <p class="splash-subtext">A walk &amp; listen experience<br>through the park.</p>
@@ -33,7 +37,7 @@
 
 
   <!-- ── Map ───────────────────────────────────────── -->
-  <div id="view-map" class="screen">
+  <div id="view-map" class="screen" aria-hidden="true" role="main" aria-label="Park map and stop list">
     <div class="map-nav">
       <button id="btn-scan" class="btn-scan" aria-label="Scan QR code">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -42,6 +46,7 @@
           <path d="M14 14h3v3h-3zM17 17h3M17 20v-3M20 14v3M20 20h-3"/>
         </svg>
       </button>
+      <span class="map-title">Excuse me</span>
       <button id="btn-x" class="btn-x" aria-label="End experience">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
           <line x1="18" y1="6" x2="6" y2="18"/>
@@ -50,14 +55,15 @@
       </button>
     </div>
     <div class="map-container">
-      <div class="map-image-slot" id="map-image-slot"></div>
+      <div class="map-image-slot" id="map-image-slot"
+           role="img" aria-label="Illustrated map of the Royal Botanic Gardens Melbourne"></div>
     </div>
-    <div id="parts-list" class="parts-list"></div>
+    <div id="parts-list" class="parts-list" role="list" aria-label="Experience stops"></div>
   </div>
 
 
   <!-- ── Player (intro, stops, outro) ──────────────── -->
-  <div id="view-player" class="screen">
+  <div id="view-player" class="screen" aria-hidden="true" role="main" aria-label="Audio player">
     <nav class="player-nav">
       <button id="btn-back" class="btn-back">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -66,9 +72,15 @@
         Map
       </button>
       <span id="player-title" class="player-title"></span>
+      <div class="annie-avatar" id="annie-avatar" aria-hidden="true">
+        <svg viewBox="0 0 654.81 788.06" xmlns="http://www.w3.org/2000/svg">
+          <path d="M38.37,771.59l15.49-118.26c10.47-14.69,10.62-38.88,20.43-56.29,9.43-16.73,39.82-47.98,54.73-63.19,5.65-5.76,37-31.73,38.66-35.22,2.64-5.54-4.6-13.18,3.62-22.36,7.41-8.27,26.56-5.92,32.7-11.1,4.75-4.01,16.4-48,13.4-51.15-9.77,1.75-15.16,19.56-24.28,4.66l-1.29,4.72-5.06-.04c1.11-7.42-8.21-3.64-15.29-5.91-7.12-2.29-11.23-10.76-16.36-14.27-13.79-9.43-17.05-1.29-25.89-22.16-4.83-11.41-13.24-22.2-15.49-28.01-3.98-10.26-4.55-49.15,.55-58.37,2.48-4.48,14.12-13.08,16.56-18.99l9.82,1.91c2.61-7.77-5.05-6.18-6.57-11.5-1.68-5.89-3.33-18.47-3.76-24.86-.52-7.86,2.96-66.79,5.59-69.29.83-.79,4.87,1.11,7.33-1.83,6.38-7.6,8.75-26.2,12.69-32,1.9-2.8,7.14-1.38,10.14-5.31,2.75-3.59,3.57-11.62,7.98-18.03,6.9-10.04,54.07-45.76,65.84-51.04,30.7-13.79,55.73-6.02,83.17-12.01.86-.19,9.43-3.6,15.2-5.2,13.01-3.59,22.8-12.05,37.7-6.51l1.4-7.23c7.38.99,16.02-.84,23.07-.02,4.46.52,3.35,3.92,5.68,4.67,33.63,10.75,23.99,8.39,41.82,34.01,4.01,5.77,14.55,8.22,12.48,20.29l5.06-14.09-1.24,25.75c4.12,8.94,13.32,10.06,19.31,15.27,23.5,20.44,34.22,54.87,42.57,83.18,1.18,4.01,5.52,7.59,5.9,11.22.71,6.73-8.12,16.18-9.06,22.09-.35,2.18,4.68,9.31,2.72,14.07,2.64,5.5,10.36,9.41,13.51,13.42,5.33,6.79,18.4,22.63,22.04,29.14,5.16,9.21,10.09,23.05,1.6,31.8-7.71,7.96-19.8.19-24.6,19.7-2.42,9.85,1.74,17.69,.38,23.88-1.16,5.29-8.04,5.29-8.93,8.32-.98,3.33,2.82,8.7,2.34,13.63-.51,5.24-5.52,8.8-5.28,16.57.2,6.63,5.23,12.21,5.3,18.88.17,15.81-12.8,30.09-30.03,31.3-6.23.44-10.07-2.26-18.68-.87-7.26,1.17-47.11,17.61-52.95,21.73-5.16,3.63-22.8,23.45-27.44,29.06-3.37,4.07-5.13,10.03-9.04,14.03,6.17-.64,7.34,6.56,10.33,8.2,4.49,2.47,13.44.95,18.56,5.83,2.45,2.34,1.71,6.08,4.5,8.26,1.89,1.47,5.88.54,7.77,2.79,2.6,3.09,.89,9.09,7.46,13.76,7.57,5.38,27.4,11.99,35.97,18.68,2.1,1.64,11.76,15.36,12.13,17.17.87,4.24-3.63,8.14-.87,12.39,3.37,5.19,27.25,22.01,30.73,28.23,6.59,11.78,7.47,38.77,11.75,52.31,5.17,16.33,18.43,39.99,27.31,55.21,3.83,6.56,6.63,21.16,8.29,28.93H38.37Z"/>
+        </svg>
+      </div>
     </nav>
 
-    <div id="lyrics-container" class="lyrics-container"></div>
+    <div id="lyrics-container" class="lyrics-container"
+         role="log" aria-label="Annie's words" aria-live="off"></div>
 
     <div id="choice-buttons" class="choice-buttons" style="display:none">
       <button id="btn-yes" class="btn-choice btn-yes">Yes, of course</button>
@@ -77,15 +89,18 @@
 
     <div class="player-controls">
       <div class="progress-wrap">
-        <div class="progress-track">
+        <div class="progress-track"
+             role="progressbar" aria-label="Playback progress"
+             aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
           <div id="progress-fill" class="progress-fill"></div>
         </div>
-        <div class="progress-times">
+        <div class="progress-times" aria-hidden="true">
           <span id="time-current">0:00</span>
           <span id="time-total">0:00</span>
         </div>
       </div>
       <div class="playback-row">
+        <div class="playback-side"></div>
         <button id="btn-play" class="btn-play" aria-label="Play / Pause">
           <svg id="icon-play" width="26" height="26" viewBox="0 0 24 24" fill="#FAF7F2">
             <polygon points="5 3 19 12 5 21 5 3"/>
@@ -95,16 +110,16 @@
             <rect x="14" y="4" width="4" height="16" rx="1"/>
           </svg>
         </button>
-      </div>
-      <div id="skip-row" class="skip-row" style="display:none">
-        <button id="btn-skip" class="btn-skip">Skip to question</button>
+        <div id="skip-row" class="skip-row" style="visibility:hidden">
+          <button id="btn-skip" class="btn-skip">Skip</button>
+        </div>
       </div>
     </div>
   </div>
 
 
   <!-- ── Closing ────────────────────────────────────── -->
-  <div id="view-closing" class="screen">
+  <div id="view-closing" class="screen" aria-hidden="true" role="main" aria-label="Experience complete">
     <svg class="leaf-deco" style="top:-20px;right:-20px;width:140px;opacity:0.07;" viewBox="0 0 120 160" fill="none">
       <path d="M60 10 C90 10 110 40 110 80 C110 120 90 150 60 150 C30 150 10 120 10 80 C10 40 30 10 60 10Z" fill="#A8B5A0"/>
     </svg>
@@ -125,6 +140,23 @@
     </button>
   </div>
 
+
+  <!-- Hidden SVG — defines the memory-distortion filter used by the overlay CSS -->
+  <svg width="0" height="0" style="position:absolute;pointer-events:none" aria-hidden="true">
+    <defs>
+      <filter id="memory-warp" x="-35%" y="-35%" width="170%" height="170%"
+              color-interpolation-filters="sRGB">
+        <feTurbulence id="map-noise" type="turbulence"
+                      baseFrequency="0.008 0.006"
+                      numOctaves="4" seed="3" result="t"/>
+        <feDisplacementMap in="SourceGraphic" in2="t"
+                           scale="55"
+                           xChannelSelector="R" yChannelSelector="G"
+                           result="d"/>
+        <feGaussianBlur in="d" stdDeviation="1.4"/>
+      </filter>
+    </defs>
+  </svg>
 
   <audio id="audio" preload="auto"></audio>
 
@@ -153,16 +185,23 @@
       const cur = document.querySelector('.screen.active');
       if (cur) cur.classList.add('leaving');
       setTimeout(() => {
-        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active', 'leaving'));
+        document.querySelectorAll('.screen').forEach(s => {
+          s.classList.remove('active', 'leaving');
+          s.setAttribute('aria-hidden', 'true');
+        });
         next.classList.add('active');
+        next.removeAttribute('aria-hidden');
+        // Move focus to first interactive element, or the screen heading
+        const focusTarget = next.querySelector('button:not([disabled]), [tabindex="0"], h1');
+        if (focusTarget) focusTarget.focus({ preventScroll: true });
       }, cur ? 380 : 0);
     }
 
     // ── Player UI helper ──────────────────────────────
     function setPlayerUI({ title = '', showChoice = false }) {
       playerTitle.textContent     = title;
-      choiceButtons.style.display = showChoice ? 'flex' : 'none';
-      skipRow.style.display       = showChoice ? 'none' : 'flex';
+      choiceButtons.style.display  = showChoice ? 'flex' : 'none';
+      skipRow.style.visibility     = showChoice ? 'hidden' : 'visible';
     }
 
     // ── Open functions ────────────────────────────────
@@ -213,7 +252,8 @@
         if (!visited.includes(stopId)) {
           visited.push(stopId);
           localStorage.setItem('visited', JSON.stringify(visited));
-          document.getElementById('pin-' + stopId)?.classList.add('visited');
+          document.getElementById('pin-'  + stopId)?.classList.add('visited');
+          document.getElementById('card-' + stopId)?.classList.add('visited');
         }
         if (stop?.onEnd === 'closing') openOutro();
         else transitionTo(viewMap);
@@ -222,6 +262,12 @@
         transitionTo(viewClosing);
       }
     });
+
+    // ── Annie speaking indicator ──────────────────────
+    const annieAvatar = document.getElementById('annie-avatar');
+    audio.addEventListener('play',  () => annieAvatar.classList.add('speaking'));
+    audio.addEventListener('pause', () => annieAvatar.classList.remove('speaking'));
+    audio.addEventListener('ended', () => annieAvatar.classList.remove('speaking'));
 
     // ── Button wiring ─────────────────────────────────
     document.getElementById('btn-begin').addEventListener('click', () => {
@@ -270,7 +316,39 @@
     // The SVG has a ~9.6° clockwise rotation baked in, so fine-tune OVERLAY_BOUNDS
     // if the illustration drifts off the real park edge.
     const PARK_CENTRE  = [-37.8301, 144.9825];
-    const PARK_ZOOM    = 17;
+    const PARK_ZOOM    = 16;
+
+    // ── Location mode ─────────────────────────────────
+    // Change LOCATION_MODE to switch testing environments.
+    //   'park' → real park coordinates  (live event)
+    //   'uni'  → uni building triggers  (demo)
+    //   'home' → home coordinates       (local testing)
+    const LOCATION_MODE = 'uni';
+
+    const LOCATION_PRESETS = {
+      park: {
+        dot: null,  // show real GPS position on map
+        // stop coords come from data.js
+      },
+      uni: {
+        dot: [-37.8283, 144.9831],  // dot shown at The Lake Bench on map
+        3: { lat: -37.8078852, lng: 144.9634875 },  // uni building → triggers bench stop
+      },
+      home: {
+        dot: [-37.8283, 144.9831],  // dot shown at The Lake Bench on map
+        3: { lat: -37.8293654, lng: 144.9693994 },  // home → triggers bench stop
+      },
+    };
+
+    // Returns effective lat/lng for a stop (preset overrides data.js)
+    function stopCoords(stop) {
+      const preset = LOCATION_PRESETS[LOCATION_MODE];
+      return (preset && preset[stop.id]) ? preset[stop.id] : { lat: stop.lat, lng: stop.lng };
+    }
+
+    // Map dot position — preset override or null (real GPS)
+    const DEMO_MAP_LOCATION = (LOCATION_PRESETS[LOCATION_MODE] || {}).dot || null;
+
     const OVERLAY_URL  = 'https://pub-4150616b72844a3b9af9a5aa28511c95.r2.dev/overlay-melbourne2.svg';
     const OVERLAY_BOUNDS = [
       [-37.83438, 144.9733], // SW — exact bounds from RBG's own app.js
@@ -285,14 +363,16 @@
       touchZoom:          false,
       tap:                false,
       keyboard:           false,
-    }).setView(PARK_CENTRE, PARK_ZOOM);
+    });
 
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
+    leafletMap.setView(PARK_CENTRE, PARK_ZOOM);
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {
       maxZoom: 19,
     }).addTo(leafletMap);
 
     L.imageOverlay(OVERLAY_URL, OVERLAY_BOUNDS, {
-      opacity:     0.88,
+      opacity:     1,
       interactive: false,
     }).addTo(leafletMap);
 
@@ -302,16 +382,21 @@
     // ── Build map ─────────────────────────────────────
     (function buildMap() {
       const visited = JSON.parse(localStorage.getItem('visited') || '[]');
+      const chevron = `<svg class="part-card-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>`;
 
+      // Intro card — leaf badge, no number
       const introCard = document.createElement('button');
-      introCard.className = 'part-card';
-      introCard.innerHTML = '<span class="part-card-loc">Intro</span><span class="part-card-arrow">→</span>';
+      introCard.className = 'part-card part-card--intro';
+      introCard.innerHTML = `
+        <span class="part-card-loc">Introduction</span>
+        ${chevron}`;
       introCard.addEventListener('click', () => openIntro());
       partsListEl.appendChild(introCard);
 
-      STOPS.forEach(stop => {
-        // Place each stop as a real Leaflet marker at its lat/lng coordinates
+      STOPS.forEach((stop, idx) => {
         const isVisited = visited.includes(stop.id);
+
+        // Leaflet teardrop marker
         const icon = L.divIcon({
           className: '',
           html: `<div id="pin-${stop.id}" class="map-pin${isVisited ? ' visited' : ''}" aria-label="${stop.location}">
@@ -321,22 +406,35 @@
             </svg>
           </div>`,
           iconSize:   [28, 40],
-          iconAnchor: [14, 40],   // anchor at the tip
+          iconAnchor: [14, 40],
         });
         L.marker([stop.lat, stop.lng], { icon })
           .addTo(leafletMap)
           .on('click', () => openStop(stop.id));
 
+        // List card — numbered badge, visited state
         const card = document.createElement('button');
-        card.className = 'part-card';
-        card.innerHTML = '<span class="part-card-loc">' + stop.location + '</span><span class="part-card-arrow">→</span>';
+        card.className = 'part-card' + (isVisited ? ' visited' : '');
+        card.id = 'card-' + stop.id;
+        card.innerHTML = `
+          <div class="part-card-left">
+            <span class="part-card-badge">
+              <svg width="14" height="20" viewBox="0 0 28 40" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14 0C6.27 0 0 6.27 0 14C0 24.5 14 40 14 40S28 24.5 28 14C28 6.27 21.73 0 14 0Z" fill="currentColor"/>
+                <circle cx="14" cy="13" r="5" fill="white" opacity="0.5"/>
+              </svg>
+            </span>
+            <span class="part-card-loc">${stop.location}</span>
+          </div>
+          ${chevron}`;
         card.addEventListener('click', () => openStop(stop.id));
         partsListEl.appendChild(card);
       });
 
+      // Exit card
       const gotta = document.createElement('button');
-      gotta.className = 'part-card gotta-go';
-      gotta.innerHTML = '<span>Gotta go? <em>End the experience</em></span>';
+      gotta.className = 'part-card part-card--exit';
+      gotta.innerHTML = `<span class="part-card-loc">End the experience</span>${chevron}`;
       gotta.addEventListener('click', openOutro);
       partsListEl.appendChild(gotta);
     })();
@@ -349,9 +447,12 @@
         navigator.geolocation.watchPosition(pos => {
           const latlng = [pos.coords.latitude, pos.coords.longitude];
 
-          // Show / move the blue "you are here" dot on the Leaflet map
+          // Show / move the blue "you are here" dot on the Leaflet map.
+          // DEMO_MAP_LOCATION overrides the display position while
+          // real GPS still runs for proximity detection below.
+          const displayLatLng = DEMO_MAP_LOCATION || latlng;
           if (!userMarker) {
-            userMarker = L.marker(latlng, {
+            userMarker = L.marker(displayLatLng, {
               icon: L.divIcon({
                 className: '',
                 html: '<div class="user-dot"></div>',
@@ -362,12 +463,13 @@
               zIndexOffset: -100,
             }).addTo(leafletMap);
           } else {
-            userMarker.setLatLng(latlng);
+            userMarker.setLatLng(displayLatLng);
           }
 
           STOPS.forEach(stop => {
-            if (!stop.lat) return;
-            const dist = haversine(pos.coords, stop);
+            const coords = stopCoords(stop);
+            if (!coords.lat) return;
+            const dist = haversine(pos.coords, coords);
             if (dist > stop.radius * 3) {
               audio.src = GPS.outOfRange;
               audio.play().catch(() => {});
@@ -441,6 +543,20 @@
       document.getElementById('qr-video').srcObject = null;
       document.getElementById('qr-overlay').classList.remove('open');
     }
+
+    // ── Memory-distortion: animate feTurbulence baseFrequency ────────────────
+    (function driftNoise() {
+      const noise = document.getElementById('map-noise');
+      let t = 0;
+      function tick() {
+        t += 0.00025;
+        const bfx = (0.008 + Math.sin(t)         * 0.007).toFixed(5);
+        const bfy = (0.006 + Math.cos(t * 0.73)  * 0.005).toFixed(5);
+        noise.setAttribute('baseFrequency', bfx + ' ' + bfy);
+        requestAnimationFrame(tick);
+      }
+      tick();
+    })();
 
   </script>
 </body>

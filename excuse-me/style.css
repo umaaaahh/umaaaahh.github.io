@@ -3,6 +3,38 @@
 /* ── Reset & base ──────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* Visually hidden but readable by screen readers */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Visible focus ring for keyboard navigation */
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Respect reduced-motion: freeze the map distortion & fade */
+@media (prefers-reduced-motion: reduce) {
+  .map-image-slot .leaflet-overlay-pane img {
+    animation: none;
+    opacity: 0.82;
+    filter: none;
+  }
+  .map-image-slot .leaflet-tile-pane { transition: none; }
+  .screen { transition: none; }
+  .annie-avatar.speaking { animation: none; }
+  .splash-icon { animation: none; }
+  .user-dot { animation: none; }
+}
+
 :root {
   --bg:     #FAF7F2;
   --ink:    #2C2C2C;
@@ -67,7 +99,7 @@ button {
 #view-map {
   align-items: stretch;
   overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
 }
 
 #view-closing {
@@ -83,6 +115,45 @@ button {
 .leaf-deco {
   position: absolute;
   pointer-events: none;
+  width: 180px;
+  height: 220px;
+  object-fit: cover;
+  opacity: 0.5;
+}
+
+/* Top-right — flipped upside down so the plant hangs from the corner */
+.leaf-deco--top {
+  top: -10px;
+  right: -10px;
+  object-position: center bottom;
+  transform: rotate(180deg);
+  mask-image: linear-gradient(to bottom left, black 40%, transparent 85%);
+  -webkit-mask-image: linear-gradient(to bottom left, black 40%, transparent 85%);
+}
+
+/* Bottom-left — mirrored horizontally, growing up from the corner */
+.leaf-deco--bottom {
+  bottom: -10px;
+  left: -10px;
+  object-position: center top;
+  transform: scaleX(-1);
+  mask-image: linear-gradient(to top right, black 40%, transparent 85%);
+  -webkit-mask-image: linear-gradient(to top right, black 40%, transparent 85%);
+}
+
+/* Annie silhouette — above the sound icon on splash */
+.splash-annie {
+  width: 90px;
+  margin-bottom: 1.25rem;
+  flex-shrink: 0;
+}
+
+.splash-annie svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  fill: var(--ink);
+  opacity: 0.1;
 }
 
 .splash-icon {
@@ -150,9 +221,17 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: calc(env(safe-area-inset-top, 0px) + 1.25rem) 1.25rem 0.5rem;
+  padding: calc(env(safe-area-inset-top, 0px) + 1.1rem) 1.1rem 0.6rem;
   width: 100%;
   flex-shrink: 0;
+}
+
+.map-title {
+  font-size: 13px;
+  font-style: italic;
+  color: var(--muted);
+  letter-spacing: 0.03em;
+  pointer-events: none;
 }
 
 .btn-scan {
@@ -200,13 +279,29 @@ button {
 .map-image-slot {
   position: absolute;
   inset: 0;
-  background: #DDE5D8;
+  background: #7A8088;
   overflow: hidden;
 }
 
-/* Render base tiles in b&w so the coloured SVG overlay pops */
+/* Keep tiles as dark greyscale so the coloured SVG overlay pops */
 .map-image-slot .leaflet-tile-pane {
-  filter: grayscale(1) contrast(1.05) brightness(1.05);
+  filter: grayscale(1) contrast(0.9) brightness(1.85);
+}
+
+/* Memory distortion on the SVG overlay */
+.map-image-slot .leaflet-overlay-pane img {
+  filter: url(#memory-warp);
+  animation: memory-fade 18s ease-in-out infinite;
+}
+
+@keyframes memory-fade {
+  0%   { opacity: 0.88; }
+  18%  { opacity: 0.52; }
+  35%  { opacity: 0.78; }
+  54%  { opacity: 0.38; }
+  70%  { opacity: 0.72; }
+  86%  { opacity: 0.48; }
+  100% { opacity: 0.88; }
 }
 
 
@@ -242,10 +337,10 @@ button {
 }
 
 .parts-list {
-  padding: 0.75rem 1rem calc(env(safe-area-inset-bottom, 0px) + 2.5rem);
+  padding: 0.5rem 1rem calc(env(safe-area-inset-bottom, 0px) + 2.5rem);
   display: flex;
   flex-direction: column;
-  gap: 0.55rem;
+  gap: 0.45rem;
   width: 100%;
 }
 
@@ -253,17 +348,44 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 0.5rem;
   background: #fff;
   border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 1rem 1.1rem;
+  border-radius: 14px;
+  padding: 0.9rem 1rem;
   cursor: pointer;
   text-align: left;
   width: 100%;
-  transition: background 0.12s;
+  transition: background 0.15s, border-color 0.3s;
 }
 
-.part-card:active { background: #F0EDE8; }
+.part-card:active { background: #F2EEE9; }
+
+/* Left side: badge + label */
+.part-card-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+
+/* Icon badge — leaf for intro, teardrop for stops */
+.part-card-badge {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--subtle);          /* grey until visited */
+  transition: color 0.35s ease;
+}
+
+
+.part-card.visited .part-card-badge {
+  color: var(--accent);          /* teardrop turns accent when visited */
+}
 
 .part-card-loc {
   font-size: 15px;
@@ -271,23 +393,27 @@ button {
   color: var(--ink);
 }
 
-.part-card-arrow {
-  font-size: 14px;
+/* Right-side chevron arrow */
+.part-card-chevron {
   color: var(--subtle);
+  flex-shrink: 0;
 }
 
-.part-card.gotta-go {
-  border-style: dashed;
-  opacity: 0.65;
-  justify-content: center;
-  gap: 0.3rem;
-  font-size: 14px;
-  color: var(--muted);
-  margin-top: 0.25rem;
+/* Exit card — same shape as stops, light red tint */
+.part-card--exit {
+  background: rgba(210, 80, 80, 0.06);
+  border-color: rgba(210, 80, 80, 0.18);
 }
 
-.part-card.gotta-go:active { opacity: 1; background: #F0EDE8; }
-.part-card.gotta-go em { font-style: italic; color: var(--accent); }
+.part-card--exit .part-card-loc {
+  color: #B86060;
+}
+
+.part-card--exit .part-card-chevron {
+  color: rgba(184, 96, 96, 0.5);
+}
+
+.part-card--exit:active { background: rgba(210, 80, 80, 0.12); }
 
 
 /* ── Player ────────────────────────────────────────── */
@@ -361,11 +487,11 @@ button {
 
 .progress-track {
   width: 100%;
-  height: 3px;
-  background: rgba(0,0,0,0.1);
+  height: 4px;
+  background: rgba(0,0,0,0.08);
   border-radius: 2px;
   overflow: hidden;
-  margin-bottom: 0.45rem;
+  margin-bottom: 0.5rem;
 }
 
 .progress-fill {
@@ -383,11 +509,28 @@ button {
   color: var(--subtle);
 }
 
-.playback-row { display: flex; justify-content: center; }
+.playback-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Left spacer mirrors the skip slot so play stays centred */
+.playback-side {
+  flex: 1;
+}
+
+.skip-row {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+  padding-left: 1.25rem;
+}
 
 .btn-play {
-  width: 54px;
-  height: 54px;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
   background: var(--accent);
   border: none;
@@ -395,11 +538,49 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.15s, background 0.15s;
-  padding-left: 2px;
+  box-shadow: 0 4px 16px rgba(212,165,165,0.45);
+  transition: transform 0.15s, background 0.15s, box-shadow 0.15s;
+  padding-left: 3px; /* optical centre for play triangle */
 }
 
-.btn-play:active { transform: scale(0.93); background: #C49595; }
+.btn-play:active {
+  transform: scale(0.93);
+  background: #C49595;
+  box-shadow: 0 2px 8px rgba(212,165,165,0.3);
+}
+
+
+/* ── Annie avatar (player speaking indicator) ──────── */
+.annie-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1.5px solid var(--accent);
+  background: var(--bg);
+  flex-shrink: 0;
+  position: relative;
+}
+
+.annie-avatar svg {
+  position: absolute;
+  /* Scale the SVG up so the head fills the circle */
+  width: 160%;
+  height: 160%;
+  top: -12%;
+  left: -30%;
+  fill: var(--ink);
+  opacity: 0.55;
+}
+
+.annie-avatar.speaking {
+  animation: annie-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes annie-pulse {
+  0%, 100% { box-shadow: 0 0 0 0    rgba(212,165,165,0.55); border-color: var(--accent); }
+  50%       { box-shadow: 0 0 0 8px rgba(212,165,165,0);    border-color: var(--accent); }
+}
 
 
 /* ── Intro choice buttons ──────────────────────────── */
@@ -435,18 +616,17 @@ button {
 .btn-no { background: transparent; border: 1px solid var(--border); color: var(--muted); }
 .btn-no:active { background: rgba(0,0,0,0.04); }
 
-.skip-row { display: flex; justify-content: center; width: 100%; }
-
 .btn-skip {
-  padding: 10px 20px;
+  padding: 13px 24px;
   border-radius: 100px;
   font-family: var(--font);
-  font-size: 13px;
+  font-size: 14px;
   cursor: pointer;
   background: transparent;
-  border: 1px solid var(--border);
+  border: 1px solid rgba(0,0,0,0.13);
   color: var(--muted);
   transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
 }
 
 .btn-skip:active { background: rgba(0,0,0,0.05); color: var(--ink); }
