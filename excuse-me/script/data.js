@@ -54,7 +54,7 @@ const STOPS = [
       { t: 21,   text: 'I just wish I got to see them more.' },
       { t: 24.5, text: 'I miss them a lot.' },
       { t: 27,   text: 'I keep meaning to ring them.' },
-      { t: 30,   text: 'They worry about me since their father, um, passed...' },
+      { t: 30,   text: 'They worry about me since their father, um, pas-' },
       { t: 36,   text: '...uh, mm. Yeah. Um, well,' },
       { t: 41,   text: 'their father likes to worry about me too,' },
       { t: 44.5, text: 'so um, I think they\'ve probably picked up that habit from him.' },
