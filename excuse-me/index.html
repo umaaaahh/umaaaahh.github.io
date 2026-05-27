@@ -606,6 +606,9 @@
             userMarker.setLatLng(displayLatLng);
           }
 
+          // Don't interrupt active stop/player audio — GPS prompts only on map view
+          if (!viewMap.classList.contains('active')) return;
+
           STOPS.forEach(stop => {
             const coords = stopCoords(stop);
             if (!coords.lat) return;
@@ -792,7 +795,21 @@
     if (hasActiveSession()) {
       startPermissions();
       if (urlStop) {
-        openStop(urlStop);          // splash fades out, player opens directly
+        // Load the stop immediately, but don't auto-start text mode if audio is
+        // blocked (browser requires user gesture). Player opens paused — user taps play.
+        const _s = STOPS.find(s => s.id === urlStop);
+        if (_s) {
+          refreshSession();
+          currentContext = { phase: 'stop', stopId: urlStop };
+          setPlayerUI({ title: _s.location });
+          loadTrack(_s.audioSrc, _s.script);
+          transitionTo(viewPlayer);
+          setTimeout(() => {
+            audio.play()
+              .then(() => setPlayIcon(true))
+              .catch(() => setPlayIcon(false));  // stay paused, user taps play
+          }, 420);
+        }
       } else {
         transitionTo(viewMap);      // just go to the map
       }
