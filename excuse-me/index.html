@@ -441,7 +441,7 @@
     // The SVG has a ~9.6° clockwise rotation baked in, so fine-tune OVERLAY_BOUNDS
     // if the illustration drifts off the real park edge.
     const PARK_CENTRE  = [-37.8301, 144.9825];
-    const PARK_ZOOM    = 16;
+    const PARK_ZOOM    = 15.5;
 
     // ── Location mode ─────────────────────────────────
     // Controlled via ?mode= URL param so no code changes needed to switch.
@@ -489,6 +489,7 @@
       touchZoom:          false,
       tap:                false,
       keyboard:           false,
+      zoomSnap:           0.5,    // allows fractional zoom levels
     });
 
     leafletMap.setView(PARK_CENTRE, PARK_ZOOM);
