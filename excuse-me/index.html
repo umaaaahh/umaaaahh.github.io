@@ -283,8 +283,13 @@
     // currentContext replaces the old mode + currentStopId + isIntroMode() system
     let currentContext = null;
 
+    // GPS audio is only allowed when the map view is the destination —
+    // set immediately in transitionTo so GPS can't stomp during the 380ms CSS transition
+    let gpsEnabled = false;
+
     // ── Screen transitions ────────────────────────────
     function transitionTo(next) {
+      gpsEnabled = (next === viewMap);   // flip before the DOM delay
       const cur = document.querySelector('.screen.active');
       if (cur) cur.classList.add('leaving');
       setTimeout(() => {
@@ -606,8 +611,8 @@
             userMarker.setLatLng(displayLatLng);
           }
 
-          // Don't interrupt active stop/player audio — GPS prompts only on map view
-          if (!viewMap.classList.contains('active')) return;
+          // Only fire GPS audio when map is the active destination
+          if (!gpsEnabled) return;
 
           STOPS.forEach(stop => {
             const coords = stopCoords(stop);
