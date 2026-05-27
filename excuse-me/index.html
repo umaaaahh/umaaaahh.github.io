@@ -256,6 +256,7 @@
   <script src="script/data.js"></script>
   <script src="script/player.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
   <script>
 
     // ── DOM refs ──────────────────────────────────────
@@ -651,17 +652,14 @@
       }
     }
 
-    // ── QR scanner ────────────────────────────────────
+    // ── QR scanner (jsQR — works on iOS Safari + Android Chrome) ─────────────
     let qrStream = null, qrAnimFrame = null;
-    const qrDetector = ('BarcodeDetector' in window)
-      ? new BarcodeDetector({ formats: ['qr_code'] })
-      : null;
+    let qrCanvas = null, qrCtx = null;
 
     document.getElementById('btn-scan').addEventListener('click', openQR);
     document.getElementById('btn-qr-close').addEventListener('click', closeQR);
 
     async function openQR() {
-      if (!qrDetector) { alert('QR scanning requires Chrome on Android or Edge.'); return; }
       try {
         qrStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
         const vid = document.getElementById('qr-video');
@@ -674,17 +672,27 @@
 
     function scanFrame() {
       const vid = document.getElementById('qr-video');
-      qrAnimFrame = requestAnimationFrame(async () => {
+      qrAnimFrame = requestAnimationFrame(() => {
         if (!qrStream) return;
-        try {
-          const codes = await qrDetector.detect(vid);
-          for (const code of codes) {
-            let stopId = null;
-            try { stopId = parseInt(new URL(code.rawValue).searchParams.get('stop'), 10); }
-            catch { stopId = parseInt(code.rawValue, 10); }
-            if (stopId) { closeQR(); openStop(stopId); return; }
-          }
-        } catch {}
+        if (vid.readyState < vid.HAVE_ENOUGH_DATA) { scanFrame(); return; }
+
+        // Draw current frame into a canvas so jsQR can read the pixels
+        if (!qrCanvas) {
+          qrCanvas = document.createElement('canvas');
+          qrCtx    = qrCanvas.getContext('2d');
+        }
+        qrCanvas.width  = vid.videoWidth;
+        qrCanvas.height = vid.videoHeight;
+        qrCtx.drawImage(vid, 0, 0);
+        const imageData = qrCtx.getImageData(0, 0, qrCanvas.width, qrCanvas.height);
+        const code = jsQR(imageData.data, imageData.width, imageData.height);
+
+        if (code) {
+          let stopId = null;
+          try { stopId = parseInt(new URL(code.data).searchParams.get('stop'), 10); }
+          catch { stopId = parseInt(code.data, 10); }
+          if (stopId) { closeQR(); openStop(stopId); return; }
+        }
         scanFrame();
       });
     }
