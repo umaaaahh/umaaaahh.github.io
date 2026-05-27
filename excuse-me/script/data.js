@@ -6,11 +6,6 @@ const INTRO = {
       { t: 4,    text: 'My name is Annie,' },
       { t: 6,    text: 'I seem to have gotten a little lost.' },
       { t: 10,   text: 'I\'m looking for my husband.' },
-      { t: 13.5, text: 'He said he\'d be waiting for me' },
-      { t: 16,   text: 'over at the bench near the lake.' },
-      { t: 20,   text: 'But I\'m a little confused' },
-      { t: 22.5, text: 'if I\'m by the Anderson Road entrance' },
-      { t: 25.5, text: 'or if I\'m closer to St Kilda Rd.' },
     ],
   },
   yes: {
@@ -66,7 +61,7 @@ const STOPS = [
   {
     id: 2,
     location: 'The Lawn',
-    audioSrc: 'https://pub-4150616b72844a3b9af9a5aa28511c95.r2.dev/stop%201%20-%20The%20Lawn-%20QR%20Code.aac',
+    audioSrc: 'https://pub-4150616b72844a3b9af9a5aa28511c95.r2.dev/stop%201%20-%20The%20Lawn-%20QR%20Code%20(3).mp3',
     pinX: 38, pinY: 55,
     onEnd: 'map',
     lat: -37.8306, lng: 144.9813, radius: 15, // Central Lawn
