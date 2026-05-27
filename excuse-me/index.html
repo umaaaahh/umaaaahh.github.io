@@ -584,6 +584,7 @@
     // ── Permissions: GPS + NFC ────────────────────────
     let userMarker        = null;
     let permissionsStarted = false;
+    const nearPlayed      = new Set(); // tracks which stop near-prompts have fired
 
     function startPermissions() {
       if (permissionsStarted) return;
@@ -621,7 +622,8 @@
             if (dist > stop.radius * 3) {
               audio.src = GPS.outOfRange;
               audio.play().catch(() => {});
-            } else if (dist < stop.radius && GPS.near[stop.id]) {
+            } else if (dist < stop.radius && GPS.near[stop.id] && !nearPlayed.has(stop.id)) {
+              nearPlayed.add(stop.id);   // one-shot — won't restart on the next GPS tick
               const nearPrompt = GPS.near[stop.id];
               const src    = typeof nearPrompt === 'string' ? nearPrompt : nearPrompt.audioSrc;
               const script = typeof nearPrompt === 'object' ? nearPrompt.script : [];
