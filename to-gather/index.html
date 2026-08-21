@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>To Gather — Grow the Street</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#22201b;
+    --paper:#f4ecd8;
+    --paper-dim:#e8dcc0;
+    --night:#20302c;
+    --night-2:#182422;
+    --brick:#ac4a34;
+    --brick-dim:#8a3a29;
+    --moss:#5c7a58;
+    --gold:#d9a441;
+    --sky:#bfe0e6;
+    --line:rgba(34,32,27,0.18);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--night);
+    background-image:
+      radial-gradient(ellipse 900px 500px at 20% -10%, rgba(217,164,65,0.10), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 100% 0%, rgba(191,224,230,0.08), transparent 55%);
+    color:var(--paper);
+    font-family:'Work Sans', sans-serif;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:32px 16px 64px;
+  }
+  .eyebrow{
+    font-size:12px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--gold);
+    font-weight:600;
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(32px,5vw,48px);
+    margin:0 0 8px;
+    text-align:center;
+    letter-spacing:-0.01em;
+  }
+  .sub{
+    max-width:520px;
+    text-align:center;
+    color:rgba(244,236,216,0.75);
+    font-size:15px;
+    line-height:1.55;
+    margin-bottom:6px;
+  }
+  .stat-row{
+    display:flex;
+    gap:22px;
+    margin:18px 0 28px;
+    font-size:13px;
+    color:rgba(244,236,216,0.65);
+  }
+  .stat-row b{
+    color:var(--paper);
+    font-family:'Fraunces', serif;
+    font-size:17px;
+    font-weight:600;
+    display:block;
+  }
+  .stat{ text-align:center; }
+
+  .scene-wrap{
+    position:relative;
+    width:100%;
+    max-width:560px;
+    border-radius:6px;
+    overflow:hidden;
+    box-shadow:0 30px 60px -20px rgba(0,0,0,0.55), 0 0 0 1px rgba(244,236,216,0.08);
+    background:var(--sky);
+  }
+  svg.scene{ display:block; width:100%; height:auto; }
+
+  .zone{
+    position:absolute;
+    border:2px dashed transparent;
+    cursor:pointer;
+    transition:background 0.15s ease, border-color 0.15s ease;
+    border-radius:4px;
+  }
+  .zone:hover{
+    background:rgba(217,164,65,0.14);
+    border-color:rgba(217,164,65,0.55);
+  }
+  .zone-label{
+    position:absolute;
+    bottom:6px;
+    left:50%;
+    transform:translateX(-50%);
+    background:var(--ink);
+    color:var(--paper);
+    font-size:10px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    padding:3px 8px;
+    border-radius:20px;
+    opacity:0;
+    transition:opacity 0.15s ease;
+    white-space:nowrap;
+    pointer-events:none;
+  }
+  .zone:hover .zone-label{ opacity:1; }
+
+  /* Notice board */
+  .zone.board-zone:hover{
+    background:rgba(232,220,192,0.35);
+    border-color:rgba(232,220,192,0.8);
+  }
+
+  /* Newly added contribution: a brief pulsing glow so the person can find
+     their own drawing among everyone else's, then it settles in quietly */
+  .new-contribution{
+    animation:newContributionGlow 8s ease-in-out 1;
+  }
+  @keyframes newContributionGlow{
+    0%, 100%{ filter:none; }
+    8%, 24%, 40%{ filter:drop-shadow(0 0 5px rgba(217,164,65,0.95)) drop-shadow(0 0 11px rgba(217,164,65,0.6)); }
+    16%, 32%, 48%{ filter:none; }
+    60%{ filter:drop-shadow(0 0 4px rgba(217,164,65,0.5)); }
+  }
+
+  .legend{
+    display:flex;
+    gap:18px;
+    flex-wrap:wrap;
+    justify-content:center;
+    margin-top:20px;
+    font-size:12.5px;
+    color:rgba(244,236,216,0.7);
+  }
+  .legend span{ display:flex; align-items:center; gap:7px; }
+  .dot{ width:9px; height:9px; border-radius:50%; display:inline-block; }
+
+  /* Modal */
+  .overlay{
+    position:fixed; inset:0;
+    background:rgba(15,20,18,0.72);
+    backdrop-filter:blur(3px);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:50;
+    padding:16px;
+  }
+  .overlay.open{ display:flex; }
+  .modal{
+    background:var(--paper);
+    color:var(--ink);
+    width:100%;
+    max-width:420px;
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 40px 80px -20px rgba(0,0,0,0.6);
+  }
+  .modal-head{
+    padding:18px 20px 12px;
+    border-bottom:1px solid var(--line);
+  }
+  .modal-head .tag{
+    font-size:11px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    font-weight:600;
+    color:var(--brick);
+  }
+  .modal-head h2{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:22px;
+    margin:4px 0 0;
+  }
+  .modal-body{ padding:16px 20px 6px; }
+  .canvas-frame{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:6px;
+    overflow:hidden;
+    touch-action:none;
+    line-height:0;
+  }
+  canvas{ display:block; width:100%; touch-action:none; cursor:crosshair; }
+
+  .tools{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:12px 0 4px;
+    flex-wrap:wrap;
+  }
+  .swatch{
+    width:24px; height:24px;
+    border-radius:50%;
+    border:2px solid transparent;
+    cursor:pointer;
+  }
+  .swatch.active{ border-color:var(--ink); }
+  .tool-btn{
+    border:1px solid var(--line);
+    background:#fff;
+    padding:6px 10px;
+    border-radius:6px;
+    font-size:12px;
+    cursor:pointer;
+    font-family:'Work Sans',sans-serif;
+    color:var(--ink);
+  }
+  .tool-btn:hover{ background:var(--paper-dim); }
+
+  .modal-foot{
+    display:flex;
+    gap:10px;
+    padding:16px 20px 20px;
+  }
+  .btn{
+    flex:1;
+    padding:11px 14px;
+    border-radius:7px;
+    border:none;
+    font-family:'Work Sans', sans-serif;
+    font-weight:600;
+    font-size:14px;
+    cursor:pointer;
+  }
+  .btn.primary{ background:var(--brick); color:var(--paper); }
+  .btn.primary:hover{ background:var(--brick-dim); }
+  .btn.ghost{ background:transparent; color:var(--ink); border:1px solid var(--line); }
+  .btn.ghost:hover{ background:var(--paper-dim); }
+
+  .toast{
+    position:fixed;
+    bottom:24px; left:50%;
+    transform:translateX(-50%) translateY(20px);
+    background:var(--ink);
+    color:var(--paper);
+    padding:12px 18px;
+    border-radius:8px;
+    font-size:13px;
+    opacity:0;
+    transition:opacity 0.25s ease, transform 0.25s ease;
+    pointer-events:none;
+    z-index:60;
+    max-width:320px;
+    text-align:center;
+  }
+  .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+  .demo-note{
+    max-width:520px;
+    text-align:center;
+    font-size:11.5px;
+    color:rgba(244,236,216,0.45);
+    margin-top:22px;
+    line-height:1.5;
+  }
+
+  /* Notice board */
+  .zone.board-zone:active{
+    background:rgba(232,220,192,0.35);
+  }
+  .board-modal{ max-width:460px; }
+  .board-modal .modal-body{ padding:14px 20px 4px; max-height:60vh; overflow-y:auto; }
+  .board{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(140px, 1fr));
+    gap:10px;
+  }
+  .notice-card{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:12px;
+    color:var(--ink);
+    position:relative;
+    transform:rotate(var(--tilt, 0deg));
+  }
+  .notice-card::before{
+    content:'';
+    position:absolute;
+    top:-6px; left:50%;
+    transform:translateX(-50%);
+    width:14px; height:14px;
+    border-radius:50%;
+    background:var(--pin, var(--brick));
+    box-shadow:0 2px 3px rgba(0,0,0,0.3);
+  }
+  .notice-card .n-date{
+    font-size:10.5px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--brick);
+    font-weight:600;
+    margin-bottom:4px;
+  }
+  .notice-card .n-title{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:15px;
+    margin:0 0 4px;
+    line-height:1.25;
+  }
+  .notice-card .n-desc{
+    font-size:12px;
+    color:#555046;
+    line-height:1.4;
+    margin:0;
+  }
+  .notice-card .n-by{
+    font-size:10.5px;
+    color:#8a8272;
+    margin-top:8px;
+  }
+
+  .notice-form label{
+    display:block;
+    font-size:12px;
+    font-weight:600;
+    margin:12px 0 5px;
+  }
+  .notice-form input, .notice-form textarea{
+    width:100%;
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:9px 10px;
+    font-family:'Work Sans', sans-serif;
+    font-size:13px;
+    color:var(--ink);
+    background:#fff;
+    resize:vertical;
+  }
+  .notice-form textarea{ min-height:60px; }
+</style>
+</head>
+<body>
+
+  <div class="eyebrow">To Gather — Prototype</div>
+  <h1>Grow the Street</h1>
+  <p class="sub">Pick a spot on the street. Add something small. Over the life of the festival, everyone's drawings fill the scene in together.</p>
+
+  <div class="stat-row">
+    <div class="stat"><b id="statContribs">3</b>contributions so far</div>
+    <div class="stat"><b id="statPlayers">1</b>you're adding to it</div>
+  </div>
+
+  <div class="scene-wrap">
+    <svg class="scene" viewBox="0 0 560 620" xmlns="http://www.w3.org/2000/svg">
+      <!-- sky -->
+      <rect x="0" y="0" width="560" height="620" fill="#bfe0e6"/>
+      <rect x="0" y="0" width="560" height="260" fill="#cfeaef"/>
+
+      <!-- building -->
+      <rect x="230" y="90" width="260" height="330" fill="#8a4a3c"/>
+      <rect x="230" y="90" width="260" height="330" fill="url(#brickPattern)" opacity="0.35"/>
+      <rect x="230" y="80" width="260" height="14" fill="#6f3a2f"/>
+      <rect x="270" y="150" width="70" height="50" fill="#2b2620" opacity="0.85"/>
+      <rect x="360" y="150" width="40" height="50" fill="#2b2620" opacity="0.85"/>
+      <rect x="270" y="250" width="55" height="45" fill="#2b2620" opacity="0.85"/>
+      <rect x="400" y="330" width="34" height="90" fill="#1f1c17"/>
+      <!-- neighbour building right -->
+      <rect x="490" y="140" width="70" height="280" fill="#d8cdb2"/>
+      <rect x="500" y="180" width="50" height="30" fill="#2b2620" opacity="0.6"/>
+      <rect x="500" y="240" width="50" height="30" fill="#2b2620" opacity="0.6"/>
+
+      <!-- FOOTPATH layer: paved strip along the building, flowerbeds live here -->
+      <rect x="0" y="420" width="560" height="68" fill="#9c9686"/>
+      <rect x="0" y="420" width="560" height="6" fill="#8a8474"/>
+      <line x1="60" y1="420" x2="60" y2="488" stroke="#8a8474" stroke-width="1.5"/>
+      <line x1="180" y1="420" x2="180" y2="488" stroke="#8a8474" stroke-width="1.5"/>
+      <line x1="300" y1="420" x2="300" y2="488" stroke="#8a8474" stroke-width="1.5"/>
+      <line x1="420" y1="420" x2="420" y2="488" stroke="#8a8474" stroke-width="1.5"/>
+      <line x1="540" y1="420" x2="540" y2="488" stroke="#8a8474" stroke-width="1.5"/>
+
+      <!-- kerb -->
+      <rect x="0" y="488" width="560" height="6" fill="#d8d2c0"/>
+
+      <!-- ROAD layer: asphalt below the kerb, people live here -->
+      <rect x="0" y="494" width="560" height="126" fill="#33352f"/>
+      <line x1="0" y1="557" x2="560" y2="557" stroke="#c9b98a" stroke-width="4" stroke-dasharray="24 18" opacity="0.55"/>
+
+      <!-- TREE ZONE: bare tree, sits top-left -->
+      <g id="treeArt">
+        <path d="M118 420 L128 260" stroke="#6b4a30" stroke-width="14" stroke-linecap="round" fill="none"/>
+        <path d="M123 320 L90 270 M123 300 L160 250 M123 280 L100 230 M123 260 L150 210" stroke="#6b4a30" stroke-width="8" stroke-linecap="round" fill="none"/>
+      </g>
+      <g id="treeContributions"></g>
+
+      <!-- FLOWER ZONE: garden bed set into the footpath -->
+      <rect id="flowerPatch" x="60" y="426" width="140" height="56" rx="3" fill="#4a3d2e"/>
+
+      <!-- CHARACTER ZONE: open road, where people live -->
+      <rect id="charPatch" x="20" y="500" width="520" height="112" fill="#3a3c34"/>
+
+      <!-- NOTICE BOARD: free-standing, two-legged sign planted on the footpath -->
+      <g id="noticeBoardIcon">
+        <!-- legs, planted into the footpath -->
+        <rect x="312" y="368" width="8" height="52" fill="#5c4530"/>
+        <rect x="356" y="368" width="8" height="52" fill="#5c4530"/>
+        <!-- board panel -->
+        <rect x="300" y="315" width="80" height="58" rx="3" fill="#6b4a30"/>
+        <rect x="305" y="319" width="70" height="50" rx="2" fill="#e8dcc0"/>
+        <!-- little peaked roof, old-timey touch -->
+        <path d="M296 315 L340 288 L384 315 Z" fill="#5c4530"/>
+        <!-- pinned notices on the board -->
+        <rect x="310" y="325" width="28" height="9" rx="1" fill="#fff" transform="rotate(-3 324 329)"/>
+        <rect x="310" y="338" width="24" height="8" rx="1" fill="#fff" transform="rotate(2 322 342)"/>
+        <rect x="312" y="350" width="26" height="8" rx="1" fill="#fff" transform="rotate(-2 325 354)"/>
+        <circle cx="324" cy="329" r="1.6" fill="#ac4a34"/>
+        <circle cx="322" cy="342" r="1.6" fill="#5c7a58"/>
+        <circle cx="325" cy="354" r="1.6" fill="#d9a441"/>
+      </g>
+
+      <defs>
+        <pattern id="brickPattern" width="20" height="10" patternUnits="userSpaceOnUse">
+          <rect width="20" height="10" fill="none"/>
+          <line x1="0" y1="5" x2="20" y2="5" stroke="#5c3126" stroke-width="1"/>
+          <line x1="10" y1="0" x2="10" y2="5" stroke="#5c3126" stroke-width="1"/>
+          <line x1="0" y1="5" x2="0" y2="10" stroke="#5c3126" stroke-width="1"/>
+          <line x1="20" y1="5" x2="20" y2="10" stroke="#5c3126" stroke-width="1"/>
+        </pattern>
+      </defs>
+    </svg>
+
+    <!-- clickable hotspots, positioned over the viewBox proportionally -->
+    <div class="zone" data-zone="tree" style="left:8%; top:32%; width:36%; height:38%;">
+      <div class="zone-label">Colour a leaf · easy</div>
+    </div>
+    <div class="zone" data-zone="flower" style="left:11%; top:69%; width:25%; height:9%;">
+      <div class="zone-label">Draw a flower · medium</div>
+    </div>
+    <div class="zone" data-zone="character" style="left:4%; top:81%; width:93%; height:18%;">
+      <div class="zone-label">Draw a character · free range</div>
+    </div>
+    <div class="zone board-zone" id="boardZone" style="left:52%; top:46%; width:15%; height:22%;">
+      <div class="zone-label">Notice board</div>
+    </div>
+
+  </div>
+
+  <div class="legend">
+    <span><span class="dot" style="background:var(--moss);"></span>Tree — colour a leaf</span>
+    <span><span class="dot" style="background:var(--gold);"></span>Footpath garden — draw a flower</span>
+    <span><span class="dot" style="background:var(--brick);"></span>Road — draw anyone</span>
+    <span><span class="dot" style="background:#e8dcc0;"></span>Notice board — see what's on</span>
+  </div>
+
+  <p class="demo-note">Prototype only — drawings and notices here simulate what a shared, growing scene would look like. In the real build both persist to everyone's view via the Firebase backend.</p>
+
+  <!-- Notice board modal (opened by touching the board on the wall) -->
+  <div class="overlay" id="noticeBoardOverlay">
+    <div class="modal board-modal">
+      <div class="modal-head">
+        <div class="tag">On the wall</div>
+        <h2>Community notice board</h2>
+      </div>
+      <div class="modal-body">
+        <div class="board" id="board"></div>
+      </div>
+      <div class="modal-foot">
+        <button class="btn ghost" id="boardCloseBtn">Close</button>
+        <button class="btn primary" id="addNoticeBtn">+ Pin a notice</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notice modal -->
+
+  <div class="overlay" id="noticeOverlay">
+    <div class="modal">
+      <div class="modal-head">
+        <div class="tag">Notice board</div>
+        <h2>Pin something up</h2>
+      </div>
+      <div class="modal-body notice-form">
+        <label for="nTitle">What's happening</label>
+        <input id="nTitle" type="text" placeholder="e.g. Community garden working bee" maxlength="60">
+        <label for="nDate">When</label>
+        <input id="nDate" type="text" placeholder="e.g. Sat 6 Sep, 10am" maxlength="30">
+        <label for="nDesc">Details</label>
+        <textarea id="nDesc" placeholder="A line or two about it" maxlength="140"></textarea>
+        <label for="nBy">Your name (optional)</label>
+        <input id="nBy" type="text" placeholder="e.g. Uma" maxlength="30">
+      </div>
+      <div class="modal-foot">
+        <button class="btn ghost" id="noticeCancelBtn">Cancel</button>
+        <button class="btn primary" id="noticeSubmitBtn">Pin it up</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Drawing modal -->
+  <div class="overlay" id="overlay">
+    <div class="modal">
+      <div class="modal-head">
+        <div class="tag" id="modalTag">Tree</div>
+        <h2 id="modalTitle">Colour in a leaf</h2>
+      </div>
+      <div class="modal-body">
+        <div class="canvas-frame">
+          <canvas id="drawCanvas" width="380" height="280"></canvas>
+        </div>
+        <div class="tools">
+          <div class="swatch active" style="background:#2b2620;" data-color="#2b2620"></div>
+          <div class="swatch" style="background:#ac4a34;" data-color="#ac4a34"></div>
+          <div class="swatch" style="background:#d9a441;" data-color="#d9a441"></div>
+          <div class="swatch" style="background:#5c7a58;" data-color="#5c7a58"></div>
+          <div class="swatch" style="background:#4a7ba6;" data-color="#4a7ba6"></div>
+          <div class="swatch" style="background:#ffffff; box-shadow:inset 0 0 0 1px #ccc;" data-color="#ffffff"></div>
+          <button class="tool-btn" id="clearBtn">Clear</button>
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button class="btn ghost" id="cancelBtn">Cancel</button>
+        <button class="btn primary" id="submitBtn">Add to the street</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+<script>
+const zoneConfig = {
+  tree: {
+    tag: 'Tree · easy',
+    title: 'Colour in a leaf',
+    template: (ctx, w, h) => {
+      ctx.strokeStyle = '#c8bda0';
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      ctx.moveTo(w/2, h*0.85);
+      ctx.quadraticCurveTo(w*0.15, h*0.55, w/2, h*0.15);
+      ctx.quadraticCurveTo(w*0.85, h*0.55, w/2, h*0.85);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(w/2, h*0.85);
+      ctx.lineTo(w/2, h*0.2);
+      ctx.stroke();
+    }
+  },
+  flower: {
+    tag: 'Flowerbed · medium',
+    title: 'Draw a flower on this stem',
+    template: (ctx, w, h) => {
+      ctx.strokeStyle = '#6b4a30';
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.moveTo(w/2, h*0.95);
+      ctx.quadraticCurveTo(w*0.4, h*0.6, w/2, h*0.35);
+      ctx.stroke();
+      ctx.strokeStyle = '#c8bda0';
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([3,4]);
+      ctx.beginPath();
+      ctx.ellipse(w/2, h*0.22, 26, 22, 0, 0, Math.PI*2);
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
+  },
+  character: {
+    tag: 'Road · free range',
+    title: 'Draw whoever you like',
+    template: (ctx, w, h) => {
+      ctx.strokeStyle = '#d8d2c0';
+      ctx.lineWidth = 1;
+      ctx.setLineDash([4,5]);
+      ctx.beginPath();
+      ctx.moveTo(10, h*0.9);
+      ctx.lineTo(w-10, h*0.9);
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
+  }
+};
+
+let currentZone = null;
+let drawing = false;
+let currentColor = '#2b2620';
+let contributionCount = 3;
+
+const canvas = document.getElementById('drawCanvas');
+const ctx = canvas.getContext('2d');
+const overlay = document.getElementById('overlay');
+const toast = document.getElementById('toast');
+
+function resetCanvas(zoneKey){
+  // transparent background — only the drawn strokes get composited onto
+  // the scene, so colour stays true whether the zone underneath is light
+  // (sky, tree) or dark (flowerbed, pavement)
+  ctx.clearRect(0,0,canvas.width, canvas.height);
+  zoneConfig[zoneKey].template(ctx, canvas.width, canvas.height);
+}
+
+function openModal(zoneKey){
+  currentZone = zoneKey;
+  const cfg = zoneConfig[zoneKey];
+  document.getElementById('modalTag').textContent = cfg.tag;
+  document.getElementById('modalTitle').textContent = cfg.title;
+  resetCanvas(zoneKey);
+  overlay.classList.add('open');
+}
+
+document.querySelectorAll('.zone').forEach(z => {
+  z.addEventListener('click', () => openModal(z.dataset.zone));
+});
+
+document.getElementById('cancelBtn').addEventListener('click', () => {
+  overlay.classList.remove('open');
+});
+
+document.getElementById('clearBtn').addEventListener('click', () => {
+  resetCanvas(currentZone);
+});
+
+document.querySelectorAll('.swatch').forEach(s => {
+  s.addEventListener('click', () => {
+    document.querySelectorAll('.swatch').forEach(x => x.classList.remove('active'));
+    s.classList.add('active');
+    currentColor = s.dataset.color;
+  });
+});
+
+function getPos(e){
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = canvas.width / rect.width;
+  const scaleY = canvas.height / rect.height;
+  const point = e.touches ? e.touches[0] : e;
+  return { x: (point.clientX - rect.left) * scaleX, y: (point.clientY - rect.top) * scaleY };
+}
+
+function startDraw(e){
+  drawing = true;
+  const p = getPos(e);
+  ctx.beginPath();
+  ctx.moveTo(p.x, p.y);
+  e.preventDefault();
+}
+function moveDraw(e){
+  if(!drawing) return;
+  const p = getPos(e);
+  ctx.lineTo(p.x, p.y);
+  ctx.strokeStyle = currentColor;
+  ctx.lineWidth = 5;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  ctx.stroke();
+  e.preventDefault();
+}
+function endDraw(){ drawing = false; }
+
+canvas.addEventListener('mousedown', startDraw);
+canvas.addEventListener('mousemove', moveDraw);
+window.addEventListener('mouseup', endDraw);
+canvas.addEventListener('touchstart', startDraw, {passive:false});
+canvas.addEventListener('touchmove', moveDraw, {passive:false});
+canvas.addEventListener('touchend', endDraw);
+
+function showToast(msg){
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2200);
+}
+
+// simple deterministic-ish scatter so repeated submissions to the same
+// zone in one demo session don't all land in the same spot
+function scatterPositions(zoneKey, count){
+  const ranges = {
+    tree: {x:[95,175], y:[290,390]},
+    flower: {x:[75,185], y:[435,470]},
+    character: {x:[45,510], y:[520,590]}
+  };
+  const r = ranges[zoneKey];
+  const positions = [];
+  for(let i=0;i<count;i++){
+    positions.push({
+      x: r.x[0] + ((i * 53) % (r.x[1]-r.x[0])),
+      y: r.y[0] + ((i * 31) % (r.y[1]-r.y[0]))
+    });
+  }
+  return positions;
+}
+
+const zoneAddCounts = { tree: 0, flower: 0, character: 0 };
+
+document.getElementById('submitBtn').addEventListener('click', () => {
+  const dataUrl = canvas.toDataURL('image/png');
+  const img = new Image();
+  img.onload = () => {
+    const scene = document.querySelector('svg.scene');
+    const NS = 'http://www.w3.org/2000/svg';
+    const idx = zoneAddCounts[currentZone]++;
+    const pos = scatterPositions(currentZone, idx+1)[idx];
+    const size = currentZone === 'tree' ? 60 : currentZone === 'flower' ? 46 : 50;
+    const imageEl = document.createElementNS(NS, 'image');
+    imageEl.setAttributeNS('http://www.w3.org/1999/xlink', 'href', dataUrl);
+    imageEl.setAttribute('href', dataUrl);
+    imageEl.setAttribute('x', pos.x - size/2);
+    imageEl.setAttribute('y', pos.y - size/2);
+    imageEl.setAttribute('width', size);
+    imageEl.setAttribute('height', size);
+    imageEl.setAttribute('class', 'new-contribution');
+    scene.appendChild(imageEl);
+    setTimeout(() => imageEl.classList.remove('new-contribution'), 8000);
+
+    contributionCount++;
+    document.getElementById('statContribs').textContent = contributionCount;
+    overlay.classList.remove('open');
+    showToast('Added — the street just grew a little more. Yours is glowing for a moment so you can spot it.');
+  };
+  img.src = dataUrl;
+});
+
+// seed the scene with a couple of "other people's" contributions so the
+// collective-growth idea reads clearly even on a first look
+window.addEventListener('load', () => {
+  const seedTree = new Image();
+  seedTree.onload = () => {};
+
+  // draw two simple pre-made "other user" leaves and a flower directly
+  const scene = document.querySelector('svg.scene');
+  const NS = 'http://www.w3.org/2000/svg';
+
+  function seedLeaf(x,y,color){
+    const g = document.createElementNS(NS,'g');
+    const p = document.createElementNS(NS,'path');
+    p.setAttribute('d', `M${x} ${y} q10 -22 0 -34 q-10 12 0 34 Z`);
+    p.setAttribute('fill', color);
+    p.setAttribute('opacity', '0.9');
+    g.appendChild(p);
+    scene.appendChild(g);
+  }
+  function seedFlower(x,y,color){
+    const g = document.createElementNS(NS,'g');
+    for(let i=0;i<5;i++){
+      const angle = (i/5)*Math.PI*2;
+      const c = document.createElementNS(NS,'circle');
+      c.setAttribute('cx', x + Math.cos(angle)*7);
+      c.setAttribute('cy', y + Math.sin(angle)*7);
+      c.setAttribute('r', 5);
+      c.setAttribute('fill', color);
+      g.appendChild(c);
+    }
+    const center = document.createElementNS(NS,'circle');
+    center.setAttribute('cx', x); center.setAttribute('cy', y); center.setAttribute('r', 4);
+    center.setAttribute('fill', '#d9a441');
+    g.appendChild(center);
+    scene.appendChild(g);
+  }
+
+  seedLeaf(140, 330, '#5c7a58');
+  seedLeaf(110, 350, '#84a05c');
+  seedFlower(120, 450, '#ac4a34');
+});
+
+// --- Community notice board ---
+const pins = ['#ac4a34', '#5c7a58', '#d9a441', '#4a7ba6'];
+let notices = [
+  { title:'Community garden working bee', date:'Sat 6 Sep, 10am', desc:'Bring gloves — we\'re mulching the beds behind the library.', by:'Regen Melbourne' },
+  { title:'Street Futures Festival', date:'Sat 3 Oct, all day', desc:'Come add to the street drawing in person and meet your neighbours.', by:'City North Precinct' },
+  { title:'Sunday market', date:'Every Sunday, 9am–1pm', desc:'Local produce and stalls on the plaza.', by:'Carlton Traders' }
+];
+
+function renderBoard(){
+  const board = document.getElementById('board');
+  board.innerHTML = '';
+  notices.forEach((n, i) => {
+    const card = document.createElement('div');
+    card.className = 'notice-card';
+    card.style.setProperty('--tilt', `${((i % 5) - 2) * 1.1}deg`);
+    card.style.setProperty('--pin', pins[i % pins.length]);
+    card.innerHTML = `
+      <div class="n-date">${n.date}</div>
+      <p class="n-title">${n.title}</p>
+      <p class="n-desc">${n.desc}</p>
+      ${n.by ? `<div class="n-by">— ${n.by}</div>` : ''}
+    `;
+    board.appendChild(card);
+  });
+}
+renderBoard();
+
+const noticeBoardOverlay = document.getElementById('noticeBoardOverlay');
+document.getElementById('boardZone').addEventListener('click', () => {
+  renderBoard();
+  noticeBoardOverlay.classList.add('open');
+});
+document.getElementById('boardCloseBtn').addEventListener('click', () => {
+  noticeBoardOverlay.classList.remove('open');
+});
+
+const noticeOverlay = document.getElementById('noticeOverlay');
+document.getElementById('addNoticeBtn').addEventListener('click', () => {
+  document.getElementById('nTitle').value = '';
+  document.getElementById('nDate').value = '';
+  document.getElementById('nDesc').value = '';
+  document.getElementById('nBy').value = '';
+  noticeBoardOverlay.classList.remove('open');
+  noticeOverlay.classList.add('open');
+});
+document.getElementById('noticeCancelBtn').addEventListener('click', () => {
+  noticeOverlay.classList.remove('open');
+  noticeBoardOverlay.classList.add('open');
+});
+document.getElementById('noticeSubmitBtn').addEventListener('click', () => {
+  const title = document.getElementById('nTitle').value.trim();
+  if(!title){ showToast('Add a title before pinning it up.'); return; }
+  const date = document.getElementById('nDate').value.trim() || 'Date TBC';
+  const desc = document.getElementById('nDesc').value.trim();
+  const by = document.getElementById('nBy').value.trim();
+  notices.unshift({ title, date, desc, by });
+  renderBoard();
+  noticeOverlay.classList.remove('open');
+  noticeBoardOverlay.classList.add('open');
+  showToast('Pinned to the notice board.');
+});
+
+</script>
+</body>
+</html>
